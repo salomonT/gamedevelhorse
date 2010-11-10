@@ -1,0 +1,133 @@
+fileFormatVersion: 1
+guid: d7772d06726164f2eb8b94c6077bbceb
+ModelImporter:
+  importerVersion: 7
+  meshes:
+    scaleFactor: 0.1
+    useFileUnits: 1
+    meshCompression: 0
+    generateColliders: 0
+    swapUVs: 0
+  tangentSpace:
+    normalImportMode: 0
+    tangentImportMode: 1
+    smoothingAngle: 60
+    splitTangents: 1
+  materials:
+    generation: 1
+  animations:
+    generation: 3
+    bakeAnimations: 0
+    animationCompression: 1
+    animationWrapMode: 0
+    splitAnimations: 1
+  nodeInfo:
+    aft:
+    - 100000
+    - 400000
+    - 3300000
+    - 2300000
+    rig:
+    - 100002
+    - 400002
+    - 3300002
+    - 2300002
+    keel:
+    - 100004
+    - 400004
+    - 3300004
+    - 2300004
+    mast2:
+    - 100006
+    - 400006
+    - 3300006
+    - 2300006
+    hull:
+    - 100008
+    - 400008
+    - 3300008
+    - 2300008
+    deck:
+    - 100010
+    - 400010
+    - 3300010
+    - 2300010
+    windows:
+    - 100012
+    - 400012
+    - 3300012
+    - 2300012
+    sail3:
+    - 100014
+    - 400014
+    - 3300014
+    - 2300014
+    mast3:
+    - 100016
+    - 400016
+    - 3300016
+    - 2300016
+    foremast:
+    - 100018
+    - 400018
+    - 3300018
+    - 2300018
+    lamp:
+    - 100020
+    - 400020
+    - 3300020
+    - 2300020
+    sail6:
+    - 100022
+    - 400022
+    - 3300022
+    - 2300022
+    mast:
+    - 100024
+    - 400024
+    - 3300024
+    - 2300024
+    sail2:
+    - 100026
+    - 400026
+    - 3300026
+    - 2300026
+    sail4:
+    - 100028
+    - 400028
+    - 3300028
+    - 2300028
+    sail5:
+    - 100030
+    - 400030
+    - 3300030
+    - 2300030
+    //RootNode:
+    - 100032
+    - 400032
+    - 11100000
+    sail:
+    - 100034
+    - 400034
+    - 3300032
+    - 2300032
+AssetImporter:
+  importerVersion: 1
+  fileIDToRecycleName:
+    4300000: rig
+    4300002: sail
+    4300004: sail4
+    4300006: sail2
+    4300008: sail5
+    4300010: sail6
+    4300012: lamp
+    4300014: mast
+    4300016: mast3
+    4300018: sail3
+    4300020: foremast
+    4300022: deck
+    4300024: hull
+    4300026: windows
+    4300028: mast2
+    4300030: keel
+    4300032: aft
