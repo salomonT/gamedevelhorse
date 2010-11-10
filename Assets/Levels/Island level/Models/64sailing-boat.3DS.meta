@@ -1,0 +1,73 @@
+fileFormatVersion: 1
+guid: df7bfee644a2b480eb23f8c1ae3f4a6d
+ModelImporter:
+  importerVersion: 7
+  meshes:
+    scaleFactor: 0.1
+    useFileUnits: 1
+    meshCompression: 0
+    generateColliders: 0
+    swapUVs: 0
+  tangentSpace:
+    normalImportMode: 0
+    tangentImportMode: 1
+    smoothingAngle: 60
+    splitTangents: 1
+  materials:
+    generation: 1
+  animations:
+    generation: 3
+    bakeAnimations: 0
+    animationCompression: 1
+    animationWrapMode: 0
+    splitAnimations: 1
+  nodeInfo:
+    sail05:
+    - 100000
+    - 400000
+    - 3300000
+    - 2300000
+    //RootNode:
+    - 100002
+    - 400002
+    - 11100000
+    sail04:
+    - 100004
+    - 400004
+    - 3300002
+    - 2300002
+    sail06:
+    - 100006
+    - 400006
+    - 3300004
+    - 2300004
+    sail02:
+    - 100008
+    - 400008
+    - 3300006
+    - 2300006
+    Loft05:
+    - 100010
+    - 400010
+    - 3300008
+    - 2300008
+    sail03:
+    - 100012
+    - 400012
+    - 3300010
+    - 2300010
+    sail01:
+    - 100014
+    - 400014
+    - 3300012
+    - 2300012
+AssetImporter:
+  importerVersion: 1
+  fileIDToRecycleName:
+    4300000: sail01
+    4300002: Loft05
+    4300004: sail02
+    4300006: sail03
+    4300008: sail04
+    4300010: sail05
+    4300012: sail06
