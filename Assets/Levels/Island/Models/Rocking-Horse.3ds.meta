@@ -1,9 +1,9 @@
 fileFormatVersion: 1
-guid: 106c836f13fdee846894c0024fa940e4
+guid: f31ea89fb21a44fc28dfa94c0787ba39
 ModelImporter:
   importerVersion: 7
   meshes:
-    scaleFactor: 0.1
+    scaleFactor: 0.01
     useFileUnits: 1
     meshCompression: 0
     generateColliders: 0
@@ -22,35 +22,35 @@ ModelImporter:
     animationWrapMode: 0
     splitAnimations: 1
   nodeInfo:
-    //RootNode:
+    Main-Light.target:
     - 100000
     - 400000
-    - 11100000
-    Main-Light:
+    //RootNode:
     - 100002
     - 400002
-    lightwave:
+    - 11100000
+    rocking-h1:
     - 100004
     - 400004
-    rocking-ho:
+    floor:
     - 100006
     - 400006
     - 3300000
     - 2300000
-    floor:
+    lightwave.target:
     - 100008
     - 400008
-    - 3300002
-    - 2300002
-    rocking-h1:
+    lightwave:
     - 100010
     - 400010
-    lightwave.target:
+    Main-Light:
     - 100012
     - 400012
-    Main-Light.target:
+    rocking-ho:
     - 100014
     - 400014
+    - 3300002
+    - 2300002
 AssetImporter:
   importerVersion: 1
   fileIDToRecycleName:
