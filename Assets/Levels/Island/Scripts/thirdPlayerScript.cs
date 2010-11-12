@@ -27,12 +27,19 @@ public class thirdPlayerScript : MonoBehaviour {
 		(GetComponent (typeof (ThirdPersonController)) as ThirdPersonController).walkSpeed = startWSpeed / 2.0f;
 		(GetComponent (typeof (ThirdPersonController)) as ThirdPersonController).trotSpeed = startTSpeed / 2.0f;
 		(GetComponent (typeof (ThirdPersonController)) as ThirdPersonController).runSpeed = startRSpeed / 2.0f;
+		
+		(GetComponent (typeof (ThirdPersonController)) as ThirdPersonController).walkMaxAnimationSpeed = startWSpeedA / 2.0f;
+		(GetComponent (typeof (ThirdPersonController)) as ThirdPersonController).trotMaxAnimationSpeed = startTSpeedA / 2.0f;
+	    (GetComponent (typeof (ThirdPersonController)) as ThirdPersonController).runMaxAnimationSpeed = startRSpeedA / 2.0f;
 	}
-	
 	public void AccelCaracter()
 	{
 		(GetComponent (typeof (ThirdPersonController)) as ThirdPersonController).walkSpeed = startWSpeed;
 		(GetComponent (typeof (ThirdPersonController)) as ThirdPersonController).trotSpeed = startTSpeed;
 		(GetComponent (typeof (ThirdPersonController)) as ThirdPersonController).runSpeed = startRSpeed;
-	}
+		
+		(GetComponent (typeof (ThirdPersonController)) as ThirdPersonController).walkMaxAnimationSpeed = startWSpeedA;
+		(GetComponent (typeof (ThirdPersonController)) as ThirdPersonController).trotMaxAnimationSpeed = startTSpeedA;
+	    (GetComponent (typeof (ThirdPersonController)) as ThirdPersonController).runMaxAnimationSpeed = startRSpeedA;
+	} 
 }
