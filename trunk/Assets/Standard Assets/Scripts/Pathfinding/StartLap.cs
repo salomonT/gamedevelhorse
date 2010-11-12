@@ -9,14 +9,19 @@ public class StartLap : MonoBehaviour {
 	int currentCheckpoint;
 	float startSpeed;
 	float halfSpeed;
+	float pickNextPoint;
 	
 	// Use this for initialization
 	void Start () {
-		//Change the speed.
+		//get the half speed for the water collision.
 		startSpeed = (GetComponent (typeof (AIFollow)) as AIFollow).speed;
 		halfSpeed = startSpeed / 2;
-		//float newAttrib = Random.value*15.0f + startSpeed;
-		//(GetComponent (typeof (AIFollow)) as AIFollow).speed = newAttrib;
+		
+		//Choose a radom pickupNextPoint, to make random path.
+		pickNextPoint = (GetComponent (typeof (AIFollow)) as AIFollow).pickNextWaypointDistance;
+		float newPickupNextPoint = Random.value*30.0f + 3.0f;
+		(GetComponent (typeof (AIFollow)) as AIFollow).pickNextWaypointDistance = newPickupNextPoint;
+		
 		currentCheckpoint = 0;
 		startPoint.x = gameObject.transform.position.x;
 		startPoint.y = gameObject.transform.position.y;
