@@ -1,14 +1,15 @@
 private var flagStart:int = 1;
 
 private var singlePlayerVar:int = 0;
+private var singlePlayerNextVar:int = 0;
 private var multiPlayerVar:int = 0;
 private var multiPlayer_localPlayVar:int = 0;
 private var multiPlayer_networkPlayVar:int = 0;
 private var tutorialVar:int = 0;
 private var extrasVar:int = 0;
-private var optionVar:int = 0;
-private var option_optionVar:int = 0;
-private var option_customizeHorseVar:int = 0;
+private var settingsVar:int = 0;
+private var settings_optionVar:int = 0;
+private var settings_customizeHorseVar:int = 0;
 
 private var ratioSW:float;
 private var ratioSH:float;
@@ -18,13 +19,30 @@ var logo : Texture2D;
 
 var singlePlayerTitle : Texture2D;
 var singlePlayerButton : GUIStyle;
+var nextButton : GUIStyle;
+var startButton : GUIStyle;
 var multiPlayerTitle : Texture2D;
 var multiPlayerButton : GUIStyle;
 var tutorialTitle : Texture2D;
 var tutorialButton : GUIStyle;
-var optionTitle : Texture2D;
-var optionButton : GUIStyle;
+var settingsTitle : Texture2D;
+var settingsButton : GUIStyle;
+var settingsOptionsButton : GUIStyle;
+var settingsCustomizeHorseButton : GUIStyle;
+var saveSettingsButton : GUIStyle;
 
+var backToMenuButton : GUIStyle;
+var cancelButton : GUIStyle;
+
+var textWhite : GUIStyle;
+var textYellow : GUIStyle;
+
+var buttonArrowLeft : GUIStyle;
+var buttonArrowRight : GUIStyle;
+
+var nbrLaps : int = 1;
+var difficulty : String = "Easy";
+var gameType : String = "Race";
 
 	
 
@@ -49,6 +67,11 @@ function OnGUI () {
 		flagMainMenu = 0;
 	}
 	
+	if(singlePlayerNextVar == 1){
+		singlePlayerNext();
+		flagMainMenu = 0;
+	}
+	
 	if(multiPlayerVar == 1){
 		multiPlayer();
 		flagMainMenu = 0;
@@ -69,18 +92,18 @@ function OnGUI () {
 		flagMainMenu = 0;
 	}
 	
-	if(optionVar == 1){
-		option();
+	if(settingsVar == 1){
+		settings();
 		flagMainMenu = 0;
 	}
 	
-	if(option_optionVar == 1){
-		option_option();
+	if(settings_optionVar == 1){
+		settings_option();
 		flagMainMenu = 0;
 	}
 	
-	if(option_customizeHorseVar == 1){
-		option_customizeHorse();
+	if(settings_customizeHorseVar == 1){
+		settings_customizeHorse();
 		flagMainMenu = 0;
 	}
 	
@@ -92,13 +115,14 @@ function OnGUI () {
 
 function resetMenu (){
 	singlePlayerVar = 0;
+	singlePlayerNextVar = 0;
 	multiPlayerVar = 0;
 	multiPlayer_localPlayVar = 0;
 	multiPlayer_networkPlayVar = 0;
 	tutorialVar = 0;
-	optionVar = 0;
-	option_optionVar = 0;
-	option_customizeHorseVar = 0;
+	settingsVar = 0;
+	settings_optionVar = 0;
+	settings_customizeHorseVar = 0;
 }
 
 function mainMenu (){
@@ -114,25 +138,125 @@ function mainMenu (){
 	if(GUI.Button (Rect (ratioSW*72,ratioSH*600,ratioSW*300,ratioSH*100), "",tutorialButton)){
 		resetMenu();
 		tutorialVar = 1;	}
-	if(GUI.Button (Rect (ratioSW*652,ratioSH*600,ratioSW*300,ratioSH*100), "",optionButton)){
+	if(GUI.Button (Rect (ratioSW*652,ratioSH*600,ratioSW*300,ratioSH*100), "",settingsButton)){
 		resetMenu();
-		optionVar = 1;	}
+		settingsVar = 1;	}
+	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Explain Text", "box");
 }
 
 function singlePlayer (){
 	// Title picture
-	GUI.Label (Rect (ratioSW*240,ratioSH*10,ratioSW*760,ratioSH*80), singlePlayerTitle, GUI.skin.customStyles[0]);
+	GUI.Label (Rect (0,0,ratioSW*1024,ratioSH*160), singlePlayerTitle, GUI.skin.customStyles[0]);
 	// Label box
-	GUI.Label (Rect (ratioSW*240,ratioSH*100,ratioSW*760,ratioSH*640), "Choose level", "box");
-	if(GUI.Button (Rect (ratioSW*545,ratioSH*500,ratioSW*150,ratioSH*40), "single player")){
+	
+	/*if(GUI.Button (Rect (ratioSW*172,ratioSH*450,ratioSW*300,ratioSH*100), "",settingsOptionsButton)){
 		resetMenu();
+		settingsVar = 1;
+		settings_optionVar = 1;}
+		
+	if(GUI.Button (Rect (ratioSW*172,ratioSH*450,ratioSW*300,ratioSH*100), "",settingsCustomizeHorseButton)){
+		resetMenu();
+		settingsVar = 1;
+		settings_customizeHorseVar = 1;}*/
+		
+		
+	GUI.Label (Rect (ratioSW*210,ratioSH*200,100,25), "Game Type", textWhite);
+		if(GUI.Button (Rect (ratioSW*150,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowLeft)){
+				gameTypeFunction("-");
+			}
+		GUI.Label (Rect (ratioSW*200,ratioSH*540,120,25), gameType, textYellow);
+		if(GUI.Button (Rect (ratioSW*400,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowRight)){
+				gameTypeFunction("+");
+			}
+		
+	GUI.Label (Rect (ratioSW*700,ratioSH*200,150,25), "Game Options", textWhite);	
+		
+	GUI.Label (Rect (ratioSW*575,ratioSH*300,100,25), "Laps :", textWhite);	
+			if(GUI.Button (Rect (ratioSW*770,ratioSH*310,ratioSW*30,ratioSH*30), "",buttonArrowLeft)){
+					if (nbrLaps > 1){
+					nbrLaps--;}
+				}
+		GUI.Label (Rect (ratioSW*810,ratioSH*300,25,25), "" + nbrLaps, textYellow);	
+			if(GUI.Button (Rect (ratioSW*870,ratioSH*310,ratioSW*30,ratioSH*30), "",buttonArrowRight)){
+					if (nbrLaps < 10){
+					nbrLaps++;}
+				}
+		
+	GUI.Label (Rect (ratioSW*550,ratioSH*400,100,25), "Difficulty :", textWhite);
+			if(GUI.Button (Rect (ratioSW*720,ratioSH*410,ratioSW*30,ratioSH*30), "",buttonArrowLeft)){
+					difficultyFunction("-");
+				}
+		GUI.Label (Rect (ratioSW*760,ratioSH*400,100,25), difficulty, textYellow);
+			if(GUI.Button (Rect (ratioSW*920,ratioSH*410,ratioSW*30,ratioSH*30), "",buttonArrowRight)){
+					difficultyFunction("+");
+				}
+	
+		
+	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",backToMenuButton)){
+		resetMenu();}
+
+	if(GUI.Button (Rect (ratioSW*(1024-175),ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",nextButton)){
+		resetMenu();
+		singlePlayerNextVar = 1;}
+	
+	
+	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Explain Text", "box");
+}
+
+function difficultyFunction(plusOrMoins : String){
+	if (plusOrMoins == "+"){
+		if (difficulty == "Medium") difficulty = "Hard";
+		if (difficulty == "Easy") difficulty = "Medium";
+	} else {
+		if (difficulty == "Medium") difficulty = "Easy";
+		if (difficulty == "Hard") difficulty = "Medium";
 	}
+}
+
+function gameTypeFunction(plusOrMoins : String){
+	if (plusOrMoins == "+"){
+		if (gameType == "CTF") gameType = "Loot";
+		if (gameType == "Race") gameType = "CTF";
+	} else {
+		if (gameType == "CTF") gameType = "Race";
+		if (gameType == "Loot") gameType = "CTF";
+	}
+}
+
+function singlePlayerNext (){
+	// Title picture
+	GUI.Label (Rect (0,0,ratioSW*1024,ratioSH*160), singlePlayerTitle, GUI.skin.customStyles[0]);
+	// Label box
+	
+	/*if(GUI.Button (Rect (ratioSW*172,ratioSH*450,ratioSW*300,ratioSH*100), "",settingsOptionsButton)){
+		resetMenu();
+		settingsVar = 1;
+		settings_optionVar = 1;}
+		
+	if(GUI.Button (Rect (ratioSW*172,ratioSH*450,ratioSW*300,ratioSH*100), "",settingsCustomizeHorseButton)){
+		resetMenu();
+		settingsVar = 1;
+		settings_customizeHorseVar = 1;}*/
+		
+		
+	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",backToMenuButton)){
+		resetMenu();
+		singlePlayerVar=1;}
+
+	if(GUI.Button (Rect (ratioSW*(1024-175),ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",startButton)){
+		// start Game
+		}
+	
+	
+	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Explain Text", "box");
 }
 
 function multiPlayer (){
 	// Title picture
 	GUI.Label (Rect (ratioSW*240,ratioSH*10,ratioSW*760,ratioSH*80), multiPlayerTitle, GUI.skin.customStyles[0]);
-	// Label box
+	
+	
+	/*// Label box
 	if(GUI.Button (Rect (ratioSW*240,ratioSH*100,ratioSW*370,ratioSH*40), "Local Play")){
 		resetMenu();
 		multiPlayerVar = 1;
@@ -143,7 +267,10 @@ function multiPlayer (){
 		resetMenu();
 		multiPlayerVar = 1;
 		multiPlayer_networkPlayVar = 1;
-	}
+	}*/
+	
+	
+	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Explain Text", "box");
 }
 
 function multiPlayer_localPlay (){
@@ -168,48 +295,46 @@ function tutorial (){
 	if(GUI.Button (Rect (ratioSW*545,ratioSH*500,ratioSW*150,ratioSH*40), "Lauch New Game")){
 		resetMenu();
 	}
-}
-
-
-function option (){
-	// Title picture
-	GUI.Label (Rect (ratioSW*240,ratioSH*10,ratioSW*760,ratioSH*80), optionTitle, GUI.skin.customStyles[0]);
-	// Label box
-	if(GUI.Button (Rect (ratioSW*240,ratioSH*100,ratioSW*370,ratioSH*40), "Options")){
-		resetMenu();
-		optionVar = 1;
-		option_optionVar = 1;
-	}
 	
-	if(GUI.Button (Rect (ratioSW*630,ratioSH*100,ratioSW*370,ratioSH*40), "Customize Horse")){
+	
+	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Explain Text", "box");
+}
+
+
+function settings (){
+	// Title picture
+	GUI.Label (Rect (0,0,ratioSW*1024,ratioSH*160), settingsTitle, GUI.skin.customStyles[0]);
+	// Label box
+	
+	/*if(GUI.Button (Rect (ratioSW*172,ratioSH*450,ratioSW*300,ratioSH*100), "",settingsOptionsButton)){
 		resetMenu();
-		optionVar = 1;
-		option_customizeHorseVar = 1;
-	}
+		settingsVar = 1;
+		settings_optionVar = 1;}
+		
+	if(GUI.Button (Rect (ratioSW*172,ratioSH*450,ratioSW*300,ratioSH*100), "",settingsCustomizeHorseButton)){
+		resetMenu();
+		settingsVar = 1;
+		settings_customizeHorseVar = 1;}*/
+		
+		
+	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",backToMenuButton)){
+		resetMenu();}
+		
+	if(GUI.Button (Rect (ratioSW*(1024-175-175),ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",cancelButton)){
+		resetMenu();}
+		
+	if(GUI.Button (Rect (ratioSW*(1024-175),ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",saveSettingsButton)){
+		// save function
+		}
+	
+	
+	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Explain Text", "box");
 }
 
-function option_option (){
-	GUI.Label (Rect (ratioSW*240,ratioSH*160,ratioSW*760,ratioSH*580), "Option", "box");
+function settings_option (){
+	GUI.Label (Rect (ratioSW*240,ratioSH*160,ratioSW*760,ratioSH*580), "settings", "box");
 }
 
-function option_customizeHorse (){
+function settings_customizeHorse (){
 	GUI.Label (Rect (ratioSW*240,ratioSH*160,ratioSW*760,ratioSH*580), "Customize Horse", "box");
 }
-
-/*
-Main Menu               Sub Menus
-
-Single Player   Choose level and Start button
-
-Multplayer              Local Play or Network Play > Choose level and Start button
-
-Tutorial                        Display Instructions  and Start button
-
-Extras                  Feed the horse mini game
-                               Leprechaun chase mini game
-
-Options                 Customize Horse > Select horse
-                                                                   Select cart
-                                                                   Select rider
-                                                                   Choose colours
-*/
