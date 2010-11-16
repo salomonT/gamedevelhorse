@@ -1,0 +1,124 @@
+fileFormatVersion: 1
+guid: d0dbc6607e9126e4eb5941e6cf6fa6e2
+ModelImporter:
+  importerVersion: 7
+  meshes:
+    scaleFactor: 0.01
+    useFileUnits: 1
+    meshCompression: 0
+    generateColliders: 0
+    swapUVs: 0
+  tangentSpace:
+    normalImportMode: 0
+    tangentImportMode: 1
+    smoothingAngle: 60
+    splitTangents: 1
+  materials:
+    generation: 1
+  animations:
+    generation: 3
+    bakeAnimations: 0
+    animationCompression: 1
+    animationWrapMode: 0
+    splitAnimations: 1
+  nodeInfo:
+    Shape01:
+    - 100000
+    - 400000
+    - 3300000
+    - 2300000
+    Box01:
+    - 100002
+    - 400002
+    - 3300002
+    - 2300002
+    Mesher03:
+    - 100004
+    - 400004
+    - 3300004
+    - 2300004
+    Box03:
+    - 100006
+    - 400006
+    - 3300006
+    - 2300006
+    Cylinder06:
+    - 100008
+    - 400008
+    - 3300008
+    - 2300008
+    Plane01:
+    - 100010
+    - 400010
+    - 3300010
+    - 2300010
+    Box02:
+    - 100012
+    - 400012
+    - 3300012
+    - 2300012
+    Cylinder05:
+    - 100014
+    - 400014
+    - 3300014
+    - 2300014
+    Mesher01:
+    - 100016
+    - 400016
+    - 3300016
+    - 2300016
+    Mesher02:
+    - 100018
+    - 400018
+    - 3300018
+    - 2300018
+    Cylinder04:
+    - 100020
+    - 400020
+    - 3300020
+    - 2300020
+    Cylinder03:
+    - 100022
+    - 400022
+    - 3300022
+    - 2300022
+    Cone01:
+    - 100024
+    - 400024
+    - 3300024
+    - 2300024
+    Cylinder02:
+    - 100026
+    - 400026
+    - 3300026
+    - 2300026
+    Cylinder01:
+    - 100028
+    - 400028
+    - 3300028
+    - 2300028
+    Beacon:
+    - 100030
+    - 400030
+    //RootNode:
+    - 100032
+    - 400032
+    - 11100000
+AssetImporter:
+  importerVersion: 1
+  fileIDToRecycleName:
+    4300000: Cylinder01
+    4300002: Cylinder02
+    4300004: Cone01
+    4300006: Cylinder03
+    4300008: Cylinder04
+    4300010: Mesher02
+    4300012: Mesher01
+    4300014: Cylinder05
+    4300016: Box02
+    4300018: Plane01
+    4300020: Cylinder06
+    4300022: Box03
+    4300024: Mesher03
+    4300026: Shape01
+    4300028: Box01
