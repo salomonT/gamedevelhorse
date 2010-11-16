@@ -34,15 +34,25 @@ var saveSettingsButton : GUIStyle;
 var backToMenuButton : GUIStyle;
 var cancelButton : GUIStyle;
 
+var titleWhite : GUIStyle;
+var underWhite: GUIStyle;
 var textWhite : GUIStyle;
 var textYellow : GUIStyle;
 
 var buttonArrowLeft : GUIStyle;
 var buttonArrowRight : GUIStyle;
 
-var nbrLaps : int = 1;
-var difficulty : String = "Easy";
-var gameType : String = "Race";
+private var nbrLaps : int = 1;
+private var nbrScore : int = 1;
+private var nbrItems : int = 1;
+private var difficultyVar : int = 0;
+private var difficulty : String = "Easy";
+private var gameTypeVar : int = 0;
+private var gameType : String = "Race";
+var gameTypeLoot : Texture2D;
+var gameTypeRace : Texture2D;
+var gameTypeCTF : Texture2D;
+private var gameTypeCurrent : Texture2D = gameTypeRace;
 
 	
 
@@ -54,6 +64,8 @@ function OnGUI () {
 	var flagMainMenu:int = 1;
 	ratioSW = (Screen.width/1024.0);
 	ratioSH = (Screen.height/768.0);
+	gameTypeFunction();
+	difficultyFunction();
 	
 	GUI.Label (Rect (0,0,Screen.width,Screen.height), wallpaper, GUI.skin.customStyles[0]);
 	
@@ -146,51 +158,73 @@ function mainMenu (){
 
 function singlePlayer (){
 	// Title picture
-	GUI.Label (Rect (0,0,ratioSW*1024,ratioSH*160), singlePlayerTitle, GUI.skin.customStyles[0]);
-	// Label box
+	GUI.Label (Rect (ratioSW*50,ratioSH*30,(1024-150),50), "Single Player", titleWhite);
+	GUI.Label (Rect (ratioSW*25,ratioSH*140,ratioSW*(1024-50),ratioSH*5), "", underWhite);
 	
-	/*if(GUI.Button (Rect (ratioSW*172,ratioSH*450,ratioSW*300,ratioSH*100), "",settingsOptionsButton)){
-		resetMenu();
-		settingsVar = 1;
-		settings_optionVar = 1;}
-		
-	if(GUI.Button (Rect (ratioSW*172,ratioSH*450,ratioSW*300,ratioSH*100), "",settingsCustomizeHorseButton)){
-		resetMenu();
-		settingsVar = 1;
-		settings_customizeHorseVar = 1;}*/
-		
-		
+	// Label box
 	GUI.Label (Rect (ratioSW*210,ratioSH*200,100,25), "Game Type", textWhite);
+	GUI.Label (Rect (ratioSW*125,ratioSH*250,215,150), gameTypeCurrent, GUI.skin.customStyles[0]);
+	
 		if(GUI.Button (Rect (ratioSW*150,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowLeft)){
-				gameTypeFunction("-");
+				if (gameTypeVar > 0){
+				gameTypeVar--;}
 			}
 		GUI.Label (Rect (ratioSW*200,ratioSH*540,120,25), gameType, textYellow);
 		if(GUI.Button (Rect (ratioSW*400,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowRight)){
-				gameTypeFunction("+");
+				if (gameTypeVar < 2){
+				gameTypeVar++;}
 			}
 		
 	GUI.Label (Rect (ratioSW*700,ratioSH*200,150,25), "Game Options", textWhite);	
-		
-	GUI.Label (Rect (ratioSW*575,ratioSH*300,100,25), "Laps :", textWhite);	
-			if(GUI.Button (Rect (ratioSW*770,ratioSH*310,ratioSW*30,ratioSH*30), "",buttonArrowLeft)){
-					if (nbrLaps > 1){
-					nbrLaps--;}
+	if (gameTypeVar == 0) {	
+		GUI.Label (Rect (ratioSW*575,ratioSH*300,100,25), "Laps :", textWhite);	
+				if(GUI.Button (Rect (ratioSW*770,ratioSH*310,ratioSW*30,ratioSH*30), "",buttonArrowLeft)){
+						if (nbrLaps > 1){
+						nbrLaps--;}
+					}
+			GUI.Label (Rect (ratioSW*810,ratioSH*300,25,25), "" + nbrLaps, textYellow);	
+				if(GUI.Button (Rect (ratioSW*870,ratioSH*310,ratioSW*30,ratioSH*30), "",buttonArrowRight)){
+						if (nbrLaps < 10){
+						nbrLaps++;}
+					}
+	} else {
+		if (gameTypeVar == 1) {
+				GUI.Label (Rect (ratioSW*575,ratioSH*300,100,25), "Score :", textWhite);	
+						if(GUI.Button (Rect (ratioSW*770,ratioSH*310,ratioSW*30,ratioSH*30), "",buttonArrowLeft)){
+								if (nbrScore > 1){
+								nbrScore--;}
+							}
+					GUI.Label (Rect (ratioSW*810,ratioSH*300,25,25), "" + nbrScore, textYellow);	
+						if(GUI.Button (Rect (ratioSW*870,ratioSH*310,ratioSW*30,ratioSH*30), "",buttonArrowRight)){
+								if (nbrScore < 10){
+								nbrScore++;}
+							}
+			} else {
+				if (gameTypeVar == 2) {
+					GUI.Label (Rect (ratioSW*575,ratioSH*300,100,25), "Items :", textWhite);	
+						if(GUI.Button (Rect (ratioSW*770,ratioSH*310,ratioSW*30,ratioSH*30), "",buttonArrowLeft)){
+								if (nbrItems > 1){
+								nbrItems--;}
+							}
+					GUI.Label (Rect (ratioSW*810,ratioSH*300,25,25), "" + nbrItems, textYellow);	
+						if(GUI.Button (Rect (ratioSW*870,ratioSH*310,ratioSW*30,ratioSH*30), "",buttonArrowRight)){
+								if (nbrItems < 30){
+								nbrItems++;}
+						}
 				}
-		GUI.Label (Rect (ratioSW*810,ratioSH*300,25,25), "" + nbrLaps, textYellow);	
-			if(GUI.Button (Rect (ratioSW*870,ratioSH*310,ratioSW*30,ratioSH*30), "",buttonArrowRight)){
-					if (nbrLaps < 10){
-					nbrLaps++;}
-				}
+		}
+	}
 		
 	GUI.Label (Rect (ratioSW*550,ratioSH*400,100,25), "Difficulty :", textWhite);
 			if(GUI.Button (Rect (ratioSW*720,ratioSH*410,ratioSW*30,ratioSH*30), "",buttonArrowLeft)){
-					difficultyFunction("-");
+					if (difficultyVar > 0){
+					difficultyVar--;}
 				}
 		GUI.Label (Rect (ratioSW*760,ratioSH*400,100,25), difficulty, textYellow);
 			if(GUI.Button (Rect (ratioSW*920,ratioSH*410,ratioSW*30,ratioSH*30), "",buttonArrowRight)){
-					difficultyFunction("+");
+					if (difficultyVar < 3){
+					difficultyVar++;}
 				}
-	
 		
 	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",backToMenuButton)){
 		resetMenu();}
@@ -203,29 +237,31 @@ function singlePlayer (){
 	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Explain Text", "box");
 }
 
-function difficultyFunction(plusOrMoins : String){
-	if (plusOrMoins == "+"){
-		if (difficulty == "Medium") difficulty = "Hard";
-		if (difficulty == "Easy") difficulty = "Medium";
-	} else {
-		if (difficulty == "Medium") difficulty = "Easy";
-		if (difficulty == "Hard") difficulty = "Medium";
-	}
+function difficultyFunction(){
+if ( difficultyVar == 0 ) {difficulty = "Easy";}
+if ( difficultyVar == 1 ) {difficulty = "Medium";}
+if ( difficultyVar == 2 ) {difficulty = "Hard";}
 }
 
-function gameTypeFunction(plusOrMoins : String){
-	if (plusOrMoins == "+"){
-		if (gameType == "CTF") gameType = "Loot";
-		if (gameType == "Race") gameType = "CTF";
-	} else {
-		if (gameType == "CTF") gameType = "Race";
-		if (gameType == "Loot") gameType = "CTF";
+function gameTypeFunction(){
+if ( gameTypeVar == 0 ) {
+	gameType = "Race";
+	gameTypeCurrent = gameTypeRace;
+	}
+if ( gameTypeVar == 1 ) {
+	gameType = "CTF";
+	gameTypeCurrent = gameTypeCTF;
+	}
+if ( gameTypeVar == 2 ) {
+	gameType = "Loot";
+	gameTypeCurrent = gameTypeLoot;
 	}
 }
 
 function singlePlayerNext (){
 	// Title picture
-	GUI.Label (Rect (0,0,ratioSW*1024,ratioSH*160), singlePlayerTitle, GUI.skin.customStyles[0]);
+	GUI.Label (Rect (ratioSW*50,ratioSH*30,(1024-150),50), "Single Player", titleWhite);
+	GUI.Label (Rect (ratioSW*25,ratioSH*140,ratioSW*(1024-50),ratioSH*5), "", underWhite);
 	// Label box
 	
 	/*if(GUI.Button (Rect (ratioSW*172,ratioSH*450,ratioSW*300,ratioSH*100), "",settingsOptionsButton)){
@@ -253,7 +289,8 @@ function singlePlayerNext (){
 
 function multiPlayer (){
 	// Title picture
-	GUI.Label (Rect (ratioSW*240,ratioSH*10,ratioSW*760,ratioSH*80), multiPlayerTitle, GUI.skin.customStyles[0]);
+	GUI.Label (Rect (ratioSW*50,ratioSH*30,(1024-150),50), "Multi Player", titleWhite);
+	GUI.Label (Rect (ratioSW*25,ratioSH*140,ratioSW*(1024-50),ratioSH*5), "", underWhite);
 	
 	
 	/*// Label box
@@ -268,7 +305,8 @@ function multiPlayer (){
 		multiPlayerVar = 1;
 		multiPlayer_networkPlayVar = 1;
 	}*/
-	
+	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",backToMenuButton)){
+		resetMenu();}
 	
 	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Explain Text", "box");
 }
@@ -289,21 +327,24 @@ function multiPlayer_networkPlay (){
 
 function tutorial (){
 	// Title picture
-	GUI.Label (Rect (ratioSW*240,ratioSH*10,ratioSW*760,ratioSH*80), tutorialTitle, GUI.skin.customStyles[0]);
+	GUI.Label (Rect (ratioSW*50,ratioSH*30,(1024-150),50), "Tutorial", titleWhite);
+	GUI.Label (Rect (ratioSW*25,ratioSH*140,ratioSW*(1024-50),ratioSH*5), "", underWhite);
 	// Label box
 	GUI.Label (Rect (ratioSW*240,ratioSH*100,ratioSW*760,ratioSH*640), "Tutorial", "box");
 	if(GUI.Button (Rect (ratioSW*545,ratioSH*500,ratioSW*150,ratioSH*40), "Lauch New Game")){
 		resetMenu();
 	}
 	
+	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",backToMenuButton)){
+		resetMenu();}
 	
 	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Explain Text", "box");
 }
 
-
 function settings (){
 	// Title picture
-	GUI.Label (Rect (0,0,ratioSW*1024,ratioSH*160), settingsTitle, GUI.skin.customStyles[0]);
+	GUI.Label (Rect (ratioSW*50,ratioSH*30,(1024-150),50), "Settings", titleWhite);
+	GUI.Label (Rect (ratioSW*25,ratioSH*140,ratioSW*(1024-50),ratioSH*5), "", underWhite);
 	// Label box
 	
 	/*if(GUI.Button (Rect (ratioSW*172,ratioSH*450,ratioSW*300,ratioSH*100), "",settingsOptionsButton)){
