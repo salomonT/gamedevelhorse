@@ -63,15 +63,28 @@ public class StartLap : MonoBehaviour {
 			for(int iPos = 0; iPos < checkPoints.Length; iPos++)
 			{
 				if((absDiffPos.x < 3.0 && absDiffPos.z < 3.0) && currentCheckpoint == iPos)
-				{
-					currentCheckpoint = iPos+1;
+				{ 
+					CrumblingPlayerEvent script = GetComponent<CrumblingPlayerEvent>();
+					
+					if(script != null && script.avoidCheckPoint == true && currentCheckpoint == 2)
+					{
+						currentCheckpoint = iPos+1;
+					}
+					else if(script != null && script.avoidCheckPoint == false && currentCheckpoint == 2)
+					{
+						currentCheckpoint = iPos+2;
+					}
+					else 
+					{
+						currentCheckpoint = iPos+1;	
+					}
 					startPoint.x = gameObject.transform.position.x;
 					startPoint.y = gameObject.transform.position.y;
 					startPoint.z = gameObject.transform.position.z;
 					
-					endPoint.x = checkPoints[iPos+2].transform.position.x;
-					endPoint.y = checkPoints[iPos+2].transform.position.y;
-					endPoint.z = checkPoints[iPos+2].transform.position.z;
+					endPoint.x = checkPoints[currentCheckpoint+1].transform.position.x;
+					endPoint.y = checkPoints[currentCheckpoint+1].transform.position.y;
+					endPoint.z = checkPoints[currentCheckpoint+1].transform.position.z;
 					(GetComponent (typeof(Seeker)) as Seeker).StartPath ( startPoint, endPoint);
 					break;
 				}	
