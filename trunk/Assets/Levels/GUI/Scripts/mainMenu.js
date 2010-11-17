@@ -15,6 +15,7 @@ private var ratioSW:float;
 private var ratioSH:float;
 
 var wallpaper : Texture2D;
+var background : Texture2D;
 var logo : Texture2D;
 
 var singlePlayerTitle : Texture2D;
@@ -53,7 +54,26 @@ var gameTypeLoot : Texture2D;
 var gameTypeRace : Texture2D;
 var gameTypeCTF : Texture2D;
 private var gameTypeCurrent : Texture2D = gameTypeRace;
-
+var levelCountrySide : Texture2D;
+var levelBeech : Texture2D;
+var levelKillarneyTown : Texture2D;
+var levelCountrySideLock : Texture2D;
+var levelBeechLock : Texture2D;
+var levelKillarneyTownLock : Texture2D;
+private var levelCountrySideCurrent : Texture2D = levelCountrySide;
+private var levelBeechCurrent : Texture2D = levelBeech;
+private var levelKillarneyTownCurrent : Texture2D = levelKillarneyTown;
+private var levelCountrySideUnlock : int = 1;
+private var levelBeechUnlock : int = 0;
+private var levelKillarneyTownUnlock : int = 1;
+private var levelCurrentUnlock : int = 0;
+private var levelCountrySideName : String = "Coutnry Side";
+private var levelBeechName : String = "Beech";
+private var levelKillarneyTownName : String = "Killarney";
+private var levelCurrentName : String =levelCountrySideName;
+private var levelStartUnlock : int = 1;
+private var levelMovePic : int = 0;
+var levelMoveSpeed : int = 2;
 	
 
 function skinGUI () {
@@ -66,8 +86,8 @@ function OnGUI () {
 	ratioSH = (Screen.height/768.0);
 	gameTypeFunction();
 	difficultyFunction();
+	levelCheckUnlock();
 	
-	GUI.Label (Rect (0,0,Screen.width,Screen.height), wallpaper, GUI.skin.customStyles[0]);
 	
 	if (flagStart == 1){
 		skinGUI();
@@ -75,54 +95,63 @@ function OnGUI () {
 	}
 	
 	if(singlePlayerVar == 1){
+		GUI.Label (Rect (0,0,Screen.width,Screen.height), background, GUI.skin.customStyles[0]);
 		singlePlayer();
 		flagMainMenu = 0;
 	}
 	
 	if(singlePlayerNextVar == 1){
+		GUI.Label (Rect (0,0,Screen.width,Screen.height), background, GUI.skin.customStyles[0]);
 		singlePlayerNext();
 		flagMainMenu = 0;
 	}
 	
 	if(multiPlayerVar == 1){
+		GUI.Label (Rect (0,0,Screen.width,Screen.height), background, GUI.skin.customStyles[0]);
 		multiPlayer();
 		flagMainMenu = 0;
 	}
 	
 	if(multiPlayer_localPlayVar == 1){
+		GUI.Label (Rect (0,0,Screen.width,Screen.height), background, GUI.skin.customStyles[0]);
 		multiPlayer_localPlay();
 		flagMainMenu = 0;
 	}
 	
 	if(multiPlayer_networkPlayVar == 1){
+		GUI.Label (Rect (0,0,Screen.width,Screen.height), background, GUI.skin.customStyles[0]);
 		multiPlayer_networkPlay();
 		flagMainMenu = 0;
 	}
 	
 	if(tutorialVar == 1){
+		GUI.Label (Rect (0,0,Screen.width,Screen.height), background, GUI.skin.customStyles[0]);
 		tutorial();
 		flagMainMenu = 0;
 	}
 	
 	if(settingsVar == 1){
+		GUI.Label (Rect (0,0,Screen.width,Screen.height), background, GUI.skin.customStyles[0]);
 		settings();
 		flagMainMenu = 0;
 	}
 	
 	if(settings_optionVar == 1){
+		GUI.Label (Rect (0,0,Screen.width,Screen.height), background, GUI.skin.customStyles[0]);
 		settings_option();
 		flagMainMenu = 0;
 	}
 	
 	if(settings_customizeHorseVar == 1){
+		GUI.Label (Rect (0,0,Screen.width,Screen.height), background, GUI.skin.customStyles[0]);
 		settings_customizeHorse();
 		flagMainMenu = 0;
 	}
 	
 	if(flagMainMenu == 1){
+		GUI.Label (Rect (0,0,Screen.width,Screen.height), wallpaper, GUI.skin.customStyles[0]);
 		mainMenu();
 	}
-	
 }
 
 function resetMenu (){
@@ -264,27 +293,76 @@ function singlePlayerNext (){
 	GUI.Label (Rect (ratioSW*25,ratioSH*140,ratioSW*(1024-50),ratioSH*5), "", underWhite);
 	// Label box
 	
-	/*if(GUI.Button (Rect (ratioSW*172,ratioSH*450,ratioSW*300,ratioSH*100), "",settingsOptionsButton)){
-		resetMenu();
-		settingsVar = 1;
-		settings_optionVar = 1;}
+	GUI.Label (Rect (0,ratioSH*200,ratioSW*1024,25), "Level Select", textWhite);
+	
+	GUI.Label (Rect (ratioSW*(360-levelMovePic),ratioSH*250,200,150), levelCountrySideCurrent, "box");
+	GUI.Label (Rect (ratioSW*(720-levelMovePic),ratioSH*250,200,150), levelBeechCurrent, "box");
+	GUI.Label (Rect (ratioSW*(1080-levelMovePic),ratioSH*250,200,150), levelKillarneyTownCurrent, "box");
+	
+		if(GUI.Button (Rect (ratioSW*((1024/2)-200),ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowLeft)){
+				if (levelCurrentUnlock > 0){
+				levelCurrentUnlock--;}
+			}
+		GUI.Label (Rect (0,ratioSH*540,ratioSW*1024,25), levelCurrentName, textYellow);
+		if(GUI.Button (Rect (ratioSW*((1024/2)+200-30),ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowRight)){
+				if (levelCurrentUnlock < 2){
+				levelCurrentUnlock++;}
+			}
 		
-	if(GUI.Button (Rect (ratioSW*172,ratioSH*450,ratioSW*300,ratioSH*100), "",settingsCustomizeHorseButton)){
-		resetMenu();
-		settingsVar = 1;
-		settings_customizeHorseVar = 1;}*/
-		
-		
+	if ( levelStartUnlock == 0) {
+		GUI.Label (Rect (0,ratioSH*590,ratioSW*1024,25), "( level locked )", GUI.skin.customStyles[0]);
+	}
+				
 	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",backToMenuButton)){
 		resetMenu();
 		singlePlayerVar=1;}
-
-	if(GUI.Button (Rect (ratioSW*(1024-175),ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",startButton)){
-		// start Game
-		}
+		
+	if ( levelStartUnlock == 1) {
+		if(GUI.Button (Rect (ratioSW*(1024-175),ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",startButton)){
+			// start Game
+			}
+	} else {
+		GUI.Button (Rect (ratioSW*(1024-175),ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",startButton);
+		GUI.Button (Rect (ratioSW*(1024-175),ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "","box");
+	}
 	
 	
 	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Explain Text", "box");
+}
+
+function levelCheckUnlock(){
+	
+	if (levelCurrentUnlock == 0) {
+		levelCurrentName = levelCountrySideName;
+		if ( levelCountrySideUnlock == 1) { levelStartUnlock = 1; } else { levelStartUnlock = 0; }
+		if ( levelMovePic > 0 ) levelMovePic-=(levelMoveSpeed*2);
+	}
+	if (levelCurrentUnlock == 1) {
+		levelCurrentName = levelBeechName;
+		if ( levelBeechUnlock == 1) { levelStartUnlock = 1; } else { levelStartUnlock = 0; }
+		if ( levelMovePic > 360 ) {
+			if ( levelMovePic != 360 ) levelMovePic-=(levelMoveSpeed*2);
+		} else { if ( levelMovePic != 360 ) levelMovePic+=(levelMoveSpeed*2); }
+		
+	}
+	if (levelCurrentUnlock == 2) {
+		levelCurrentName = levelKillarneyTownName;
+		if ( levelKillarneyTownUnlock == 1) { levelStartUnlock = 1; } else { levelStartUnlock = 0; }
+		if ( levelMovePic < 720 ) levelMovePic+=(levelMoveSpeed*2);
+	}
+	
+	if ( levelCountrySideUnlock == 1) {
+		levelCountrySideCurrent = levelCountrySide;
+	} else { levelCountrySideCurrent = levelCountrySideLock; }
+	
+	if ( levelBeechUnlock == 1) {
+		levelBeechCurrent = levelBeech;
+	} else { levelBeechCurrent = levelBeechLock; }
+	
+	if ( levelKillarneyTownUnlock == 1) {
+		levelKillarneyTownCurrent = levelKillarneyTown;
+	} else { levelKillarneyTownCurrent = levelKillarneyTownLock; }
+	
 }
 
 function multiPlayer (){
