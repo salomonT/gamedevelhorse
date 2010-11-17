@@ -191,20 +191,20 @@ function singlePlayer (){
 	GUI.Label (Rect (ratioSW*25,ratioSH*140,ratioSW*(1024-50),ratioSH*5), "", underWhite);
 	
 	// Label box
-	GUI.Label (Rect (ratioSW*210,ratioSH*200,100,25), "Game Type", textWhite);
-	GUI.Label (Rect (ratioSW*125,ratioSH*250,215,150), gameTypeCurrent, GUI.skin.customStyles[0]);
+	GUI.Label (Rect (ratioSW*210,ratioSH*200,ratioSW*170,25), "Game Type", textWhite);
+	GUI.Label (Rect (ratioSW*125,ratioSH*250,ratioSW*340,ratioSH*300), gameTypeCurrent, GUI.skin.customStyles[0]);
 	
 		if(GUI.Button (Rect (ratioSW*150,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowLeft)){
 				if (gameTypeVar > 0){
 				gameTypeVar--;}
 			}
-		GUI.Label (Rect (ratioSW*200,ratioSH*540,120,25), gameType, textYellow);
+		GUI.Label (Rect (ratioSW*200,ratioSH*540,ratioSW*180,25), gameType, textYellow);
 		if(GUI.Button (Rect (ratioSW*400,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowRight)){
 				if (gameTypeVar < 2){
 				gameTypeVar++;}
 			}
 		
-	GUI.Label (Rect (ratioSW*700,ratioSH*200,150,25), "Game Options", textWhite);	
+	GUI.Label (Rect (ratioSW*700,ratioSH*200,ratioSW*200,25), "Game Options", textWhite);	
 	if (gameTypeVar == 0) {	
 		GUI.Label (Rect (ratioSW*575,ratioSH*300,100,25), "Laps :", textWhite);	
 				if(GUI.Button (Rect (ratioSW*770,ratioSH*310,ratioSW*30,ratioSH*30), "",buttonArrowLeft)){
@@ -295,9 +295,9 @@ function singlePlayerNext (){
 	
 	GUI.Label (Rect (0,ratioSH*200,ratioSW*1024,25), "Level Select", textWhite);
 	
-	GUI.Label (Rect (ratioSW*(360-levelMovePic),ratioSH*250,200,150), levelCountrySideCurrent, "box");
-	GUI.Label (Rect (ratioSW*(720-levelMovePic),ratioSH*250,200,150), levelBeechCurrent, "box");
-	GUI.Label (Rect (ratioSW*(1080-levelMovePic),ratioSH*250,200,150), levelKillarneyTownCurrent, "box");
+	GUI.Label (Rect (ratioSW*(360-levelMovePic),ratioSH*250,ratioSW*310,ratioSH*270), levelCountrySideCurrent, "box");
+	GUI.Label (Rect (ratioSW*(720-levelMovePic),ratioSH*250,ratioSW*310,ratioSH*270), levelBeechCurrent, "box");
+	GUI.Label (Rect (ratioSW*(1080-levelMovePic),ratioSH*250,ratioSW*310,ratioSH*270), levelKillarneyTownCurrent, "box");
 	
 		if(GUI.Button (Rect (ratioSW*((1024/2)-200),ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowLeft)){
 				if (levelCurrentUnlock > 0){
