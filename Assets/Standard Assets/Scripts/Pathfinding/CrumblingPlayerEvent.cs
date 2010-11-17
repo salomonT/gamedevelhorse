@@ -16,13 +16,6 @@ public class CrumblingPlayerEvent : MonoBehaviour {
 	
 	public void AvoidRocks()
 	{
-		print("------");
-		SendMessage("receiveAvoidRock",SendMessageOptions.DontRequireReceiver);
-	}
-	
-	public void receiveAvoidRock()
-	{
-		print("############################");
-		avoidCheckPoint = true;	
+		avoidCheckPoint = true;
 	}
 }
