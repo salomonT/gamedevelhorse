@@ -74,6 +74,8 @@ private var levelCurrentName : String =levelCountrySideName;
 private var levelStartUnlock : int = 1;
 private var levelMovePic : int = 0;
 var levelMoveSpeed : int = 2;
+
+var tutorialKeyboard : Texture2D;
 	
 
 function skinGUI () {
@@ -408,10 +410,13 @@ function tutorial (){
 	GUI.Label (Rect (ratioSW*50,ratioSH*30,(1024-150),50), "Tutorial", titleWhite);
 	GUI.Label (Rect (ratioSW*25,ratioSH*140,ratioSW*(1024-50),ratioSH*5), "", underWhite);
 	// Label box
-	GUI.Label (Rect (ratioSW*240,ratioSH*100,ratioSW*760,ratioSH*640), "Tutorial", "box");
-	if(GUI.Button (Rect (ratioSW*545,ratioSH*500,ratioSW*150,ratioSH*40), "Lauch New Game")){
-		resetMenu();
-	}
+	
+	GUI.Label (Rect (ratioSW*100,ratioSH*200,ratioSW*500,ratioSH*400), tutorialKeyboard, GUI.skin.customStyles[0]);
+	
+	
+	if(GUI.Button (Rect (ratioSW*700,ratioSH*300,ratioSW*200,ratioSH*200), "Launch Tutorial")){
+		// launch tutorial
+		}
 	
 	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",backToMenuButton)){
 		resetMenu();}
