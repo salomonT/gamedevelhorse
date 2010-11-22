@@ -10,6 +10,7 @@ private var extrasVar:int = 0;
 private var settingsVar:int = 0;
 private var settings_optionVar:int = 0;
 private var settings_customizeHorseVar:int = 0;
+private var launchVar:int = 0;
 
 private var ratioSW:float;
 private var ratioSH:float;
@@ -164,7 +165,13 @@ function OnGUI () {
 		GUI.Label (Rect (0,0,Screen.width,Screen.height), background, GUI.skin.customStyles[0]);
 		settings_customizeHorse();
 		flagMainMenu = 0;
-	}	
+	}
+	
+	if(launchVar == 1){
+		loadLevel();
+		flagMainMenu = 0;
+	}
+	
 	
 	if(flagMainMenu == 1){
 		GUI.Label (Rect (0,0,Screen.width,Screen.height), wallpaper, GUI.skin.customStyles[0]);
@@ -182,6 +189,7 @@ function resetMenu (){
 	settingsVar = 0;
 	settings_optionVar = 0;
 	settings_customizeHorseVar = 0;
+	launchVar = 0;
 }
 
 function mainMenu (){
@@ -383,6 +391,7 @@ function singlePlayerNext (){
 			// start Game
 			levelLaunchVar = levelCurrentUnlock;
 			resetMenu();
+			launchVar = 1;
 			launchLevel();
 			}
 	} else {
@@ -488,6 +497,7 @@ function tutorial (){
 		// start Tutorial
 			levelLaunchVar = 3;
 			resetMenu();
+			launchVar = 1;
 			launchLevel();
 		}
 	
@@ -535,7 +545,7 @@ function settings_customizeHorse (){
 function launchLevel(){
 	// 0 = country leve | 1 = berch level | 2 = town level | 3 = toturial level
 	
-	GUI.Label (Rect (0,0,Screen.width,Screen.height), "Loading", loadingTitle);
+	//GUI.Label (Rect (0,0,Screen.width,Screen.height), "Loading", loadingTitle);
 	
 		Application.backgroundLoadingPriority = ThreadPriority.Low;
 		
@@ -561,4 +571,10 @@ function launchLevel(){
 		Debug.Log ("Loading complete");
 		timeFlag = 1;
 	
+}
+
+function loadLevel(){
+	
+	GUI.Label (Rect (0,0,Screen.width,Screen.height), "Loading", loadingTitle);
+
 }
