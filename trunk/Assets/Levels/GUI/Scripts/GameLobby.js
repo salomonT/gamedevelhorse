@@ -31,7 +31,6 @@ private var mainMenuScript : MainMultiMenu;
 
 function Awake(){
 	showMenu=false;
-	DontDestroyOnLoad(this);
 }
 
 

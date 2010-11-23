@@ -21,11 +21,11 @@ public class waterCollision : MonoBehaviour {
 			script.SlowerCaracter();
 		}
 		
-		thirdPlayerScript script2 = other.GetComponent<thirdPlayerScript>();
-		if(script2 != null)
-		{
-			script2.SlowerCaracter();
-		}
+		//thirdPlayerScript script2 = other.GetComponent<thirdPlayerScript>();
+		//if(script2 != null)
+		//{
+			//script2.SlowerCaracter();
+		//}
 		
 	}
 	
@@ -37,11 +37,11 @@ public class waterCollision : MonoBehaviour {
 			script.AccelCaracter();
 		} 
 		
-		thirdPlayerScript script2 = other.GetComponent<thirdPlayerScript>();
-		if(script2 != null)
-		{
-			script2.AccelCaracter();
-		}
+		//~ thirdPlayerScript script2 = other.GetComponent<thirdPlayerScript>();
+		//~ if(script2 != null)
+		//~ {
+			//~ script2.AccelCaracter();
+		//~ }
 		
 	}
 }
