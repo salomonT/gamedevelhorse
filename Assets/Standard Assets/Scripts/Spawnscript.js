@@ -19,7 +19,7 @@ function Awake()
 
 function Start()
 {
-	KeepNetworkInfo.playerPrefab = playerPrefab;
+//	KeepNetworkInfo.playerPrefab = playerPrefab;
 	Network.isMessageQueueRunning=true;
 	if(Network.isServer)
 	{
