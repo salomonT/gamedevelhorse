@@ -31,6 +31,7 @@ private var mainMenuScript : MainMultiMenu;
 
 function Awake(){
 	showMenu=false;
+	DontDestroyOnLoad(this);
 }
 
 
@@ -194,6 +195,8 @@ function OnConnectedToServer(){
 	playerList  = new Array();
 	playerName = PlayerPrefs.GetString("playerName");
 	networkView.RPC("addPlayer",RPCMode.AllBuffered, Network.player, playerName);	
+	KeepNetworkInfo.playerKept = Network.player;
+	//KeepNetworkInfo.networkviewKept = networkView;
 }
 
 
@@ -210,7 +213,8 @@ function OnServerInitialized(){
 	var maxPlayers : int = Network.maxConnections+1;
 	
 	networkView.RPC("setServerSettings",RPCMode.AllBuffered, pProtected, maxPlayers, hostSetting_title);
-	
+	KeepNetworkInfo.playerKept = Network.player;
+	//KeepNetworkInfo.networkviewKept = networkView;
 }
 
 

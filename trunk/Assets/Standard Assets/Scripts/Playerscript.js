@@ -34,7 +34,7 @@ function SetPlayer(player : NetworkPlayer){
 	owner = player;
 	if(player==Network.player){
 		//Hey thats us! We can control this player: enable this script (this enables Update());
-		enabled=true;
+		enabled=true;	
 	}
 }
 
