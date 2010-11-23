@@ -20,34 +20,45 @@ function Awake()
 function Start()
 {
 	KeepNetworkInfo.playerPrefab = playerPrefab;
+	Network.isMessageQueueRunning=true;
+	if(Network.isServer)
+	{
+		Spawnplayer(KeepNetworkInfo.playerKept);
+		//networkView.RPC("Spawnplayer", RPCMode.All, KeepNetworkInfo.playerKept);
+	}
+	else if(Network.isClient)
+	{
+		networkView.RPC("Spawnplayer", RPCMode.Server, KeepNetworkInfo.playerKept);
+	}
 }
 
 function OnServerInitialized(){
 	//Spawn a player for the server itself
 	Spawnplayer(Network.player);
 }
-
+ 
 function OnPlayerConnected(newPlayer: NetworkPlayer) {
 	//A player connected to me(the server)!
 	Spawnplayer(newPlayer);
 }	
 
-	
+@RPC
 function Spawnplayer(newPlayer : NetworkPlayer){
 	//Called on the server only
-	KeepNetworkInfo.addPlayer(newPlayer);
-	//~ var playerNumber : int = parseInt(newPlayer+"");
-	//~ //Instantiate a new object for this player, remember; the server is therefore the owner.
-	//~ var myNewTrans : Transform = Network.Instantiate(playerPrefab, transform.position, transform.rotation, playerNumber);
 	
-	//~ //Get the networkview of this new transform
-	//~ var newObjectsNetworkview : NetworkView = myNewTrans.networkView;
+	 var playerNumber : int = parseInt(newPlayer+"");
+	 //Instantiate a new object for this player, remember; the server is therefore the owner.
+	 var myNewTrans : Transform = Network.Instantiate(playerPrefab, transform.position, transform.rotation, playerNumber);
 	
-	//~ //Keep track of this new player so we can properly destroy it when required.
-	//~ playerScripts.Add(myNewTrans.GetComponent(Playerscript));
+	 //Get the networkview of this new transform
+	 var newObjectsNetworkview : NetworkView = myNewTrans.networkView;
+
+	 //Keep track of this new player so we can properly destroy it when required.
+	 playerScripts.Add(myNewTrans.GetComponent(Playerscript));
 	
-	//~ //Call an RPC on this new networkview, set the player who controls this player
-	//~ newObjectsNetworkview.RPC("SetPlayer", RPCMode.AllBuffered, newPlayer);//Set it on the owner
+	 //Call an RPC on this new networkview, set the player who controls this player
+	 newObjectsNetworkview.RPC("SetPlayer", RPCMode.AllBuffered, newPlayer);//Set it on the owner
+	 //newObjectsNetworkview.RPC("AddNewPlayer",RPCMode.AllBuffered, newPlayer);
 }
 
 

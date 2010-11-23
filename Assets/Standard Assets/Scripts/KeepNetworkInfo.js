@@ -4,6 +4,8 @@
 	static var players : ArrayList = new ArrayList();
 	static var playerScripts : ArrayList = new ArrayList();
 	static var numberOfPlayers : int;
+	static var playerKept : NetworkPlayer;
+	static var networkviewKept : NetworkView;
 	// Use this for initialization
 	function Start () 
 	{
@@ -20,19 +22,19 @@
 	{
 		players.Add(newPlayer);
 		numberOfPlayers++;
+		print("Add a new player !");
 	}
 	
-	static function InstanciateAllPlayers( position_s : Vector3, rotation_s : Quaternion )
+	static function InstanciateAllPlayers( position_s : Vector3, rotation_s : Quaternion,  mainCam : Transform )
 	{
 		var iNbPlayer : int;
+		print("Try to add players ! with " + numberOfPlayers);
 		for(iNbPlayer = 0; iNbPlayer < numberOfPlayers; iNbPlayer++)
 		{
 			//Called on the server only
-	
 			var playerNumber : int = parseInt(players[iNbPlayer]+"");
-			//Instantiate a new object for this player, remember; the server is therefore the owner.
-			print("Instanciate all players !" + iNbPlayer);
 			
+			//Instantiate a new object for this player, remember; the server is therefore the owner.
 			if(playerPrefab== null)
 			{
 				print("Prefab null!");
@@ -44,6 +46,15 @@
 			}
 			else
 			{
+				var cameraT : ThirdPersonCamera = playerPrefab.GetComponent(ThirdPersonCamera);
+				if(cameraT != null)
+				{
+					cameraT.cameraTransform = mainCam;
+				}
+				else
+				{
+					print("cameraT/mainCam null pointer exception !");
+				}
 				var myNewTrans : Transform = Network.Instantiate(playerPrefab, position_s, rotation_s, playerNumber);
 			
 				//Get the networkview of this new transform
