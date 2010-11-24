@@ -8,8 +8,9 @@ private var multiPlayer_networkPlayVar:int = 0;
 private var tutorialVar:int = 0;
 private var extrasVar:int = 0;
 private var settingsVar:int = 0;
-private var settings_optionVar:int = 0;
-private var settings_customizeHorseVar:int = 0;
+private var settings_gameSettingsVar = 0;
+private var settings_customizeHorseVar = 0;
+private var settings_highScoresVar = 0;
 private var launchVar:int = 0;
 
 private var ratioSW:float;
@@ -19,19 +20,18 @@ var wallpaper : Texture2D;
 var background : Texture2D;
 var logo : Texture2D;
 
-var singlePlayerTitle : Texture2D;
 var singlePlayerButton : GUIStyle;
 var nextButton : GUIStyle;
 var startButton : GUIStyle;
 var startButtonDisable : GUIStyle;
-var multiPlayerTitle : Texture2D;
 var multiPlayerButton : GUIStyle;
-var tutorialTitle : Texture2D;
+var multiPlayerHostButton : GUIStyle;
+var multiPlayerJoinButton : GUIStyle;
 var tutorialButton : GUIStyle;
-var settingsTitle : Texture2D;
 var settingsButton : GUIStyle;
-var settingsOptionsButton : GUIStyle;
+var settingsGameSettingsButton : GUIStyle;
 var settingsCustomizeHorseButton : GUIStyle;
+var settingsHighScoresButton : GUIStyle;
 var saveSettingsButton : GUIStyle;
 
 var backToMenuButton : GUIStyle;
@@ -65,6 +65,8 @@ var levelCountrySideLock : Texture2D;
 var levelBeechLock : Texture2D;
 var levelKillarneyTownLock : Texture2D;
 var levelTutorialPrevious : Texture2D;
+var multiPlayerHostPic : Texture2D;
+var multiPlayerJoinPic : Texture2D;
 private var levelCountrySideCurrent : Texture2D = levelCountrySide;
 private var levelBeechCurrent : Texture2D = levelBeech;
 private var levelKillarneyTownCurrent : Texture2D = levelKillarneyTown;
@@ -155,15 +157,21 @@ function OnGUI () {
 		flagMainMenu = 0;
 	}
 	
-	if(settings_optionVar == 1){
+	if(settings_gameSettingsVar == 1){
 		GUI.Label (Rect (0,0,Screen.width,Screen.height), background, GUI.skin.customStyles[0]);
-		settings_option();
+		settings_gameSettings();
 		flagMainMenu = 0;
 	}
 	
 	if(settings_customizeHorseVar == 1){
 		GUI.Label (Rect (0,0,Screen.width,Screen.height), background, GUI.skin.customStyles[0]);
 		settings_customizeHorse();
+		flagMainMenu = 0;
+	}
+	
+	if(settings_highScoresVar == 1){
+		GUI.Label (Rect (0,0,Screen.width,Screen.height), background, GUI.skin.customStyles[0]);
+		settings_highScores();
 		flagMainMenu = 0;
 	}
 	
@@ -187,8 +195,9 @@ function resetMenu (){
 	multiPlayer_networkPlayVar = 0;
 	tutorialVar = 0;
 	settingsVar = 0;
-	settings_optionVar = 0;
+	settings_gameSettingsVar = 0;
 	settings_customizeHorseVar = 0;
+	settings_highScoresVar = 0;
 	launchVar = 0;
 }
 
@@ -212,7 +221,7 @@ function mainMenu (){
 		audio.PlayOneShot(startAndNextButtonSound);
 		resetMenu();
 		settingsVar = 1;	}
-	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Explain Text", "box");
+	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Use the mouse to select an item from the menu above", "box");
 }
 
 function singlePlayer (){
@@ -324,7 +333,7 @@ function singlePlayer (){
 		resetMenu();
 		singlePlayerNextVar = 1;}
 	
-	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Explain Text", "box");
+	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Choose the type of game you would like to play and click next", "box");
 }
 
 function difficultyFunction(){
@@ -399,7 +408,7 @@ function singlePlayerNext (){
 	}
 	
 	
-	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Explain Text", "box");
+	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Choose the level you would like to play and click start to begin the game", "box");
 }
 
 function levelCheckUnlock(){
@@ -442,24 +451,40 @@ function multiPlayer (){
 	GUI.Label (Rect (ratioSW*50,ratioSH*30,(1024-150),50), "Multi Player", titleWhite);
 	GUI.Label (Rect (ratioSW*25,ratioSH*140,ratioSW*(1024-50),ratioSH*5), "", underWhite);
 	
+	GUI.Label (Rect (ratioSW*150,ratioSH*200,ratioSW*310,ratioSH*310), multiPlayerHostPic);
 	
-	/*// Label box
-	if(GUI.Button (Rect (ratioSW*240,ratioSH*100,ratioSW*370,ratioSH*40), "Local Play")){
+	if(GUI.Button (Rect (ratioSW*200,ratioSH*525,ratioSW*200,ratioSH*70), "",multiPlayerHostButton)){
+		audio.PlayOneShot(startAndNextButtonSound);
+		// start multiplayer gui loic
+			levelLaunchVar = 4;
+			resetMenu();
+			launchVar = 1;
+			launchLevel();
+				
+		/*audio.PlayOneShot(startAndNextButtonSound);
 		resetMenu();
-		multiPlayerVar = 1;
-		multiPlayer_localPlayVar = 1;
-	}
+		settings_customizeHorseVar = 1;*/}
 	
-	if(GUI.Button (Rect (ratioSW*630,ratioSH*100,ratioSW*370,ratioSH*40), "Network Play")){
+	GUI.Label (Rect (ratioSW*550,ratioSH*200,ratioSW*310,ratioSH*310), multiPlayerJoinPic);
+		
+	if(GUI.Button (Rect (ratioSW*600,ratioSH*525,ratioSW*200,ratioSH*70), "",multiPlayerJoinButton)){
+		audio.PlayOneShot(startAndNextButtonSound);
+		// start multiplayer gui loic
+			levelLaunchVar = 4;
+			resetMenu();
+			launchVar = 1;
+			launchLevel();
+				
+		/*audio.PlayOneShot(startAndNextButtonSound);
 		resetMenu();
-		multiPlayerVar = 1;
-		multiPlayer_networkPlayVar = 1;
-	}*/
+		settings_highScoresVar = 1;*/}
+	
+	
 	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",backToMenuButton)){
 		audio.PlayOneShot(backToMenuButtonSound);
 		resetMenu();}
 	
-	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Explain Text", "box");
+	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Host a game for people to join, or join a game created be someone else", "box");
 }
 
 function multiPlayer_localPlay (){
@@ -501,10 +526,49 @@ function tutorial (){
 			launchLevel();
 		}
 	
-	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Explain Text", "box");
+	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Click play to start the tutorial and learn how to play the game", "box");
 }
 
 function settings (){
+	// Title picture
+	GUI.Label (Rect (ratioSW*50,ratioSH*30,(1024-150),50), "Settings", titleWhite);
+	GUI.Label (Rect (ratioSW*25,ratioSH*140,ratioSW*(1024-50),ratioSH*5), "", underWhite);
+	// Label box
+	
+	
+	GUI.Label (Rect (ratioSW*20,ratioSH*200,ratioSW*500,ratioSH*400),
+	"Change game settings such as "+"\n"+"volume and sound FX"+"\n"+
+	"\n"+
+	"Cuztomize your player by chossing "+"\n"+"a horse and cart from the selection"+"\n"+
+	"\n"+
+	"View the scrore you achieved for "+"\n"+"each level"
+	, textWhite);
+	
+	
+	if(GUI.Button (Rect (ratioSW*550,ratioSH*200,ratioSW*400,ratioSH*80), "",settingsGameSettingsButton)){
+		audio.PlayOneShot(startAndNextButtonSound);
+		resetMenu();
+		settings_gameSettingsVar = 1;}
+		
+	if(GUI.Button (Rect (ratioSW*550,ratioSH*350,ratioSW*400,ratioSH*80), "",settingsCustomizeHorseButton)){
+		audio.PlayOneShot(startAndNextButtonSound);
+		resetMenu();
+		settings_customizeHorseVar = 1;}
+		
+	if(GUI.Button (Rect (ratioSW*550,ratioSH*500,ratioSW*400,ratioSH*80), "",settingsHighScoresButton)){
+		audio.PlayOneShot(startAndNextButtonSound);
+		resetMenu();
+		settings_highScoresVar = 1;}
+		
+		
+	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",backToMenuButton)){
+		audio.PlayOneShot(backToMenuButtonSound);
+		resetMenu();}
+		
+	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "You can change various settings here, customize your horse and view high scores", "box");
+}
+
+function settings_gameSettings (){
 	// Title picture
 	GUI.Label (Rect (ratioSW*50,ratioSH*30,(1024-150),50), "Settings", titleWhite);
 	GUI.Label (Rect (ratioSW*25,ratioSH*140,ratioSW*(1024-50),ratioSH*5), "", underWhite);
@@ -521,45 +585,86 @@ function settings (){
 		settings_customizeHorseVar = 1;}*/
 		
 		
+		
 	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",backToMenuButton)){
 		audio.PlayOneShot(backToMenuButtonSound);
-		resetMenu();}
+		resetMenu();
+		settingsVar = 1;}
 		
 	if(GUI.Button (Rect (ratioSW*(1024-175),ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",saveSettingsButton)){
 		audio.PlayOneShot(startAndNextButtonSound);
 		// save function
 		}
-	
-	
-	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Explain Text", "box");
-}
-
-function settings_option (){
-	GUI.Label (Rect (ratioSW*240,ratioSH*160,ratioSW*760,ratioSH*580), "settings", "box");
+		
+	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Change various settings here", "box");
 }
 
 function settings_customizeHorse (){
-	GUI.Label (Rect (ratioSW*240,ratioSH*160,ratioSW*760,ratioSH*580), "Customize Horse", "box");
+	// Title picture
+	GUI.Label (Rect (ratioSW*50,ratioSH*30,(1024-150),50), "Settings", titleWhite);
+	GUI.Label (Rect (ratioSW*25,ratioSH*140,ratioSW*(1024-50),ratioSH*5), "", underWhite);
+	// Label box
+	
+	/*if(GUI.Button (Rect (ratioSW*172,ratioSH*450,ratioSW*300,ratioSH*100), "",settingsOptionsButton)){
+		resetMenu();
+		settingsVar = 1;
+		settings_optionVar = 1;}
+		
+	if(GUI.Button (Rect (ratioSW*172,ratioSH*450,ratioSW*300,ratioSH*100), "",settingsCustomizeHorseButton)){
+		resetMenu();
+		settingsVar = 1;
+		settings_customizeHorseVar = 1;}*/
+		
+		
+		
+	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",backToMenuButton)){
+		audio.PlayOneShot(backToMenuButtonSound);
+		resetMenu();
+		settingsVar = 1;}
+		
+	if(GUI.Button (Rect (ratioSW*(1024-175),ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",saveSettingsButton)){
+		audio.PlayOneShot(startAndNextButtonSound);
+		// save function
+		}
+		
+	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Customize your horse", "box");
+}
+
+function settings_highScores (){
+	// Title picture
+	GUI.Label (Rect (ratioSW*50,ratioSH*30,(1024-150),50), "Settings", titleWhite);
+	GUI.Label (Rect (ratioSW*25,ratioSH*140,ratioSW*(1024-50),ratioSH*5), "", underWhite);
+	// Label box
+
+		
+	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",backToMenuButton)){
+		audio.PlayOneShot(backToMenuButtonSound);
+		resetMenu();
+		settingsVar = 1;}
+		
+	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "View high scores", "box");
 }
 
 function launchLevel(){
 	// 0 = country leve | 1 = berch level | 2 = town level | 3 = toturial level
 	
-	//GUI.Label (Rect (0,0,Screen.width,Screen.height), "Loading", loadingTitle);
-	
 		Application.backgroundLoadingPriority = ThreadPriority.Low;
 		
-		if ( levelLaunchVar == 3 ){
-			async = Application.LoadLevelAsync ("tutorial");
+		if ( levelLaunchVar == 4 ){
+			async = Application.LoadLevelAsync ("multiplayer");
 		} else {
-			if ( levelLaunchVar == 0 ){
-				async = Application.LoadLevelAsync ("Country");
+			if ( levelLaunchVar == 3 ){
+				async = Application.LoadLevelAsync ("tutorial");
 			} else {
-				if ( levelLaunchVar == 1 ) {
-					async = Application.LoadLevelAsync ("islandLevel");
+				if ( levelLaunchVar == 0 ){
+					async = Application.LoadLevelAsync ("Country");
 				} else {
-					if ( levelLaunchVar == 2 ) {
-						async = Application.LoadLevelAsync ("");
+					if ( levelLaunchVar == 1 ) {
+						async = Application.LoadLevelAsync ("islandLevel");
+					} else {
+						if ( levelLaunchVar == 2 ) {
+							async = Application.LoadLevelAsync ("");
+						}
 					}
 				}
 			}
