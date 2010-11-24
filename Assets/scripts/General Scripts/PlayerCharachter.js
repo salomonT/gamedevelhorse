@@ -1,6 +1,7 @@
 
 var walkSpeed : float;
 var runSpeed : float;
+var gravity : float;
 private var controller : CharacterController;
 private var speed : float = 0;
 private var moveDirection : Vector3 = Vector3.zero;
@@ -9,6 +10,9 @@ private var slowDown:boolean;
 private var timeCounter = 0;
 private var actualTime = 0;
 private var countTime:boolean;
+
+// The current vertical speed
+private var verticalSpeed = 0.0;
 
 function Start() 
 {
@@ -69,12 +73,24 @@ function MoveCharachter()
         speed = 0;
       }
 
+	ApplyGravity();
     transform.eulerAngles.y += Input.GetAxis("Horizontal");
-    moveDirection = Vector3(0, Input.GetAxis("Vertical"), 0);
+    moveDirection = Vector3(0,0, Input.GetAxis("Vertical"));
     moveDirection = transform.TransformDirection(moveDirection);
     controller.Move(moveDirection * (Time.deltaTime * speed));
+    moveDirection = Vector3(0,verticalSpeed,0);
+    moveDirection = transform.TransformDirection(moveDirection);
+    controller.Move(moveDirection);
+    
 }
 
+function ApplyGravity()
+{
+	if (controller.isGrounded)
+		verticalSpeed = 0.0;
+	else
+		verticalSpeed -= gravity * Time.deltaTime;
+}
 
 /**Check for Power  */
 function checkEnhancements()
@@ -118,7 +134,7 @@ function checkEnhancements()
 	}
 	else
 	{
-	   print("Normal");
+//	   print("Normal");
   }
 }
 
