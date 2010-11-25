@@ -22,174 +22,80 @@ ModelImporter:
     animationWrapMode: 0
     splitAnimations: 1
   nodeInfo:
-    lWrist:
-    - 100000
-    - 400000
-    rShldr:
-    - 100002
-    - 400002
-    lUpArm:
-    - 100004
-    - 400004
-    rForeArm:
-    - 100006
-    - 400006
-    lForeArm:
-    - 100008
-    - 400008
-    joint19:
-    - 100010
-    - 400010
-    rHand_Site:
-    - 100012
-    - 400012
-    lHand_Site:
-    - 100014
-    - 400014
     instance_controller_node_12:
     - 100016
     - 400016
-    - 13700000
-    abdomen:
-    - 100018
-    - 400018
+    - 3300004
+    - 2300004
     instance_controller_node_10:
     - 100020
     - 400020
-    - 13700002
+    - 3300016
+    - 2300016
     instance_controller_node_13:
     - 100022
     - 400022
-    - 13700004
+    - 3300018
+    - 2300018
     instance_controller_node_8:
     - 100024
     - 400024
-    - 13700006
+    - 3300026
+    - 2300026
     instance_controller_node_11:
     - 100026
     - 400026
-    - 13700008
+    - 3300002
+    - 2300002
     instance_controller_node_5:
     - 100028
     - 400028
-    - 13700010
+    - 3300022
+    - 2300022
     instance_controller_node_9:
     - 100030
     - 400030
-    - 13700012
+    - 3300014
+    - 2300014
     instance_controller_node_3:
     - 100032
     - 400032
-    - 13700014
+    - 3300010
+    - 2300010
     instance_controller_node_7:
     - 100034
     - 400034
-    - 13700016
+    - 3300020
+    - 2300020
     instance_controller_node_6:
     - 100036
     - 400036
-    - 13700018
+    - 3300012
+    - 2300012
     instance_controller_node_1:
     - 100038
     - 400038
-    - 13700020
+    - 3300008
+    - 2300008
     instance_controller_node_4:
     - 100040
     - 400040
-    - 13700022
+    - 3300024
+    - 2300024
     instance_controller_node_2:
     - 100042
     - 400042
-    - 13700024
+    - 3300000
+    - 2300000
     instance_controller_node_0:
     - 100044
     - 400044
-    - 13700026
-    rLeg:
-    - 100046
-    - 400046
-    lLeg:
-    - 100048
-    - 400048
-    rAnkle:
-    - 100050
-    - 400050
-    lAnkle:
-    - 100052
-    - 400052
-    rFoot:
-    - 100054
-    - 400054
+    - 3300006
+    - 2300006
     //RootNode:
     - 100056
     - 400056
     - 11100000
-    rShin:
-    - 100058
-    - 400058
-    Tail1:
-    - 100060
-    - 400060
-    lShin:
-    - 100062
-    - 400062
-    lFoot_Site:
-    - 100064
-    - 400064
-    joint29:
-    - 100066
-    - 400066
-    lFoot:
-    - 100068
-    - 400068
-    Tail2:
-    - 100070
-    - 400070
-    rUpArm:
-    - 100072
-    - 400072
-    rHand:
-    - 100074
-    - 400074
-    rWrist:
-    - 100076
-    - 400076
-    Tail4:
-    - 100078
-    - 400078
-    Tail3:
-    - 100080
-    - 400080
-    lThigh:
-    - 100082
-    - 400082
-    rThigh:
-    - 100084
-    - 400084
-    rFoot_Site:
-    - 100086
-    - 400086
-    joint20:
-    - 100088
-    - 400088
-    lHand:
-    - 100090
-    - 400090
-    hip:
-    - 100092
-    - 400092
-    chest:
-    - 100094
-    - 400094
-    lShldr:
-    - 100096
-    - 400096
-    null:
-    - 100098
-    - 400098
-    joint21:
-    - 100100
-    - 400100
 AssetImporter:
   importerVersion: 1
   fileIDToRecycleName:
