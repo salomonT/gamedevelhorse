@@ -1,0 +1,210 @@
+fileFormatVersion: 1
+guid: dd35bdd19292245aab81dbc629a1c176
+ModelImporter:
+  importerVersion: 7
+  meshes:
+    scaleFactor: 1
+    useFileUnits: 1
+    meshCompression: 0
+    generateColliders: 0
+    swapUVs: 0
+  tangentSpace:
+    normalImportMode: 0
+    tangentImportMode: 1
+    smoothingAngle: 60
+    splitTangents: 1
+  materials:
+    generation: 1
+  animations:
+    generation: 3
+    bakeAnimations: 0
+    animationCompression: 1
+    animationWrapMode: 0
+    splitAnimations: 1
+  nodeInfo:
+    hip:
+    - 100000
+    - 400000
+    //RootNode:
+    - 100002
+    - 400002
+    - 11100000
+    rHand:
+    - 100004
+    - 400004
+    rWrist:
+    - 100006
+    - 400006
+    rForeArm:
+    - 100008
+    - 400008
+    rUpArm:
+    - 100010
+    - 400010
+    Tail4:
+    - 100012
+    - 400012
+    lFoot:
+    - 100014
+    - 400014
+    lAnkle:
+    - 100016
+    - 400016
+    rThigh:
+    - 100018
+    - 400018
+    lFoot_Site:
+    - 100020
+    - 400020
+    lShin:
+    - 100022
+    - 400022
+    lLeg:
+    - 100024
+    - 400024
+    lThigh:
+    - 100026
+    - 400026
+    joint29:
+    - 100028
+    - 400028
+    rLeg:
+    - 100030
+    - 400030
+    rFoot_Site:
+    - 100032
+    - 400032
+    rFoot:
+    - 100034
+    - 400034
+    rAnkle:
+    - 100036
+    - 400036
+    rShin:
+    - 100038
+    - 400038
+    instance_controller_node_2:
+    - 100040
+    - 400040
+    - 13700000
+    instance_controller_node_1:
+    - 100042
+    - 400042
+    - 13700002
+    instance_controller_node_0:
+    - 100044
+    - 400044
+    - 13700004
+    instance_controller_node_5:
+    - 100046
+    - 400046
+    - 13700006
+    instance_controller_node_4:
+    - 100048
+    - 400048
+    - 13700008
+    instance_controller_node_3:
+    - 100050
+    - 400050
+    - 13700010
+    instance_controller_node_10:
+    - 100052
+    - 400052
+    - 13700012
+    instance_controller_node_9:
+    - 100054
+    - 400054
+    - 13700014
+    instance_controller_node_8:
+    - 100056
+    - 400056
+    - 13700016
+    instance_controller_node_7:
+    - 100058
+    - 400058
+    - 13700018
+    instance_controller_node_13:
+    - 100060
+    - 400060
+    - 13700020
+    instance_controller_node_12:
+    - 100062
+    - 400062
+    - 13700022
+    abdomen:
+    - 100064
+    - 400064
+    chest:
+    - 100066
+    - 400066
+    null:
+    - 100068
+    - 400068
+    instance_controller_node_6:
+    - 100070
+    - 400070
+    - 13700024
+    instance_controller_node_11:
+    - 100072
+    - 400072
+    - 13700026
+    joint19:
+    - 100074
+    - 400074
+    lWrist:
+    - 100076
+    - 400076
+    lForeArm:
+    - 100078
+    - 400078
+    lHand_Site:
+    - 100080
+    - 400080
+    lHand:
+    - 100082
+    - 400082
+    lUpArm:
+    - 100084
+    - 400084
+    lShldr:
+    - 100086
+    - 400086
+    joint21:
+    - 100088
+    - 400088
+    joint20:
+    - 100090
+    - 400090
+    rShldr:
+    - 100092
+    - 400092
+    Tail1:
+    - 100094
+    - 400094
+    rHand_Site:
+    - 100096
+    - 400096
+    Tail3:
+    - 100098
+    - 400098
+    Tail2:
+    - 100100
+    - 400100
+AssetImporter:
+  importerVersion: 1
+  fileIDToRecycleName:
+    4300000: instance_controller_node_0
+    4300002: instance_controller_node_1
+    4300004: instance_controller_node_2
+    4300006: instance_controller_node_3
+    4300008: instance_controller_node_4
+    4300010: instance_controller_node_5
+    4300012: instance_controller_node_6
+    4300014: instance_controller_node_7
+    4300016: instance_controller_node_8
+    4300018: instance_controller_node_9
+    4300020: instance_controller_node_10
+    4300022: instance_controller_node_11
+    4300024: instance_controller_node_12
+    4300026: instance_controller_node_13
+    7400000: Take 001 //// runHorse
