@@ -95,7 +95,39 @@ private var timeEnd : float;
 private var timeFlag : int = 0;
 private var async : AsyncOperation;
 
+private var settingHorseVar : int = 0;
+private var settingHorseVarTMP : int = settingHorseVar;
+private var settingHorseName : String = "AAA";
+var horseModel1 : Texture2D;
+var horseModel2 : Texture2D;
+var horseModel3 : Texture2D;
+private var settingHorseCurrent : Texture2D = horseModel1;
+		
+private var settingCartVar : int = 0;
+private var settingCartVarTMP : int = settingCartVarTMP;
+private var settingCartName : String = "aaa";
+var cartModel1 : Texture2D;
+var cartModel2 : Texture2D;
+var cartModel3 : Texture2D;
+private var settingCartCurrent : Texture2D = cartModel1;
 
+function Start(){
+	// just for test !!
+	highScoreDB.addScore("loc",2000);
+	highScoreDB.addScore("pierre",500);
+	highScoreDB.addScore("jhon",1000);
+	highScoreDB.addScore("charle",0);
+	highScoreDB.addScore("charle",0);
+	highScoreDB.addScore("charle",10);
+	highScoreDB.addScore("charle",50);
+	highScoreDB.addScore("jack",150);
+	highScoreDB.addScore("charle",250);
+	highScoreDB.addScore("loc",3000);
+	highScoreDB.addScore("pierre",4000);
+	highScoreDB.addScore("jhon",150);
+	highScoreDB.addScore("jack",150);
+	highScoreDB.addScore("charle",250);
+}
 
 function skinGUI () {
 	GUI.skin.customStyles[0].alignment = TextAnchor.MiddleCenter;
@@ -106,6 +138,8 @@ function OnGUI () {
 	ratioSW = (Screen.width/1024.0);
 	ratioSH = (Screen.height/768.0);
 	gameTypeFunction();
+	settingHorseFunction();
+	settingCartFunction();
 	difficultyFunction();
 	levelCheckUnlock();
 	
@@ -605,42 +639,118 @@ function settings_customizeHorse (){
 	GUI.Label (Rect (ratioSW*25,ratioSH*140,ratioSW*(1024-50),ratioSH*5), "", underWhite);
 	// Label box
 	
-	/*if(GUI.Button (Rect (ratioSW*172,ratioSH*450,ratioSW*300,ratioSH*100), "",settingsOptionsButton)){
-		resetMenu();
-		settingsVar = 1;
-		settings_optionVar = 1;}
-		
-	if(GUI.Button (Rect (ratioSW*172,ratioSH*450,ratioSW*300,ratioSH*100), "",settingsCustomizeHorseButton)){
-		resetMenu();
-		settingsVar = 1;
-		settings_customizeHorseVar = 1;}*/
-		
-		
+	
+	GUI.Label (Rect (ratioSW*125,ratioSH*225,ratioSW*340,ratioSH*300), settingHorseCurrent, GUI.skin.customStyles[0]);
+		if (settingHorseVar > 0){
+			if(GUI.Button (Rect (ratioSW*150,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowLeft)){
+			audio.PlayOneShot(moveMenuButtonSound,0.4);
+			settingHorseVar--;}
+		} else {
+			if(GUI.Button (Rect (ratioSW*150,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowLeftDisable)){}
+		}
+		GUI.Label (Rect (ratioSW*200,ratioSH*540,ratioSW*180,25), settingHorseName, textYellow);
+		if (settingHorseVar < 2){
+			if(GUI.Button (Rect (ratioSW*400,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowRight)){
+			audio.PlayOneShot(moveMenuButtonSound,0.4);
+			settingHorseVar++;}
+		} else {
+			if(GUI.Button (Rect (ratioSW*400,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowRightDisable)){}
+		}
+	
+	GUI.Label (Rect (ratioSW*550,ratioSH*225,ratioSW*340,ratioSH*300), settingCartCurrent, GUI.skin.customStyles[0]);
+		if (settingCartVar > 0){
+			if(GUI.Button (Rect (ratioSW*575,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowLeft)){
+			audio.PlayOneShot(moveMenuButtonSound,0.4);
+			settingCartVar--;}
+		} else {
+			if(GUI.Button (Rect (ratioSW*575,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowLeftDisable)){}
+		}
+		GUI.Label (Rect (ratioSW*625,ratioSH*540,ratioSW*180,25), settingCartName, textYellow);
+		if (settingCartVar < 2){
+			if(GUI.Button (Rect (ratioSW*825,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowRight)){
+			audio.PlayOneShot(moveMenuButtonSound,0.4);
+			settingCartVar++;}
+		} else {
+			if(GUI.Button (Rect (ratioSW*825,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowRightDisable)){}
+		}
 		
 	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",backToMenuButton)){
 		audio.PlayOneShot(backToMenuButtonSound);
 		resetMenu();
-		settingsVar = 1;}
+		settingsVar = 1;
+		settingHorseVar = settingHorseVarTMP;
+		settingCartVar = settingCartVarTMP;
+		}
 		
 	if(GUI.Button (Rect (ratioSW*(1024-175),ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",saveSettingsButton)){
 		audio.PlayOneShot(startAndNextButtonSound);
-		// save function
+		settingHorseVarTMP = settingHorseVar;
+		settingCartVarTMP = settingCartVar;
 		}
 		
 	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Customize your horse", "box");
 }
 
+function settingHorseFunction(){
+if ( settingHorseVar == 0 ) {
+	settingHorseName = "AAA";
+	settingHorseCurrent = horseModel1;
+	}
+if ( settingHorseVar == 1 ) {
+	settingHorseName = "BBB";
+	settingHorseCurrent = horseModel2;
+	}
+if ( settingHorseVar == 2 ) {
+	settingHorseName = "CCC";
+	settingHorseCurrent = horseModel3;
+	}
+}
+
+function settingCartFunction(){
+if ( settingCartVar == 0 ) {
+	settingCartName = "aaa";
+	settingCartCurrent = cartModel1;
+	}
+if ( settingCartVar == 1 ) {
+	settingCartName = "bbb";
+	settingCartCurrent = cartModel2;
+	}
+if ( settingCartVar == 2 ) {
+	settingCartName = "ccc";
+	settingCartCurrent = cartModel3;
+	}
+}
+
 function settings_highScores (){
+	
 	// Title picture
 	GUI.Label (Rect (ratioSW*50,ratioSH*30,(1024-150),50), "Settings", titleWhite);
 	GUI.Label (Rect (ratioSW*25,ratioSH*140,ratioSW*(1024-50),ratioSH*5), "", underWhite);
 	// Label box
-
+	
+		var name : String;
+		var score : String;
+		var length = 10;
+		var H : int = 150;
 		
+		if ( highScoreDB.nameArray.length < 10 ) {
+			length = highScoreDB.nameArray.length;
+		}
+		
+		for (var i : int = 0 ; i < length ; i++){
+			name = "" + highScoreDB.nameArray[i];
+			score = "" + highScoreDB.scoreArray[i];
+			GUI.Label (Rect (ratioSW*250,ratioSH*H,ratioSW*200,ratioSH*50),name ,textWhite);
+			GUI.Label (Rect (ratioSW*550,ratioSH*H,ratioSW*200,ratioSH*50),score ,textWhite);
+			H = H + 50;
+			
+		}
+	
 	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",backToMenuButton)){
 		audio.PlayOneShot(backToMenuButtonSound);
 		resetMenu();
-		settingsVar = 1;}
+		settingsVar = 1;
+		flagHighScore = 1;}
 		
 	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "View high scores", "box");
 }
