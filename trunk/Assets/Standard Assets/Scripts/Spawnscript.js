@@ -56,16 +56,6 @@ function Spawnplayer(newPlayer : NetworkPlayer){
 	
 	 //Call an RPC on this new networkview, set the player who controls this player
 	 newObjectsNetworkview.RPC("SetPlayer", RPCMode.AllBuffered, newPlayer);//Set it on the owner
-	 
-	 var follow : SmoothFollow = GetComponentInChildren(SmoothFollow);
-	if(follow == null)
-	{
-		print("null error");
-	}
-	else
-	{
-		follow.target = myNewTrans;
-	}
 }
 
 
