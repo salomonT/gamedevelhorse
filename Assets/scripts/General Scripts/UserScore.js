@@ -38,7 +38,6 @@ function Update ()
 	
 	if(racePoint == true)
 	 {
-	  print("Time : ");
 	 }
   
 }
