@@ -14,11 +14,15 @@ public var playerScripts : ArrayList = new ArrayList();
 
 function Awake()
 {
-	if(Network.time == 0.0)
+	if(KeepNetworkInfo.isNetwork == false)
 	{
 		enabled = false;
 	}
-	DontDestroyOnLoad(this);
+	else
+	{
+	
+		DontDestroyOnLoad(this);
+	}
 }
 
 function Start()

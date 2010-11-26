@@ -31,7 +31,7 @@ function Awake(){
 	// We are probably not the owner of this object: disable this script.
 	// RPC's and OnSerializeNetworkView will STILL get trough!
 	// The server ALWAYS run this script though
-	if(Network.connections.Length == 0)
+	if(KeepNetworkInfo.isNetwork == false)
 	{
 		print("Single player mode !");
 		enabled = false;
@@ -40,6 +40,14 @@ function Awake(){
 	{
 		enabled=false;	 // disable this script (this disables Update());	
 	}	
+	else//Disable the singleplayer horse.
+	{
+		var horseSinglePlayer : GameObject = GameObject.Find("HorseAnim");
+		if(horseSinglePlayer != null)
+		{
+			horseSinglePlayer.SetActiveRecursively(false);
+		}
+	}
 }
 
 
