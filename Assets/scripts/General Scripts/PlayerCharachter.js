@@ -15,7 +15,7 @@ private var countTime:boolean;
 private var verticalSpeed = 0.0;
 
 function Awake(){
-	if(Network.connections.Length != 0)
+	if(KeepNetworkInfo.isNetwork == true)
 	{
 		print("Multiplayer mode !");
 		enabled = false;
@@ -87,15 +87,7 @@ function MoveCharachter()
 	  {
         speed = 0;
       }
-	//ApplyGravity();
-	if(controller.isGrounded)
-	{
-		verticalSpeed = 0.0;
-	}
-	else
-	{
-		verticalSpeed = -0.2f;
-	}
+	ApplyGravity();
 	
 	if(Input.GetAxis("Vertical") != 0f)
 	{

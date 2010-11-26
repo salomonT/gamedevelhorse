@@ -291,6 +291,7 @@ function launchGame(){
 
 function launchingGameGUI(){
 	//Show loading progress, ADD LOADINGSCREEN?
+	KeepNetworkInfo.isNetwork = true;
 	GUI.Box(Rect(Screen.width/4+180,Screen.height/2-30,280,50), "");
 	if(Application.CanStreamedLevelBeLoaded ((Application.loadedLevel+1))){
 		GUI.Label(Rect(Screen.width/4+200,Screen.height/2-25,285,150), "Loaded, starting the game!");
