@@ -1,0 +1,6 @@
+F:\Abhishrut\Animation\3Ds max 8\t$m$p$$$\Lamborghini Murcielago.max
+F:\Abhishrut\Animation\3Ds max 8\t$m$p$$$\MAXFILES.TXT
+F:\Abhishrut\Animation\Texures\lamb\back light bump.bmp
+C:\Program Files\Autodesk\3dsMax8\Maps\Reflection\factory_reflection_bw1.jpg
+F:\Abhishrut\Animation\Texures\lamb\lamb label.bmp
+F:\Abhishrut\Animation\Texures\lamb\rim.bmp
