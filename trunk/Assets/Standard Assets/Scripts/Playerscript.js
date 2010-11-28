@@ -25,6 +25,7 @@ private var speed : float = 0;
 var walkSpeed : float;
 var runSpeed : float;
 var gravity : float;
+var rotationSpeed : float;
 
 
 function Awake(){
@@ -36,18 +37,20 @@ function Awake(){
 		print("Single player mode !");
 		enabled = false;
 	}
-	else if(Network.isClient)
+	else 
 	{
-		enabled=false;	 // disable this script (this disables Update());	
-	}	
-	else//Disable the singleplayer horse.
-	{
+		//Disable the singleplayer horse.
 		var horseSinglePlayer : GameObject = GameObject.Find("HorseAnim");
 		if(horseSinglePlayer != null)
 		{
 			horseSinglePlayer.SetActiveRecursively(false);
 		}
+		
 	}
+	if(Network.isClient)
+	{
+		enabled=false;	 // disable this script (this disables Update());	
+	}	
 }
 
 
@@ -57,6 +60,8 @@ function SetPlayer(player : NetworkPlayer){
 	if(player==Network.player){
 		//Hey thats us! We can control this player: enable this script (this enables Update());
 		enabled=true;
+		print("Hey ! That us !");
+		print(KeepNetworkInfo.playerName);
 		var cam : GameObject = GameObject.Find("MainCamera"); 
 		if(cam == null)
 		{
@@ -71,13 +76,13 @@ function SetPlayer(player : NetworkPlayer){
 			}
 			else
 			{
-				follow.target = transform;
+				follow.target = gameObject.transform;
 			} 
-		}	
+		}
 	}
 }
 
-function Update(){
+function Update(){ 
 	//Client code
 	if(owner!=null && Network.player==owner){
 		//Only the client that owns this object executes this code
@@ -100,55 +105,55 @@ function Update(){
 		}
 	}
 	
-	if ((Mathf.Abs(Input.GetAxis("Vertical")) > 0.2) || (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.2)) 
+	//Server movement code
+	if(Network.isServer || Network.player==owner){//Also enable this on the client itself: "|| Network.player==owner){|"
+	
+	if ((Mathf.Abs(serverCurrentVInput) > 0.2) || (Mathf.Abs(serverCurrentHInput) > 0.2)) 
 	  {
         if(Input.GetButton("Run")) 
 		  {
 		    if(speedUp == true)
 			 {
-			   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (runSpeed * 2);
+			   speed = Mathf.Abs(serverCurrentVInput) * (runSpeed * 2);
 			 }
 		   else if(slowDown == true)
 		     {
-			   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (runSpeed / 2);			 
+			   speed = Mathf.Abs(serverCurrentVInput) * (runSpeed / 2);			 
 			 }
 		   else
 			 {
-               speed = Mathf.Abs(Input.GetAxis("Vertical")) * runSpeed;
+               speed = Mathf.Abs(serverCurrentVInput) * runSpeed;
 			 }
           } 
 		else if(speedUp == true)
 		  {
-		   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed * 2);   
+		   speed = Mathf.Abs(serverCurrentVInput) * (walkSpeed * 2);   
 		  }
 		else if(slowDown == true)
 		  {
-		   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed / 2);			 
+		   speed = Mathf.Abs(serverCurrentVInput) * (walkSpeed / 2);			 
 		  } 
 	    else
 		 {
-           speed = Mathf.Abs(Input.GetAxis("Vertical")) * walkSpeed;
+           speed = Mathf.Abs(serverCurrentVInput) * walkSpeed;
 		 }
 	   } 
 	 else 
 	  {
         speed = 0;
       }
-	
-	//Server movement code
-	if(Network.isServer || Network.player==owner){//Also enable this on the client itself: "|| Network.player==owner){|"
 		//Actually move the player using his/her input
-		speed = 20;
-		if(Input.GetAxis("Vertical") != 0f)
+		if(serverCurrentVInput != 0f)
 		{
 			var anim : Animation = GetComponent(Animation);
 			anim.Play();
 		}
-		transform.eulerAngles.y += Input.GetAxis("Horizontal") * 2;
+		var rotation : float = serverCurrentHInput * rotationSpeed;
+		rotation *= Time.deltaTime;
+		transform.Rotate(0, rotation, 0);
 		var moveDirection : Vector3 = new Vector3(serverCurrentHInput, 0, serverCurrentVInput);
 		transform.Translate(speed * moveDirection * Time.deltaTime);
 	}
-	
 }
 
 
@@ -159,5 +164,30 @@ function SendMovementInput(HInput : float, VInput : float){
 	//Called on the server
 	serverCurrentHInput = HInput;
 	serverCurrentVInput = VInput;
+}
+
+function OnSerializeNetworkView(stream : BitStream, info : NetworkMessageInfo)
+{
+	if (stream.isWriting){
+		//This is executed on the owner of the networkview
+		//The owner sends it's position over the network
+		
+		var pos : Vector3 = transform.position;		
+		stream.Serialize(pos);//"Encode" it, and send it
+				
+	}else{
+		//Executed on all non-owners
+		//This client receive a position and set the object to it
+		
+		var posReceive : Vector3 = Vector3.zero;
+		stream.Serialize(posReceive); //"Decode" it and receive it
+		
+		//We've just recieved the current servers position of this object in 'posReceive'.
+		
+		//transform.position = posReceive;		
+		//To reduce laggy movement a bit you could comment the line above and use position lerping below instead:	
+		transform.position = Vector3.Lerp(transform.position, posReceive, 0.9); //"lerp" to the posReceive by 90%
+		
+	}
 }
 

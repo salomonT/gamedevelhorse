@@ -20,7 +20,6 @@ function Awake()
 	}
 	else
 	{
-	
 		DontDestroyOnLoad(this);
 	}
 }
@@ -37,16 +36,6 @@ function Start()
 		networkView.RPC("Spawnplayer", RPCMode.Server, KeepNetworkInfo.playerKept);
 	}
 }
-
-function OnServerInitialized(){
-	//Spawn a player for the server itself
-	Spawnplayer(Network.player);
-}
- 
-function OnPlayerConnected(newPlayer: NetworkPlayer) {
-	//A player connected to me(the server)!
-	Spawnplayer(newPlayer);
-}	
 
 @RPC
 function Spawnplayer(newPlayer : NetworkPlayer){
@@ -69,7 +58,7 @@ function Spawnplayer(newPlayer : NetworkPlayer){
 
 
 function OnPlayerDisconnected(player: NetworkPlayer) {
-	Debug.Log("Clean up after player " + player);
+	print("Clean up after player " + player);
 
 	for(var script : Playerscript in playerScripts){
 		if(player==script.owner){//We found the players object
@@ -92,6 +81,6 @@ function OnPlayerDisconnected(player: NetworkPlayer) {
 }
 
 function OnDisconnectedFromServer(info : NetworkDisconnection) {
-	Debug.Log("Resetting the scene the easy way.");
+	print("Resetting the scene the easy way.");
 	Application.LoadLevel(Application.loadedLevel);	
 }

@@ -194,7 +194,9 @@ function OnConnectedToServer(){
 	playerList  = new Array();
 	playerName = PlayerPrefs.GetString("playerName");
 	networkView.RPC("addPlayer",RPCMode.AllBuffered, Network.player, playerName);	
-	KeepNetworkInfo.playerKept = Network.player;
+	KeepNetworkInfo.playerKept = Network.player; 
+	KeepNetworkInfo.playerName = playerName;
+	print("OnConnectedToServer!!!!!!!!!!!!!!!!!!!!!!!! ");
 }
 
 
@@ -209,9 +211,9 @@ function OnServerInitialized(){
 		pProtected=true;
 	}
 	var maxPlayers : int = Network.maxConnections+1;
-	
+	KeepNetworkInfo.playerKept = Network.player; 
+	KeepNetworkInfo.playerName = playerName;
 	networkView.RPC("setServerSettings",RPCMode.AllBuffered, pProtected, maxPlayers, hostSetting_title);
-	KeepNetworkInfo.playerKept = Network.player;
 }
 
 
