@@ -27,11 +27,22 @@ var currentWaypoint:Number;
 var lapTimes = new Array();
 var raceCompleted:boolean;
 
+/**Unique to Tutorial.*/
+var tutorialComplete:boolean;
+var counter:Number;
+var tutorialCounter:Number;
+var startPosition:Vector3;
+var startRotation:Quaternion;
+var boosterReset:GameObject;
+var reducerReset:GameObject;
+
 
 function Start()
 {
   isRacing = false;
   controller = GetComponent(CharacterController);
+  startPosition = transform.position;
+  startRotation = transform.rotation;
   countTime = false;
   countTime = false;
   speedUp = false;
@@ -47,29 +58,48 @@ function Start()
   currentWaypoint = 0;
   totalLaps = 2;
   raceCompleted = false;
+  tutorialComplete = false;
+  counter = 0;
+  tutorialCounter = 60;
 }
 
 
 function Update () 
 {
-  if(isRacing && !raceCompleted)
-    {
-	 MoveCharachter();
-	 CheckEnhancements();
-	 LapTime();
-	 OverallTime();
-//	 print("Lap Time : " + printLap + "   Overall Time : " + printOverall + "  Score : " + overallScore);
-	}
-  else
-	{
-	  RaceCountDown();
-	}
-	
-	
-	if(raceCompleted)
-	  {
-	    print("Race Over");
+ 
+ if(tutorialComplete)
+   {
+	if(isRacing && !raceCompleted)
+      {  
+	   MoveCharachter();
+	   CheckEnhancements();
+	   LapTime();
+	   OverallTime();
+	   print("Lap Time : " + printLap + "   Overall Time : " + printOverall + "  Score : " + overallScore);
 	  }
+    else
+	 {
+	   RaceCountDown();
+	 }
+  }
+else
+  {
+    MoveCharachter();
+	CheckEnhancements();
+	TutorialCountDown();
+	print("Time Remaining : " + tutorialCounter);
+	
+	if(tutorialCounter == 0)
+	  {
+	    ResetGame();
+	  }
+  }
+	
+
+if(raceCompleted)
+  {
+    print("Race Over");
+  }
 }
 
 
@@ -134,7 +164,9 @@ function OnTriggerEnter(object:Collider)
 		{
 		 countTime = true;
 		 speedUp = true;
-		 overallScore = (overallScore + 1000);
+         boosterReset = object.gameObject;
+         object.gameObject.SetActiveRecursively(false);
+//		 overallScore = (overallScore + 1000);
 		}
 		
 	  /**Determine if User Hit a Speed Reducer.*/
@@ -142,7 +174,9 @@ function OnTriggerEnter(object:Collider)
 		{
 		 countTime = true;
 		 slowDown = true;
-		 overallScore = (overallScore - 500);
+         reducerReset = object.gameObject;
+	     object.gameObject.SetActiveRecursively(false);
+//		 overallScore = (overallScore - 500);
 		}
 	}
 	
@@ -150,13 +184,23 @@ function OnTriggerEnter(object:Collider)
   if(object.name == ("Mandatory"))
     {
 	  hasMandatory = true;
-	  overallScore = (overallScore + 5000);
+	  object.gameObject.SetActiveRecursively(false);
+	//  overallScore = (overallScore + 5000);
     }	
 	
 
   /**
     *	Check for Collisions With Waypoints.
     */
+	
+	/**Check For Collision With StartLine,*/
+  if(object.name == ("StartLine"))
+    {
+	 if(!tutorialComplete)
+	   {
+	     tutorialComplete = true;
+	   }
+	}
   
   /**Check for Collision With FinishLine.*/  
   if(object.name == ("FinishLine") && currentWaypoint == 6)
@@ -357,6 +401,17 @@ function RaceCountDown()
 	}
  }
 
+/**Count Down For the Tutorial*/
+function TutorialCountDown()
+{
+ counter++;
+ 
+ if(counter == 15)
+   {
+    counter = 0;
+	tutorialCounter --;
+   }
+}
 
 
 /**Timer Count Down*/
@@ -383,3 +438,13 @@ function TimeCounterUp():Number
 	 actualTime++;
 	}
 }
+
+
+function ResetGame()
+{
+  tutorialCounter = 60;
+  transform.position = startPosition;
+  transform.rotation = startRotation;
+  boosterReset.gameObject.SetActiveRecursively(true);
+  reducerReset.gameObject.SetActiveRecursively(true);
+ }
