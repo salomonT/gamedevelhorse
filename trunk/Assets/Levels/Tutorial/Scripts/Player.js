@@ -1,85 +1,272 @@
 var walkSpeed : float;
 var runSpeed : float;
-var speed : float = 0;
-var controller : CharacterController;
-var moveDirection : Vector3 = Vector3.zero;
-var speedUp:boolean;
-var slowDown:boolean;
-var countTime:boolean;
-var timeCounter = 0;
-var actualTime = 0;
-var overallScore:Number;
-var lapTimeSecondsTotal:Number;
-var overallTimeSecondsTotal:Number;
-var lapTimeSeconds:Number;
-var lapTimeMinutes:Number;
-var overallTimeSeconds:Number;
-var overallTimeMinutes:Number;
-var lapCounter:Number;
-var totalLaps:Number;
-var timeCounterLap:Number;
-var timeCounterOverall:Number;
-var hasMandatory:boolean;
-var isRacing:boolean;
-var printLap:String = "";
-var printOverall:String = "";
-var currentWaypoint:Number;
-var lapTimes = new Array();
-var raceCompleted:boolean;
+private var speed : float = 0;
+private var controller : CharacterController;
+private var moveDirection : Vector3 = Vector3.zero;
+private var speedUp:boolean;
+private var slowDown:boolean;
+private var countTime:boolean;
+private var timeCounter = 0;
+private var actualTime = 0;
+private var overallScore:Number;
+private var lapTimeSecondsTotal:Number;
+private var overallTimeSecondsTotal:Number;
+private var lapTimeSeconds:Number;
+private var lapTimeMinutes:Number;
+private var overallTimeSeconds:Number;
+private var overallTimeMinutes:Number;
+private var lapCounter:Number;
+private var totalLaps:Number;
+private var timeCounterLap:Number;
+private var timeCounterOverall:Number;
+private var hasMandatory:boolean;
+private var isRacing:boolean;
+private var printLap:String = "";
+private var printOverall:String = "";
+private var currentWaypoint:Number;
+private var lapTimes = new Array();
+private var raceCompleted:boolean;
+
+public var owner : NetworkPlayer;
+
+//Last input value, we're saving this to save network messages/bandwidth.
+private var lastClientHInput : float=0;
+private var lastClientVInput : float=0;
+
+//The input values the server will execute on this object
+private var serverCurrentHInput : float = 0;
+private var serverCurrentVInput : float = 0;
+private var serverCurrentRIpunt : boolean = false;
+private var serverCurrentGround : boolean = false;
+
+var gravity : float;
+var rotationSpeed : float;
+
+private var alreadyCam : boolean;
+private var verticalSpeed : float;
+private var control : CharacterController;
 
 
 function Start()
 {
-  isRacing = false;
   controller = GetComponent(CharacterController);
-  countTime = false;
-  countTime = false;
-  speedUp = false;
-  slowDown = false;
-  lapTimeSecondsTotal = 0;
-  overallTimeSecondsTotal = 0;
-  timeCounterLap = 0;
-  timeCounterOverall = 0;
-  lapTimeSeconds = 0;
-  lapTimeMinutes = 0;
-  overallTimeSeconds = 0;
-  overallTimeMinutes = 0;
-  currentWaypoint = 0;
-  totalLaps = 2;
-  raceCompleted = false;
+  if(KeepNetworkInfo.isNetwork == true)	//SinglePlayer mode.
+  {
+  	//Disable the singleplayer horse.
+	var horseSinglePlayer : GameObject = GameObject.Find("HorseAnim");
+	if(horseSinglePlayer != null)
+	{
+		horseSinglePlayer.SetActiveRecursively(false);
+	}
+	if(Network.isClient)
+	{
+		enabled=false;	 // disable this script (this disables Update());	
+	}
+  }
+  else 
+  {
+	  isRacing = false;
+	  controller = GetComponent(CharacterController);
+	  countTime = false;
+	  countTime = false;
+	  speedUp = false;
+	  slowDown = false;
+	  lapTimeSecondsTotal = 0;
+	  overallTimeSecondsTotal = 0;
+	  timeCounterLap = 0;
+	  timeCounterOverall = 0;
+	  lapTimeSeconds = 0;
+	  lapTimeMinutes = 0;
+	  overallTimeSeconds = 0;
+	  overallTimeMinutes = 0;
+	  currentWaypoint = 0;
+	  totalLaps = 2;
+	  raceCompleted = false;
+  }
 }
 
+@RPC
+function SetPlayer(player : NetworkPlayer)
+{
+	owner = player;
+	if(player==Network.player){
+		//Hey thats us! We can control this player: enable this script (this enables Update());
+		enabled=true;
+		print("Hey ! That us !");
+		print(KeepNetworkInfo.playerName);
+		
+		if(alreadyCam == false)
+		{
+			var cam : GameObject = GameObject.Find("MainCamera"); 
+			if(cam == null)
+			{
+				print("null cam");
+			}
+			else
+			{
+				var follow : SmoothFollow = cam.GetComponent(SmoothFollow);
+				if(follow == null)
+				{
+					print("null error");
+				}
+				else
+				{
+					follow.target = gameObject.transform;	
+				} 
+			}
+			alreadyCam = true;
+		}
+	}
+}
+
+function ApplyGravity()
+{
+	if(controller.isGrounded)
+	{
+		verticalSpeed = 0.0;
+		print("isGrounded !");
+	}
+	else
+	{
+		print("isNotGrounded !");
+		verticalSpeed -= gravity;
+	}
+}
+
+function UpdateMultiplayer(){ 
+	//Client code
+	if(owner!=null && Network.player==owner){
+		//Only the client that owns this object executes this code
+		var HInput : float = Input.GetAxis("Horizontal");
+		var VInput : float = Input.GetAxis("Vertical");
+		var RInput : boolean = Input.GetButton("Run");
+		
+		//Is our input different? Do we need to update the server?
+		if(lastClientHInput!=HInput || lastClientVInput!=VInput )
+		{
+			lastClientHInput = HInput;
+			lastClientVInput = VInput;
+		}
+		
+		print("IsGrounded? " + controller.isGrounded);
+		if(Network.isServer)
+		{
+				//Too bad a server can't send an rpc to itself using "RPCMode.Server"!...bugged :[
+				SendMovementInput(lastClientHInput, lastClientVInput, RInput, controller.isGrounded);
+		}
+		else if(Network.isClient)
+		{
+				SendMovementInput(lastClientHInput, lastClientVInput, RInput, controller.isGrounded); //Use this (and line 64) for simple "prediction"
+				networkView.RPC("SendMovementInput", RPCMode.Server, lastClientHInput, lastClientVInput, RInput, controller.isGrounded);
+		}
+		
+	}
+	
+	
+	//Server movement code
+	if(Network.isServer || Network.player==owner)
+	{
+		if ((Mathf.Abs(serverCurrentVInput) > 0.2) || (Mathf.Abs(serverCurrentHInput) > 0.2)) 
+		{
+			if(serverCurrentRIpunt == true) 
+			{
+				if(speedUp == true)
+				{
+					speed = Mathf.Abs(serverCurrentVInput) * (runSpeed * 2);
+				}
+				else if(slowDown == true)
+				{
+					speed = Mathf.Abs(serverCurrentVInput) * (runSpeed / 2);			 
+				}
+				else
+				{
+					speed = Mathf.Abs(serverCurrentVInput) * runSpeed;
+				}
+			} 
+			else if(speedUp == true)
+			{
+				speed = Mathf.Abs(serverCurrentVInput) * (walkSpeed * 2);   
+			}
+			else if(slowDown == true)
+			{
+				speed = Mathf.Abs(serverCurrentVInput) * (walkSpeed / 2);			 
+			} 
+			else
+			{
+				speed = Mathf.Abs(serverCurrentVInput) * walkSpeed;
+			}
+		} 
+		else 
+		{
+			speed = 0;
+		}
+		
+		//Actually move the player using his/her input
+		if(serverCurrentVInput != 0f)
+		{
+			var anim : Animation = GetComponent(Animation);
+			anim.Play();
+		}
+		//ApplyGravity();
+		var rotation : float = serverCurrentHInput * rotationSpeed;
+		rotation *= Time.deltaTime;
+		transform.Rotate(0, rotation, 0);
+		if(serverCurrentGround == false)
+		{
+			verticalSpeed = -0.8;
+		}
+		else
+		{
+			verticalSpeed = 0.0;
+		}
+		var moveDirection : Vector3 = new Vector3(serverCurrentHInput, 0, serverCurrentVInput);
+		transform.Translate(speed * moveDirection * Time.deltaTime);
+		moveDirection = new Vector3(0,verticalSpeed,0);
+		transform.Translate(moveDirection * Time.deltaTime);
+	}
+}
+
+@RPC
+function SendMovementInput(HInput : float, VInput : float, RInput : boolean, control : boolean){	
+	//Called on the server
+	serverCurrentHInput = HInput;
+	serverCurrentVInput = VInput;
+	serverCurrentRInput = RInput;
+	serverCurrentGround = control;
+}
 
 function Update () 
 {
-  if(isRacing && !raceCompleted)
-    {
-	 MoveCharachter();
-	 CheckEnhancements();
-	 LapTime();
-	 OverallTime();
-//	 print("Lap Time : " + printLap + "   Overall Time : " + printOverall + "  Score : " + overallScore);
-	}
+  if(KeepNetworkInfo.isNetwork == true)
+  {
+  	UpdateMultiplayer();
+  }
   else
-	{
-	  RaceCountDown();
-	}
-	
-	
-	if(raceCompleted)
+  {
+	  if(isRacing && !raceCompleted)
 	  {
-	    print("Race Over");
+			MoveCharachter();
+			CheckEnhancements();
+			LapTime();
+			OverallTime();
+			//	 print("Lap Time : " + printLap + "   Overall Time : " + printOverall + "  Score : " + overallScore);
+      }
+	  else
+	  {
+		  RaceCountDown();
 	  }
+	  if(raceCompleted)
+	  {
+		    print("Race Over");
+	  }
+  }
 }
 
 
 
 /**Move the Playable Charachter*/
 function MoveCharachter()
-{
-  runSpeed = 20;
-  walkSpeed = 10;
-  
+{ 
     if ((Mathf.Abs(Input.GetAxis("Vertical")) > 0.2) || (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.2)) 
 	  {
         if(Input.GetButton("Run")) 
@@ -115,7 +302,18 @@ function MoveCharachter()
         speed = 0;
       }
 
-    transform.eulerAngles.y += Input.GetAxis("Horizontal");
+	if(Input.GetAxis("Vertical") != 0f)
+	{
+		var anim : Animation = GetComponent(Animation);
+		if(anim != null)
+		{
+			anim.Play();
+		}
+	}
+	ApplyGravity();
+    var rotation : float = serverCurrentHInput * rotationSpeed;
+	rotation *= Time.deltaTime;
+	transform.Rotate(0, rotation, 0);
     moveDirection = Vector3(0, 0, Input.GetAxis("Vertical"));
     moveDirection = transform.TransformDirection(moveDirection);
     controller.Move(moveDirection * (Time.deltaTime * speed));
