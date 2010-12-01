@@ -183,7 +183,10 @@ public class AIFollow : MonoBehaviour {
 		if(anim != null)
 			{
 				AnimationState state = anim["Take 001"];
-				state.speed = speed/30.0f;
+				if(state != null)
+				{
+					state.speed = speed/50.0f;
+				}
 				anim.Play();
 			}
 		

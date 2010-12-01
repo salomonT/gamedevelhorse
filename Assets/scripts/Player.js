@@ -52,8 +52,8 @@ private var animState : AnimationState;
 
 
 function Start()
-{
-
+{	
+	GoRace.setRunGame(false);
 	anim = GetComponent(Animation);
 	animState = anim["Take 001"];
 	startTime = Time.time;
@@ -318,7 +318,7 @@ function MoveCharachter()
       
 	if(Input.GetAxis("Vertical") != 0f)
 	{
-		animState.speed = speed / 30.0;
+		animState.speed = speed / 50.0;
 		anim.Play();
 	}
 	ApplyGravity();
@@ -558,6 +558,7 @@ function RaceCountDown()
 		isRacing = true;
 		countDownTime = "GO";
 		print("GO");
+		GoRace.setRunGame(true);
 	}
  }
 
