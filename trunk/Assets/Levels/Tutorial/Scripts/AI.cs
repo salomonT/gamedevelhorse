@@ -10,11 +10,12 @@ Vector3 startPoint;
 	float startSpeed;
 	float halfSpeed;
 	float pickNextPoint;
+	Vector3 adjust = new Vector3(0, -3, 0);
+	bool adjustBool = false; 
 	
 	// Use this for initialization
 	void Start () {
-	//	checkPoints = (GameObject[]) Object.FindWithTag(typeof(GameObject));
-		//get the half speed for the water collision.
+
 		startSpeed = (GetComponent (typeof (AIFollow)) as AIFollow).speed;
 		halfSpeed = startSpeed / 2;
 		
@@ -41,7 +42,15 @@ Vector3 startPoint;
 		absDiffPos.x = 0;
 		absDiffPos.y = 0;
 		absDiffPos.z = 0;
-		print("Length " + checkPoints.Length);
+		
+		/**Ensure AI Horse is on Ground at Start of Race.*/
+		if(adjustBool == false)
+		 {
+		   gameObject.transform.position +=adjust;
+		   adjustBool = true;
+		 }
+		 
+		 print("Next : " + endPoint.x + ", " + endPoint.z + " at check point "  + currentCheckpoint);
 		if(currentCheckpoint+1 == checkPoints.Length)
 		{ 
 			//print(absDiffPos.x + " " + absDiffPos.z + " " + currentCheckpoint);
@@ -65,20 +74,7 @@ Vector3 startPoint;
 			{
 				if((absDiffPos.x < 3.0 && absDiffPos.z < 3.0) && currentCheckpoint == iPos)
 				{ 
-					CrumblingPlayerEvent script = GetComponent<CrumblingPlayerEvent>();
-					
-					if(script != null && script.avoidCheckPoint == true && currentCheckpoint == 2)
-					{
-						currentCheckpoint = iPos+1;
-					}
-					else if(script != null && script.avoidCheckPoint == false && currentCheckpoint == 2)
-					{
-						currentCheckpoint = iPos+2;
-					}
-					else 
-					{
-						currentCheckpoint = iPos+1;	
-					}
+		
 					startPoint.x = gameObject.transform.position.x;
 					startPoint.y = gameObject.transform.position.y;
 					startPoint.z = gameObject.transform.position.z;
@@ -96,11 +92,11 @@ Vector3 startPoint;
 	 
 	public void PathComplete (Vector3[] points) {
 		//The points are all the waypoints you need to follow to get to the target
-		//print(gameObject.name);
+	print(gameObject.name);
 	}	
 	public void PathError()
 	{
-		print("Error " + gameObject.name);
+//		print("Error " + gameObject.name);
 	}
 	public void SlowerCaracter()
 	{
