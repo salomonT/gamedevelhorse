@@ -46,11 +46,19 @@ private var alreadyCam : boolean;
 private var verticalSpeed : float;
 private var control : CharacterController;
 
+private var startTime : float;
+private var anim : Animation;
+private var animState : AnimationState;
+
 
 function Start()
 {
+
+	anim = GetComponent(Animation);
+	animState = anim["Take 001"];
+	startTime = Time.time;
   controller = GetComponent(CharacterController);
-  if(KeepNetworkInfo.isNetwork == true)	//SinglePlayer mode.
+  if(KeepNetworkInfo.isNetwork == true)	//Multiplayer mode.
   {
   	//Disable the singleplayer horse.
 	var horseSinglePlayer : GameObject = GameObject.Find("HorseAnim");
@@ -58,12 +66,17 @@ function Start()
 	{
 		horseSinglePlayer.SetActiveRecursively(false);
 	}
+	var horsePlayers : GameObject = GameObject.Find("players");
+	if(horsePlayers != null)
+	{
+		//horseSinglePlayer.SetActiveRecursively(false);
+	}
 	if(Network.isClient)
 	{
 		enabled=false;	 // disable this script (this disables Update());	
 	}
   }
-  else 
+  else //SinglePlayer mode.
   {
 	  isRacing = false;
 	  controller = GetComponent(CharacterController);
@@ -204,7 +217,6 @@ function UpdateMultiplayer(){
 		//Actually move the player using his/her input
 		if(serverCurrentVInput != 0f)
 		{
-			var anim : Animation = GetComponent(Animation);
 			anim.Play();
 		}
 		//ApplyGravity();
@@ -274,6 +286,7 @@ function MoveCharachter()
 		    if(speedUp == true)
 			 {
 			   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (runSpeed * 2);
+    			
 			 }
 		   else if(slowDown == true)
 		     {
@@ -294,6 +307,7 @@ function MoveCharachter()
 		  } 
 	    else
 		 {
+		 
            speed = Mathf.Abs(Input.GetAxis("Vertical")) * walkSpeed;
 		 }
 	   } 
@@ -301,14 +315,11 @@ function MoveCharachter()
 	  {
         speed = 0;
       }
-
+      
 	if(Input.GetAxis("Vertical") != 0f)
 	{
-		var anim : Animation = GetComponent(Animation);
-		if(anim != null)
-		{
-			anim.Play();
-		}
+		animState.speed = speed / 30.0;
+		anim.Play();
 	}
 	ApplyGravity();
     var rotation : float = Input.GetAxis("Horizontal") * rotationSpeed;
@@ -520,38 +531,33 @@ function CheckEnhancements()
 /**Count Down Timer for Race.*/
 function RaceCountDown()
 {
-  if(actualTime < 3)
+  if(startTime + 3.0 > Time.time)
     {
       TimeCounterUp();
 		
-      if(actualTime == 3)
-	    {
-		  actualTime = 0;
-		  timeCounter = 0;
-		  isRacing = true;
-		 }
-
-		
 		/**Print out Race Count Down.*/
-		if(actualTime == 0)
+		if(startTime + 0.0 > Time.time)
 		  {
 		    countDownTime = "3";
 		  }
-		else if(actualTime == 1)
+		else if(startTime + 1.0 > Time.time)
 		  {
 		   countDownTime = "2";
 		  }
-		else if(actualTime == 2)
+		else if(startTime + 2.0 > Time.time)
 		 {
 		  countDownTime = "1";
 		 }
-		 
-		if(isRacing)
-		 {
-		  countDownTime = "GO";
-		 }
 		
 	  print(countDownTime);
+	}
+	else
+	{
+		actualTime = 0;
+		timeCounter = 0;
+		isRacing = true;
+		countDownTime = "GO";
+		print("GO");
 	}
  }
 

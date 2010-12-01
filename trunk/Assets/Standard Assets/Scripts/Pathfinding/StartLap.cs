@@ -10,10 +10,14 @@ public class StartLap : MonoBehaviour {
 	float startSpeed;
 	float halfSpeed;
 	float pickNextPoint;
+	bool isLaunched;
+	float startTime;
+	GameObject horse;
+	Animation anim;
 	
-	// Use this for initialization
-	void Start () {
-		//get the half speed for the water collision.
+	void launchRace()
+	{
+		startTime = Time.time;//Get the time at the begining.
 		startSpeed = (GetComponent (typeof (AIFollow)) as AIFollow).speed;
 		halfSpeed = startSpeed / 2;
 		
@@ -34,63 +38,78 @@ public class StartLap : MonoBehaviour {
 		(GetComponent (typeof(Seeker)) as Seeker).StartPath ( startPoint, endPoint);
 	}
 	
+	// Use this for initialization
+	void Start () {
+		
+		isLaunched = false;		
+	}
+	
 	// Update is called once per frame
 	void Update () {
 		
-		Vector3 absDiffPos;
-		absDiffPos.x = 0;
-		absDiffPos.y = 0;
-		absDiffPos.z = 0;
-		if(currentCheckpoint+1 == checkPoints.Length)
-		{ 
-			//print(absDiffPos.x + " " + absDiffPos.z + " " + currentCheckpoint);
-			currentCheckpoint = 0;
-			startPoint.x = gameObject.transform.position.x;
-			startPoint.y = gameObject.transform.position.y;
-			startPoint.z = gameObject.transform.position.z;
-			
-			endPoint.x = checkPoints[1].transform.position.x;
-			endPoint.y = checkPoints[1].transform.position.y;
-			endPoint.z = checkPoints[1].transform.position.z;
-			
-			(GetComponent (typeof(Seeker)) as Seeker).StartPath ( startPoint, endPoint);
-			
-		}
-		else
+		if(Time.time > startTime + 3.0)
 		{
-			absDiffPos.x = Mathf.Abs(gameObject.transform.position.x - checkPoints[currentCheckpoint+1].transform.position.x);
-			absDiffPos.z = Mathf.Abs(gameObject.transform.position.z - checkPoints[currentCheckpoint+1].transform.position.z);
-			for(int iPos = 0; iPos < checkPoints.Length; iPos++)
+			if(isLaunched == false)
 			{
-				if((absDiffPos.x < 3.0 && absDiffPos.z < 3.0) && currentCheckpoint == iPos)
-				{ 
-					CrumblingPlayerEvent script = GetComponent<CrumblingPlayerEvent>();
-					
-					if(script != null && script.avoidCheckPoint == true && currentCheckpoint == 2)
-					{
-						currentCheckpoint = iPos+1;
-					}
-					else if(script != null && script.avoidCheckPoint == false && currentCheckpoint == 2)
-					{
-						currentCheckpoint = iPos+2;
-					}
-					else 
-					{
-						currentCheckpoint = iPos+1;	
-					}
-					startPoint.x = gameObject.transform.position.x;
-					startPoint.y = gameObject.transform.position.y;
-					startPoint.z = gameObject.transform.position.z;
-					
-					endPoint.x = checkPoints[currentCheckpoint+1].transform.position.x;
-					endPoint.y = checkPoints[currentCheckpoint+1].transform.position.y;
-					endPoint.z = checkPoints[currentCheckpoint+1].transform.position.z;
-					(GetComponent (typeof(Seeker)) as Seeker).StartPath ( startPoint, endPoint);
-					break;
-				}	
+				launchRace();
+				isLaunched = true;
 			}
-		}		
-		//print(absDiffPos.x + " " + absDiffPos.z + " " + currentCheckpoint + " " + gameObject.name);
+			
+			
+			Vector3 absDiffPos;
+			absDiffPos.x = 0;
+			absDiffPos.y = 0;
+			absDiffPos.z = 0;
+			if(currentCheckpoint+1 == checkPoints.Length)
+			{ 
+				//print(absDiffPos.x + " " + absDiffPos.z + " " + currentCheckpoint);
+				currentCheckpoint = 0;
+				startPoint.x = gameObject.transform.position.x;
+				startPoint.y = gameObject.transform.position.y;
+				startPoint.z = gameObject.transform.position.z;
+				
+				endPoint.x = checkPoints[1].transform.position.x;
+				endPoint.y = checkPoints[1].transform.position.y;
+				endPoint.z = checkPoints[1].transform.position.z;
+				
+				(GetComponent (typeof(Seeker)) as Seeker).StartPath ( startPoint, endPoint);
+				
+			}
+			else
+			{
+				absDiffPos.x = Mathf.Abs(gameObject.transform.position.x - checkPoints[currentCheckpoint+1].transform.position.x);
+				absDiffPos.z = Mathf.Abs(gameObject.transform.position.z - checkPoints[currentCheckpoint+1].transform.position.z);
+				for(int iPos = 0; iPos < checkPoints.Length; iPos++)
+				{
+					if((absDiffPos.x < 3.0 && absDiffPos.z < 3.0) && currentCheckpoint == iPos)
+					{ 
+						CrumblingPlayerEvent script = GetComponent<CrumblingPlayerEvent>();
+						
+						if(script != null && script.avoidCheckPoint == true && currentCheckpoint == 2)
+						{
+							currentCheckpoint = iPos+1;
+						}
+						else if(script != null && script.avoidCheckPoint == false && currentCheckpoint == 2)
+						{
+							currentCheckpoint = iPos+2;
+						}
+						else 
+						{
+							currentCheckpoint = iPos+1;	
+						}
+						startPoint.x = gameObject.transform.position.x;
+						startPoint.y = gameObject.transform.position.y;
+						startPoint.z = gameObject.transform.position.z;
+						
+						endPoint.x = checkPoints[currentCheckpoint+1].transform.position.x;
+						endPoint.y = checkPoints[currentCheckpoint+1].transform.position.y;
+						endPoint.z = checkPoints[currentCheckpoint+1].transform.position.z;
+						(GetComponent (typeof(Seeker)) as Seeker).StartPath ( startPoint, endPoint);
+						break;
+					}	
+				}
+			}		
+		}
 	}
 	 
 	public void PathComplete (Vector3[] points) {
