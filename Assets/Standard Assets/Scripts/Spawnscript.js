@@ -49,7 +49,7 @@ function Spawnplayer(newPlayer : NetworkPlayer){
 	 var newObjectsNetworkview : NetworkView = myNewTrans.networkView;
 
 	 //Keep track of this new player so we can properly destroy it when required.
-	 playerScripts.Add(myNewTrans.GetComponent(Playerscript));
+	 playerScripts.Add(myNewTrans.GetComponent(Player));
 	
 	 //Call an RPC on this new networkview, set the player who controls this player
 	 newObjectsNetworkview.RPC("SetPlayer", RPCMode.AllBuffered, newPlayer);//Set it on the owner
@@ -60,7 +60,7 @@ function Spawnplayer(newPlayer : NetworkPlayer){
 function OnPlayerDisconnected(player: NetworkPlayer) {
 	print("Clean up after player " + player);
 
-	for(var script : Playerscript in playerScripts){
+	for(var script : Player in playerScripts){
 		if(player==script.owner){//We found the players object
 			Network.RemoveRPCs(script.gameObject.networkView.viewID);//remove the bufferd SetPlayer call
 			Network.Destroy(script.gameObject);//Destroying the GO will destroy everything
