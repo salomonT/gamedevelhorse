@@ -179,6 +179,14 @@ public class AIFollow : MonoBehaviour {
 		direction = forward * speed * speedModifier;
 		controller.SimpleMove(direction);
 		
+		Animation anim = GetComponent<Animation>();
+		if(anim != null)
+			{
+				AnimationState state = anim["Take 001"];
+				state.speed = speed/30.0f;
+				anim.Play();
+			}
+		
 		if (animator != null) {
 			animator.SetSpeed (speed * speedModifier);
 		}
