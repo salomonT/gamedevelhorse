@@ -77,7 +77,7 @@ private var levelBeechCurrent : Texture2D = levelBeech;
 private var levelKillarneyTownCurrent : Texture2D = levelKillarneyTown;
 private var levelCountrySideUnlock : int = 1;
 private var levelBeechUnlock : int = 1;
-private var levelKillarneyTownUnlock : int = 0;
+private var levelKillarneyTownUnlock : int = 1;
 private var levelCurrentUnlock : int = 0;
 private var levelCountrySideName : String = "Coutnry Side";
 private var levelBeechName : String = "Beech";
@@ -774,7 +774,7 @@ function launchLevel(){
 			async = Application.LoadLevelAsync ("multiplayer");
 		} else {
 			if ( levelLaunchVar == 3 ){
-				async = Application.LoadLevelAsync ("tutorial");
+				async = Application.LoadLevelAsync ("Demo_Level_v6");
 			} else {
 				if ( levelLaunchVar == 0 ){
 					async = Application.LoadLevelAsync ("Country");
@@ -783,7 +783,7 @@ function launchLevel(){
 						async = Application.LoadLevelAsync ("islandLevel");
 					} else {
 						if ( levelLaunchVar == 2 ) {
-							async = Application.LoadLevelAsync ("");
+							async = Application.LoadLevelAsync ("City_Level_v1");
 						}
 					}
 				}
