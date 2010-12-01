@@ -9,8 +9,6 @@ var countTime:boolean;
 var timeCounter = 0;
 var actualTime = 0;
 var overallScore:Number;
-var lapTimeSecondsTotal:Number;
-var overallTimeSecondsTotal:Number;
 var lapTimeSeconds:Number;
 var lapTimeMinutes:Number;
 var overallTimeSeconds:Number;
@@ -27,30 +25,19 @@ var currentWaypoint:Number;
 var lapTimes = new Array();
 var raceCompleted:boolean;
 
-/**Unique to Tutorial.*/
-var tutorialComplete:boolean;
-var counter:Number;
-var tutorialCounter:Number;
-var startPosition:Vector3;
-var startRotation:Quaternion;
-var boosterReset:GameObject;
-var reducerReset:GameObject;
-var raceRotation:Quaternion;
-var racePosition:Vector3;
-
+var lapTime;
+var overallTime;
 
 function Start()
 {
+  overallTime = Time.time;
+  lapTime = Time.time;
   isRacing = false;
   controller = GetComponent(CharacterController);
-  startPosition = transform.position;
-  startRotation = transform.rotation;
   countTime = false;
   countTime = false;
   speedUp = false;
   slowDown = false;
-  lapTimeSecondsTotal = 0;
-  overallTimeSecondsTotal = 0;
   timeCounterLap = 0;
   timeCounterOverall = 0;
   lapTimeSeconds = 0;
@@ -60,49 +47,30 @@ function Start()
   currentWaypoint = 0;
   totalLaps = 2;
   raceCompleted = false;
-  tutorialComplete = false;
-  counter = 0;
-  tutorialCounter = 60;
+  lapTime = 0;
 }
 
 
 function Update () 
-{  
- if(tutorialComplete)
-   {
-	if(isRacing && !raceCompleted)
-      {  
-	   MoveCharachter();
-	   CheckEnhancements();
-	   LapTime();
-	   OverallTime();
-	   print("Lap Time : " + printLap + "   Overall Time : " + printOverall + "  Score : " + overallScore);
-	  }
-    else
-	 {
-	   RaceCountDown();
-	 }
-  }
-else
-  {
-    MoveCharachter();
-	CheckEnhancements();
-	TutorialCountDown();
-//	print("Time Remaining : " + tutorialCounter);
+{
+  if(isRacing && !raceCompleted)
+    {
+	 MoveCharachter();
+	 CheckEnhancements();
+	 LapTime();
+	 OverallTime();
+//	 print("Lap Time : " + printLap + "   Overall Time : " + printOverall + "  Score : " + overallScore);
+	}
+  else
+	{
+	  RaceCountDown();
+	}
 	
-	if(tutorialCounter == 0)
+	
+	if(raceCompleted)
 	  {
-	    ResetGame();
+	    print("Race Over");
 	  }
-  }
-	
-
-if(raceCompleted)
-  {
-    print("Race Over");
-  }
-  
-  raceRotation = transform.rotation;
 }
 
 
@@ -165,21 +133,17 @@ function OnTriggerEnter(object:Collider)
 	  /**Determine if User Hit a Speed Booster.*/
 	  if(object.name == ("Booster"))
 		{
-         boosterReset = object.gameObject;
-         countTime = true;
-	     speedUp = true;
-         object.gameObject.SetActiveRecursively(false);
-//		 overallScore = (overallScore + 1000);
+		 countTime = true;
+		 speedUp = true;
+		 overallScore = (overallScore + 1000);
 		}
 		
 	  /**Determine if User Hit a Speed Reducer.*/
 	  if(object.name == ("Reducer"))
 		{
-         reducerReset = object.gameObject;		
 		 countTime = true;
 		 slowDown = true;
-	     object.gameObject.SetActiveRecursively(false);
-//		 overallScore = (overallScore - 500);
+		 overallScore = (overallScore - 500);
 		}
 	}
 	
@@ -187,46 +151,23 @@ function OnTriggerEnter(object:Collider)
   if(object.name == ("Mandatory"))
     {
 	  hasMandatory = true;
-	  object.gameObject.SetActiveRecursively(false);
 	  overallScore = (overallScore + 5000);
     }	
 	
-	
-	/**Check for Collision With Lake..*/
-	if(object.name == ("Lake"))
-	  {
-  		currentWaypoint = 0;
-  	    transform.rotation = raceRotation;
-		transform.position = racePosition;
-	  }
 
   /**
     *	Check for Collisions With Waypoints.
     */
-	
-	/**Check For Collision With StartLine,*/
-  if(object.name == ("StartLine"))
-    {
-	 if(!tutorialComplete)
-	   {
-	     tutorialComplete = true;
-	   }
-	   
-	   if(!isRacing)
-	    {
-	     racePosition = transform.position;
-	    }
-	}
   
   /**Check for Collision With FinishLine.*/  
   if(object.name == ("FinishLine") && currentWaypoint == 6)
     {
 	 currentWaypoint = 0;
-	 lapTimes[lapCounter] = lapTimeSecondsTotal;
+//	 lapTimes[lapCounter] = lapTimeSecondsTotal;
 	 lapCounter++;
 	 lapTimeMinutes = 0;
 	 lapTimeSeconds = 0;
-	 lapTimeSecondsTotal = 0;
+	 lapTime = 0;
 	 
 	 /**Determine if Race has Been Completed*/
 	 if(lapCounter == totalLaps)
@@ -273,68 +214,36 @@ function OnTriggerEnter(object:Collider)
 /**Calculate Lap Time.*/
 function LapTime()
 {
-  var timeAdjust:String = "";
-  timeCounterLap++;
- 
-  if(timeCounterLap == 35)
-    {
-     timeCounterLap = 0;
-	 lapTimeSecondsTotal++;
-	 lapTimeSeconds++;
-    }
-	
-	/**Convert Lap Time to Minutes & Seconds.*/
-	if(lapTimeSeconds == 60)
-	  {
-	   lapTimeMinutes++;
-	   lapTimeSeconds = 0;
-	  }
-	  
-	  /**Adjust The Time Printed to the Screen.*/
-	  if(lapTimeSeconds < 10)
-	    {
-		 timeAdjust = ("0" + lapTimeSeconds);
-		}
-	  else
-		{
-		 timeAdjust = ("" + lapTimeSeconds);
-		}
-	  
-  printLap = (lapTimeMinutes + "." + timeAdjust);
+  lapTimeMinutes = (Time.time - lapTime)/60;
+  lapTimeSeconds= (Time.time - lapTime) -(lapTimeMinutes *60);
+  
+  if(lapTimeSeconds < 10)
+   {
+     printOverall = (lapTimeMinutes + ":0" + lapTimeSeconds);
+   }
+ else
+   {
+     printOverall = (lapTimeMinutes + ":" + lapTimeSeconds);
+   }
+  
 }
 
 
 /**Calculate Overall Time.*/
 function OverallTime()
 {
-  var timeAdjust:String = "";
-  timeCounterOverall++;
- 
-  if(timeCounterOverall == 25)
+  overallTimeMinutes = (Time.time - overallTime)/60;
+  overallTimeSeconds= (Time.time - overallTime) -(overallTimeMinutes *60);
+  
+  if(overallTimeSeconds < 10)
     {
-     timeCounterOverall= 0;
-	 overallTimeSecondsTotal++;
-	 overallTimeSeconds++;
+	  printOverall = (overallTimeMinutes + ":0" + overallTimeSeconds);
+	}
+  else
+    {
+	  printOverall = (overallTimeMinutes + ":" + overallTimeSeconds);
     }
-	
-	/**Convert Overall Time to Minutes & Seconds.*/
-	if(overallTimeSeconds == 60)
-	  {
-	    overallTimeMinutes++;
-	    overallTimeSeconds = 0;
-	  }
-	  
-	 /**Adjust The Time Printed to the Screen.*/
-	  if(overallTimeSeconds < 10)
-	    {
-		 timeAdjust = ("0" + overallTimeSeconds);
-		}
-	  else
-		{
-		 timeAdjust = ("" + overallTimeSeconds);
-		}
-	  
-  printOverall = (overallTimeMinutes + "." + timeAdjust);
+  
 }
 
 
@@ -417,17 +326,6 @@ function RaceCountDown()
 	}
  }
 
-/**Count Down For the Tutorial*/
-function TutorialCountDown()
-{
- counter++;
- 
- if(counter == 40)
-   {
-    counter = 0;
-	tutorialCounter --;
-   }
-}
 
 
 /**Timer Count Down*/
@@ -435,7 +333,7 @@ function TimeCounterDown():Number
 {
   timeCounter++;
   
-  if(timeCounter == 60)
+  if(timeCounter == 30)
     {
 	 timeCounter = 0;
 	 actualTime--;
@@ -448,19 +346,9 @@ function TimeCounterUp():Number
 {
   timeCounter++;
   
-  if(timeCounter == 60)
+  if(timeCounter == 30)
     {
 	 timeCounter = 0;
 	 actualTime++;
 	}
 }
-
-
-function ResetGame()
-{
-  tutorialCounter = 60;
-  transform.position = startPosition;
-  transform.rotation = startRotation;
-  boosterReset.gameObject.SetActiveRecursively(true);
-  reducerReset.gameObject.SetActiveRecursively(true);
- }
