@@ -14,6 +14,7 @@ private var currentTimeMin:int = 0;
 private var currentTimeSec:int = 0;
 private var currentScore:int = 0;
 
+
 var textWhite : GUIStyle;
 
 var map : Texture2D;
@@ -53,4 +54,28 @@ function OnGUI () {
 		, textWhite);
 		
 	}
+}
+
+function setPosition( position : int ){
+	currentPosition = position;
+}
+
+function getPosition() : int{
+	return currentPosition;
+}
+
+function setLaps( nbrLaps : int ){
+	currentNbrLaps = nbrLaps;
+}
+
+function getLaps() : int{
+	return currentNbrLaps;
+}
+
+function setScore( score : int ){
+	currentScore = score;
+}
+
+function getScore() : int{
+	return currentScore;
 }

@@ -17,8 +17,13 @@ private var ratioSW:float;
 private var ratioSH:float;
 
 var wallpaper : Texture2D;
-var background : Texture2D;
+var backgroundMenu : Texture2D;
+var backgroundMulti : Texture2D;
+var backgroundSett : Texture2D;
+var backgroundSingle : Texture2D;
+var backgroundTut : Texture2D;
 var logo : Texture2D;
+var logomini : Texture2D;
 
 var singlePlayerButton : GUIStyle;
 var nextButton : GUIStyle;
@@ -147,64 +152,64 @@ function OnGUI () {
 	if (flagStart == 1){
 		skinGUI();
 		flagStart = 0;
-	}
+	}	
 	
 	if(singlePlayerVar == 1){
-		GUI.Label (Rect (0,0,Screen.width,Screen.height), background, GUI.skin.customStyles[0]);
+		GUI.Label (Rect (0,0,Screen.width,Screen.height), backgroundSingle, GUI.skin.customStyles[0]);
 		singlePlayer();
 		flagMainMenu = 0;
 	}
 	
 	if(singlePlayerNextVar == 1){
-		GUI.Label (Rect (0,0,Screen.width,Screen.height), background, GUI.skin.customStyles[0]);
+		GUI.Label (Rect (0,0,Screen.width,Screen.height), backgroundSingle, GUI.skin.customStyles[0]);
 		singlePlayerNext();
 		flagMainMenu = 0;
 	}
 	
 	if(multiPlayerVar == 1){
-		GUI.Label (Rect (0,0,Screen.width,Screen.height), background, GUI.skin.customStyles[0]);
+		GUI.Label (Rect (0,0,Screen.width,Screen.height), backgroundMulti, GUI.skin.customStyles[0]);
 		multiPlayer();
 		flagMainMenu = 0;
 	}
 	
 	if(multiPlayer_localPlayVar == 1){
-		GUI.Label (Rect (0,0,Screen.width,Screen.height), background, GUI.skin.customStyles[0]);
+		GUI.Label (Rect (0,0,Screen.width,Screen.height), backgroundMulti, GUI.skin.customStyles[0]);
 		multiPlayer_localPlay();
 		flagMainMenu = 0;
 	}
 	
 	if(multiPlayer_networkPlayVar == 1){
-		GUI.Label (Rect (0,0,Screen.width,Screen.height), background, GUI.skin.customStyles[0]);
+		GUI.Label (Rect (0,0,Screen.width,Screen.height), backgroundMulti, GUI.skin.customStyles[0]);
 		multiPlayer_networkPlay();
 		flagMainMenu = 0;
 	}
 	
 	if(tutorialVar == 1){
-		GUI.Label (Rect (0,0,Screen.width,Screen.height), background, GUI.skin.customStyles[0]);
+		GUI.Label (Rect (0,0,Screen.width,Screen.height), backgroundTut, GUI.skin.customStyles[0]);
 		tutorial();
 		flagMainMenu = 0;
 	}
 	
 	if(settingsVar == 1){
-		GUI.Label (Rect (0,0,Screen.width,Screen.height), background, GUI.skin.customStyles[0]);
+		GUI.Label (Rect (0,0,Screen.width,Screen.height), backgroundSett, GUI.skin.customStyles[0]);
 		settings();
 		flagMainMenu = 0;
 	}
 	
 	if(settings_gameSettingsVar == 1){
-		GUI.Label (Rect (0,0,Screen.width,Screen.height), background, GUI.skin.customStyles[0]);
+		GUI.Label (Rect (0,0,Screen.width,Screen.height), backgroundSett, GUI.skin.customStyles[0]);
 		settings_gameSettings();
 		flagMainMenu = 0;
 	}
 	
 	if(settings_customizeHorseVar == 1){
-		GUI.Label (Rect (0,0,Screen.width,Screen.height), background, GUI.skin.customStyles[0]);
+		GUI.Label (Rect (0,0,Screen.width,Screen.height), backgroundSett, GUI.skin.customStyles[0]);
 		settings_customizeHorse();
 		flagMainMenu = 0;
 	}
 	
 	if(settings_highScoresVar == 1){
-		GUI.Label (Rect (0,0,Screen.width,Screen.height), background, GUI.skin.customStyles[0]);
+		GUI.Label (Rect (0,0,Screen.width,Screen.height), backgroundSett, GUI.skin.customStyles[0]);
 		settings_highScores();
 		flagMainMenu = 0;
 	}
@@ -214,11 +219,14 @@ function OnGUI () {
 		flagMainMenu = 0;
 	}
 	
+	GUI.Label (Rect (Screen.width- 130,10,120,50), logomini, GUI.skin.customStyles[0]);
 	
 	if(flagMainMenu == 1){
-		GUI.Label (Rect (0,0,Screen.width,Screen.height), wallpaper, GUI.skin.customStyles[0]);
+		GUI.Label (Rect (0,0,Screen.width,Screen.height), backgroundMenu, GUI.skin.customStyles[0]);
 		mainMenu();
 	}
+	
+	
 }
 
 function resetMenu (){
@@ -239,19 +247,19 @@ function mainMenu (){
 	
 	GUI.Label (Rect (0,0,Screen.width,Screen.height/2), logo, GUI.skin.customStyles[0]);
 	
-	if(GUI.Button (Rect (ratioSW*172,ratioSH*450,ratioSW*300,ratioSH*100), "",singlePlayerButton)){
+	if(GUI.Button (Rect (ratioSW*172,ratioSH*400,ratioSW*300,ratioSH*150), "",singlePlayerButton)){
 		audio.PlayOneShot(startAndNextButtonSound);
 		resetMenu();
 		singlePlayerVar = 1;	}
-	if(GUI.Button (Rect (ratioSW*552,ratioSH*450,ratioSW*300,ratioSH*100), "",multiPlayerButton)){
+	if(GUI.Button (Rect (ratioSW*552,ratioSH*400,ratioSW*300,ratioSH*150), "",multiPlayerButton)){
 		audio.PlayOneShot(startAndNextButtonSound);
 		resetMenu();
 		multiPlayerVar = 1;	}
-	if(GUI.Button (Rect (ratioSW*72,ratioSH*600,ratioSW*300,ratioSH*100), "",tutorialButton)){
+	if(GUI.Button (Rect (ratioSW*72,ratioSH*575,ratioSW*300,ratioSH*150), "",tutorialButton)){
 		audio.PlayOneShot(startAndNextButtonSound);
 		resetMenu();
 		tutorialVar = 1;	}
-	if(GUI.Button (Rect (ratioSW*652,ratioSH*600,ratioSW*300,ratioSH*100), "",settingsButton)){
+	if(GUI.Button (Rect (ratioSW*652,ratioSH*575,ratioSW*300,ratioSH*150), "",settingsButton)){
 		audio.PlayOneShot(startAndNextButtonSound);
 		resetMenu();
 		settingsVar = 1;	}
@@ -358,11 +366,11 @@ function singlePlayer (){
 				if(GUI.Button (Rect (ratioSW*920,ratioSH*410,ratioSW*30,ratioSH*30), "",buttonArrowRightDisable)){}
 			}
 		
-	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",backToMenuButton)){
+	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-100),ratioSW*150,ratioSH*100), "",backToMenuButton)){
 		audio.PlayOneShot(backToMenuButtonSound);
 		resetMenu();}
 
-	if(GUI.Button (Rect (ratioSW*(1024-175),ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",nextButton)){
+	if(GUI.Button (Rect (ratioSW*(1024-175),ratioSH*(768-40-100),ratioSW*150,ratioSH*100), "",nextButton)){
 		audio.PlayOneShot(startAndNextButtonSound);
 		resetMenu();
 		singlePlayerNextVar = 1;}
@@ -423,13 +431,13 @@ function singlePlayerNext (){
 		GUI.Label (Rect (0,ratioSH*590,ratioSW*1024,25), "( level locked )", GUI.skin.customStyles[0]);
 	}
 				
-	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",backToMenuButton)){
+	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-100),ratioSW*150,ratioSH*100), "",backToMenuButton)){
 		audio.PlayOneShot(backToMenuButtonSound);
 		resetMenu();
 		singlePlayerVar=1;}
 		
 	if ( levelStartUnlock == 1) {
-		if(GUI.Button (Rect (ratioSW*(1024-175),ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",startButton)){
+		if(GUI.Button (Rect (ratioSW*(1024-175),ratioSH*(768-40-100),ratioSW*150,ratioSH*100), "",startButton)){
 			audio.PlayOneShot(startAndNextButtonSound);
 			// start Game
 			levelLaunchVar = levelCurrentUnlock;
@@ -438,7 +446,7 @@ function singlePlayerNext (){
 			launchLevel();
 			}
 	} else {
-		GUI.Button (Rect (ratioSW*(1024-175),ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",startButtonDisable);
+		GUI.Button (Rect (ratioSW*(1024-175),ratioSH*(768-40-100),ratioSW*150,ratioSH*100), "",startButtonDisable);
 	}
 	
 	
@@ -514,7 +522,7 @@ function multiPlayer (){
 		settings_highScoresVar = 1;*/}
 	
 	
-	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",backToMenuButton)){
+	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-100),ratioSW*150,ratioSH*100), "",backToMenuButton)){
 		audio.PlayOneShot(backToMenuButtonSound);
 		resetMenu();}
 	
@@ -545,13 +553,13 @@ function tutorial (){
 	
 	GUI.Label (Rect (ratioSW*650,ratioSH*250,ratioSW*310,ratioSH*270), levelTutorialPrevious, "box");
 	
-	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",backToMenuButton)){
+	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-100),ratioSW*150,ratioSH*100), "",backToMenuButton)){
 		audio.PlayOneShot(backToMenuButtonSound);
 		resetMenu();}
 		
 		
 		
-	if(GUI.Button (Rect (ratioSW*(1024-175),ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",startButton)){
+	if(GUI.Button (Rect (ratioSW*(1024-175),ratioSH*(768-40-100),ratioSW*150,ratioSH*100), "",startButton)){
 		audio.PlayOneShot(startAndNextButtonSound);
 		// start Tutorial
 			levelLaunchVar = 3;
@@ -569,7 +577,7 @@ function settings (){
 	GUI.Label (Rect (ratioSW*25,ratioSH*140,ratioSW*(1024-50),ratioSH*5), "", underWhite);
 	// Label box
 	
-	
+	GUI.Label (Rect (ratioSW*20,ratioSH*200,ratioSW*500,ratioSH*400),"","box");
 	GUI.Label (Rect (ratioSW*20,ratioSH*200,ratioSW*500,ratioSH*400),
 	"Change game settings such as "+"\n"+"volume and sound FX"+"\n"+
 	"\n"+
@@ -579,23 +587,23 @@ function settings (){
 	, textWhite);
 	
 	
-	if(GUI.Button (Rect (ratioSW*550,ratioSH*200,ratioSW*400,ratioSH*80), "",settingsGameSettingsButton)){
+	if(GUI.Button (Rect (ratioSW*550,ratioSH*200,ratioSW*400,ratioSH*100), "",settingsGameSettingsButton)){
 		audio.PlayOneShot(startAndNextButtonSound);
 		resetMenu();
 		settings_gameSettingsVar = 1;}
 		
-	if(GUI.Button (Rect (ratioSW*550,ratioSH*350,ratioSW*400,ratioSH*80), "",settingsCustomizeHorseButton)){
+	if(GUI.Button (Rect (ratioSW*550,ratioSH*370,ratioSW*400,ratioSH*100), "",settingsCustomizeHorseButton)){
 		audio.PlayOneShot(startAndNextButtonSound);
 		resetMenu();
 		settings_customizeHorseVar = 1;}
 		
-	if(GUI.Button (Rect (ratioSW*550,ratioSH*500,ratioSW*400,ratioSH*80), "",settingsHighScoresButton)){
+	if(GUI.Button (Rect (ratioSW*550,ratioSH*540,ratioSW*400,ratioSH*100), "",settingsHighScoresButton)){
 		audio.PlayOneShot(startAndNextButtonSound);
 		resetMenu();
 		settings_highScoresVar = 1;}
 		
 		
-	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",backToMenuButton)){
+	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-100),ratioSW*150,ratioSH*100), "",backToMenuButton)){
 		audio.PlayOneShot(backToMenuButtonSound);
 		resetMenu();}
 		
@@ -620,12 +628,12 @@ function settings_gameSettings (){
 		
 		
 		
-	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",backToMenuButton)){
+	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-100),ratioSW*150,ratioSH*100), "",backToMenuButton)){
 		audio.PlayOneShot(backToMenuButtonSound);
 		resetMenu();
 		settingsVar = 1;}
 		
-	if(GUI.Button (Rect (ratioSW*(1024-175),ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",saveSettingsButton)){
+	if(GUI.Button (Rect (ratioSW*(1024-175),ratioSH*(768-40-100),ratioSW*150,ratioSH*100), "",saveSettingsButton)){
 		audio.PlayOneShot(startAndNextButtonSound);
 		// save function
 		}
@@ -674,7 +682,7 @@ function settings_customizeHorse (){
 			if(GUI.Button (Rect (ratioSW*825,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowRightDisable)){}
 		}
 		
-	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",backToMenuButton)){
+	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-100),ratioSW*150,ratioSH*100), "",backToMenuButton)){
 		audio.PlayOneShot(backToMenuButtonSound);
 		resetMenu();
 		settingsVar = 1;
@@ -682,7 +690,7 @@ function settings_customizeHorse (){
 		settingCartVar = settingCartVarTMP;
 		}
 		
-	if(GUI.Button (Rect (ratioSW*(1024-175),ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",saveSettingsButton)){
+	if(GUI.Button (Rect (ratioSW*(1024-175),ratioSH*(768-40-100),ratioSW*150,ratioSH*100), "",saveSettingsButton)){
 		audio.PlayOneShot(startAndNextButtonSound);
 		settingHorseVarTMP = settingHorseVar;
 		settingCartVarTMP = settingCartVar;
@@ -730,13 +738,15 @@ function settings_highScores (){
 	
 		var name : String;
 		var score : String;
-		var length = 10;
-		var H : int = 150;
+		var length = 9;
+		var H : int = 200;
 		
-		if ( highScoreDB.nameArray.length < 10 ) {
+		if ( highScoreDB.nameArray.length < 9 ) {
 			length = highScoreDB.nameArray.length;
 		}
 		
+		GUI.Label (Rect (ratioSW*240,ratioSH*190,ratioSW*((550-250)+200+20),ratioSH*((length*50)+20)),"" ,"box");
+		print(length);
 		for (var i : int = 0 ; i < length ; i++){
 			name = "" + highScoreDB.nameArray[i];
 			score = "" + highScoreDB.scoreArray[i];
@@ -746,7 +756,7 @@ function settings_highScores (){
 			
 		}
 	
-	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-80),ratioSW*150,ratioSH*50), "",backToMenuButton)){
+	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-100),ratioSW*150,ratioSH*100), "",backToMenuButton)){
 		audio.PlayOneShot(backToMenuButtonSound);
 		resetMenu();
 		settingsVar = 1;
