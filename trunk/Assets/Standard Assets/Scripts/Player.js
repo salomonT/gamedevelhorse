@@ -311,10 +311,10 @@ function MoveCharachter()
 		}
 	}
 	ApplyGravity();
-    var rotation : float = serverCurrentHInput * rotationSpeed;
+    var rotation : float = Input.GetAxis("Horizontal") * rotationSpeed;
 	rotation *= Time.deltaTime;
-	transform.Rotate(0, rotation, 0);
-    moveDirection = Vector3(0, 0, Input.GetAxis("Vertical"));
+	transform.Rotate(0,rotation,0);
+    moveDirection = Vector3(0, verticalSpeed, Input.GetAxis("Vertical"));
     moveDirection = transform.TransformDirection(moveDirection);
     controller.Move(moveDirection * (Time.deltaTime * speed));
 }

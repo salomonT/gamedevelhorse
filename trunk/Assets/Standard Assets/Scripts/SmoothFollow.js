@@ -18,10 +18,16 @@ var height = 5.0;
 // How much we 
 var heightDamping = 2.0;
 var rotationDamping = 3.0;
+var heightLook = 3.0;
 
 // Place the script in the Camera-Control group in the component menu
 @script AddComponentMenu("Camera-Control/Smooth Follow")
 
+function Start()
+{
+	targetCopyPos = new Vector3();
+	isMoved = false;
+}
 
 function LateUpdate () {
 	// Early out if we don't have a target
@@ -53,5 +59,10 @@ function LateUpdate () {
 	transform.position.y = currentHeight;
 	
 	// Always look at the target
+	
+	
+
+	target.position.y += heightLook;
 	transform.LookAt (target);
+	target.position.y -= heightLook;
 }
