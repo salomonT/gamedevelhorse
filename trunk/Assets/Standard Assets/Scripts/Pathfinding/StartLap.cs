@@ -47,7 +47,7 @@ public class StartLap : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-		if(Time.time > startTime + 3.0)
+		if(GoRace.getRunGame() == true)
 		{
 			if(isLaunched == false)
 			{
