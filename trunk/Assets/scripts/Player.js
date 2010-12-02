@@ -52,13 +52,15 @@ private var animState : AnimationState;
 public var horseSoundFX :AudioClip;
 private var fxLoopPlay : boolean;
 private var onBegin : boolean;
+private var camTop : GameObject;
 
 function Start()
 {	
 
-	var camTop : GameObject = GameObject.Find("HorseAnim/CameraTopView");
+	camTop = GameObject.Find("HorseAnim/CameraTopView");
 	if(camTop != null)
 	{
+	print("False");
 		camTop.active = false;
 	}
 	onBegin = false;
@@ -598,7 +600,6 @@ function RaceCountDown()
 					}
 				}
 			}
-			var camTop : GameObject = GameObject.Find("HorseAnim/CameraTopView");
 			if(camTop != null)
 			{
 				print("Find :");
