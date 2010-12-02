@@ -54,6 +54,7 @@ private var fxLoopPlay : boolean;
 
 function Start()
 {	
+
 	fxLoopPlay = false;
 	audio.loop = true;
 	//audio.priority = 255;
@@ -274,10 +275,15 @@ function Update ()
 	  {
 		  RaceCountDown();
 	  }
+	  
+	  // CHECK THE PLAYER STATS AGAINST THE GAME RACE SETTINGS
+	  checkGameManager();
+	  
 	  if(raceCompleted)
 	  {
 		    print("Race Over");
 	  }
+	  
   }
 }
 
@@ -358,7 +364,7 @@ function OnTriggerEnter(object:Collider)
 	  /**Determine if User Hit a Speed Booster.*/
 	  if(object.name == ("Booster"))
 		{
-			Debug.Log("Boost");
+		 Debug.Log("Boost");
 		 countTime = true;
 		 speedUp = true;
 		 overallScore = (overallScore + 1000);
@@ -405,10 +411,10 @@ function OnTriggerEnter(object:Collider)
 	 }
 	 
 	 /**Determine if Race has Been Completed*/
-	 if(lapCounter == totalLaps)
+	  /*if(lapCounter == totalLaps)
 	   {
 	     raceCompleted = true;
-	   }
+	   }*/
 	}
   
   /**Check For Collisions With Waypoints*/
@@ -442,6 +448,7 @@ function OnTriggerEnter(object:Collider)
 	 currentWaypoint = 6;
 	}	
 	print("currentWaypoint: " + currentWaypoint);
+	
  }
 
 
@@ -616,4 +623,21 @@ function TimeCounterUp():Number
 	 timeCounter = 0;
 	 actualTime++;
 	}
+}
+
+
+// Check the players progress towards finishing the game
+// Created by Noel
+function checkGameManager() {
+	   
+		// Check to see if the player has won the game if game type is race (0) and laps to win is not 0
+		if(GameManager.getGameType() == 0 && GameManager.getLaps() != 0) {
+			if(lapCounter >= GameManager.getLaps()) {
+				Debug.Log("You Won!");
+				raceCompleted = true;	
+			}
+		}
+		
+		// ADD OTHER GAME TYPES HERE, SIMILAR TO ABOVE
+	
 }
