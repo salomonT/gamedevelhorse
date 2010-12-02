@@ -133,20 +133,10 @@ private var settingCartCurrent : Texture2D = cartModel1;
 
 function Start(){
 	// just for test !!
-	highScoreDB.addScore("loc",2000);
+	/*highScoreDB.addScore("loc",2000);
 	highScoreDB.addScore("pierre",500);
 	highScoreDB.addScore("jhon",1000);
-	highScoreDB.addScore("charle",0);
-	highScoreDB.addScore("charle",0);
-	highScoreDB.addScore("charle",10);
-	highScoreDB.addScore("charle",50);
-	highScoreDB.addScore("jack",150);
-	highScoreDB.addScore("charle",250);
-	highScoreDB.addScore("loc",3000);
-	highScoreDB.addScore("pierre",4000);
-	highScoreDB.addScore("jhon",150);
-	highScoreDB.addScore("jack",150);
-	highScoreDB.addScore("charle",250);
+	highScoreDB.addScore("charle",0);;*/
 }
 
 function skinGUI () {
@@ -724,7 +714,7 @@ function settings_highScores (){
 	GUI.Label (Rect (ratioSW*50,ratioSH*30,178,50), "", titleSettings);
 	GUI.Label (Rect (ratioSW*25,ratioSH*140,ratioSW*(1024-50),ratioSH*5), "", underWhite);
 	// Label box
-	
+	if( highScoreDB.nameArray.length != 0){
 		var name : String;
 		var score : String;
 		var length = 9;
@@ -735,16 +725,15 @@ function settings_highScores (){
 		}
 		
 		GUI.Label (Rect (ratioSW*240,ratioSH*190,ratioSW*((550-250)+200+20),ratioSH*((length*50)+20)),"" ,"box");
-		print(length);
 		for (var i : int = 0 ; i < length ; i++){
-			name = "" + highScoreDB.nameArray[i];
-			score = "" + highScoreDB.scoreArray[i];
+			name = "" + highScoreDB.getName(i);
+			score = "" + highScoreDB.getScore(i);
 			GUI.Label (Rect (ratioSW*250,ratioSH*H,ratioSW*200,ratioSH*50),name ,textWhite);
 			GUI.Label (Rect (ratioSW*550,ratioSH*H,ratioSW*200,ratioSH*50),score ,textWhite);
 			H = H + 50;
 			
 		}
-	
+	}
 	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-100),ratioSW*200,ratioSH*100), "",backToMenuButton)){
 		audio.PlayOneShot(backToMenuButtonSound);
 		resetMenu();
