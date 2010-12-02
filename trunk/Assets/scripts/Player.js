@@ -674,25 +674,30 @@ function TimeCounterUp():Number
 
 // Check the players progress towards finishing the game
 // Created by Noel
-function checkGameManager() {
+function checkGameManager() : void {
 	   
 		// Check to see if the player has won the game if game type is race (0) and laps to win is not 0
 		if(GameManager.getGameType() == 0 && GameManager.getLaps() != 0 && raceCompleted == false) {
 			if(lapCounter >= GameManager.getLaps()) {
-								
+
 				// Add yourself to the finished race array
 				// Replace Player 1 with username (stored in pref file at some point?)
-				GameManager.getFinishedArray().Push("Player 1");
+				GameManager.getFinishedArray().Add("Player 1");
 				
 				raceCompleted = true;	
 
 				// If there is only 1 player in the array (you) then you won!
-				if(GameManager.getFinishedArray().length == 1) {
+				if(GameManager.getFinishedArray().Count == 1) {
 					Debug.Log("You Won!");
+					
+					//for(var i=0; i<GameManager.getFinishedArray().Count; i++) {
+						//Debug.Log("Finished Array [" +i +"] = " + GameManager.getFinishedArray()[i]);
+						//Debug.Log("test " +i);
+					//}
 					
 					// Display YOU WON on the screen
 
-				} else if(GameManager.getFinishedArray().length > 1) {
+				} else if(GameManager.getFinishedArray().Count > 1) {
 					Debug.Log("You Lost!");
 					
 					// Display YOU LOST on the screen
