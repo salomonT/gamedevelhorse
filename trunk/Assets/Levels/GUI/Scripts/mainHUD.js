@@ -106,6 +106,13 @@ function getScore() : int{
 
 function Update () {
 	if (Input.GetKeyDown (KeyCode.Escape)){
-		menuFlag = 1;		
+		if (menuFlag == 1){
+			if(exitFlag != 1){
+				menuFlag = 0;
+				Time.timeScale = 1;
+			}
+		} else {
+			menuFlag = 1;	
+		}		
 	}
 }
