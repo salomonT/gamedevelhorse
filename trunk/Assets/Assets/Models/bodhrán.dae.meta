@@ -25,10 +25,29 @@ ModelImporter:
     //RootNode:
     - 100000
     - 400000
+    - 11100000
+    Box_polySurface28:
+    - 100002
+    - 400002
     - 3300000
     - 2300000
-    - 11100000
+    bodhran_Model:
+    - 100004
+    - 400004
+    bodhran_Mesh1:
+    - 100006
+    - 400006
+    - 3300002
+    - 2300002
+    Box_pCube1:
+    - 100008
+    - 400008
+    - 3300004
+    - 2300004
 AssetImporter:
   importerVersion: 1
   fileIDToRecycleName:
     4300000: pCube1
+    4300002: Box_pCube1
+    4300004: Box_polySurface28
+    4300006: bodhran_Mesh1
