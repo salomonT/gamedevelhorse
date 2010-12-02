@@ -183,7 +183,7 @@ public class StartLap : MonoBehaviour {
 								
 				// Add yourself to the finished race array
 				// Replace THIS HORSE NAME with this horses name
-				GameManager.getFinishedArray().Push("THIS HORSE NAME");
+				GameManager.getFinishedArray().Add("THIS HORSE NAME");
 				
 				raceCompleted = true;	
 
