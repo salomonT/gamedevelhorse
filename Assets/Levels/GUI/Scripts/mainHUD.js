@@ -27,9 +27,12 @@ var texture3:Texture2D;
 var texture2:Texture2D;
 var texture1:Texture2D;
 var textureGO:Texture2D;
+var textureWon:Texture2D;
+var textureLost:Texture2D;
 
 private var onBegin:boolean;
 public var raceStart : AudioClip;
+
 
 
 function Start () {
