@@ -56,7 +56,7 @@ private var onBegin : boolean;
 function Start()
 {	
 
-	var camTop : GameObject = GameObject.Find("/CameraTopView");
+	var camTop : GameObject = GameObject.Find("HorseAnim/CameraTopView");
 	if(camTop != null)
 	{
 		camTop.active = false;
@@ -65,8 +65,7 @@ function Start()
 	GoRace.cameraEnd = false;
 	fxLoopPlay = false;
 	audio.loop = true;
-	//audio.priority = 255;
-	audio.volume = 0.05;
+	audio.volume = 1;
 	
 	GoRace.setRunGame(false);
 	anim = GetComponent(Animation);
@@ -343,7 +342,7 @@ function MoveCharachter()
 		anim.Play();
 		if (!audio.isPlaying && fxLoopPlay == false)
 		{
-			audio.Play(44100);
+			audio.Play(0);
 			fxLoopPlay = true;
 		}
 	}
@@ -599,7 +598,7 @@ function RaceCountDown()
 					}
 				}
 			}
-			var camTop : GameObject = GameObject.Find("/CameraTopView");
+			var camTop : GameObject = GameObject.Find("HorseAnim/CameraTopView");
 			if(camTop != null)
 			{
 				print("Find :");
