@@ -23,6 +23,7 @@ public class StartLap : MonoBehaviour {
 		startTime = Time.time;//Get the time at the begining.
 		startSpeed = (GetComponent (typeof (AIFollow)) as AIFollow).speed;
 		halfSpeed = startSpeed / 2;
+		currentWaypoint = 0;
 		
 		//Choose a radom pickupNextPoint, to make random path.
 		pickNextPoint = (GetComponent (typeof (AIFollow)) as AIFollow).pickNextWaypointDistance;
@@ -113,9 +114,12 @@ public class StartLap : MonoBehaviour {
 				}
 			}		
 		}
+	}
+	
+	public void OnTriggerEnter(Collider obj)
+	{	
 		
-		
-		if(gameObject.name == ("FinishLine") && currentWaypoint == 6) {
+		if(obj.name == ("FinishLine") && currentWaypoint == 6) {
 	 		currentWaypoint = 0;
 	 		//lapTimes[lapCounter] = lapTimeSecondsTotal;
 	 		//lapCounter++;
@@ -123,33 +127,38 @@ public class StartLap : MonoBehaviour {
 	 		//lapTimeSeconds = 0;
 	 		//lapTimeSecondsTotal = 0;
 			laps++;
-		 }
-
+		 }	
 		
 		  /**Check For Collisions With Waypoints*/
- 		 if(gameObject.name == ("Waypoint1") && currentWaypoint == 0) {
-			 currentWaypoint = 1;
-			}
+  	if(obj.name == ("Waypoint1") && currentWaypoint == 0)
+    {
+	 currentWaypoint = 1;
+	}
 	
- 		 if(gameObject.name == ("Waypoint2") && currentWaypoint == 1) {
-			 currentWaypoint = 2;
-				}
+  if(obj.name == ("Waypoint2") && currentWaypoint == 1)
+    {
+	 currentWaypoint = 2;
+	}
 	
-  		if(gameObject.name == ("Waypoint3") && currentWaypoint == 2) {
-			 currentWaypoint = 3;
-			}	
+  if(obj.name == ("Waypoint3") && currentWaypoint == 2)
+    {
+	 currentWaypoint = 3;
+	}	
 	
-  		if(gameObject.name == ("Waypoint4") && currentWaypoint == 3) {
-			 currentWaypoint = 4;
-			}	
+  if(obj.name == ("Waypoint4") && currentWaypoint == 3)
+    {
+	 currentWaypoint = 4;
+	}	
 	
- 		 if(gameObject.name == ("Waypoint5") && currentWaypoint == 4) {
-			 currentWaypoint = 5;
-			}	
+  if(obj.name == ("Waypoint5") && currentWaypoint == 4)
+    {
+	 currentWaypoint = 5;
+	}	
 	
-  		if(gameObject.name == ("Waypoint6") && currentWaypoint == 5) {
-	 		currentWaypoint = 6;
-			}	
+  if(obj.name == ("Waypoint6") && currentWaypoint == 5)
+    {
+	 currentWaypoint = 6;
+	}
 		
 		CheckGameManager();
 	}
@@ -178,16 +187,16 @@ public class StartLap : MonoBehaviour {
 	public void CheckGameManager() {
 	   
 		// Check to see if the player has won the game if game type is race (0) and laps to win is not 0
-		if(GameManager.getGameType() == 0 && GameManager.getLaps() != 0 && raceCompleted == false) {
+		if(GameManager.getGameType() == 0 && GameManager.getLaps() != 0) {
 			if(laps >= GameManager.getLaps()) {
 								
 				// Add yourself to the finished race array
 				// Replace THIS HORSE NAME with this horses name
 				GameManager.getFinishedArray().Add("THIS HORSE NAME");
 				
-				raceCompleted = true;	
+				//raceCompleted = true;	
 
-
+				Debug.Log("CPU WON");
 				/*
 				// If there is only 1 player in the array (you) then you won!
 				if(GameManager.getFinishedArray().length == 1) {

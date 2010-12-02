@@ -456,7 +456,7 @@ function OnTriggerEnter(object:Collider)
     {
 	 currentWaypoint = 6;
 	}	
-	print("currentWaypoint: " + currentWaypoint);
+	print("currentWaypoint: " + currentWaypoint +"number of finished players = " +GameManager.getFinishedArray().Count);
 	
  }
 
