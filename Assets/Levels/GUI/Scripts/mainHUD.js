@@ -14,6 +14,8 @@ private var currentTimeMin:int = 0;
 private var currentTimeSec:int = 0;
 private var currentScore:int = 0;
 
+private var menuFlag:int = 0;
+
 
 var textWhite : GUIStyle;
 
@@ -24,7 +26,6 @@ function Start () {
 	typeGame = 0;
 	timeStart = Time.time;
 }
-
 
 function OnGUI () {
 	ratioSW = (Screen.width/1024.0);
@@ -54,6 +55,22 @@ function OnGUI () {
 		, textWhite);
 		
 	}
+	
+	if (menuFlag == 1){
+		GUI.Label (Rect (0,0,Screen.width,Screen.height),"" ,"box");
+		
+		Time.timeScale = 0;
+		
+		if(GUI.Button (Rect (200,50,100,100), "Resume")){
+			menuFlag = 0;
+			Time.timeScale = 1;
+		}
+		
+		if(GUI.Button (Rect (200,200,100,100), "Return to main menu")){
+			Application.LoadLevelAsync ("GUI");
+		}
+		
+	}
 }
 
 function setPosition( position : int ){
@@ -78,4 +95,10 @@ function setScore( score : int ){
 
 function getScore() : int{
 	return currentScore;
+}
+
+function Update () {
+	if (Input.GetKeyDown (KeyCode.Escape)){
+		menuFlag = 1;		
+	}
 }
