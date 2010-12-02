@@ -777,6 +777,13 @@ function launchLevel(){
 }
 
 function loadLevel(){
+		
+	// Added by Noel
+	// This sets up the game settings in the GameTracker script
+	GameManager.setGameType(gameTypeVar);
+	GameManager.setLaps(nbrLaps);
+	GameManager.setLevel(levelLaunchVar);
+	GameManager.setDifficulty(difficultyVar);
 	
 	GUI.Label (Rect (0,0,Screen.width,Screen.height), "Loading", loadingTitle);
 
