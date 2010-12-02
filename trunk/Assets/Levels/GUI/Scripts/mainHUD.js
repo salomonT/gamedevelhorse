@@ -23,6 +23,11 @@ var map : Texture2D;
 var resume : GUIStyle;
 var exit : GUIStyle;
 
+var texture3:Texture2D;
+var texture2:Texture2D;
+var texture1:Texture2D;
+var textureGO:Texture2D;
+
 
 function Start () {
 	typeGame = 0;
@@ -77,6 +82,23 @@ function OnGUI () {
 			Application.LoadLevelAsync ("GUI");
 		}
 		
+	}
+	
+	if(Time.time < timeStart +1.0)
+	{
+		GUI.Label(Rect(Screen.width/2-texture3.width/2,Screen.height/2-texture3.height/2, texture3.width,texture3.height), texture3);
+	}
+	else if(Time.time < timeStart +2.0)
+	{
+		GUI.Label(Rect(Screen.width/2-texture2.width/2,Screen.height/2-texture2.height/2, texture2.width,texture2.height), texture2);
+	}
+	else if(Time.time < timeStart +3.0)
+	{
+		GUI.Label(Rect(Screen.width/2-texture1.width/2,Screen.height/2-texture1.height/2, texture1.width,texture1.height), texture1);
+	}
+	else if(Time.time < timeStart +4.0)
+	{
+		GUI.Label(Rect(Screen.width/2-textureGO.width/2,Screen.height/2-textureGO.height/2, textureGO.width,textureGO.height), textureGO);
 	}
 }
 
