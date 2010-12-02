@@ -5,7 +5,6 @@ private var typeGame:float = 0;
 
 private var timeStart:float = 0;
 
-
 private var tmp:int = 0;
 
 private var currentPosition:int = 0;
@@ -15,11 +14,14 @@ private var currentTimeSec:int = 0;
 private var currentScore:int = 0;
 
 private var menuFlag:int = 0;
-
+private var exitFlag:int = 0;
 
 var textWhite : GUIStyle;
 
 var map : Texture2D;
+
+var resume : GUIStyle;
+var exit : GUIStyle;
 
 
 function Start () {
@@ -57,16 +59,21 @@ function OnGUI () {
 	}
 	
 	if (menuFlag == 1){
-		GUI.Label (Rect (0,0,Screen.width,Screen.height),"" ,"box");
+		GUI.Label (Rect (-10,-10,Screen.width+10,Screen.height+10),"" ,"box");
 		
-		Time.timeScale = 0;
+		if (exitFlag != 1)
+			Time.timeScale = 0;
 		
-		if(GUI.Button (Rect (200,50,100,100), "Resume")){
-			menuFlag = 0;
-			Time.timeScale = 1;
+		if(GUI.Button (Rect ((Screen.width/2)-(370/2),150,370,74), "", resume)){
+			if (exitFlag != 1){
+				menuFlag = 0;
+				Time.timeScale = 1;
+			}
 		}
 		
-		if(GUI.Button (Rect (200,200,100,100), "Return to main menu")){
+		if(GUI.Button (Rect ((Screen.width/2)-(370/2),250,370,74), "", exit)){
+			exitFlag = 1;
+			Time.timeScale = 1;
 			Application.LoadLevelAsync ("GUI");
 		}
 		
