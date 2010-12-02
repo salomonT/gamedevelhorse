@@ -3,8 +3,9 @@ using System.Collections;
 
 public class GoRace : MonoBehaviour {
 	
-	
+	public static bool cameraEnd;
 	public static bool isRunning;
+	
 	public static bool getRunGame()
 	{
 		return isRunning;

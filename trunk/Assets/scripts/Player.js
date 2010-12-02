@@ -51,10 +51,18 @@ private var anim : Animation;
 private var animState : AnimationState;
 public var horseSoundFX :AudioClip;
 private var fxLoopPlay : boolean;
+private var onBegin : boolean;
 
 function Start()
 {	
 
+	var camTop : GameObject = GameObject.Find("/CameraTopView");
+	if(camTop != null)
+	{
+		camTop.active = false;
+	}
+	onBegin = false;
+	GoRace.cameraEnd = false;
 	fxLoopPlay = false;
 	audio.loop = true;
 	//audio.priority = 255;
@@ -263,7 +271,7 @@ function Update ()
   else
   {
   	
-	  if(isRacing && !raceCompleted)
+	  if(GoRace.cameraEnd == true && isRacing && !raceCompleted)
 	  {
 			MoveCharachter();
 			CheckEnhancements();
@@ -566,35 +574,73 @@ function CheckEnhancements()
 /**Count Down Timer for Race.*/
 function RaceCountDown()
 {
-  if(startTime + 3.0 > Time.time)
-    {
-      TimeCounterUp();
-		
-		/**Print out Race Count Down.*/
-		if(startTime + 0.0 > Time.time)
-		  {
-		    countDownTime = "3";
-		  }
-		else if(startTime + 1.0 > Time.time)
-		  {
-		   countDownTime = "2";
-		  }
-		else if(startTime + 2.0 > Time.time)
-		 {
-		  countDownTime = "1";
-		 }
-		
-		if(countDownTime != null)
-		print(countDownTime);
-	}
-	else
+	if(GoRace.cameraEnd == true || Input.GetKeyDown (KeyCode.Space))
 	{
-		actualTime = 0;
-		timeCounter = 0;
-		isRacing = true;
-		countDownTime = "GO";
-		print("GO");
-		GoRace.setRunGame(true);
+		GoRace.cameraEnd = true;
+		if(onBegin == false)
+		{
+			startTime = Time.time;
+			onBegin = true;
+			var cam : GameObject = GameObject.Find("Camera");
+			if(cam != null)
+			{
+				var smooth : SmoothFollow = cam.GetComponent(SmoothFollow);
+				if(smooth != null)
+				{
+					smooth.target = transform;
+					if(Input.GetKeyDown (KeyCode.Space))
+					{
+						var follow : SplineController =cam.GetComponent(SplineController);
+						if(follow != null)
+						{
+							follow.mSplineInterp.enabled = false;
+							follow.enabled = false;
+						}
+					}
+				}
+			}
+			var camTop : GameObject = GameObject.Find("/CameraTopView");
+			if(camTop != null)
+			{
+				print("Find :");
+				camTop.active = true;
+			}
+			else
+			{
+				print("Not find :(");
+			}
+			
+		}
+	  	if(startTime + 3.0 > Time.time)
+	    {
+	      TimeCounterUp();
+			
+			/**Print out Race Count Down.*/
+			if(startTime + 0.0 > Time.time)
+			  {
+			    countDownTime = "3";
+			  }
+			else if(startTime + 1.0 > Time.time)
+			  {
+			   countDownTime = "2";
+			  }
+			else if(startTime + 2.0 > Time.time)
+			 {
+			  countDownTime = "1";
+			 }
+			
+			if(countDownTime != null)
+			print(countDownTime);
+		}
+		else
+		{
+			actualTime = 0;
+			timeCounter = 0;
+			isRacing = true;
+			countDownTime = "GO";
+			print("GO");
+			GoRace.setRunGame(true);
+		}
 	}
  }
 
