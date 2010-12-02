@@ -778,7 +778,8 @@ function launchLevel(){
 function loadLevel(){
 		
 	// Added by Noel
-	// This sets up the game settings in the GameTracker script
+	// This sets up the game settings in the GameManager script
+	GameManager.reset();
 	GameManager.setGameType(gameTypeVar);
 	GameManager.setLaps(nbrLaps);
 	GameManager.setLevel(levelLaunchVar);

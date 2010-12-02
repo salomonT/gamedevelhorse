@@ -15,7 +15,7 @@ public class StartLap : MonoBehaviour {
 	GameObject horse;
 	Animation anim;
 	int laps;
-	int currentWaypoint;
+	private int currentWaypoint;
 	bool raceCompleted;
 	
 	void launchRace()
