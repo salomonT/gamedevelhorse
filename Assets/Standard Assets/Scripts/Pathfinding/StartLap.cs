@@ -14,6 +14,9 @@ public class StartLap : MonoBehaviour {
 	float startTime;
 	GameObject horse;
 	Animation anim;
+	int laps;
+	int currentWaypoint;
+	bool raceCompleted;
 	
 	void launchRace()
 	{
@@ -110,6 +113,45 @@ public class StartLap : MonoBehaviour {
 				}
 			}		
 		}
+		
+		
+		if(gameObject.name == ("FinishLine") && currentWaypoint == 6) {
+	 		currentWaypoint = 0;
+	 		//lapTimes[lapCounter] = lapTimeSecondsTotal;
+	 		//lapCounter++;
+	 		//lapTimeMinutes = 0;
+	 		//lapTimeSeconds = 0;
+	 		//lapTimeSecondsTotal = 0;
+			laps++;
+		 }
+
+		
+		  /**Check For Collisions With Waypoints*/
+ 		 if(gameObject.name == ("Waypoint1") && currentWaypoint == 0) {
+			 currentWaypoint = 1;
+			}
+	
+ 		 if(gameObject.name == ("Waypoint2") && currentWaypoint == 1) {
+			 currentWaypoint = 2;
+				}
+	
+  		if(gameObject.name == ("Waypoint3") && currentWaypoint == 2) {
+			 currentWaypoint = 3;
+			}	
+	
+  		if(gameObject.name == ("Waypoint4") && currentWaypoint == 3) {
+			 currentWaypoint = 4;
+			}	
+	
+ 		 if(gameObject.name == ("Waypoint5") && currentWaypoint == 4) {
+			 currentWaypoint = 5;
+			}	
+	
+  		if(gameObject.name == ("Waypoint6") && currentWaypoint == 5) {
+	 		currentWaypoint = 6;
+			}	
+		
+		CheckGameManager();
 	}
 	 
 	public void PathComplete (Vector3[] points) {
@@ -128,5 +170,42 @@ public class StartLap : MonoBehaviour {
 	public void AccelCaracter()
 	{
 		(GetComponent (typeof (AIFollow)) as AIFollow).speed = startSpeed;
+	}
+	
+	
+	// Check the players progress towards finishing the game
+	// Created by Noel
+	public void CheckGameManager() {
+	   
+		// Check to see if the player has won the game if game type is race (0) and laps to win is not 0
+		if(GameManager.getGameType() == 0 && GameManager.getLaps() != 0 && raceCompleted == false) {
+			if(laps >= GameManager.getLaps()) {
+								
+				// Add yourself to the finished race array
+				// Replace THIS HORSE NAME with this horses name
+				GameManager.getFinishedArray().Push("THIS HORSE NAME");
+				
+				raceCompleted = true;	
+
+
+				/*
+				// If there is only 1 player in the array (you) then you won!
+				if(GameManager.getFinishedArray().length == 1) {
+					Debug.Log("You Won!");
+					
+					// Display YOU WON on the screen to this horse
+
+				} else if(GameManager.getFinishedArray().length > 1) {
+					Debug.Log("You Lost!");
+					
+					// Display YOU LOST on the screen
+
+				}*/
+
+			}
+		}
+		
+		// ADD OTHER GAME TYPES HERE, SIMILAR TO ABOVE
+	
 	}
 }
