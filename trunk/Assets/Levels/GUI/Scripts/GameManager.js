@@ -30,6 +30,8 @@ private static var DIFFICULTY : int;
 // The level id. 0 = county, 1 = beech, 2 = city, 3 = tutorial, 4 = multiplayer
 private static var LEVEL : int;
 
+// The array of winning players (in order of completion)
+private static var FINISHED_ARRAY : Array = new Array();
 
 
 //**********************************/
@@ -94,6 +96,11 @@ public static function getdifficulty() : int {
 	return DIFFICULTY;
 }
 
+public static function getFinishedArray() : Array {
+	return FINISHED_ARRAY;
+}
+
+
 public static function setSoundFX(sfx) {
 	SOUND_FX = sfx;	
 }
@@ -132,4 +139,5 @@ public static function reset() : void {
 	LAPS = 0;
 	DIFFICULTY = 0;
 	LEVEL = 0;
+	//FINISHED_ARRAY.Clear;
 }
