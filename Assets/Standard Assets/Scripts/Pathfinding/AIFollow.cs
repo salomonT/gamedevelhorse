@@ -19,6 +19,7 @@ public class AIFollow : MonoBehaviour {
 	private CharacterController controller;
 	private AIAnimation animator;
 	private Seeker seeker;
+
 	
 	// Make sure there is always a character controller
 	
