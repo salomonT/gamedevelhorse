@@ -45,8 +45,9 @@ var startButton : GUIStyle;
 var startTutorialButton : GUIStyle;
 var startButtonDisable : GUIStyle;
 var multiPlayerButton : GUIStyle;
-var multiPlayerHostButton : GUIStyle;
-var multiPlayerJoinButton : GUIStyle;
+var multiPlayerQuickgame : GUIStyle;
+var multiPlayerJoingame : GUIStyle;
+var multiPlayerHostgame : GUIStyle;
 var tutorialButton : GUIStyle;
 var settingsButton : GUIStyle;
 var settingsGameSettingsButton : GUIStyle;
@@ -485,41 +486,39 @@ function multiPlayer (){
 	// Title picture
 	GUI.Label (Rect (ratioSW*50,ratioSH*30,233,50), "", titleMultiPlayer);
 	GUI.Label (Rect (ratioSW*25,ratioSH*140,ratioSW*(1024-50),ratioSH*5), "", underWhite);
+	// Label box
 	
-	GUI.Label (Rect (ratioSW*150,ratioSH*200,ratioSW*310,ratioSH*310), multiPlayerHostPic);
+	GUI.Label (Rect (ratioSW*20,ratioSH*200,ratioSW*500,ratioSH*400),"","box");
+	GUI.Label (Rect (ratioSW*20,ratioSH*200,ratioSW*500,ratioSH*400),
+	"text"+"\n"+"text"+"\n"+
+	"\n"+
+	"text"+"\n"+"text"+"\n"+
+	"\n"+
+	"text"+"\n"+"text"
+	, textWhite);
 	
-	if(GUI.Button (Rect (ratioSW*200,ratioSH*525,ratioSW*200,ratioSH*70), "",multiPlayerHostButton)){
+	
+	if(GUI.Button (Rect (ratioSW*550,ratioSH*200,ratioSW*400,ratioSH*100), "",multiPlayerHostgame)){
 		audio.PlayOneShot(startAndNextButtonSound);
-		// start multiplayer gui loic
-			levelLaunchVar = 4;
-			resetMenu();
-			launchVar = 1;
-			launchLevel();
-				
-		/*audio.PlayOneShot(startAndNextButtonSound);
-		resetMenu();
-		settings_customizeHorseVar = 1;*/}
-	
-	GUI.Label (Rect (ratioSW*550,ratioSH*200,ratioSW*310,ratioSH*310), multiPlayerJoinPic);
+		//resetMenu();
+		}
 		
-	if(GUI.Button (Rect (ratioSW*600,ratioSH*525,ratioSW*200,ratioSH*70), "",multiPlayerJoinButton)){
+	if(GUI.Button (Rect (ratioSW*550,ratioSH*370,ratioSW*400,ratioSH*100), "",multiPlayerJoingame)){
 		audio.PlayOneShot(startAndNextButtonSound);
-		// start multiplayer gui loic
-			levelLaunchVar = 4;
-			resetMenu();
-			launchVar = 1;
-			launchLevel();
-				
-		/*audio.PlayOneShot(startAndNextButtonSound);
-		resetMenu();
-		settings_highScoresVar = 1;*/}
-	
-	
+		//resetMenu();
+		}
+		
+	if(GUI.Button (Rect (ratioSW*550,ratioSH*540,ratioSW*400,ratioSH*100), "",multiPlayerQuickgame)){
+		audio.PlayOneShot(startAndNextButtonSound);
+		//resetMenu();
+		}
+		
+		
 	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-100),ratioSW*200,ratioSH*100), "",backToMenuButton)){
 		audio.PlayOneShot(backToMenuButtonSound);
 		resetMenu();}
-	
-	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Host a game for people to join, or join a game created be someone else", "box");
+		
+	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "You can change various settings here, customize your horse and view high scores", "box");
 }
 
 function tutorial (){
