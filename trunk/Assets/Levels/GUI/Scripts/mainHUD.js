@@ -29,12 +29,14 @@ var texture1:Texture2D;
 var textureGO:Texture2D;
 
 private var onBegin:boolean;
+public var raceStart : AudioClip;
 
 
 function Start () {
 	typeGame = 0;
 	timeStart = Time.time;
 	onBegin = false;
+	audio.loop = false;
 }
 
 function OnGUI () {
@@ -45,6 +47,7 @@ function OnGUI () {
 		{
 			timeStart = Time.time;
 			onBegin = true;
+			audio.Play(0);
 		}
 		else
 		{
