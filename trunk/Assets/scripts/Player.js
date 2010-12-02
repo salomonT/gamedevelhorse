@@ -56,7 +56,7 @@ private var camTop : GameObject;
 
 function Start()
 {	
-
+	GoRace.stateEnd = 0;
 	camTop = GameObject.Find("HorseAnim/CameraTopView");
 	if(camTop != null)
 	{
@@ -696,11 +696,13 @@ function checkGameManager() : void {
 					//}
 					
 					// Display YOU WON on the screen
+					GoRace.stateEnd=1;
 
 				} else if(GameManager.getFinishedArray().Count > 1) {
 					Debug.Log("You Lost!");
 					
 					// Display YOU LOST on the screen
+					GoRace.stateEnd=2;
 
 				}
 

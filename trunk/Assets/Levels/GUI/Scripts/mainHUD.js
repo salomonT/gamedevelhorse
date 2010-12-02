@@ -119,7 +119,17 @@ function OnGUI () {
 			{
 				GUI.Label(Rect(Screen.width/2-textureGO.width/2,Screen.height/2-textureGO.height/2, textureGO.width,textureGO.height), textureGO);
 			}
+			
+			if(GoRace.stateEnd == 1)
+			{
+				GUI.Label(Rect(Screen.width/2-textureWon.width/2,Screen.height/2-textureWon.height/2, textureWon.width,textureWon.height), textureWon);
+			}
+			else if(GoRace.stateEnd == 2)
+			{
+				GUI.Label(Rect(Screen.width/2-textureLost.width/2,Screen.height/2-textureLost.height/2, textureLost.width,textureLost.height), textureLost);
+			}
 		}
+		
 	}
 	else
 	{
