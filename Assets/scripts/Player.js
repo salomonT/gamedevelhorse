@@ -358,6 +358,7 @@ function OnTriggerEnter(object:Collider)
 	  /**Determine if User Hit a Speed Booster.*/
 	  if(object.name == ("Booster"))
 		{
+			Debug.Log("Boost");
 		 countTime = true;
 		 speedUp = true;
 		 overallScore = (overallScore + 1000);
