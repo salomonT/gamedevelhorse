@@ -23,7 +23,7 @@ public class StartLap : MonoBehaviour {
 		
 		//Choose a radom pickupNextPoint, to make random path.
 		pickNextPoint = (GetComponent (typeof (AIFollow)) as AIFollow).pickNextWaypointDistance;
-		float newPickupNextPoint = Random.value*30.0f + 3.0f;
+		float newPickupNextPoint = Random.value*30.0f + 8.0f;
 		(GetComponent (typeof (AIFollow)) as AIFollow).pickNextWaypointDistance = newPickupNextPoint;
 		
 		currentCheckpoint = 0;

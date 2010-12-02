@@ -49,10 +49,16 @@ private var control : CharacterController;
 private var startTime : float;
 private var anim : Animation;
 private var animState : AnimationState;
-
+public var horseSoundFX :AudioClip;
+private var fxLoopPlay : boolean;
 
 function Start()
 {	
+	fxLoopPlay = false;
+	audio.loop = true;
+	//audio.priority = 255;
+	audio.volume = 0.05;
+	
 	GoRace.setRunGame(false);
 	anim = GetComponent(Animation);
 	animState = anim["Take 001"];
@@ -255,6 +261,7 @@ function Update ()
   }
   else
   {
+  	
 	  if(isRacing && !raceCompleted)
 	  {
 			MoveCharachter();
@@ -320,6 +327,16 @@ function MoveCharachter()
 	{
 		animState.speed = speed / 50.0;
 		anim.Play();
+		if (!audio.isPlaying && fxLoopPlay == false)
+		{
+			audio.Play(44100);
+			fxLoopPlay = true;
+		}
+	}
+	else
+	{
+		audio.Stop();
+		fxLoopPlay = false;
 	}
 	ApplyGravity();
     var rotation : float = Input.GetAxis("Horizontal") * rotationSpeed;
@@ -549,7 +566,8 @@ function RaceCountDown()
 		  countDownTime = "1";
 		 }
 		
-	  print(countDownTime);
+		if(countDownTime != null)
+		print(countDownTime);
 	}
 	else
 	{
