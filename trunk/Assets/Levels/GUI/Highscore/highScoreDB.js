@@ -2,6 +2,15 @@ static var nameArray = new Array ();
 static var scoreArray = new Array ();
 
 
+static function getName( index : int) : String{
+	return nameArray[index];
+}
+
+static function getScore( index : int) : int{
+	return scoreArray[index];
+}
+
+
 static function addScore( name : String, score : int ){
 	var nameArrayTmp = new Array ();
 	var scoreArrayTmp = new Array ();
