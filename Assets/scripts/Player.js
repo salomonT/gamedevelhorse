@@ -143,11 +143,11 @@ function ApplyGravity()
 	if(controller.isGrounded)
 	{
 		verticalSpeed = 0.0;
-		print("isGrounded !");
+	//	print("isGrounded !");
 	}
 	else
 	{
-		print("isNotGrounded !");
+//		print("isNotGrounded !");
 		verticalSpeed -= gravity;
 	}
 }
@@ -393,6 +393,15 @@ function OnTriggerEnter(object:Collider)
 	 lapTimeMinutes = 0;
 	 lapTimeSeconds = 0;
 	 lapTimeSecondsTotal = 0;
+	 var hud : GameObject = GameObject.Find("HUD");
+	 if(hud != null)
+	 {
+	 	var hudScript : mainHUD = hud.GetComponent(mainHUD);
+	 	if(hudScript != null)
+	 	{
+	 		hudScript.setLaps(lapCounter);
+	 	}
+	 }
 	 
 	 /**Determine if Race has Been Completed*/
 	 if(lapCounter == totalLaps)
@@ -431,6 +440,7 @@ function OnTriggerEnter(object:Collider)
     {
 	 currentWaypoint = 6;
 	}	
+	print("currentWaypoint: " + currentWaypoint);
  }
 
 
