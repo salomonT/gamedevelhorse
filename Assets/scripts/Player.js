@@ -11,10 +11,6 @@ private var actualTime = 0;
 private var overallScore:Number;
 private var lapTimeSecondsTotal:Number;
 private var overallTimeSecondsTotal:Number;
-private var lapTimeSeconds:Number;
-private var lapTimeMinutes:Number;
-private var overallTimeSeconds:Number;
-private var overallTimeMinutes:Number;
 private var lapCounter:Number;
 private var totalLaps:Number;
 private var timeCounterLap:Number;
@@ -26,6 +22,14 @@ private var printOverall:String = "";
 private var currentWaypoint:Number;
 private var lapTimes = new Array();
 private var raceCompleted:boolean;
+
+var lapTime:float = 0;
+var overallTime:float = 0;
+var lapTimeSeconds:int = 0;
+var lapTimeMinutes:int = 0;
+var overallTimeSeconds:int = 0;
+var overallTimeMinutes:int = 0;
+var setRace:boolean = false;
 
 public var owner : NetworkPlayer;
 
@@ -271,14 +275,21 @@ function Update ()
   }
   else
   {
-  	
+  	if(setRace)
+	  {
+	    overallTime = Time.time;
+        lapTime = Time.time; 
+	    isRacing = true;
+		setRace = false;
+	  }
+	
 	  if(GoRace.cameraEnd == true && isRacing && !raceCompleted)
 	  {
 			MoveCharachter();
 			CheckEnhancements();
 			LapTime();
 			OverallTime();
-			//	 print("Lap Time : " + printLap + "   Overall Time : " + printOverall + "  Score : " + overallScore);
+			print("Lap Time : " + printLap + "   Overall Time : " + printOverall + "  Score : " + overallScore);
       }
 	  else
 	  {
@@ -372,10 +383,9 @@ function OnTriggerEnter(object:Collider)
     {
 	  /**Determine if User Hit a Speed Booster.*/
 	  if(object.name == ("Booster"))
-		{
-			if((Random.value * 10) < 5)//Half chance to boost.
+		{			if((Random.value * 10) < 5)//Half chance to boost.
 			{
-			 Debug.Log("Boost");
+			// Debug.Log("Boost");
 			 countTime = true;
 			 speedUp = true;
 			 overallScore = (overallScore + 1000);
@@ -385,7 +395,7 @@ function OnTriggerEnter(object:Collider)
 				countTime = true;
 		 		slowDown = true;
 				overallScore = (overallScore - 500);
-			}
+			}			
 		}
 	}
 	
@@ -404,12 +414,11 @@ function OnTriggerEnter(object:Collider)
   /**Check for Collision With FinishLine.*/  
   if(object.name == ("FinishLine") && currentWaypoint == 6)
     {
-	 currentWaypoint = 0;
-	 lapTimes[lapCounter] = lapTimeSecondsTotal;
-	 lapCounter++;
-	 lapTimeMinutes = 0;
-	 lapTimeSeconds = 0;
-	 lapTimeSecondsTotal = 0;
+	  currentWaypoint = 0;
+	  lapTimes[lapCounter] = ((lapTimeMinutes*60) + lapTimeSeconds);
+   	  lapTime = Time.time;
+	  lapCounter++;
+	 
 	 var hud : GameObject = GameObject.Find("HUD");
 	 if(hud != null)
 	 {
@@ -457,7 +466,7 @@ function OnTriggerEnter(object:Collider)
     {
 	 currentWaypoint = 6;
 	}	
-	print("currentWaypoint: " + currentWaypoint +"number of finished players = " +GameManager.getFinishedArray().Count);
+//	print("currentWaypoint: " + currentWaypoint +"number of finished players = " +GameManager.getFinishedArray().Count);
 	
  }
 
@@ -467,68 +476,57 @@ function OnTriggerEnter(object:Collider)
 /**Calculate Lap Time.*/
 function LapTime()
 {
-  var timeAdjust:String = "";
-  timeCounterLap++;
- 
-  if(timeCounterLap == 25)
-    {
-     timeCounterLap = 0;
-	 lapTimeSecondsTotal++;
-	 lapTimeSeconds++;
-    }
-	
-	/**Convert Lap Time to Minutes & Seconds.*/
-	if(lapTimeSeconds == 60)
+  lapTimeMinutes = (Time.time - lapTime)/60;
+  lapTimeSeconds= (Time.time - lapTime) -(lapTimeMinutes *60);
+  
+  if(lapTimeSeconds < 10)
+   {
+     printLap = (lapTimeMinutes + ":0" + lapTimeSeconds);
+   }
+ else
+   {
+     printLap = (lapTimeMinutes + ":" + lapTimeSeconds);
+   }
+   
+   
+/**
+
+UPDATE HUD NOT IMPLEMENTED YET
+
+if(hudScript != null)
 	  {
-	   lapTimeMinutes++;
-	   lapTimeSeconds = 0;
+	  	hudScript.setLapTime("Lap Time : " + printLap);
 	  }
 	  
-	  /**Adjust The Time Printed to the Screen.*/
-	  if(lapTimeSeconds < 10)
-	    {
-		 timeAdjust = ("0" + lapTimeSeconds);
-		}
-	  else
-		{
-		 timeAdjust = ("" + lapTimeSeconds);
-		}
-	  
-  printLap = (lapTimeMinutes + "." + timeAdjust);
+*/
 }
 
 
 /**Calculate Overall Time.*/
 function OverallTime()
 {
-  var timeAdjust:String = "";
-  timeCounterOverall++;
- 
-  if(timeCounterOverall == 25)
+   overallTimeMinutes = (Time.time - overallTime)/60;
+  overallTimeSeconds= (Time.time - overallTime) -(overallTimeMinutes *60);
+  
+  if(overallTimeSeconds < 10)
     {
-     timeCounterOverall= 0;
-	 overallTimeSecondsTotal++;
-	 overallTimeSeconds++;
+	  printOverall = (overallTimeMinutes + ":0" + overallTimeSeconds);
+	}
+  else
+    {
+	  printOverall = (overallTimeMinutes + ":" + overallTimeSeconds);
     }
 	
-	/**Convert Overall Time to Minutes & Seconds.*/
-	if(overallTimeSeconds == 60)
+	/**
+	
+	UPDATE HUD NOT IMPLEMENTED YET
+	
+	
+	if(hudScript != null)
 	  {
-	    overallTimeMinutes++;
-	    overallTimeSeconds = 0;
+	  	hudScript.setOverallTime("Overall Time : " + printOverall);
 	  }
-	  
-	 /**Adjust The Time Printed to the Screen.*/
-	  if(overallTimeSeconds < 10)
-	    {
-		 timeAdjust = ("0" + overallTimeSeconds);
-		}
-	  else
-		{
-		 timeAdjust = ("" + overallTimeSeconds);
-		}
-	  
-  printOverall = (overallTimeMinutes + "." + timeAdjust);
+	*/ 
 }
 
 
@@ -637,7 +635,7 @@ function RaceCountDown()
 		{
 			actualTime = 0;
 			timeCounter = 0;
-			isRacing = true;
+			setRace = true;
 			countDownTime = "GO";
 			print("GO");
 			GoRace.setRunGame(true);
