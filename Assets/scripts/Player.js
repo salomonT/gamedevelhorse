@@ -307,7 +307,7 @@ function MoveCharachter()
 		  {
 		    if(speedUp == true)
 			 {
-			   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (runSpeed * 2);
+			   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (runSpeed * 1.5);
     			
 			 }
 		   else if(slowDown == true)
@@ -321,7 +321,7 @@ function MoveCharachter()
           } 
 		else if(speedUp == true)
 		  {
-		   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed * 2);   
+		   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed * 1.5);   
 		  }
 		else if(slowDown == true)
 		  {
@@ -373,18 +373,19 @@ function OnTriggerEnter(object:Collider)
 	  /**Determine if User Hit a Speed Booster.*/
 	  if(object.name == ("Booster"))
 		{
-		 Debug.Log("Boost");
-		 countTime = true;
-		 speedUp = true;
-		 overallScore = (overallScore + 1000);
-		}
-		
-	  /**Determine if User Hit a Speed Reducer.*/
-	  if(object.name == ("Reducer"))
-		{
-		 countTime = true;
-		 slowDown = true;
-		 overallScore = (overallScore - 500);
+			if((Random.value * 10) < 5)//Half chance to boost.
+			{
+			 Debug.Log("Boost");
+			 countTime = true;
+			 speedUp = true;
+			 overallScore = (overallScore + 1000);
+			}
+			else	  /**User Hit a Speed Reducer.*/
+			{
+				countTime = true;
+		 		slowDown = true;
+				overallScore = (overallScore - 500);
+			}
 		}
 	}
 	

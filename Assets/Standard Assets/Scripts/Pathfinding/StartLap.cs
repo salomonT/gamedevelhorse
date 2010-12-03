@@ -17,6 +17,27 @@ public class StartLap : MonoBehaviour {
 	int laps;
 	private int currentWaypoint;
 	bool raceCompleted;
+	private bool speedUp = false;
+	private bool slowDown = false;
+	bool startCount = false;
+	float pickupTime;
+	
+	
+	void countTime()
+	{
+		if(startCount == true)
+		{
+			if(Time.time > pickupTime + 2.0)
+			{
+				startCount = false;
+				(GetComponent (typeof (AIFollow)) as AIFollow).speed = startSpeed;
+			}
+		}
+		else
+		{
+			pickupTime = Time.time;
+		}
+	}
 	
 	void launchRace()
 	{
@@ -58,6 +79,7 @@ public class StartLap : MonoBehaviour {
 				launchRace();
 				isLaunched = true;
 			}
+			countTime();
 			
 			
 			Vector3 absDiffPos;
@@ -81,8 +103,16 @@ public class StartLap : MonoBehaviour {
 			}
 			else
 			{
-				absDiffPos.x = Mathf.Abs(gameObject.transform.position.x - checkPoints[currentCheckpoint+1].transform.position.x);
-				absDiffPos.z = Mathf.Abs(gameObject.transform.position.z - checkPoints[currentCheckpoint+1].transform.position.z);
+				if(currentCheckpoint + 1 == checkPoints.Length)
+				{
+					absDiffPos.x = Mathf.Abs(gameObject.transform.position.x - checkPoints[0].transform.position.x);
+					absDiffPos.z = Mathf.Abs(gameObject.transform.position.z - checkPoints[0].transform.position.z);
+				}
+				else
+				{
+					absDiffPos.x = Mathf.Abs(gameObject.transform.position.x - checkPoints[currentCheckpoint+1].transform.position.x);
+					absDiffPos.z = Mathf.Abs(gameObject.transform.position.z - checkPoints[currentCheckpoint+1].transform.position.z);
+				}
 				for(int iPos = 0; iPos < checkPoints.Length; iPos++)
 				{
 					if((absDiffPos.x < 3.0 && absDiffPos.z < 3.0) && currentCheckpoint == iPos)
@@ -105,9 +135,18 @@ public class StartLap : MonoBehaviour {
 						startPoint.y = gameObject.transform.position.y;
 						startPoint.z = gameObject.transform.position.z;
 						
-						endPoint.x = checkPoints[currentCheckpoint+1].transform.position.x;
-						endPoint.y = checkPoints[currentCheckpoint+1].transform.position.y;
-						endPoint.z = checkPoints[currentCheckpoint+1].transform.position.z;
+						if(currentCheckpoint + 1 == checkPoints.Length)
+						{
+							endPoint.x = checkPoints[0].transform.position.x;
+							endPoint.y = checkPoints[0].transform.position.y;
+							endPoint.z = checkPoints[0].transform.position.z;
+						}
+						else
+						{
+							endPoint.x = checkPoints[currentCheckpoint+1].transform.position.x;
+							endPoint.y = checkPoints[currentCheckpoint+1].transform.position.y;
+							endPoint.z = checkPoints[currentCheckpoint+1].transform.position.z;
+						}
 						(GetComponent (typeof(Seeker)) as Seeker).StartPath ( startPoint, endPoint);
 						break;
 					}	
@@ -118,6 +157,21 @@ public class StartLap : MonoBehaviour {
 	
 	public void OnTriggerEnter(Collider obj)
 	{	
+		
+		/**Determine if User Hit a Speed Booster.*/
+	  if(gameObject.name == ("Booster"))
+	  {
+		if((Random.value * 10) < 5)//Half chance to boost.
+		{
+		 	(GetComponent (typeof (AIFollow)) as AIFollow).speed = startSpeed * 1.5f;
+				startCount = true;
+		}
+		else	  /**User Hit a Speed Reducer.*/
+		{
+	 		(GetComponent (typeof (AIFollow)) as AIFollow).speed = halfSpeed;
+				startCount = true;
+		}
+	  }
 		
 		if(obj.name == ("FinishLine") && currentWaypoint == 6) {
 	 		currentWaypoint = 0;
