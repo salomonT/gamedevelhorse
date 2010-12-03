@@ -9,12 +9,6 @@ var countTime:boolean;
 var timeCounter = 0;
 var actualTime = 0;
 var overallScore:Number;
-var lapTimeSecondsTotal:Number;
-var overallTimeSecondsTotal:Number;
-var lapTimeSeconds:Number;
-var lapTimeMinutes:Number;
-var overallTimeSeconds:Number;
-var overallTimeMinutes:Number;
 var lapCounter:Number;
 var totalLaps:Number;
 var timeCounterLap:Number;
@@ -39,10 +33,54 @@ var raceRotation:Quaternion;
 var racePosition:Vector3;
 
 
+var gravity : float;
+var rotationSpeed : float;
+
+private var alreadyCam : boolean;
+private var verticalSpeed : float;
+private var control : CharacterController;
+
+private var startTime : float;
+private var anim : Animation;
+private var animState : AnimationState;
+public var horseSoundFX :AudioClip;
+private var fxLoopPlay : boolean;
+private var onBegin : boolean;
+private var camTop : GameObject;
+
+var lapTime:float = 0;
+var overallTime:float = 0;
+var lapTimeSeconds:int = 0;
+var lapTimeMinutes:int = 0;
+var overallTimeSeconds:int = 0;
+var overallTimeMinutes:int = 0;
+var setRace: boolean;
+var hud : GameObject; 
+var hudScript:tutorialHUD;
+
 function Start()
 {
+	GoRace.stateEnd = 0;
+	camTop = GameObject.Find("HorseAnim/CameraTopView");
+	if(camTop != null)
+	{
+	print("False");
+		camTop.active = false;
+	}
+	onBegin = false;
+	GoRace.cameraEnd = false;
+	fxLoopPlay = false;
+	audio.loop = true;
+	audio.volume = 1;
+	
+	GoRace.setRunGame(false);
+	anim = GetComponent(Animation);
+	animState = anim["Take 001"];
+	startTime = Time.time;
+    controller = GetComponent(CharacterController);
+  
+  setRace = false;
   isRacing = false;
-  controller = GetComponent(CharacterController);
   startPosition = transform.position;
   startRotation = transform.rotation;
   countTime = false;
@@ -63,20 +101,55 @@ function Start()
   tutorialComplete = false;
   counter = 0;
   tutorialCounter = 60;
+  
+  hud = GameObject.Find("HUD");
+  if(hud != null)
+   {
+  	 hudScript = hud.GetComponent(tutorialHUD);
+   }
 }
 
+
+function ApplyGravity()
+{
+	if(controller.isGrounded)
+	{
+		verticalSpeed = 0.0;
+	//	print("isGrounded !");
+	}
+	else
+	{
+//		print("isNotGrounded !");
+		verticalSpeed -= gravity;
+	}
+}
 
 function Update () 
 {  
  if(tutorialComplete)
    {
+     if(setRace)
+       {
+	     overallTime = Time.time;
+         lapTime = Time.time;
+		 setRace = false;
+		 isRacing = true;
+		 
+		 /**Update Hud.*/
+         if(hudScript != null)
+	      {
+	        hudScript.setInitiate(false);
+		  }
+	   } 
+	   
+	   
 	if(isRacing && !raceCompleted)
       {  
 	   MoveCharachter();
 	   CheckEnhancements();
 	   LapTime();
 	   OverallTime();
-	   print("Lap Time : " + printLap + "   Overall Time : " + printOverall + "  Score : " + overallScore);
+//	   print("Lap Time : " + printLap + "   Overall Time : " + printOverall + "  Score : " + overallScore);
 	  }
     else
 	 {
@@ -102,7 +175,6 @@ if(raceCompleted)
     print("Race Over");
   }
   
-  raceRotation = transform.rotation;
 }
 
 
@@ -147,6 +219,26 @@ function MoveCharachter()
 	  {
         speed = 0;
       }
+	  
+	  
+	  
+	if(Input.GetAxis("Vertical") != 0f)
+	 {
+	  animState.speed = speed / 50.0;
+	  anim.Play();
+	  
+	  if (!audio.isPlaying && fxLoopPlay == false)
+		{
+		 audio.Play(0);
+		 fxLoopPlay = true;
+		}
+	 }
+  else
+	 {
+	  audio.Stop();
+	  fxLoopPlay = false;
+	 }
+
 
     transform.eulerAngles.y += Input.GetAxis("Horizontal");
     moveDirection = Vector3(0, 0, Input.GetAxis("Vertical"));
@@ -190,6 +282,13 @@ function OnTriggerEnter(object:Collider)
 	  object.gameObject.SetActiveRecursively(false);
 	  overallScore = (overallScore + 5000);
     }	
+			
+	/**Update Hud.*/
+	if(hudScript != null)
+	  {
+	  	hudScript.setScore(overallScore);
+	  }
+	 
 	
 	
 	/**Check for Collision With Lake..*/
@@ -215,6 +314,7 @@ function OnTriggerEnter(object:Collider)
 	   if(!isRacing)
 	    {
 	     racePosition = transform.position;
+		 raceRotation = transform.rotation;
 	    }
 	}
   
@@ -222,18 +322,24 @@ function OnTriggerEnter(object:Collider)
   if(object.name == ("FinishLine") && currentWaypoint == 6)
     {
 	 currentWaypoint = 0;
-	 lapTimes[lapCounter] = lapTimeSecondsTotal;
+	 lapTimes[lapCounter] = ((lapTimeMinutes*60) + lapTimeSeconds);
+   	 lapTime = Time.time;
 	 lapCounter++;
-	 lapTimeMinutes = 0;
-	 lapTimeSeconds = 0;
-	 lapTimeSecondsTotal = 0;
+	
+	/**Update Hud.*/
+	if(hudScript != null)
+	  {
+	  	hudScript.setLaps(lapCounter);
+	  }
 	 
+
 	 /**Determine if Race has Been Completed*/
 	 if(lapCounter == totalLaps)
 	   {
 	     raceCompleted = true;
 	   }
 	}
+	
   
   /**Check For Collisions With Waypoints*/
   if(object.name == ("Waypoint1") && currentWaypoint == 0)
@@ -265,6 +371,53 @@ function OnTriggerEnter(object:Collider)
     {
 	 currentWaypoint = 6;
 	}	
+	
+	
+	
+	/***
+	  *
+	  * Check for Collisions with Tutorial Waypoints
+	  *
+	  */
+	  var instruction:String = "";
+	  
+	  if(object.name == "Tutorial1")
+        {
+		  instruction = "Press UP to Go Forward";
+		}	
+
+      if(object.name == "Tutorial2")
+        {
+		  instruction = "Press CTRL + UP to Run";
+		}	
+	  
+	  if(object.name == "Tutorial3")
+        {
+		  instruction = "Use DIRECTIONAL Keys to Avoid Fences";
+		}	
+		
+  	  if(object.name == "Tutorial4")
+        {
+		  instruction = "Collect Booster";
+		}		
+	  
+	  if(object.name == "Tutorial5")
+        {
+		  instruction = "Collect Reducer";
+		}	
+		
+  	  if(object.name == "Tutorial6")
+        {
+		  instruction = "Take Start Position";
+		}	
+		
+	/**Update Hud.*/
+	if(hudScript != null)
+	  {
+	  	hudScript.setOverallTime(instruction);
+	  }
+
+    
  }
 
 
@@ -273,68 +426,48 @@ function OnTriggerEnter(object:Collider)
 /**Calculate Lap Time.*/
 function LapTime()
 {
-  var timeAdjust:String = "";
-  timeCounterLap++;
- 
-  if(timeCounterLap == 35)
-    {
-     timeCounterLap = 0;
-	 lapTimeSecondsTotal++;
-	 lapTimeSeconds++;
-    }
-	
-	/**Convert Lap Time to Minutes & Seconds.*/
-	if(lapTimeSeconds == 60)
+  lapTimeMinutes = (Time.time - lapTime)/60;
+  lapTimeSeconds= (Time.time - lapTime) -(lapTimeMinutes *60);
+  
+  if(lapTimeSeconds < 10)
+   {
+     printLap = (lapTimeMinutes + ":0" + lapTimeSeconds);
+   }
+ else
+   {
+     printLap = (lapTimeMinutes + ":" + lapTimeSeconds);
+   }
+   
+   	/**Update Hud.*/
+	if(hudScript != null)
 	  {
-	   lapTimeMinutes++;
-	   lapTimeSeconds = 0;
+	  	hudScript.setLapTime("Lap Time : " + printLap);
 	  }
-	  
-	  /**Adjust The Time Printed to the Screen.*/
-	  if(lapTimeSeconds < 10)
-	    {
-		 timeAdjust = ("0" + lapTimeSeconds);
-		}
-	  else
-		{
-		 timeAdjust = ("" + lapTimeSeconds);
-		}
-	  
-  printLap = (lapTimeMinutes + "." + timeAdjust);
+	 
 }
 
 
 /**Calculate Overall Time.*/
 function OverallTime()
 {
-  var timeAdjust:String = "";
-  timeCounterOverall++;
- 
-  if(timeCounterOverall == 25)
+  overallTimeMinutes = (Time.time - overallTime)/60;
+  overallTimeSeconds= (Time.time - overallTime) -(overallTimeMinutes *60);
+  
+  if(overallTimeSeconds < 10)
     {
-     timeCounterOverall= 0;
-	 overallTimeSecondsTotal++;
-	 overallTimeSeconds++;
+	  printOverall = (overallTimeMinutes + ":0" + overallTimeSeconds);
+	}
+  else
+    {
+	  printOverall = (overallTimeMinutes + ":" + overallTimeSeconds);
     }
 	
-	/**Convert Overall Time to Minutes & Seconds.*/
-	if(overallTimeSeconds == 60)
+	/**Update Hud.*/
+	if(hudScript != null)
 	  {
-	    overallTimeMinutes++;
-	    overallTimeSeconds = 0;
+	  	hudScript.setOverallTime("Overall Time : " + printOverall);
 	  }
-	  
-	 /**Adjust The Time Printed to the Screen.*/
-	  if(overallTimeSeconds < 10)
-	    {
-		 timeAdjust = ("0" + overallTimeSeconds);
-		}
-	  else
-		{
-		 timeAdjust = ("" + overallTimeSeconds);
-		}
-	  
-  printOverall = (overallTimeMinutes + "." + timeAdjust);
+	 
 }
 
 
@@ -382,39 +515,19 @@ function CheckEnhancements()
 /**Count Down Timer for Race.*/
 function RaceCountDown()
 {
-  if(actualTime < 3)
-    {
-      TimeCounterUp();
-		
-      if(actualTime == 3)
-	    {
-		  actualTime = 0;
-		  timeCounter = 0;
-		  isRacing = true;
-		 }
-
-		
-		/**Print out Race Count Down.*/
-		if(actualTime == 0)
-		  {
-		    countDownTime = "3";
-		  }
-		else if(actualTime == 1)
-		  {
-		   countDownTime = "2";
-		  }
-		else if(actualTime == 2)
-		 {
-		  countDownTime = "1";
-		 }
-		 
-		if(isRacing)
-		 {
-		  countDownTime = "GO";
-		 }
-		
-	  print(countDownTime);
+  /**Update Hud.*/
+  if(hudScript != null)
+	{
+	 hudScript.setInitiate(true);
 	}
+
+   var goRace:boolean = hudScript.getRace();
+   if(goRace)
+     {
+	  isRacing = true;
+	  overallTime = Time.time;
+      lapTime = Time.time;
+	 }
  }
 
 /**Count Down For the Tutorial*/
@@ -427,6 +540,15 @@ function TutorialCountDown()
     counter = 0;
 	tutorialCounter --;
    }
+   
+   		
+  /**Update Hud.*/
+  if(hudScript != null)
+	{
+	  hudScript.setLapTime("Time Remaining : " + tutorialCounter);
+	}
+	 
+	
 }
 
 
