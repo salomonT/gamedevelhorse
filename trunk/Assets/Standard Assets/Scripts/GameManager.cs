@@ -97,7 +97,7 @@ public static void setDifficulty(int diff) {
 	DIFFICULTY = diff;	
 }
 
-public static int getdifficulty() {
+public static int getDifficulty() {
 	return DIFFICULTY;
 }
 

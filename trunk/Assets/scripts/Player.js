@@ -86,11 +86,18 @@ function Start()
 	{
 		horseSinglePlayer.SetActiveRecursively(false);
 	}
+	
 	var horsePlayers : GameObject = GameObject.Find("players");
+	
 	if(horsePlayers != null)
 	{
 		//horseSinglePlayer.SetActiveRecursively(false);
+		
+		//var aiplay : GameObject = GameObject.Find("HorseAnim");
+		//var enemyPlayerAI : AIFollow = aiplay.GetComponent(AIFollow);
+
 	}
+
 	if(Network.isClient)
 	{
 		enabled=false;	 // disable this script (this disables Update());	
@@ -115,6 +122,34 @@ function Start()
 	  currentWaypoint = 0;
 	  totalLaps = 2;
 	  raceCompleted = false;
+	  
+	  Debug.Log("MODIFYING AI DIFFICULTY");
+	  
+	  var randomSpeed = 0.0f;
+	  
+	  for(var gameObj : GameObject in GameObject.FindObjectsOfType(GameObject)) {
+		if(gameObj.name == "HorseAnim") {
+    		if(GameManager.getDifficulty() != null) {
+    			var enemyPlayerAI = gameObj.GetComponent(AIFollow);
+    			if(enemyPlayerAI != null){
+    				randomSpeed = Random.Range(-2, 2);
+	   				switch(GameManager.getDifficulty()) {
+						case 0 : enemyPlayerAI.speed = enemyPlayerAI.speed + randomSpeed;
+							     Debug.Log("AI Horse Speed = " +enemyPlayerAI.speed + " (Extra Random Speed = " +randomSpeed +")"); 
+							     break;
+						case 1 : enemyPlayerAI.speed = (enemyPlayerAI.speed + 3) + randomSpeed; 
+								 Debug.Log("AI Horse Speed = " +enemyPlayerAI.speed +" (Extra Random Speed = " +randomSpeed +")"); 
+								 break;
+						case 2 : enemyPlayerAI.speed = (enemyPlayerAI.speed + 6) + randomSpeed; 
+								 Debug.Log("AI Horse Speed = " +enemyPlayerAI.speed +" (Extra Random Speed = " +randomSpeed +")"); break;
+						default: break;
+	  			 	} //switch
+	  			 	enemyPlayerAI = null;
+    			} //if
+	 		 } //if
+    	} //if
+	  } //for
+		
   }
 }
 
