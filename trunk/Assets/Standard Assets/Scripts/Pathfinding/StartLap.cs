@@ -71,7 +71,6 @@ public class StartLap : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
 		if(GoRace.getRunGame() == true && GoRace.cameraEnd == true)
 		{
 			if(isLaunched == false)
