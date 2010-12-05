@@ -229,7 +229,7 @@ public class StartLap : MonoBehaviour {
 		(GetComponent (typeof (AIFollow)) as AIFollow).speed = halfSpeed;
 	}
 	
-	public void AccelCaracter()
+	public void AcclerateCharacter()
 	{
 		(GetComponent (typeof (AIFollow)) as AIFollow).speed = startSpeed;
 	}
