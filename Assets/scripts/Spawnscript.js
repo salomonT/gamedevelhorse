@@ -12,8 +12,11 @@
 public var playerPrefab : Transform;
 public var playerScripts : ArrayList = new ArrayList();
 
+public var numPos : int = 0;
+
 function Awake()
 {
+	numPos = 0;
 	if(KeepNetworkInfo.isNetwork == false)
 	{
 		enabled = false;
@@ -41,6 +44,15 @@ function Start()
 function Spawnplayer(newPlayer : NetworkPlayer){
 	//Called on the server only
 	
+	if(numPos%2==0)
+	{
+		transform.position.z += 12.0;
+	}
+	else
+	{
+		transform.position.z -= 12.0;
+		transform.position.x -= 15.0;
+	}
 	 var playerNumber : int = parseInt(newPlayer+"");
 	 //Instantiate a new object for this player, remember; the server is therefore the owner.
 	 var myNewTrans : Transform = Network.Instantiate(playerPrefab, transform.position, transform.rotation, playerNumber);
@@ -53,6 +65,7 @@ function Spawnplayer(newPlayer : NetworkPlayer){
 	
 	 //Call an RPC on this new networkview, set the player who controls this player
 	 newObjectsNetworkview.RPC("SetPlayer", RPCMode.AllBuffered, newPlayer);//Set it on the owner
+	 numPos++;
 }
 
 

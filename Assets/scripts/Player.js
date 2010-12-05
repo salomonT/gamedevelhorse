@@ -99,91 +99,71 @@ function AcclerateCharacter()
         runSpeed = runSpeed * 2.0f;
 }
 
-function Start()
-{       
-        camTop = GameObject.Find("HorseAnim/CameraTopView");
-        fxLoopPlay = false;
-        audio.loop = true;
-        audio.volume = 1;
-        
-        
-        anim = GetComponent(Animation);
-        animState = anim["Take 001"];
-        startTime = Time.time;
-        controller = GetComponent(CharacterController);
-
-  if(KeepNetworkInfo.isNetwork == true) //Multiplayer mode.
-  {
-        //Disable the singleplayer horses.
-        var horsePlayers : GameObject = GameObject.Find("players");
-        if(horsePlayers != null)
-        {
-                horsePlayers.SetActiveRecursively(false);
-        }
-        
-        var horseSinglePlayer : GameObject = GameObject.Find("HorseAnim");
-        if(horseSinglePlayer != null)
-        {
-                horseSinglePlayer.SetActiveRecursively(false);
-                horseSinglePlayer.active = false;
-        }
-        
-        
-        var cam : GameObject = GameObject.Find("Camera");
-        if(cam != null)
-        {
-                var follow : SplineController = cam.GetComponent(SplineController);
-                if(follow != null)
-                {
-                        follow.mSplineInterp.enabled = false;
-                        follow.enabled = false;
-                }
-        }
+function StartMultiplayer()
+{
+//Disable the singleplayer horses.
+	var horsePlayers : GameObject = GameObject.Find("players");
+	if(horsePlayers != null)
+	{
+		horsePlayers.SetActiveRecursively(false);
+	}
+	
+	var horseSinglePlayer : GameObject = GameObject.Find("HorseAnim");
+	if(horseSinglePlayer != null)
+	{
+		horseSinglePlayer.SetActiveRecursively(false);
+		horseSinglePlayer.active = false;
+	}
+	
+	
+	var cam : GameObject = GameObject.Find("Camera");
+	if(cam != null)
+	{
+		var follow : SplineController = cam.GetComponent(SplineController);
+		if(follow != null)
+		{
+			follow.mSplineInterp.enabled = false;
+			follow.enabled = false;
+		}
+	}
 
         if(Network.isClient)
         {
                 print("DISABLED");
                 //GetComponent(Player).enabled=false;    // disable this script (this disables Update());       
         }
-  }
-  else //SinglePlayer mode.
-  {
-        GoRace.setRunGame(false);
-        GoRace.stateEnd = 0;
-          if(camTop != null)
-                {
-                print("False");
-                        camTop.active = false;
-                }
-                onBegin = false;
-                GoRace.cameraEnd = false;
-				
-				
-		hud = GameObject.Find("HUD");
-		 if(hud != null)
-		  {
-			hudScript = hud.GetComponent(mainHUD);
-		  }
-		  
-          isRacing = false;
-          countTime = false;
-          countTime = false;
-          speedUp = false;
-          slowDown = false;
-          lapTimeSecondsTotal = 0;
-          overallTimeSecondsTotal = 0;
-          timeCounterLap = 0;
-          timeCounterOverall = 0;
-          lapTimeSeconds = 0;
-          lapTimeMinutes = 0;
-          overallTimeSeconds = 0;
-          overallTimeMinutes = 0;
-          currentWaypoint = 0;
-          totalLaps = 2;
-          raceCompleted = false;
-		  
-		  
-		   /**Make all Mandatory Objects Invisible*/
+}
+
+function StartSinglePlayer()
+{
+	GoRace.setRunGame(false);
+  	GoRace.stateEnd = 0;
+	  if(camTop != null)
+		{
+		print("False");
+			camTop.active = false;
+		}
+		onBegin = false;
+		GoRace.cameraEnd = false;
+	  isRacing = false;
+
+	  countTime = false;
+	  countTime = false;
+	  speedUp = false;
+	  slowDown = false;
+	  lapTimeSecondsTotal = 0;
+	  overallTimeSecondsTotal = 0;
+	  timeCounterLap = 0;
+	  timeCounterOverall = 0;
+	  lapTimeSeconds = 0;
+	  lapTimeMinutes = 0;
+	  overallTimeSeconds = 0;
+	  overallTimeMinutes = 0;
+	  currentWaypoint = 0;
+	  totalLaps = 2;
+	  raceCompleted = false;
+	  
+	   /**Make all Mandatory Objects Invisible*/
 	  mandatory1A = GameObject.Find("Mandatory1A");
 	  mandatory1A.SetActiveRecursively(false);
 	  mandatory1B = GameObject.Find("Mandatory1B");
@@ -209,67 +189,55 @@ function Start()
 	  mandatory3D = GameObject.Find("Mandatory3D");
 	  mandatory3D.SetActiveRecursively(false);
 	  
+	  Debug.Log("MODIFYING AI DIFFICULTY");
 	  
-	  /**Determine How Many Mandatory Items Are to Be Placed 1 - 3*/
-	  typeGame = GameManager.getGameType();
-	  if(typeGame == 1)
-	    {
-		  lapsInRace = GameManager.getLaps();
+	  var randomSpeed = 0.0f;
 	  
-	      if(lapsInRace == 1)
-	       {
-		     hasMandatoryOne = false;
-			 mandatoryTotal = 1;
-		   }
-		 else if(lapsInRace == 2)
-		   {
-		     hasMandatoryOne = false;
-             hasMandatoryTwo = false;
-			 mandatoryTotal = 2;
-		   }
-		 else if(lapsInRace == 3)
-		  {
-	        hasMandatoryOne = false;
-            hasMandatoryTwo = false;
-            hasMandatoryThree = false;
-			mandatoryTotal = 3;
-		  } 
-		 
-		  mandatory1A.SetActiveRecursively(true);
-		  mandatory1B.SetActiveRecursively(true);
-		  mandatory1D.SetActiveRecursively(true);
-		  mandatory1C.SetActiveRecursively(true);
-		}
+	  for(var gameObj : GameObject in GameObject.FindObjectsOfType(GameObject)) {
+		if(gameObj.name == "HorseAnim") {
+    		if(GameManager.getDifficulty() != null) {
+    			var enemyPlayerAI = gameObj.GetComponent(AIFollow);
+    			if(enemyPlayerAI != null){
+    				randomSpeed = Random.Range(-2, 2);
+	   				switch(GameManager.getDifficulty()) {
+						case 0 : enemyPlayerAI.speed = enemyPlayerAI.speed + randomSpeed;
+							     Debug.Log("AI Horse Speed = " +enemyPlayerAI.speed + " (Extra Random Speed = " +randomSpeed +")"); 
+							     break;
+						case 1 : enemyPlayerAI.speed = (enemyPlayerAI.speed + 3) + randomSpeed; 
+								 Debug.Log("AI Horse Speed = " +enemyPlayerAI.speed +" (Extra Random Speed = " +randomSpeed +")"); 
+								 break;
+						case 2 : enemyPlayerAI.speed = (enemyPlayerAI.speed + 6) + randomSpeed; 
+								 Debug.Log("AI Horse Speed = " +enemyPlayerAI.speed +" (Extra Random Speed = " +randomSpeed +")"); break;
+						default: break;
+	  			 	} //switch
+	  			 	enemyPlayerAI = null;
+    			} //if
+	 		 } //if
+    	} //if
+	  } //for
 		
-        
-		
-          Debug.Log("MODIFYING AI DIFFICULTY");
-          
-          var randomSpeed = 0.0f;
-          
-          for(var gameObj : GameObject in GameObject.FindObjectsOfType(GameObject)) {
-                if(gameObj.name == "HorseAnim") {
-                if(GameManager.getDifficulty() != null) {
-                        var enemyPlayerAI = gameObj.GetComponent(AIFollow);
-                        if(enemyPlayerAI != null){
-                                randomSpeed = Random.Range(-2, 2);
-                                        switch(GameManager.getDifficulty()) {
-                                                case 0 : enemyPlayerAI.speed = enemyPlayerAI.speed + randomSpeed;
-                                                             Debug.Log("AI Horse Speed = " +enemyPlayerAI.speed + " (Extra Random Speed = " +randomSpeed +")"); 
-                                                             break;
-                                                case 1 : enemyPlayerAI.speed = (enemyPlayerAI.speed + 3) + randomSpeed; 
-                                                                 Debug.Log("AI Horse Speed = " +enemyPlayerAI.speed +" (Extra Random Speed = " +randomSpeed +")"); 
-                                                                 break;
-                                                case 2 : enemyPlayerAI.speed = (enemyPlayerAI.speed + 6) + randomSpeed; 
-                                                                 Debug.Log("AI Horse Speed = " +enemyPlayerAI.speed +" (Extra Random Speed = " +randomSpeed +")"); break;
-                                                default: break;
-                                        } //switch
-                                        enemyPlayerAI = null;
-                        } //if
-                         } //if
-        } //if
-          } //for
-                
+}
+
+function Start()
+{	
+	camTop = GameObject.Find("HorseAnim/CameraTopView");
+	fxLoopPlay = false;
+	audio.loop = true;
+	audio.volume = 1;
+	
+	
+	anim = GetComponent(Animation);
+	animState = anim["Take 001"];
+	startTime = Time.time;
+  	controller = GetComponent(CharacterController);
+
+  if(KeepNetworkInfo.isNetwork == true)	//Multiplayer mode.
+  {
+  	StartMultiplayer();
+  }
+  else //SinglePlayer mode.
+  {
+  	StartSinglePlayer();
   }
 }
 
