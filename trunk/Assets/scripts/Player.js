@@ -101,6 +101,7 @@ function AcclerateCharacter()
 
 function StartMultiplayer()
 {
+   	GoRace.cameraEnd = true;
 //Disable the singleplayer horses.
 	var horsePlayers : GameObject = GameObject.Find("players");
 	if(horsePlayers != null)
@@ -478,6 +479,8 @@ function MoveCharachter()
         {
                 animState.speed = speed / 50.0;
                 anim.Play();
+                audio.pitch = Mathf.Min(1.2f,animState.speed * 1.5f);
+                audio.pitch = Mathf.Max(0.7f,audio.pitch);
                 if (!audio.isPlaying && fxLoopPlay == false)
                 {
                         audio.Play(0);
@@ -828,7 +831,7 @@ function CheckEnhancements()
              TimeCounterUp(); 
        }
         
-      if(actualTime == 3)
+      if(actualTime >= 3)
        {
                 countTime = false;
         speedUp = false;
@@ -845,7 +848,7 @@ function CheckEnhancements()
              TimeCounterUp(); 
        }
         
-      if(actualTime == 3)
+      if(actualTime >= 3)
        {
                 countTime = false;
         slowDown = false;
