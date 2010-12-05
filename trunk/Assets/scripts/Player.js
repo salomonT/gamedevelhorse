@@ -15,7 +15,6 @@ private var lapCounter:Number;
 private var totalLaps:Number;
 private var timeCounterLap:Number;
 private var timeCounterOverall:Number;
-private var hasMandatory:boolean;
 private var isRacing:boolean;
 private var printLap:String = "";
 private var printOverall:String = "";
@@ -30,6 +29,32 @@ var lapTimeMinutes:int = 0;
 var overallTimeSeconds:int = 0;
 var overallTimeMinutes:int = 0;
 var setRace:boolean = false;
+var hud:GameObject;
+var hudScript:mainHUD;
+
+var typeGame:int = 1;
+var lapsInRace:int = 0;
+var hasMandatoryOne:boolean;
+var hasMandatoryTwo:boolean;
+var hasMandatoryThree:boolean;
+var mandatoryTotal:int = 0;
+var mandatoryCount: int = 0;
+var mandatory1Name: String = "";
+var mandatory2Name: String = "";
+var mandatory3Name: String = "";
+
+var mandatory1A:GameObject;
+var mandatory1B:GameObject;
+var mandatory1C:GameObject;
+var mandatory1D:GameObject;
+var mandatory2A:GameObject;
+var mandatory2B:GameObject;
+var mandatory2C:GameObject;
+var mandatory2D:GameObject;
+var mandatory3A:GameObject;
+var mandatory3B:GameObject;
+var mandatory3C:GameObject;
+var mandatory3D:GameObject;
 
 public var owner : NetworkPlayer;
 
@@ -61,313 +86,381 @@ private var camTop : GameObject;
 //On enter water collision.
 function SlowerCharacter()
 {
-	rotationSpeed = rotationSpeed / 2.0f;
-	walkSpeed = walkSpeed / 2.0f;
-	runSpeed = runSpeed / 2.0f;
+        rotationSpeed = rotationSpeed / 2.0f;
+        walkSpeed = walkSpeed / 2.0f;
+        runSpeed = runSpeed / 2.0f;
 }
 
 //On exit water collision.
 function AcclerateCharacter()
 {
-	rotationSpeed = rotationSpeed * 2.0f;
-	walkSpeed = walkSpeed * 2.0f;
-	runSpeed = runSpeed * 2.0f;
+        rotationSpeed = rotationSpeed * 2.0f;
+        walkSpeed = walkSpeed * 2.0f;
+        runSpeed = runSpeed * 2.0f;
 }
 
 function Start()
-{	
-	camTop = GameObject.Find("HorseAnim/CameraTopView");
-	fxLoopPlay = false;
-	audio.loop = true;
-	audio.volume = 1;
-	
-	
-	anim = GetComponent(Animation);
-	animState = anim["Take 001"];
-	startTime = Time.time;
-  	controller = GetComponent(CharacterController);
+{       
+        camTop = GameObject.Find("HorseAnim/CameraTopView");
+        fxLoopPlay = false;
+        audio.loop = true;
+        audio.volume = 1;
+        
+        
+        anim = GetComponent(Animation);
+        animState = anim["Take 001"];
+        startTime = Time.time;
+        controller = GetComponent(CharacterController);
 
-  if(KeepNetworkInfo.isNetwork == true)	//Multiplayer mode.
+  if(KeepNetworkInfo.isNetwork == true) //Multiplayer mode.
   {
-  	//Disable the singleplayer horses.
-	var horsePlayers : GameObject = GameObject.Find("players");
-	if(horsePlayers != null)
-	{
-		horsePlayers.SetActiveRecursively(false);
-	}
-	
-	var horseSinglePlayer : GameObject = GameObject.Find("HorseAnim");
-	if(horseSinglePlayer != null)
-	{
-		horseSinglePlayer.SetActiveRecursively(false);
-		horseSinglePlayer.active = false;
-	}
-	
-	
-	var cam : GameObject = GameObject.Find("Camera");
-	if(cam != null)
-	{
-		var follow : SplineController = cam.GetComponent(SplineController);
-		if(follow != null)
-		{
-			follow.mSplineInterp.enabled = false;
-			follow.enabled = false;
-		}
-	}
+        //Disable the singleplayer horses.
+        var horsePlayers : GameObject = GameObject.Find("players");
+        if(horsePlayers != null)
+        {
+                horsePlayers.SetActiveRecursively(false);
+        }
+        
+        var horseSinglePlayer : GameObject = GameObject.Find("HorseAnim");
+        if(horseSinglePlayer != null)
+        {
+                horseSinglePlayer.SetActiveRecursively(false);
+                horseSinglePlayer.active = false;
+        }
+        
+        
+        var cam : GameObject = GameObject.Find("Camera");
+        if(cam != null)
+        {
+                var follow : SplineController = cam.GetComponent(SplineController);
+                if(follow != null)
+                {
+                        follow.mSplineInterp.enabled = false;
+                        follow.enabled = false;
+                }
+        }
 
-	if(Network.isClient)
-	{
-		print("DISABLED");
-		//GetComponent(Player).enabled=false;	 // disable this script (this disables Update());	
-	}
+        if(Network.isClient)
+        {
+                print("DISABLED");
+                //GetComponent(Player).enabled=false;    // disable this script (this disables Update());       
+        }
   }
   else //SinglePlayer mode.
   {
-  	GoRace.setRunGame(false);
-  	GoRace.stateEnd = 0;
-	  if(camTop != null)
-		{
-		print("False");
-			camTop.active = false;
+        GoRace.setRunGame(false);
+        GoRace.stateEnd = 0;
+          if(camTop != null)
+                {
+                print("False");
+                        camTop.active = false;
+                }
+                onBegin = false;
+                GoRace.cameraEnd = false;
+				
+				
+		hud = GameObject.Find("HUD");
+		 if(hud != null)
+		  {
+			hudScript = hud.GetComponent(mainHUD);
+		  }
+		  
+          isRacing = false;
+          countTime = false;
+          countTime = false;
+          speedUp = false;
+          slowDown = false;
+          lapTimeSecondsTotal = 0;
+          overallTimeSecondsTotal = 0;
+          timeCounterLap = 0;
+          timeCounterOverall = 0;
+          lapTimeSeconds = 0;
+          lapTimeMinutes = 0;
+          overallTimeSeconds = 0;
+          overallTimeMinutes = 0;
+          currentWaypoint = 0;
+          totalLaps = 2;
+          raceCompleted = false;
+		  
+		  
+		   /**Make all Mandatory Objects Invisible*/
+	  mandatory1A = GameObject.Find("Mandatory1A");
+	  mandatory1A.SetActiveRecursively(false);
+	  mandatory1B = GameObject.Find("Mandatory1B");
+	  mandatory1B.SetActiveRecursively(false);
+	  mandatory1C = GameObject.Find("Mandatory1C");
+	  mandatory1C.SetActiveRecursively(false);
+      mandatory1D = GameObject.Find("Mandatory1D");
+	  mandatory1D.SetActiveRecursively(false);
+	  mandatory2A = GameObject.Find("Mandatory2A");
+	  mandatory2A.SetActiveRecursively(false);
+	  mandatory2B = GameObject.Find("Mandatory2B");
+	  mandatory2B.SetActiveRecursively(false);
+      mandatory2C = GameObject.Find("Mandatory2C");
+	  mandatory2C.SetActiveRecursively(false);
+	  mandatory2D = GameObject.Find("Mandatory2D");
+	  mandatory2D.SetActiveRecursively(false);
+	  mandatory3A = GameObject.Find("Mandatory3A");
+	  mandatory3A.SetActiveRecursively(false);
+	  mandatory3B = GameObject.Find("Mandatory3B");
+	  mandatory3B.SetActiveRecursively(false);
+	  mandatory3C = GameObject.Find("Mandatory3C");
+	  mandatory3C.SetActiveRecursively(false);
+	  mandatory3D = GameObject.Find("Mandatory3D");
+	  mandatory3D.SetActiveRecursively(false);
+	  
+	  
+	  /**Determine How Many Mandatory Items Are to Be Placed 1 - 3*/
+	  typeGame = GameManager.getGameType();
+	  if(typeGame == 1)
+	    {
+		  lapsInRace = GameManager.getLaps();
+	  
+	      if(lapsInRace == 1)
+	       {
+		     hasMandatoryOne = false;
+			 mandatoryTotal = 1;
+		   }
+		 else if(lapsInRace == 2)
+		   {
+		     hasMandatoryOne = false;
+             hasMandatoryTwo = false;
+			 mandatoryTotal = 2;
+		   }
+		 else if(lapsInRace == 3)
+		  {
+	        hasMandatoryOne = false;
+            hasMandatoryTwo = false;
+            hasMandatoryThree = false;
+			mandatoryTotal = 3;
+		  } 
+		 
+		  mandatory1A.SetActiveRecursively(true);
+		  mandatory1B.SetActiveRecursively(true);
+		  mandatory1D.SetActiveRecursively(true);
+		  mandatory1C.SetActiveRecursively(true);
 		}
-		onBegin = false;
-		GoRace.cameraEnd = false;
-	  isRacing = false;
-
-	  countTime = false;
-	  countTime = false;
-	  speedUp = false;
-	  slowDown = false;
-	  lapTimeSecondsTotal = 0;
-	  overallTimeSecondsTotal = 0;
-	  timeCounterLap = 0;
-	  timeCounterOverall = 0;
-	  lapTimeSeconds = 0;
-	  lapTimeMinutes = 0;
-	  overallTimeSeconds = 0;
-	  overallTimeMinutes = 0;
-	  currentWaypoint = 0;
-	  totalLaps = 2;
-	  raceCompleted = false;
-	  
-	  Debug.Log("MODIFYING AI DIFFICULTY");
-	  
-	  var randomSpeed = 0.0f;
-	  
-	  for(var gameObj : GameObject in GameObject.FindObjectsOfType(GameObject)) {
-		if(gameObj.name == "HorseAnim") {
-    		if(GameManager.getDifficulty() != null) {
-    			var enemyPlayerAI = gameObj.GetComponent(AIFollow);
-    			if(enemyPlayerAI != null){
-    				randomSpeed = Random.Range(-2, 2);
-	   				switch(GameManager.getDifficulty()) {
-						case 0 : enemyPlayerAI.speed = enemyPlayerAI.speed + randomSpeed;
-							     Debug.Log("AI Horse Speed = " +enemyPlayerAI.speed + " (Extra Random Speed = " +randomSpeed +")"); 
-							     break;
-						case 1 : enemyPlayerAI.speed = (enemyPlayerAI.speed + 3) + randomSpeed; 
-								 Debug.Log("AI Horse Speed = " +enemyPlayerAI.speed +" (Extra Random Speed = " +randomSpeed +")"); 
-								 break;
-						case 2 : enemyPlayerAI.speed = (enemyPlayerAI.speed + 6) + randomSpeed; 
-								 Debug.Log("AI Horse Speed = " +enemyPlayerAI.speed +" (Extra Random Speed = " +randomSpeed +")"); break;
-						default: break;
-	  			 	} //switch
-	  			 	enemyPlayerAI = null;
-    			} //if
-	 		 } //if
-    	} //if
-	  } //for
 		
+        
+		
+          Debug.Log("MODIFYING AI DIFFICULTY");
+          
+          var randomSpeed = 0.0f;
+          
+          for(var gameObj : GameObject in GameObject.FindObjectsOfType(GameObject)) {
+                if(gameObj.name == "HorseAnim") {
+                if(GameManager.getDifficulty() != null) {
+                        var enemyPlayerAI = gameObj.GetComponent(AIFollow);
+                        if(enemyPlayerAI != null){
+                                randomSpeed = Random.Range(-2, 2);
+                                        switch(GameManager.getDifficulty()) {
+                                                case 0 : enemyPlayerAI.speed = enemyPlayerAI.speed + randomSpeed;
+                                                             Debug.Log("AI Horse Speed = " +enemyPlayerAI.speed + " (Extra Random Speed = " +randomSpeed +")"); 
+                                                             break;
+                                                case 1 : enemyPlayerAI.speed = (enemyPlayerAI.speed + 3) + randomSpeed; 
+                                                                 Debug.Log("AI Horse Speed = " +enemyPlayerAI.speed +" (Extra Random Speed = " +randomSpeed +")"); 
+                                                                 break;
+                                                case 2 : enemyPlayerAI.speed = (enemyPlayerAI.speed + 6) + randomSpeed; 
+                                                                 Debug.Log("AI Horse Speed = " +enemyPlayerAI.speed +" (Extra Random Speed = " +randomSpeed +")"); break;
+                                                default: break;
+                                        } //switch
+                                        enemyPlayerAI = null;
+                        } //if
+                         } //if
+        } //if
+          } //for
+                
   }
 }
 
 @RPC
 function SetPlayer(player : NetworkPlayer)
 {
-	owner = player;
-	if(player==Network.player){
-		//Hey thats us! We can control this player: enable this script (this enables Update());
-		GetComponent(Player).enabled=true;
-		print("ENABLED");
-		print(KeepNetworkInfo.playerName);
-		
-		if(alreadyCam == false)
-		{
-			var cam : GameObject = GameObject.Find("Camera"); 
-			if(cam == null)
-			{
-				print("null cam");
-			}
-			else
-			{
-				var follow : SmoothFollow = cam.GetComponent(SmoothFollow);
-				if(follow == null)
-				{
-					print("null error");
-				}
-				else
-				{
-					follow.target = gameObject.transform;	
-				} 
-			}
-			alreadyCam = true;
-		}
-	}
+        owner = player;
+        if(player==Network.player){
+                //Hey thats us! We can control this player: enable this script (this enables Update());
+                GetComponent(Player).enabled=true;
+                print("ENABLED");
+                print(KeepNetworkInfo.playerName);
+                
+                if(alreadyCam == false)
+                {
+                        var cam : GameObject = GameObject.Find("Camera"); 
+                        if(cam == null)
+                        {
+                                print("null cam");
+                        }
+                        else
+                        {
+                                var follow : SmoothFollow = cam.GetComponent(SmoothFollow);
+                                if(follow == null)
+                                {
+                                        print("null error");
+                                }
+                                else
+                                {
+                                        follow.target = gameObject.transform;   
+                                } 
+                        }
+                        alreadyCam = true;
+                }
+        }
 }
 
 function ApplyGravity()
 {
-	if(controller.isGrounded)
-	{
-		verticalSpeed = 0.0;
-	//	print("isGrounded !");
-	}
-	else
-	{
-//		print("isNotGrounded !");
-		verticalSpeed -= gravity;
-	}
+        if(controller.isGrounded)
+        {
+                verticalSpeed = 0.0;
+        //      print("isGrounded !");
+        }
+        else
+        {
+//              print("isNotGrounded !");
+                verticalSpeed -= gravity;
+        }
 }
 
 function UpdateMultiplayer(){ 
-	//Client code
-	print("UpdateMultiplayer");
-	if(owner!=null && Network.player==owner){
-		//Only the client that owns this object executes this code
-		var HInput : float = Input.GetAxis("Horizontal");
-		var VInput : float = Input.GetAxis("Vertical");
-		var RInput : boolean = Input.GetButton("Run");
-		
-		//Is our input different? Do we need to update the server?
-		if(lastClientHInput!=HInput || lastClientVInput!=VInput )
-		{
-			lastClientHInput = HInput;
-			lastClientVInput = VInput;
-		}
-		if(Network.isServer)
-		{
-				//Too bad a server can't send an rpc to itself using "RPCMode.Server"!...bugged :[
-				SendMovementInput(lastClientHInput, lastClientVInput, RInput, controller.isGrounded);
-		}
-		else if(Network.isClient)
-		{
-				SendMovementInput(lastClientHInput, lastClientVInput, RInput, controller.isGrounded); //Use this (and line 64) for simple "prediction"
-				networkView.RPC("SendMovementInput", RPCMode.Server, lastClientHInput, lastClientVInput, RInput, controller.isGrounded);
-		}
-		
-	}
-	
-	
-	//Server movement code
-	if(Network.isServer || Network.player==owner)
-	{
-		if ((Mathf.Abs(serverCurrentVInput) > 0.2) || (Mathf.Abs(serverCurrentHInput) > 0.2)) 
-		{
-			if(serverCurrentRIpunt == true) 
-			{
-				if(speedUp == true)
-				{
-					speed = Mathf.Abs(serverCurrentVInput) * (runSpeed * 2);
-				}
-				else if(slowDown == true)
-				{
-					speed = Mathf.Abs(serverCurrentVInput) * (runSpeed / 2);			 
-				}
-				else
-				{
-					speed = Mathf.Abs(serverCurrentVInput) * runSpeed;
-				}
-			} 
-			else if(speedUp == true)
-			{
-				speed = Mathf.Abs(serverCurrentVInput) * (walkSpeed * 2);   
-			}
-			else if(slowDown == true)
-			{
-				speed = Mathf.Abs(serverCurrentVInput) * (walkSpeed / 2);			 
-			} 
-			else
-			{
-				speed = Mathf.Abs(serverCurrentVInput) * walkSpeed;
-			}
-		} 
-		else 
-		{
-			speed = 0;
-		}
-		print("V: " + serverCurrentVInput + " H: " + serverCurrentHInput + " Speed: " + speed);
-		//Actually move the player using his/her input
-		if(serverCurrentVInput != 0f)
-		{
-			animState.speed = speed / 50.0;
-			anim.Play();
-		}
-		var rotation : float = serverCurrentHInput * rotationSpeed;
-		rotation *= Time.deltaTime;
-		transform.Rotate(0, rotation, 0);
-		if(serverCurrentGround == false)
-		{
-			verticalSpeed = -0.2;
-		}
-		else
-		{
-			verticalSpeed = 0.0;
-		}
-		var moveDirection : Vector3 = new Vector3(0, verticalSpeed, serverCurrentVInput);
-		moveDirection = transform.TransformDirection(moveDirection);
-		controller.Move(speed * moveDirection * Time.deltaTime);
-		//transform.Translate(speed * moveDirection * Time.deltaTime);
-		//moveDirection = new Vector3(0,verticalSpeed,0);
-		//transform.Translate(moveDirection * Time.deltaTime);
-	}
+        //Client code
+        print("UpdateMultiplayer");
+        if(owner!=null && Network.player==owner){
+                //Only the client that owns this object executes this code
+                var HInput : float = Input.GetAxis("Horizontal");
+                var VInput : float = Input.GetAxis("Vertical");
+                var RInput : boolean = Input.GetButton("Run");
+                
+                //Is our input different? Do we need to update the server?
+                if(lastClientHInput!=HInput || lastClientVInput!=VInput )
+                {
+                        lastClientHInput = HInput;
+                        lastClientVInput = VInput;
+                }
+                if(Network.isServer)
+                {
+                                //Too bad a server can't send an rpc to itself using "RPCMode.Server"!...bugged :[
+                                SendMovementInput(lastClientHInput, lastClientVInput, RInput, controller.isGrounded);
+                }
+                else if(Network.isClient)
+                {
+                                SendMovementInput(lastClientHInput, lastClientVInput, RInput, controller.isGrounded); //Use this (and line 64) for simple "prediction"
+                                networkView.RPC("SendMovementInput", RPCMode.Server, lastClientHInput, lastClientVInput, RInput, controller.isGrounded);
+                }
+                
+        }
+        
+        
+        //Server movement code
+        if(Network.isServer || Network.player==owner)
+        {
+                if ((Mathf.Abs(serverCurrentVInput) > 0.2) || (Mathf.Abs(serverCurrentHInput) > 0.2)) 
+                {
+                        if(serverCurrentRIpunt == true) 
+                        {
+                                if(speedUp == true)
+                                {
+                                        speed = Mathf.Abs(serverCurrentVInput) * (runSpeed * 2);
+                                }
+                                else if(slowDown == true)
+                                {
+                                        speed = Mathf.Abs(serverCurrentVInput) * (runSpeed / 2);                         
+                                }
+                                else
+                                {
+                                        speed = Mathf.Abs(serverCurrentVInput) * runSpeed;
+                                }
+                        } 
+                        else if(speedUp == true)
+                        {
+                                speed = Mathf.Abs(serverCurrentVInput) * (walkSpeed * 2);   
+                        }
+                        else if(slowDown == true)
+                        {
+                                speed = Mathf.Abs(serverCurrentVInput) * (walkSpeed / 2);                        
+                        } 
+                        else
+                        {
+                                speed = Mathf.Abs(serverCurrentVInput) * walkSpeed;
+                        }
+                } 
+                else 
+                {
+                        speed = 0;
+                }
+                print("V: " + serverCurrentVInput + " H: " + serverCurrentHInput + " Speed: " + speed);
+                //Actually move the player using his/her input
+                if(serverCurrentVInput != 0f)
+                {
+                        animState.speed = speed / 50.0;
+                        anim.Play();
+                }
+                var rotation : float = serverCurrentHInput * rotationSpeed;
+                rotation *= Time.deltaTime;
+                transform.Rotate(0, rotation, 0);
+                if(serverCurrentGround == false)
+                {
+                        verticalSpeed = -0.2;
+                }
+                else
+                {
+                        verticalSpeed = 0.0;
+                }
+                var moveDirection : Vector3 = new Vector3(0, verticalSpeed, serverCurrentVInput);
+                moveDirection = transform.TransformDirection(moveDirection);
+                controller.Move(speed * moveDirection * Time.deltaTime);
+                //transform.Translate(speed * moveDirection * Time.deltaTime);
+                //moveDirection = new Vector3(0,verticalSpeed,0);
+                //transform.Translate(moveDirection * Time.deltaTime);
+        }
 }
 
 @RPC
-function SendMovementInput(HInput : float, VInput : float, RInput : boolean, control : boolean){	
-	//Called on the server
-	serverCurrentHInput = HInput;
-	serverCurrentVInput = VInput;
-	serverCurrentRInput = RInput;
-	serverCurrentGround = control;
+function SendMovementInput(HInput : float, VInput : float, RInput : boolean, control : boolean){        
+        //Called on the server
+        serverCurrentHInput = HInput;
+        serverCurrentVInput = VInput;
+        serverCurrentRInput = RInput;
+        serverCurrentGround = control;
 }
 
 function Update () 
 {
-	print("Update");
+        print("Update");
   if(KeepNetworkInfo.isNetwork == true)
   {
-  	UpdateMultiplayer();
+        UpdateMultiplayer();
   }
   else
   {
-  	if(setRace)
-	  {
-	    overallTime = Time.time;
+        if(setRace)
+          {
+            overallTime = Time.time;
         lapTime = Time.time; 
-	    isRacing = true;
-		setRace = false;
-	  }
-	
-	  if(GoRace.cameraEnd == true && isRacing && !raceCompleted)
-	  {
-			MoveCharachter();
-			CheckEnhancements();
-			LapTime();
-			OverallTime();
-			print("Lap Time : " + printLap + "   Overall Time : " + printOverall + "  Score : " + overallScore);
+            isRacing = true;
+                setRace = false;
+          }
+        
+          if(GoRace.cameraEnd == true && isRacing && !raceCompleted)
+          {
+                        MoveCharachter();
+                        CheckEnhancements();
+                        LapTime();
+                        OverallTime();
+                        print("Lap Time : " + printLap + "   Overall Time : " + printOverall + "  Score : " + overallScore);
       }
-	  else
-	  {
-		  RaceCountDown();
-	  }
-	  
-	  // CHECK THE PLAYER STATS AGAINST THE GAME RACE SETTINGS
-	  checkGameManager();
-	  
-	  if(raceCompleted)
-	  {
-		    print("Race Over");
-	  }
-	  
+          else
+          {
+                  RaceCountDown();
+          }
+          
+          // CHECK THE PLAYER STATS AGAINST THE GAME RACE SETTINGS
+          checkGameManager();
+          
+          if(raceCompleted)
+          {
+                    print("Race Over");
+          }
+          
   }
 }
 
@@ -377,65 +470,65 @@ function Update ()
 function MoveCharachter()
 { 
     if ((Mathf.Abs(Input.GetAxis("Vertical")) > 0.2) || (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.2)) 
-	  {
+          {
         if(Input.GetButton("Run")) 
-		  {
-		    if(speedUp == true)
-			 {
-			   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (runSpeed * 1.5);
-    			
-			 }
-		   else if(slowDown == true)
-		     {
-			   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (runSpeed / 2);			 
-			 }
-		   else
-			 {
+                  {
+                    if(speedUp == true)
+                         {
+                           speed = Mathf.Abs(Input.GetAxis("Vertical")) * (runSpeed * 1.5);
+                        
+                         }
+                   else if(slowDown == true)
+                     {
+                           speed = Mathf.Abs(Input.GetAxis("Vertical")) * (runSpeed / 2);                        
+                         }
+                   else
+                         {
                speed = Mathf.Abs(Input.GetAxis("Vertical")) * runSpeed;
-			 }
+                         }
           } 
-		else if(speedUp == true)
-		  {
-		   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed * 1.5);   
-		  }
-		else if(slowDown == true)
-		  {
-		   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed / 2);			 
-		  } 
-	    else
-		 {
-		 
+                else if(speedUp == true)
+                  {
+                   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed * 1.5);   
+                  }
+                else if(slowDown == true)
+                  {
+                   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed / 2);                       
+                  } 
+            else
+                 {
+                 
            speed = Mathf.Abs(Input.GetAxis("Vertical")) * walkSpeed;
-		 }
-	   } 
-	 else 
-	  {
+                 }
+           } 
+         else 
+          {
         speed = 0;
       }
       
-	if(Input.GetAxis("Vertical") != 0f)
-	{
-		animState.speed = speed / 50.0;
-		anim.Play();
-		if (!audio.isPlaying && fxLoopPlay == false)
-		{
-			audio.Play(0);
-			fxLoopPlay = true;
-		}
-	}
-	else
-	{
-		audio.Stop();
-		fxLoopPlay = false;
-	}
-	ApplyGravity();
+        if(Input.GetAxis("Vertical") != 0f)
+        {
+                animState.speed = speed / 50.0;
+                anim.Play();
+                if (!audio.isPlaying && fxLoopPlay == false)
+                {
+                        audio.Play(0);
+                        fxLoopPlay = true;
+                }
+        }
+        else
+        {
+                audio.Stop();
+                fxLoopPlay = false;
+        }
+        ApplyGravity();
     var rotation : float = Input.GetAxis("Horizontal") * rotationSpeed;
     if(Input.GetButton("Run"))
     {
-    	rotation = rotation/3.0f;
+        rotation = rotation/3.0f;
     }
-	rotation *= Time.deltaTime;
-	transform.Rotate(0,rotation,0);
+        rotation *= Time.deltaTime;
+        transform.Rotate(0,rotation,0);
     moveDirection = Vector3(0, verticalSpeed, Input.GetAxis("Vertical"));
     moveDirection = transform.TransformDirection(moveDirection);
     controller.Move(moveDirection * (Time.deltaTime * speed));
@@ -444,101 +537,265 @@ function MoveCharachter()
 function OnTriggerEnter(object:Collider)
 {
   /**
-    *	Check for Collisions With Objects.
+    *   Check for Collisions With Objects.
     */
-	
+        
   if(actualTime == 0)
     {
-	  /**Determine if User Hit a Speed Booster.*/
-	  if(object.name == ("Booster"))
-		{			if((Random.value * 10) < 5)//Half chance to boost.
-			{
-			// Debug.Log("Boost");
-			 countTime = true;
-			 speedUp = true;
-			 overallScore = (overallScore + 1000);
-			}
-			else	  /**User Hit a Speed Reducer.*/
-			{
-				countTime = true;
-		 		slowDown = true;
-				overallScore = (overallScore - 500);
-			}			
-		}
-	}
-	
-  /**Determine if User Hit a Mandatory Object.*/
-  if(object.name == ("Mandatory"))
-    {
-	  hasMandatory = true;
-	  overallScore = (overallScore + 5000);
-    }	
-	
+          /**Determine if User Hit a Speed Booster.*/
+          if(object.name == ("Booster"))
+                {                       if((Random.value * 10) < 5)//Half chance to boost.
+                        {
+                        // Debug.Log("Boost");
+                         countTime = true;
+                         speedUp = true;
+                         overallScore = (overallScore + 1000);
+                        }
+                        else      /**User Hit a Speed Reducer.*/
+                        {
+                                countTime = true;
+                                slowDown = true;
+                                overallScore = (overallScore - 500);
+                        }                       
+                }
+        }
+
 
   /**
-    *	Check for Collisions With Waypoints.
+    *   Check for Collisions With Waypoints.
     */
   
-  /**Check for Collision With FinishLine.*/  
+/**Check for Collision With FinishLine.*/  
   if(object.name == ("FinishLine") && currentWaypoint == 6)
     {
-	  currentWaypoint = 0;
-	  lapTimes[lapCounter] = ((lapTimeMinutes*60) + lapTimeSeconds);
-   	  lapTime = Time.time;
-	  lapCounter++;
-	 
-	 var hud : GameObject = GameObject.Find("HUD");
-	 if(hud != null)
-	 {
-	 	var hudScript : mainHUD = hud.GetComponent(mainHUD);
-	 	if(hudScript != null)
-	 	{
-	 		hudScript.setLaps(lapCounter);
-	 	}
-	 }
-	 
-	 /**Determine if Race has Been Completed*/
-	  /*if(lapCounter == totalLaps)
+	
+	 if(typeGame == 1)
 	   {
-	     raceCompleted = true;
-	   }*/
-	}
+	     currentWaypoint = 0;
+		 		 print("Lap Counter " + (lapCounter + 1) + " Mandatory Count " + mandatoryCount);
+
+		 /**Determine If Mandatory Item Was Collected*/
+		 if((lapCounter + 1) == mandatoryCount)
+		   {
+		     lapTimes[lapCounter] = ((lapTimeMinutes*60) + lapTimeSeconds);
+   	         lapTime = Time.time;
+	         lapCounter++;
+			 
+   		     /**Update the HUD*/
+             if(hudScript != null)
+	          {
+	            hudScript.setHasMandatory(false);
+		      } 
+			  
+	        if(hudScript != null)
+	         {
+	 	       hudScript.setWarning("");
+	         }
+		   
+		     /**Determine if All Mandatory Items Have Been Collected*/
+		     if(mandatoryCount != mandatoryTotal)
+			   {
+			     /**Determine Which New Set of Mandatory Items Need to Be Displayed*/
+				 if(mandatoryCount == 1)
+				   {
+				     SetMandatoryItemsTwo(mandatory1Name);
+				   }
+				else if(mandatoryCount == 2)
+				  {
+				    SetMandatoryItemsThree(mandatory2Name);
+				  }
+			   }
+		   }
+		 else
+		  {
+		
+		    /**Update the HUD*/
+	        if(hudScript != null)
+	         {
+	 	       hudScript.setWarning("Did Not Collect Mandatory Item");
+	         }
+		  }
+	   }
+	  else
+	   {
+	    currentWaypoint = 0;
+	     lapTimes[lapCounter] = ((lapTimeMinutes*60) + lapTimeSeconds);
+   	     lapTime = Time.time;
+	     lapCounter++;
+	   }
+
+         
+         /**Determine if Race has Been Completed*/
+          /*if(lapCounter == totalLaps)
+           {
+             raceCompleted = true;
+           }*/
+        }
   
   /**Check For Collisions With Waypoints*/
   if(object.name == ("Waypoint1") && currentWaypoint == 0)
     {
-	 currentWaypoint = 1;
-	}
-	
+         currentWaypoint = 1;
+        }
+        
   if(object.name == ("Waypoint2") && currentWaypoint == 1)
     {
-	 currentWaypoint = 2;
-	}
-	
+         currentWaypoint = 2;
+        }
+        
   if(object.name == ("Waypoint3") && currentWaypoint == 2)
     {
-	 currentWaypoint = 3;
-	}	
-	
+         currentWaypoint = 3;
+        }       
+        
   if(object.name == ("Waypoint4") && currentWaypoint == 3)
     {
-	 currentWaypoint = 4;
-	}	
-	
+         currentWaypoint = 4;
+        }       
+        
   if(object.name == ("Waypoint5") && currentWaypoint == 4)
     {
-	 currentWaypoint = 5;
-	}	
-	
+         currentWaypoint = 5;
+        }       
+        
   if(object.name == ("Waypoint6") && currentWaypoint == 5)
     {
-	 currentWaypoint = 6;
-	}	
-//	print("currentWaypoint: " + currentWaypoint +"number of finished players = " +GameManager.getFinishedArray().Count);
-	
+         currentWaypoint = 6;
+        }       
+//      print("currentWaypoint: " + currentWaypoint +"number of finished players = " +GameManager.getFinishedArray().Count);
+        
  }
 
 
+/**
+*
+*  Check for Collisions With the Mandatory Objects
+*
+*/
+function OnControllerColliderHit(object : ControllerColliderHit)
+{
+	
+  if(object.collider.name.Contains("Mandatory1"))
+    {
+	  if(hasMandatoryOne == false)
+	    {
+		  mandatory1Name = object.collider.name;
+		  object.gameObject.SetActiveRecursively(false);
+		  overallScore = (overallScore + 5000);
+          hasMandatoryOne = true;
+		  mandatoryCount = 1;
+		  
+		  /**Update the HUD*/
+          if(hudScript != null)
+	       {
+	         hudScript.setHasMandatory(true);
+		   }
+		   
+		  print("Hit Mandatory 1 " + object.collider.name);
+		}	
+	  else
+	  {
+	  		  object.gameObject.SetActiveRecursively(true);
+
+	  }
+    }	
+	
+  if(object.collider.name.Contains("Mandatory2"))
+    {
+	  if(hasMandatoryTwo == false && hasMandatoryOne == true)
+	    {
+		  mandatory2Name = object.collider.name;;		  
+		  object.gameObject.SetActiveRecursively(false);
+		  overallScore = (overallScore + 5000);
+          hasMandatoryTwo = true;
+		  mandatoryCount = 2;
+		  
+		  /**Update the HUD*/
+          if(hudScript != null)
+	       {
+	         hudScript.setHasMandatory(true);
+		   }
+		   
+  		  print("Hit Mandatory 2");
+		}	
+    }	
+	
+  if(object.collider.name.Contains("Mandatory3"))
+    {
+	  if(hasMandatoryThree == false && hasMandatoryTwo == true)
+	    {
+		  mandatory3Name = object.collider.name;;		
+		  object.gameObject.SetActiveRecursively(false);
+		  overallScore = (overallScore + 5000);
+          hasMandatoryThree = true;
+		  mandatoryCount = 3;
+		  
+		  /**Update the HUD*/
+          if(hudScript != null)
+	       {
+	         hudScript.setHasMandatory(true);
+		   }
+		   
+		  print("Hit Mandatory 3");
+		}	
+    }	
+	
+   
+    /**Update the HUD*/
+   if(hudScript != null)
+     {
+       hudScript.setScore(overallScore );
+   }
+
+}
+/**
+  *
+  *    SET THE MANDATORY ITEMS TO APPEAR
+  *
+  */
+  
+  /**Mandatory Items Two Appear.*/
+  function SetMandatoryItemsTwo(createReplica:String)
+  {
+    if(createReplica == "Mandatory1A")
+	  {
+	    mandatory2A.SetActiveRecursively(true);
+	  }
+    else if(createReplica == "Mandatory1B")
+	  {
+	   mandatory2B.SetActiveRecursively(true);
+	  }
+    else if(createReplica == "Mandatory1C")
+	  {
+	    mandatory2C.SetActiveRecursively(true);
+	  }
+    else if(createReplica == "Mandatory1D")
+	  {
+	    mandatory2D.SetActiveRecursively(true);
+	  }	  
+  }
+ 
+  /**Mandatory Items Three Appear.*/
+  function SetMandatoryItemsThree(createReplica:String)
+  {
+    if(createReplica == "Mandatory2A")
+	  {
+	    mandatory3A.SetActiveRecursively(true);
+	  }
+    else if(createReplica == "Mandatory2B")
+	  {
+	    mandatory3B.SetActiveRecursively(true);
+	  }
+    else if(createReplica == "Mandatory2C")
+	  {
+	    mandatory3C.SetActiveRecursively(true);
+	  }
+    else if(createReplica == "Mandatory2D")
+	  {
+	    mandatory3D.SetActiveRecursively(true);
+	  }  
+  }
+  
 
 
 /**Calculate Lap Time.*/
@@ -557,16 +814,12 @@ function LapTime()
    }
    
    
-/**
-
-UPDATE HUD NOT IMPLEMENTED YET
-
-if(hudScript != null)
-	  {
-	  	hudScript.setLapTime("Lap Time : " + printLap);
-	  }
+ /**Update the HUD*/
+ if(hudScript != null)
+   {
+     hudScript.setLapTime("Lap Time : " + printLap);
+   }
 	  
-*/
 }
 
 
@@ -585,17 +838,15 @@ function OverallTime()
 	  printOverall = (overallTimeMinutes + ":" + overallTimeSeconds);
     }
 	
-	/**
 	
-	UPDATE HUD NOT IMPLEMENTED YET
-	
-	
-	if(hudScript != null)
-	  {
-	  	hudScript.setOverallTime("Overall Time : " + printOverall);
-	  }
-	*/ 
+  /**Update the HUD*/
+  if(hudScript != null)
+	{
+	  hudScript.setOverallTime("Overall Time : " + printOverall);
+	}
+
 }
+
 
 
 /**Enhance/Reduce the Players Speed.*/
@@ -606,35 +857,35 @@ function CheckEnhancements()
     {
       if(countTime == true)
        {
- 	     TimeCounterUp(); 
+             TimeCounterUp(); 
        }
-	
+        
       if(actualTime == 3)
        {
-		countTime = false;
+                countTime = false;
         speedUp = false;
-		countTime = false;
+                countTime = false;
         actualTime = 0;
-		timeCounter = 0;
+                timeCounter = 0;
        }
-	   
+           
     }
-	else if(slowDown == true)
-	{
-	 if(countTime == true)
+        else if(slowDown == true)
+        {
+         if(countTime == true)
        {
- 	     TimeCounterUp(); 
+             TimeCounterUp(); 
        }
-	
+        
       if(actualTime == 3)
        {
-		countTime = false;
+                countTime = false;
         slowDown = false;
-		countTime = false;
+                countTime = false;
         actualTime = 0;
-		timeCounter = 0;
-       }	   
-	}
+                timeCounter = 0;
+       }           
+        }
 
 }
 
@@ -642,73 +893,73 @@ function CheckEnhancements()
 /**Count Down Timer for Race.*/
 function RaceCountDown()
 {
-	if(GoRace.cameraEnd == true || Input.GetKeyDown (KeyCode.Space))
-	{
-		GoRace.cameraEnd = true;
-		if(onBegin == false)
-		{
-			startTime = Time.time;
-			onBegin = true;
-			var cam : GameObject = GameObject.Find("Camera");
-			if(cam != null)
-			{
-				var smooth : SmoothFollow = cam.GetComponent(SmoothFollow);
-				if(smooth != null)
-				{
-					smooth.target = transform;
-					if(Input.GetKeyDown (KeyCode.Space))
-					{
-						var follow : SplineController = cam.GetComponent(SplineController);
-						if(follow != null)
-						{
-							follow.mSplineInterp.enabled = false;
-							follow.enabled = false;
-						}
-					}
-				}
-			}
-			if(camTop != null)
-			{
-				print("Find :");
-				camTop.active = true;
-			}
-			else
-			{
-				print("Not find :(");
-			}
-			
-		}
-	  	if(startTime + 3.0 > Time.time)
-	    {
-	      TimeCounterUp();
-			
-			/**Print out Race Count Down.*/
-			if(startTime + 0.0 > Time.time)
-			  {
-			    countDownTime = "3";
-			  }
-			else if(startTime + 1.0 > Time.time)
-			  {
-			   countDownTime = "2";
-			  }
-			else if(startTime + 2.0 > Time.time)
-			 {
-			  countDownTime = "1";
-			 }
-			
-			if(countDownTime != null)
-			print(countDownTime);
-		}
-		else
-		{
-			actualTime = 0;
-			timeCounter = 0;
-			setRace = true;
-			countDownTime = "GO";
-			print("GO");
-			GoRace.setRunGame(true);
-		}
-	}
+        if(GoRace.cameraEnd == true || Input.GetKeyDown (KeyCode.Space))
+        {
+                GoRace.cameraEnd = true;
+                if(onBegin == false)
+                {
+                        startTime = Time.time;
+                        onBegin = true;
+                        var cam : GameObject = GameObject.Find("Camera");
+                        if(cam != null)
+                        {
+                                var smooth : SmoothFollow = cam.GetComponent(SmoothFollow);
+                                if(smooth != null)
+                                {
+                                        smooth.target = transform;
+                                        if(Input.GetKeyDown (KeyCode.Space))
+                                        {
+                                                var follow : SplineController = cam.GetComponent(SplineController);
+                                                if(follow != null)
+                                                {
+                                                        follow.mSplineInterp.enabled = false;
+                                                        follow.enabled = false;
+                                                }
+                                        }
+                                }
+                        }
+                        if(camTop != null)
+                        {
+                                print("Find :");
+                                camTop.active = true;
+                        }
+                        else
+                        {
+                                print("Not find :(");
+                        }
+                        
+                }
+                if(startTime + 3.0 > Time.time)
+            {
+              TimeCounterUp();
+                        
+                        /**Print out Race Count Down.*/
+                        if(startTime + 0.0 > Time.time)
+                          {
+                            countDownTime = "3";
+                          }
+                        else if(startTime + 1.0 > Time.time)
+                          {
+                           countDownTime = "2";
+                          }
+                        else if(startTime + 2.0 > Time.time)
+                         {
+                          countDownTime = "1";
+                         }
+                        
+                        if(countDownTime != null)
+                        print(countDownTime);
+                }
+                else
+                {
+                        actualTime = 0;
+                        timeCounter = 0;
+                        setRace = true;
+                        countDownTime = "GO";
+                        print("GO");
+                        GoRace.setRunGame(true);
+                }
+        }
  }
 
 
@@ -720,9 +971,9 @@ function TimeCounterDown():Number
   
   if(timeCounter == 30)
     {
-	 timeCounter = 0;
-	 actualTime--;
-	}
+         timeCounter = 0;
+         actualTime--;
+        }
 }
 
 
@@ -733,19 +984,54 @@ function TimeCounterUp():Number
   
   if(timeCounter == 30)
     {
-	 timeCounter = 0;
-	 actualTime++;
-	}
+         timeCounter = 0;
+         actualTime++;
+        }
 }
 
 
 // Check the players progress towards finishing the game
 // Created by Noel
 function checkGameManager() : void {
-	   
-		// Check to see if the player has won the game if game type is race (0) and laps to win is not 0
-		if(GameManager.getGameType() == 0 && GameManager.getLaps() != 0 && raceCompleted == false) {
-			if(lapCounter >= GameManager.getLaps()) {
+           
+                // Check to see if the player has won the game if game type is race (0) and laps to win is not 0
+                if(GameManager.getGameType() == 0 && GameManager.getLaps() != 0 && raceCompleted == false) {
+                        if(lapCounter >= GameManager.getLaps()) {
+
+                                // Add yourself to the finished race array
+                                // Replace Player 1 with username (stored in pref file at some point?)
+                                GameManager.getFinishedArray().Add("Player 1");
+                                
+                                raceCompleted = true;   
+
+                                // If there is only 1 player in the array (you) then you won!
+                                if(GameManager.getFinishedArray().Count == 1) {
+                                        Debug.Log("You Won!");
+                                        
+                                        //for(var i=0; i<GameManager.getFinishedArray().Count; i++) {
+                                                //Debug.Log("Finished Array [" +i +"] = " + GameManager.getFinishedArray()[i]);
+                                                //Debug.Log("test " +i);
+                                        //}
+                                        
+                                        // Display YOU WON on the screen
+                                        GoRace.stateEnd=1;
+
+                                } else if(GameManager.getFinishedArray().Count > 1) {
+                                        Debug.Log("You Lost!");
+                                        
+                                        // Display YOU LOST on the screen
+                                        GoRace.stateEnd=2;
+
+                                }
+
+                        }
+                }
+				
+				
+				/**Snatch & Grab  Check if Player has Won the Race (GameType = 1),*/
+		if(GameManager.getGameType() == 1 && GameManager.getLaps() != 0 && raceCompleted == false) 
+		  {
+		   	if(lapCounter >= GameManager.getLaps()) {
 
 				// Add yourself to the finished race array
 				// Replace Player 1 with username (stored in pref file at some point?)
@@ -774,8 +1060,10 @@ function checkGameManager() : void {
 				}
 
 			}
-		}
+		  
+		  }
 		
-		// ADD OTHER GAME TYPES HERE, SIMILAR TO ABOVE
-	
+                
+                // ADD OTHER GAME TYPES HERE, SIMILAR TO ABOVE
+        
 }
