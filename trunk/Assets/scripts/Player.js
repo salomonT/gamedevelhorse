@@ -57,6 +57,23 @@ private var fxLoopPlay : boolean;
 private var onBegin : boolean;
 private var camTop : GameObject;
 
+
+//On enter water collision.
+function SlowerCharacter()
+{
+	rotationSpeed = rotationSpeed / 2.0f;
+	walkSpeed = walkSpeed / 2.0f;
+	runSpeed = runSpeed / 2.0f;
+}
+
+//On exit water collision.
+function AcclerateCharacter()
+{
+	rotationSpeed = rotationSpeed * 2.0f;
+	walkSpeed = walkSpeed * 2.0f;
+	runSpeed = runSpeed * 2.0f;
+}
+
 function Start()
 {	
 	camTop = GameObject.Find("HorseAnim/CameraTopView");
@@ -413,6 +430,10 @@ function MoveCharachter()
 	}
 	ApplyGravity();
     var rotation : float = Input.GetAxis("Horizontal") * rotationSpeed;
+    if(Input.GetButton("Run"))
+    {
+    	rotation = rotation/3.0f;
+    }
 	rotation *= Time.deltaTime;
 	transform.Rotate(0,rotation,0);
     moveDirection = Vector3(0, verticalSpeed, Input.GetAxis("Vertical"));
