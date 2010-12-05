@@ -198,7 +198,13 @@ function OnGUI () {
 	
 	if(settings_customizeHorseVar == 1){
 		GUI.Label (Rect (0,0,Screen.width,Screen.height), backgroundSett, GUI.skin.customStyles[0]);
-		settings_customizeHorse();
+		settings_customizeHorse(1);
+		flagMainMenu = 0;
+	}
+	
+	if(settings_customizeHorseVar == 2){
+		GUI.Label (Rect (0,0,Screen.width,Screen.height), backgroundSett, GUI.skin.customStyles[0]);
+		settings_customizeHorse(2);
 		flagMainMenu = 0;
 	}
 	
@@ -359,6 +365,12 @@ function singlePlayer (){
 			} else {
 				if(GUI.Button (Rect (ratioSW*920,ratioSH*410,ratioSW*30,ratioSH*30), "",buttonArrowRightDisable)){}
 			}
+			
+	
+	if(GUI.Button (Rect (ratioSW*550,ratioSH*500,ratioSW*400,ratioSH*100), "",settingsCustomizeHorseButton)){
+		audio.PlayOneShot(startAndNextButtonSound);
+		resetMenu();
+		settings_customizeHorseVar = 2;}
 		
 	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-100),ratioSW*200,ratioSH*100), "",backToMenuButton)){
 		audio.PlayOneShot(backToMenuButtonSound);
@@ -619,7 +631,7 @@ function settings_gameSettings (){
 	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Change various settings here", "box");
 }
 
-function settings_customizeHorse (){
+function settings_customizeHorse (parent : int){ // 1 : parent is Setting // 2 : parent is SignlePlayer
 	// Title picture
 	GUI.Label (Rect (ratioSW*50,ratioSH*30,178,50), "", titleSettings);
 	GUI.Label (Rect (ratioSW*25,ratioSH*140,ratioSW*(1024-50),ratioSH*5), "", underWhite);
@@ -663,7 +675,10 @@ function settings_customizeHorse (){
 	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-100),ratioSW*200,ratioSH*100), "",backToMenuButton)){
 		audio.PlayOneShot(backToMenuButtonSound);
 		resetMenu();
-		settingsVar = 1;
+		if (parent == 1)
+			settingsVar = 1;
+		if (parent == 2)
+			singlePlayerVar=1;
 		settingHorseVar = settingHorseVarTMP;
 		settingCartVar = settingCartVarTMP;
 		}
