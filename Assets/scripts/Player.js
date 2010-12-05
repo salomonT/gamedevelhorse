@@ -32,7 +32,6 @@ private var setRace:boolean = false;
 private var hud:GameObject;
 private var hudScript:mainHUD;
 
-private var typeGame:int = 1;
 private var lapsInRace:int = 0;
 private var hasMandatoryOne:boolean;
 private var hasMandatoryTwo:boolean;
@@ -164,50 +163,51 @@ function StartSinglePlayer()
 	  totalLaps = 2;
 	  raceCompleted = false;
 	  
-	   /**Make all Mandatory Objects Invisible*/
-	  mandatory1A = GameObject.Find("Mandatory1A");
-	  mandatory1A.SetActiveRecursively(false);
-	  mandatory1B = GameObject.Find("Mandatory1B");
-	  mandatory1B.SetActiveRecursively(false);
-	  mandatory1C = GameObject.Find("Mandatory1C");
-	  mandatory1C.SetActiveRecursively(false);
-      mandatory1D = GameObject.Find("Mandatory1D");
-	  mandatory1D.SetActiveRecursively(false);
-	  mandatory2A = GameObject.Find("Mandatory2A");
-	  mandatory2A.SetActiveRecursively(false);
-	  mandatory2B = GameObject.Find("Mandatory2B");
-	  mandatory2B.SetActiveRecursively(false);
-      mandatory2C = GameObject.Find("Mandatory2C");
-	  mandatory2C.SetActiveRecursively(false);
-	  mandatory2D = GameObject.Find("Mandatory2D");
-	  mandatory2D.SetActiveRecursively(false);
-	  mandatory3A = GameObject.Find("Mandatory3A");
-	  mandatory3A.SetActiveRecursively(false);
-	  mandatory3B = GameObject.Find("Mandatory3B");
-	  mandatory3B.SetActiveRecursively(false);
-	  mandatory3C = GameObject.Find("Mandatory3C");
-	  mandatory3C.SetActiveRecursively(false);
-	  mandatory3D = GameObject.Find("Mandatory3D");
-	  mandatory3D.SetActiveRecursively(false);
+	    /**Make all Mandatory Objects Invisible*/
+	  	mandatory1A = GameObject.Find("Mandatory1A");
+	  	mandatory1A.SetActiveRecursively(false);
+	  	mandatory1B = GameObject.Find("Mandatory1B");
+	  	mandatory1B.SetActiveRecursively(false);
+	  	mandatory1C = GameObject.Find("Mandatory1C");
+	  	mandatory1C.SetActiveRecursively(false);
+      	mandatory1D = GameObject.Find("Mandatory1D");
+	  	mandatory1D.SetActiveRecursively(false);
+	  	mandatory2A = GameObject.Find("Mandatory2A");
+	 	mandatory2A.SetActiveRecursively(false);
+	  	mandatory2B = GameObject.Find("Mandatory2B");
+	  	mandatory2B.SetActiveRecursively(false);
+      	mandatory2C = GameObject.Find("Mandatory2C");
+	  	mandatory2C.SetActiveRecursively(false);
+	  	mandatory2D = GameObject.Find("Mandatory2D");
+	  	mandatory2D.SetActiveRecursively(false);
+	  	mandatory3A = GameObject.Find("Mandatory3A");
+	  	mandatory3A.SetActiveRecursively(false);
+	  	mandatory3B = GameObject.Find("Mandatory3B");
+	  	mandatory3B.SetActiveRecursively(false);
+	  	mandatory3C = GameObject.Find("Mandatory3C");
+	  	mandatory3C.SetActiveRecursively(false);
+	  	mandatory3D = GameObject.Find("Mandatory3D");
+	  	mandatory3D.SetActiveRecursively(false);
+	  
 	  
 	  Debug.Log("MODIFYING AI DIFFICULTY");
 	  
 	  var randomSpeed = 0.0f;
 	  
 	  for(var gameObj : GameObject in GameObject.FindObjectsOfType(GameObject)) {
-		if(gameObj.name == "HorseAnim") {
+		if(gameObj.name == "HorseAnim" || gameObj.name == "Opponent") {
     		if(GameManager.getDifficulty() != null) {
     			var enemyPlayerAI = gameObj.GetComponent(AIFollow);
     			if(enemyPlayerAI != null){
-    				randomSpeed = Random.Range(-2, 2);
+    				randomSpeed = Random.Range(0, 2);
 	   				switch(GameManager.getDifficulty()) {
 						case 0 : enemyPlayerAI.speed = enemyPlayerAI.speed + randomSpeed;
 							     Debug.Log("AI Horse Speed = " +enemyPlayerAI.speed + " (Extra Random Speed = " +randomSpeed +")"); 
 							     break;
-						case 1 : enemyPlayerAI.speed = (enemyPlayerAI.speed + 3) + randomSpeed; 
+						case 1 : enemyPlayerAI.speed = (enemyPlayerAI.speed + 4) + randomSpeed; 
 								 Debug.Log("AI Horse Speed = " +enemyPlayerAI.speed +" (Extra Random Speed = " +randomSpeed +")"); 
 								 break;
-						case 2 : enemyPlayerAI.speed = (enemyPlayerAI.speed + 6) + randomSpeed; 
+						case 2 : enemyPlayerAI.speed = (enemyPlayerAI.speed + 7) + randomSpeed; 
 								 Debug.Log("AI Horse Speed = " +enemyPlayerAI.speed +" (Extra Random Speed = " +randomSpeed +")"); break;
 						default: break;
 	  			 	} //switch
@@ -540,7 +540,7 @@ function OnTriggerEnter(object:Collider)
   if(object.name == ("FinishLine") && currentWaypoint == 6)
     {
 	
-	 if(typeGame == 1)
+	 if(GameManager.getGameType() == 1)
 	   {
 	     currentWaypoint = 0;
 		 		 print("Lap Counter " + (lapCounter + 1) + " Mandatory Count " + mandatoryCount);
