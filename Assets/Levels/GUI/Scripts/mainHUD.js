@@ -12,6 +12,10 @@ private var currentNbrLaps:int = 0;
 private var currentTimeMin:int = 0;
 private var currentTimeSec:int = 0;
 private var currentScore:int = 0;
+private var lapTime:String = "";
+private var overallTime:String = "";
+private var warning:String = "";
+private var hasMandatory:boolean = false;
 
 private var menuFlag:int = 0;
 private var exitFlag:int = 0;
@@ -64,8 +68,10 @@ function OnGUI () {
 			
 			
 			GUI.Label (Rect (ratioSW*350,ratioSH*10,ratioSW*200,ratioSH*50),
-			currentTimeMin + " : " + currentTimeSec
-			, textWhite);
+			getLapTime(), textWhite);
+			
+			GUI.Label (Rect (ratioSW*350,ratioSH*60,ratioSW*212,ratioSH*50),
+			getOverallTime(), textWhite);
 			
 			GUI.Label (Rect (ratioSW*850,ratioSH*10,ratioSW*150,ratioSH*50),
 			"Position : " + currentPosition
@@ -80,6 +86,12 @@ function OnGUI () {
 				"Score : " + currentScore
 				, textWhite);
 				
+				
+				GUI.Label (Rect (ratioSW*670,ratioSH*30,ratioSW*180,ratioSH*50),
+			    "Mandatory : " + hasMandatory, textWhite);
+				
+				GUI.Label (Rect (ratioSW*200,ratioSH*700,ratioSW*500,ratioSH*50),
+			    getWarning(), textWhite);
 			}
 			
 			if (menuFlag == 1){
@@ -163,6 +175,38 @@ function setScore( score : int ){
 
 function getScore() : int{
 	return currentScore;
+}
+
+function setLapTime( lap: String){
+  lapTime = lap;
+}
+
+function getLapTime():String{
+  return lapTime;
+}
+
+function setOverallTime(overall:String){
+  overallTime = overall;
+}
+
+function getOverallTime():String{
+  return overallTime;
+}
+
+function setHasMandatory(mandatory:boolean){
+  hasMandatory = mandatory;
+}
+
+function getHasMandatory():boolean{
+  return hasMandatory;
+}
+
+function setWarning(warn:String):String{
+ warning = warn;
+}
+
+function getWarning():String{
+ return warning;
 }
 
 function Update () {
