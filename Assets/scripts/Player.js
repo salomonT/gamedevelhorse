@@ -48,7 +48,6 @@ var rotationSpeed : float;
 
 private var alreadyCam : boolean;
 private var verticalSpeed : float;
-private var control : CharacterController;
 
 private var startTime : float;
 private var anim : Animation;
@@ -60,53 +59,64 @@ private var camTop : GameObject;
 
 function Start()
 {	
-	GoRace.stateEnd = 0;
 	camTop = GameObject.Find("HorseAnim/CameraTopView");
-	if(camTop != null)
-	{
-	print("False");
-		camTop.active = false;
-	}
-	onBegin = false;
-	GoRace.cameraEnd = false;
 	fxLoopPlay = false;
 	audio.loop = true;
 	audio.volume = 1;
 	
-	GoRace.setRunGame(false);
+	
 	anim = GetComponent(Animation);
 	animState = anim["Take 001"];
 	startTime = Time.time;
-  controller = GetComponent(CharacterController);
+  	controller = GetComponent(CharacterController);
+
   if(KeepNetworkInfo.isNetwork == true)	//Multiplayer mode.
   {
-  	//Disable the singleplayer horse.
+  	//Disable the singleplayer horses.
+	var horsePlayers : GameObject = GameObject.Find("players");
+	if(horsePlayers != null)
+	{
+		horsePlayers.SetActiveRecursively(false);
+	}
+	
 	var horseSinglePlayer : GameObject = GameObject.Find("HorseAnim");
 	if(horseSinglePlayer != null)
 	{
 		horseSinglePlayer.SetActiveRecursively(false);
+		horseSinglePlayer.active = false;
 	}
 	
-	var horsePlayers : GameObject = GameObject.Find("players");
 	
-	if(horsePlayers != null)
+	var cam : GameObject = GameObject.Find("Camera");
+	if(cam != null)
 	{
-		//horseSinglePlayer.SetActiveRecursively(false);
-		
-		//var aiplay : GameObject = GameObject.Find("HorseAnim");
-		//var enemyPlayerAI : AIFollow = aiplay.GetComponent(AIFollow);
-
+		var follow : SplineController = cam.GetComponent(SplineController);
+		if(follow != null)
+		{
+			follow.mSplineInterp.enabled = false;
+			follow.enabled = false;
+		}
 	}
 
 	if(Network.isClient)
 	{
-		enabled=false;	 // disable this script (this disables Update());	
+		print("DISABLED");
+		//GetComponent(Player).enabled=false;	 // disable this script (this disables Update());	
 	}
   }
   else //SinglePlayer mode.
   {
+  	GoRace.setRunGame(false);
+  	GoRace.stateEnd = 0;
+	  if(camTop != null)
+		{
+		print("False");
+			camTop.active = false;
+		}
+		onBegin = false;
+		GoRace.cameraEnd = false;
 	  isRacing = false;
-	  controller = GetComponent(CharacterController);
+
 	  countTime = false;
 	  countTime = false;
 	  speedUp = false;
@@ -159,13 +169,13 @@ function SetPlayer(player : NetworkPlayer)
 	owner = player;
 	if(player==Network.player){
 		//Hey thats us! We can control this player: enable this script (this enables Update());
-		enabled=true;
-		print("Hey ! That us !");
+		GetComponent(Player).enabled=true;
+		print("ENABLED");
 		print(KeepNetworkInfo.playerName);
 		
 		if(alreadyCam == false)
 		{
-			var cam : GameObject = GameObject.Find("MainCamera"); 
+			var cam : GameObject = GameObject.Find("Camera"); 
 			if(cam == null)
 			{
 				print("null cam");
@@ -203,6 +213,7 @@ function ApplyGravity()
 
 function UpdateMultiplayer(){ 
 	//Client code
+	print("UpdateMultiplayer");
 	if(owner!=null && Network.player==owner){
 		//Only the client that owns this object executes this code
 		var HInput : float = Input.GetAxis("Horizontal");
@@ -215,8 +226,6 @@ function UpdateMultiplayer(){
 			lastClientHInput = HInput;
 			lastClientVInput = VInput;
 		}
-		
-		print("IsGrounded? " + controller.isGrounded);
 		if(Network.isServer)
 		{
 				//Too bad a server can't send an rpc to itself using "RPCMode.Server"!...bugged :[
@@ -268,28 +277,30 @@ function UpdateMultiplayer(){
 		{
 			speed = 0;
 		}
-		
+		print("V: " + serverCurrentVInput + " H: " + serverCurrentHInput + " Speed: " + speed);
 		//Actually move the player using his/her input
 		if(serverCurrentVInput != 0f)
 		{
+			animState.speed = speed / 50.0;
 			anim.Play();
 		}
-		//ApplyGravity();
 		var rotation : float = serverCurrentHInput * rotationSpeed;
 		rotation *= Time.deltaTime;
 		transform.Rotate(0, rotation, 0);
 		if(serverCurrentGround == false)
 		{
-			verticalSpeed = -0.8;
+			verticalSpeed = -0.2;
 		}
 		else
 		{
 			verticalSpeed = 0.0;
 		}
-		var moveDirection : Vector3 = new Vector3(serverCurrentHInput, 0, serverCurrentVInput);
-		transform.Translate(speed * moveDirection * Time.deltaTime);
-		moveDirection = new Vector3(0,verticalSpeed,0);
-		transform.Translate(moveDirection * Time.deltaTime);
+		var moveDirection : Vector3 = new Vector3(0, verticalSpeed, serverCurrentVInput);
+		moveDirection = transform.TransformDirection(moveDirection);
+		controller.Move(speed * moveDirection * Time.deltaTime);
+		//transform.Translate(speed * moveDirection * Time.deltaTime);
+		//moveDirection = new Vector3(0,verticalSpeed,0);
+		//transform.Translate(moveDirection * Time.deltaTime);
 	}
 }
 
@@ -304,6 +315,7 @@ function SendMovementInput(HInput : float, VInput : float, RInput : boolean, con
 
 function Update () 
 {
+	print("Update");
   if(KeepNetworkInfo.isNetwork == true)
   {
   	UpdateMultiplayer();
@@ -625,7 +637,7 @@ function RaceCountDown()
 					smooth.target = transform;
 					if(Input.GetKeyDown (KeyCode.Space))
 					{
-						var follow : SplineController =cam.GetComponent(SplineController);
+						var follow : SplineController = cam.GetComponent(SplineController);
 						if(follow != null)
 						{
 							follow.mSplineInterp.enabled = false;
