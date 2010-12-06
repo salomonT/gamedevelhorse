@@ -131,6 +131,10 @@ var cartModel2 : Texture2D;
 var cartModel3 : Texture2D;
 private var settingCartCurrent : Texture2D = cartModel1;
 
+var renderTexture : RenderTexture;
+var horseMaterials : Material[];
+private var horseChoosen : int = 0;
+
 function Start(){
 	// just for test !!
 	/*highScoreDB.addScore("loc",2000);
@@ -633,7 +637,8 @@ function settings_customizeHorse (parent : int){ // 1 : parent is Setting // 2 :
 	// Label box
 	
 	
-	GUI.Label (Rect (ratioSW*125,ratioSH*225,ratioSW*340,ratioSH*300), settingHorseCurrent, GUI.skin.customStyles[0]);
+	GUI.Label (Rect (ratioSW*125,ratioSH*225,renderTexture.width,renderTexture.height), renderTexture, GUI.skin.customStyles[0]);
+	//GUI.Label (Rect (ratioSW*125,ratioSH*225,ratioSW*340,ratioSH*300), settingHorseCurrent, GUI.skin.customStyles[0]);
 		if (settingHorseVar > 0){
 			if(GUI.Button (Rect (ratioSW*150,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowLeft)){
 			audio.PlayOneShot(moveMenuButtonSound);
@@ -682,23 +687,43 @@ function settings_customizeHorse (parent : int){ // 1 : parent is Setting // 2 :
 		audio.PlayOneShot(startAndNextButtonSound);
 		settingHorseVarTMP = settingHorseVar;
 		settingCartVarTMP = settingCartVar;
+		GameManager.setHorseColor(horseChoosen);
 		}
 		
 	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Customize your horse", "box");
 }
 
 function settingHorseFunction(){
+var horse : GameObject = GameObject.Find("Rotation point/HorseAnim/Horse_mesh");
 if ( settingHorseVar == 0 ) {
 	settingHorseName = "AAA";
 	settingHorseCurrent = horseModel1;
+	//GameManager.setHorseColor(0);
+	horseChoosen = 0;
+	if(horse != null)
+	{
+		horse.renderer.material = horseMaterials[0];
+	}
 	}
 if ( settingHorseVar == 1 ) {
 	settingHorseName = "BBB";
 	settingHorseCurrent = horseModel2;
+	//GameManager.setHorseColor(1);
+	horseChoosen = 1;
+	if(horse != null)
+	{
+		horse.renderer.material = horseMaterials[1];
+	}
 	}
 if ( settingHorseVar == 2 ) {
 	settingHorseName = "CCC";
 	settingHorseCurrent = horseModel3;
+	//GameManager.setHorseColor(2);
+	horseChoosen = 2;
+	if(horse != null)
+	{
+		horse.renderer.material = horseMaterials[2];
+	}
 	}
 }
 
