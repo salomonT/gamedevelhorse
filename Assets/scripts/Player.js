@@ -150,7 +150,11 @@ function StartSinglePlayer()
 		print("HORSE COLOR: " + GameManager.getHorseColor());
 		horse.renderer.material = horseMaterials[2];
 	}
-	
+	var myHUD : GameObject = GameObject.Find("HUD");
+	if(myHUD != null)
+	{
+		hudScript = myHUD.GetComponent(mainHUD);
+	}
 	GoRace.setRunGame(false);
   	GoRace.stateEnd = 0;
 	  if(camTop != null)
@@ -184,43 +188,47 @@ function StartSinglePlayer()
 	  totalLaps = 2;
 	  raceCompleted = false;
 	  
+	  print("Game Mode: " + GameManager.getGameType());
+	  if(GameManager.getGameType() == 0)
+	  {
 	    /**Make all Mandatory Objects Invisible*/
-	  	mandatory1A = GameObject.Find("Mandatory1A");
+	  	mandatory1A = GameObject.Find("Mandatories/Mandatory1A");
 	  	if(mandatory1A != null)
 	  	mandatory1A.SetActiveRecursively(false);
-	  	mandatory1B = GameObject.Find("Mandatory1B");
+	  	mandatory1B = GameObject.Find("Mandatories/Mandatory1B");
 	  	if(mandatory1B != null)
 	  	mandatory1B.SetActiveRecursively(false);
-	  	mandatory1C = GameObject.Find("Mandatory1C");
+	  	mandatory1C = GameObject.Find("Mandatories/Mandatory1C");
 	  	if(mandatory1C != null)
 	  	mandatory1C.SetActiveRecursively(false);
-      	mandatory1D = GameObject.Find("Mandatory1D");
+      	mandatory1D = GameObject.Find("Mandatories/Mandatory1D");
       	if(mandatory1D != null)
 	  	mandatory1D.SetActiveRecursively(false);
-	  	mandatory2A = GameObject.Find("Mandatory2A");
+	  	mandatory2A = GameObject.Find("Mandatories/Mandatory2A");
 	  	if(mandatory2A != null)
 	 	mandatory2A.SetActiveRecursively(false);
-	  	mandatory2B = GameObject.Find("Mandatory2B");
+	  	mandatory2B = GameObject.Find("Mandatories/Mandatory2B");
 	  	if(mandatory2B != null)
 	  	mandatory2B.SetActiveRecursively(false);
-      	mandatory2C = GameObject.Find("Mandatory2C");
+      	mandatory2C = GameObject.Find("Mandatories/Mandatory2C");
       	if(mandatory2C != null)
 	  	mandatory2C.SetActiveRecursively(false);
-	  	mandatory2D = GameObject.Find("Mandatory2D");
+	  	mandatory2D = GameObject.Find("Mandatories/Mandatory2D");
 	  	if(mandatory2D != null)
 	  	mandatory2D.SetActiveRecursively(false);
-	  	mandatory3A = GameObject.Find("Mandatory3A");
+	  	mandatory3A = GameObject.Find("Mandatories/Mandatory3A");
 	  	if(mandatory3A != null)
 	  	mandatory3A.SetActiveRecursively(false);
-	  	mandatory3B = GameObject.Find("Mandatory3B");
+	  	mandatory3B = GameObject.Find("Mandatories/Mandatory3B");
 	  	if(mandatory3B != null)
 	  	mandatory3B.SetActiveRecursively(false);
-	  	mandatory3C = GameObject.Find("Mandatory3C");
+	  	mandatory3C = GameObject.Find("Mandatories/Mandatory3C");
 	  	if(mandatory3C != null)
 	  	mandatory3C.SetActiveRecursively(false);
-	  	mandatory3D = GameObject.Find("Mandatory3D");
+	  	mandatory3D = GameObject.Find("Mandatories/Mandatory3D");
 	  	if(mandatory3D != null)
 	  	mandatory3D.SetActiveRecursively(false);
+	  }
 	  
 	  
 	  Debug.Log("MODIFYING AI DIFFICULTY");
@@ -473,7 +481,7 @@ function MoveCharachter()
 { 
     if ((Mathf.Abs(Input.GetAxis("Vertical")) > 0.2) || (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.2)) 
     {
-        if(Input.GetButton("Run")) 
+        if(Input.GetButton("Run") && donkeyMode == false) 
         {
                    if(speedUp == true)
                    {
@@ -665,11 +673,7 @@ function OnTriggerEnter(object:Collider)
 	   }
 
          
-         /**Determine if Race has Been Completed*/
-          /*if(lapCounter == totalLaps)
-           {
-             raceCompleted = true;
-           }*/
+         hudScript.setLaps(lapCounter);
         }
   
   /**Check For Collisions With Waypoints*/
@@ -699,11 +703,81 @@ function OnTriggerEnter(object:Collider)
         }       
         
   if(object.name == ("Waypoint6") && currentWaypoint == 5)
-    {
+  {
          currentWaypoint = 6;
-        }       
-//      print("currentWaypoint: " + currentWaypoint +"number of finished players = " +GameManager.getFinishedArray().Count);
-        
+  }
+  
+    if(object.name.Contains("Mandatory1"))
+    {
+	  if(hasMandatoryOne == false)
+	    {
+		  mandatory1Name = object.collider.name;
+		  object.gameObject.SetActiveRecursively(false);
+		  overallScore = (overallScore + 5000);
+          hasMandatoryOne = true;
+		  mandatoryCount = 1;
+		  
+		  /**Update the HUD*/
+          if(hudScript != null)
+	       {
+	         hudScript.setHasMandatory(true);
+		   }
+		   
+		  print("Hit Mandatory 1 " + object.collider.name);
+		}	
+	  else
+	  {
+	  		  object.gameObject.SetActiveRecursively(true);
+
+	  }
+    }	
+	
+  if(object.name.Contains("Mandatory2"))
+    {
+	  if(hasMandatoryTwo == false && hasMandatoryOne == true)
+	    {
+		  mandatory2Name = object.collider.name;;		  
+		  object.gameObject.SetActiveRecursively(false);
+		  overallScore = (overallScore + 5000);
+          hasMandatoryTwo = true;
+		  mandatoryCount = 2;
+		  
+		  /**Update the HUD*/
+          if(hudScript != null)
+	       {
+	         hudScript.setHasMandatory(true);
+		   }
+		   
+  		  print("Hit Mandatory 2");
+		}	
+    }	
+	
+  if(object.name.Contains("Mandatory3"))
+    {
+	  if(hasMandatoryThree == false && hasMandatoryTwo == true)
+	    {
+		  mandatory3Name = object.collider.name;;		
+		  object.gameObject.SetActiveRecursively(false);
+		  overallScore = (overallScore + 5000);
+          hasMandatoryThree = true;
+		  mandatoryCount = 3;
+		  
+		  /**Update the HUD*/
+          if(hudScript != null)
+	       {
+	         hudScript.setHasMandatory(true);
+		   }
+		   
+		  print("Hit Mandatory 3");
+		}	
+    }	
+	
+   
+    /**Update the HUD*/
+   if(hudScript != null)
+     {
+       hudScript.setScore(overallScore );
+   }               
  }
 
 
@@ -714,7 +788,7 @@ function OnTriggerEnter(object:Collider)
 */
 function OnControllerColliderHit(object : ControllerColliderHit)
 {
-	
+	print("OnControllerColliderHit" + object.collider.name);
   if(object.collider.name.Contains("Mandatory1"))
     {
 	  if(hasMandatoryOne == false)

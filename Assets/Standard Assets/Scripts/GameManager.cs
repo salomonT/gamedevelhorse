@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour {
 //
 //****************************/
 
-// The game type. 0 = race, 1 = ctf, 2 = loot
+// The game type. 0 = race, 1 = loot
 private static int GAME_TYPE = 0;
 
 // The number of laps to win (if any)
