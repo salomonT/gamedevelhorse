@@ -24,13 +24,13 @@ public class GameManager : MonoBehaviour {
 //****************************/
 
 // The game type. 0 = race, 1 = ctf, 2 = loot
-private static int GAME_TYPE;
+private static int GAME_TYPE = 0;
 
 // The number of laps to win (if any)
-private static int LAPS;
+private static int LAPS = 0;
 
 // The difficulty of the AI. 0 = easy, 1 = medium, 2 = hard
-private static int DIFFICULTY;
+private static int DIFFICULTY = 0;
 
 // The level id. 0 = county, 1 = beech, 2 = city, 3 = tutorial, 4 = multiplayer
 private static int LEVEL;
@@ -50,16 +50,16 @@ private static ArrayList FINISHED_ARRAY = new ArrayList();
 //***********************************/
 
 // Turn sound FX on or off. 0 = on. 1 = off.
-private static int SOUND_FX;
+private static int SOUND_FX = 1;
 
 // Turn game music on or off. 0 = on. 1 = off.
-private static int GAME_MUSIC;
+private static int GAME_MUSIC = 1;
 
 // The color of the horse???
-private static int HORSE_COLOR;
+private static int HORSE_COLOR = 0;
 
 // The type of cart for the player???
-private static int CART_TYPE;
+private static int CART_TYPE = 0;
 
 
 
@@ -137,7 +137,6 @@ public static void setCartType(int cart) {
 public static int getCartType() {
 	return CART_TYPE;
 }
-
 
 public static void reset() {
 	GAME_TYPE = 0;

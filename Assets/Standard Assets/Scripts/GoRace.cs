@@ -5,6 +5,7 @@ public class GoRace : MonoBehaviour {
 	
 	public static bool cameraEnd;
 	public static bool isRunning;
+	public static bool speedChanged = false;
 	//0 nothing yet, 1 win, 2 lose.
 	public static int stateEnd;
 	
