@@ -550,14 +550,14 @@ function OnTriggerEnter(object:Collider)
           if(object.name == ("Booster"))
           {         
           		var randomValue : int = (Random.value * 12);              
-                if(randomValue < 1)//Half chance to boost.
+                if(randomValue < 4)//Half chance to boost.
                 {
                  print("Boost");
                  countTime = true;
                  speedUp = true;
                  overallScore = (overallScore + 1000);
                 }
-                else if(randomValue < 12)//Donkey mode !
+                else if(randomValue < 7)//Donkey mode !
                 {
                 	print("Donkey mode !");
                 	countTime = true;
