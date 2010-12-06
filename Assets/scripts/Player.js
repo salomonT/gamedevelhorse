@@ -1,5 +1,11 @@
 var walkSpeed : float;
 var runSpeed : float;
+var horseMaterials : Material[]; 
+var gravity : float;
+var rotationSpeed : float;
+var owner : NetworkPlayer;
+
+
 private var speed : float = 0;
 private var controller : CharacterController;
 private var moveDirection : Vector3 = Vector3.zero;
@@ -55,8 +61,6 @@ private var mandatory3B:GameObject;
 private var mandatory3C:GameObject;
 private var mandatory3D:GameObject;
 
-public var owner : NetworkPlayer;
-
 //Last input value, we're saving this to save network messages/bandwidth.
 private var lastClientHInput : float=0;
 private var lastClientVInput : float=0;
@@ -67,9 +71,6 @@ private var serverCurrentVInput : float = 0;
 private var serverCurrentRIpunt : boolean = false;
 private var serverCurrentGround : boolean = false;
 
-var gravity : float;
-var rotationSpeed : float;
-
 private var alreadyCam : boolean;
 private var verticalSpeed : float;
 
@@ -78,8 +79,11 @@ private var anim : Animation;
 private var animState : AnimationState;
 private var horseSoundFX :AudioClip;
 private var fxLoopPlay : boolean;
-private var onBegin : boolean;
+private var onBegin : boolean; 
 private var camTop : GameObject;
+
+
+
 
 
 //On enter water collision.
@@ -136,6 +140,15 @@ function StartMultiplayer()
 
 function StartSinglePlayer()
 {
+
+	//Change the material by the player settings.
+	print("HORSE COLOR: " + GameManager.getHorseColor());
+	var horse : GameObject = GameObject.Find("HorseAnim/Horse_mesh");
+	if(horse != null)
+	{
+		horse.renderer.material = horseMaterials[GameManager.getHorseColor()];
+	}
+	
 	GoRace.setRunGame(false);
   	GoRace.stateEnd = 0;
 	  if(camTop != null)
@@ -515,20 +528,24 @@ function OnTriggerEnter(object:Collider)
     {
           /**Determine if User Hit a Speed Booster.*/
           if(object.name == ("Booster"))
-                {                       if((Random.value * 10) < 5)//Half chance to boost.
-                        {
-                        // Debug.Log("Boost");
-                         countTime = true;
-                         speedUp = true;
-                         overallScore = (overallScore + 1000);
-                        }
-                        else      /**User Hit a Speed Reducer.*/
-                        {
-                                countTime = true;
-                                slowDown = true;
-                                overallScore = (overallScore - 500);
-                        }                       
+          {         
+          		var randomValue : int = (Random.value * 10);              
+                if(randomValue < 5)//Half chance to boost.
+                {
+                 print("Boost");
+                 countTime = true;
+                 speedUp = true;
+                 overallScore = (overallScore + 1000);
                 }
+                else      /**User Hit a Speed Reducer.*/
+                {
+                	print("Reduce");
+                        countTime = true;
+                        slowDown = true;
+                        overallScore = (overallScore - 500);
+                }  
+                GoRace.speedChanged = true;                     
+           }
         }
 
 
@@ -833,31 +850,30 @@ function CheckEnhancements()
         
       if(actualTime >= 3)
        {
-                countTime = false;
-        speedUp = false;
-                countTime = false;
-        actualTime = 0;
-                timeCounter = 0;
+            countTime = false;
+        	speedUp = false;
+        	actualTime = 0;
+            timeCounter = 0;
+            GoRace.speedChanged = false;
        }
            
     }
-        else if(slowDown == true)
-        {
-         if(countTime == true)
+    else if(slowDown == true)
+    {
+       if(countTime == true)
        {
              TimeCounterUp(); 
        }
         
-      if(actualTime >= 3)
+       if(actualTime >= 3)
        {
-                countTime = false;
-        slowDown = false;
-                countTime = false;
-        actualTime = 0;
-                timeCounter = 0;
+            countTime = false;
+        	slowDown = false;
+        	actualTime = 0;
+            timeCounter = 0;
+            GoRace.speedChanged = false;
        }           
-        }
-
+    }
 }
 
 
