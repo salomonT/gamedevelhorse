@@ -77,7 +77,6 @@ private var gameTypeVar : int = 0;
 private var gameType : String = "Race";
 var gameTypeLoot : Texture2D;
 var gameTypeRace : Texture2D;
-var gameTypeCTF : Texture2D;
 private var gameTypeCurrent : Texture2D = gameTypeRace;
 var levelCountrySide : Texture2D;
 var levelBeach : Texture2D;
@@ -95,9 +94,9 @@ private var levelCountrySideUnlock : int = 1;
 private var levelBeachUnlock : int = 1;
 private var levelKillarneyTownUnlock : int = 1;
 private var levelCurrentUnlock : int = 0;
-private var levelCountrySideName : String = "Coutnry Side";
+private var levelCountrySideName : String = "Countryside";
 private var levelBeachName : String = "Beach";
-private var levelKillarneyTownName : String = "Killarney";
+private var levelKillarneyTownName : String = "Dublin City";
 private var levelCurrentName : String =levelCountrySideName;
 private var levelStartUnlock : int = 1;
 private var levelMovePic : int = 0;
@@ -273,7 +272,7 @@ function singlePlayer (){
 	
 	// Label box
 	GUI.Label (Rect (ratioSW*180,ratioSH*160,178,59), "", titleGameType);
-	GUI.Label (Rect (ratioSW*125,ratioSH*250,ratioSW*340,ratioSH*300), gameTypeCurrent, GUI.skin.customStyles[0]);
+	GUI.Label (Rect (ratioSW*160,ratioSH*280,204,154), gameTypeCurrent, GUI.skin.customStyles[0]);
 		
 		if (gameTypeVar > 0){
 			if(GUI.Button (Rect (ratioSW*150,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowLeft)){
@@ -283,7 +282,7 @@ function singlePlayer (){
 			if(GUI.Button (Rect (ratioSW*150,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowLeftDisable)){}
 		}
 		GUI.Label (Rect (ratioSW*200,ratioSH*540,ratioSW*180,25), gameType, textYellow);
-		if (gameTypeVar < 2){
+		if (gameTypeVar < 1){
 			if(GUI.Button (Rect (ratioSW*400,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowRight)){
 			audio.PlayOneShot(moveMenuButtonSound);
 			gameTypeVar++;}
@@ -327,7 +326,7 @@ function singlePlayer (){
 					} else {
 						if(GUI.Button (Rect (ratioSW*870,ratioSH*310,ratioSW*30,ratioSH*30), "",buttonArrowRightDisable)){}
 					}
-			} else {
+			/*} else {
 				if (gameTypeVar == 2) {
 					GUI.Label (Rect (ratioSW*560,ratioSH*283,84,46), "", titleItems);
 					if (nbrItems > 1){	
@@ -345,7 +344,7 @@ function singlePlayer (){
 					} else {
 						if(GUI.Button (Rect (ratioSW*870,ratioSH*310,ratioSW*30,ratioSH*30), "",buttonArrowRightDisable)){}
 					}
-				}
+				}*/
 		}
 	}
 		
@@ -396,11 +395,7 @@ if ( gameTypeVar == 0 ) {
 	gameTypeCurrent = gameTypeRace;
 	}
 if ( gameTypeVar == 1 ) {
-	gameType = "CTF";
-	gameTypeCurrent = gameTypeCTF;
-	}
-if ( gameTypeVar == 2 ) {
-	gameType = "Loot";
+	gameType = "Snatch & Grab";
 	gameTypeCurrent = gameTypeLoot;
 	}
 }
@@ -576,11 +571,11 @@ function settings (){
 	"View the scrore you achieved for "+"\n"+"each level"
 	, textWhite);
 	
-	
+	/*
 	if(GUI.Button (Rect (ratioSW*550,ratioSH*200,ratioSW*400,ratioSH*100), "",settingsGameSettingsButton)){
 		audio.PlayOneShot(startAndNextButtonSound);
 		resetMenu();
-		settings_gameSettingsVar = 1;}
+		settings_gameSettingsVar = 1;}*/
 		
 	if(GUI.Button (Rect (ratioSW*550,ratioSH*370,ratioSW*400,ratioSH*100), "",settingsCustomizeHorseButton)){
 		audio.PlayOneShot(startAndNextButtonSound);
@@ -654,7 +649,7 @@ function settings_customizeHorse (parent : int){ // 1 : parent is Setting // 2 :
 		} else {
 			if(GUI.Button (Rect (ratioSW*400,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowRightDisable)){}
 		}
-	
+	/* CART CUSTOM >>>> not use for the moment
 	GUI.Label (Rect (ratioSW*550,ratioSH*225,ratioSW*340,ratioSH*300), settingCartCurrent, GUI.skin.customStyles[0]);
 		if (settingCartVar > 0){
 			if(GUI.Button (Rect (ratioSW*575,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowLeft)){
@@ -670,7 +665,7 @@ function settings_customizeHorse (parent : int){ // 1 : parent is Setting // 2 :
 			settingCartVar++;}
 		} else {
 			if(GUI.Button (Rect (ratioSW*825,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowRightDisable)){}
-		}
+		}*/
 		
 	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-100),ratioSW*200,ratioSH*100), "",backToMenuButton)){
 		audio.PlayOneShot(backToMenuButtonSound);
@@ -766,7 +761,7 @@ function launchLevel(){
 			async = Application.LoadLevelAsync ("multiplayer");
 		} else {
 			if ( levelLaunchVar == 3 ){
-				async = Application.LoadLevelAsync ("Demo_Level_v6");
+				async = Application.LoadLevelAsync ("Demo_Level_v7");
 			} else {
 				if ( levelLaunchVar == 0 ){
 					async = Application.LoadLevelAsync ("Country");
