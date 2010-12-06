@@ -281,7 +281,8 @@ function singlePlayer (){
 		if (gameTypeVar > 0){
 			if(GUI.Button (Rect (ratioSW*150,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowLeft)){
 			audio.PlayOneShot(moveMenuButtonSound);
-			gameTypeVar--;}
+			gameTypeVar--;
+			GameManager.setGameType(gameTypeVar);}
 		} else {
 			if(GUI.Button (Rect (ratioSW*150,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowLeftDisable)){}
 		}
@@ -289,7 +290,8 @@ function singlePlayer (){
 		if (gameTypeVar < 1){
 			if(GUI.Button (Rect (ratioSW*400,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowRight)){
 			audio.PlayOneShot(moveMenuButtonSound);
-			gameTypeVar++;}
+			gameTypeVar++;
+			GameManager.setGameType(gameTypeVar);}
 		} else {
 			if(GUI.Button (Rect (ratioSW*400,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowRightDisable)){}
 		}
