@@ -23,7 +23,7 @@ function Update ()
 function OnTriggerEnter(c:Collider)
 {
   startCountDown = true;
-  gameObject.transform.position.z = (gameObject.transform.position.z - 500);
+  gameObject.transform.position.y = (gameObject.transform.position.y - 500);
 }
   
   
@@ -48,7 +48,7 @@ function TimeCounter():Number
 /**Respawn the Object.*/
 function Respawn()
 {
-  gameObject.transform.position.z = (gameObject.transform.position.z+ 500);
+  gameObject.transform.position.y = (gameObject.transform.position.y+ 500);
   actualTime = 0;
   timeCounter = 0;
   startCountDown = false;

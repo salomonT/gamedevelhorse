@@ -37,6 +37,14 @@ var textureLost:Texture2D;
 private var onBegin:boolean;
 public var raceStart : AudioClip;
 
+private var progress : float = 0;
+private var pos : Vector2;
+private var size : Vector2 = new Vector2(60,20);
+public var progressBarEmpty : Texture2D;
+public var progressBarFull : Texture2D;
+private var pickTimeProgress : float;
+private var firstEnter : boolean = false;
+
 
 
 function Start () {
@@ -94,27 +102,6 @@ function OnGUI () {
 			    getWarning(), textWhite);
 			}
 			
-			if (menuFlag == 1){
-				GUI.Label (Rect (-10,-10,Screen.width+10,Screen.height+10),"" ,"box");
-				
-				if (exitFlag != 1)
-					Time.timeScale = 0;
-				
-				if(GUI.Button (Rect ((Screen.width/2)-(370/2),150,370,74), "", resume)){
-					if (exitFlag != 1){
-						menuFlag = 0;
-						Time.timeScale = 1;
-					}
-				}
-				
-				if(GUI.Button (Rect ((Screen.width/2)-(370/2),250,370,74), "", exit)){
-					exitFlag = 1;
-					Time.timeScale = 1;
-					Application.LoadLevelAsync ("GUI");
-				}
-				
-			}
-			
 			if(Time.time < timeStart +1.0)
 			{
 				GUI.Label(Rect(Screen.width/2-texture3.width/2,Screen.height/2-texture3.height/2, texture3.width,texture3.height), texture3);
@@ -139,6 +126,47 @@ function OnGUI () {
 			else if(GoRace.stateEnd == 2)
 			{
 				GUI.Label(Rect(Screen.width/2-textureLost.width/2,Screen.height/2-textureLost.height/2, textureLost.width,textureLost.height), textureLost);
+			}
+			
+			if(GoRace.speedChanged == true)
+			{
+				if(firstEnter == false)
+				{
+					firstEnter = true;
+					pickTimeProgress = Time.time;
+					pos = new Vector2(Screen.width - 80,80);
+				}
+				//GUI.Label(Rect(Screen.width - 160,80, 80 
+				GUI.DrawTexture(Rect(pos.x, pos.y, size.x, size.y), progressBarEmpty);
+    			GUI.DrawTexture(Rect(pos.x, pos.y, size.x * Mathf.Clamp01(progress), size.y), progressBarFull);
+				progress =(Time.time - pickTimeProgress) * 0.4;
+			}
+			else
+			{
+				firstEnter = false;
+			}
+			
+			
+			//Do this at the end of update, to show in front of the HUD.
+			if (menuFlag == 1){
+				GUI.Label (Rect (-10,-10,Screen.width+10,Screen.height+10),"" ,"box");
+				
+				if (exitFlag != 1)
+					Time.timeScale = 0;
+				
+				if(GUI.Button (Rect ((Screen.width/2)-(370/2),150,370,74), "", resume)){
+					if (exitFlag != 1){
+						menuFlag = 0;
+						Time.timeScale = 1;
+					}
+				}
+				
+				if(GUI.Button (Rect ((Screen.width/2)-(370/2),250,370,74), "", exit)){
+					exitFlag = 1;
+					Time.timeScale = 1;
+					Application.LoadLevelAsync ("GUI");
+				}
+				
 			}
 		}
 		
