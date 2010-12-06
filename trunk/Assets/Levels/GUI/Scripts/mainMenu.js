@@ -291,7 +291,7 @@ function singlePlayer (){
 		}
 		
 	GUI.Label (Rect (ratioSW*650,ratioSH*160,211,59), "", titleGameOptions);	
-	if (gameTypeVar == 0) {	
+	//if (gameTypeVar == 0) {	
 		GUI.Label (Rect (ratioSW*570,ratioSH*282,75,48), "", titleLaps);	
 			if (nbrLaps > 1){
 				if(GUI.Button (Rect (ratioSW*770,ratioSH*310,ratioSW*30,ratioSH*30), "",buttonArrowLeft)){
@@ -308,7 +308,7 @@ function singlePlayer (){
 			} else {
 				if(GUI.Button (Rect (ratioSW*870,ratioSH*310,ratioSW*30,ratioSH*30), "",buttonArrowRightDisable)){}
 			}
-	} else {
+	/*} else {
 		if (gameTypeVar == 1) {
 				GUI.Label (Rect (ratioSW*560,ratioSH*290,83,40), "", titleScore);
 					if (nbrScore > 1){	
@@ -326,7 +326,7 @@ function singlePlayer (){
 					} else {
 						if(GUI.Button (Rect (ratioSW*870,ratioSH*310,ratioSW*30,ratioSH*30), "",buttonArrowRightDisable)){}
 					}
-			/*} else {
+			} else {
 				if (gameTypeVar == 2) {
 					GUI.Label (Rect (ratioSW*560,ratioSH*283,84,46), "", titleItems);
 					if (nbrItems > 1){	
@@ -344,9 +344,9 @@ function singlePlayer (){
 					} else {
 						if(GUI.Button (Rect (ratioSW*870,ratioSH*310,ratioSW*30,ratioSH*30), "",buttonArrowRightDisable)){}
 					}
-				}*/
+				}
 		}
-	}
+	}*/
 		
 	GUI.Label (Rect (ratioSW*500,ratioSH*370,127,52), "", titleDifficulty);
 			if (difficultyVar > 0){
