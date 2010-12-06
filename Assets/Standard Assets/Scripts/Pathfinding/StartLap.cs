@@ -22,6 +22,8 @@ public class StartLap : MonoBehaviour {
 	bool startCount = false;
 	float pickupTime;
 	
+	bool monkeyMode = false;
+	
 	
 	void countTime()
 	{
@@ -31,6 +33,30 @@ public class StartLap : MonoBehaviour {
 			{
 				startCount = false;
 				(GetComponent (typeof (AIFollow)) as AIFollow).speed = startSpeed;
+				if(monkeyMode == true)
+				{
+					
+					 	foreach (Transform child in transform) 
+						{
+	            			if(child.gameObject.name == "Donkey_mesh")
+							{
+								SkinnedMeshRenderer donkeySkin = child.gameObject.GetComponent<SkinnedMeshRenderer>();
+		                		if(donkeySkin != null)
+		                		{
+		                			donkeySkin.enabled = false;
+		                		}
+							}
+							else if(child.gameObject.name == "Horse_mesh")
+							{
+								SkinnedMeshRenderer horseSkin = child.gameObject.GetComponent<SkinnedMeshRenderer>();
+	                			if(horseSkin != null)
+	                			{
+	                				horseSkin.enabled = true;
+	                			}
+							}
+						}
+					}
+					monkeyMode = false;	
 			}
 		}
 		else
@@ -161,12 +187,39 @@ public class StartLap : MonoBehaviour {
 		/**Determine if User Hit a Speed Booster.*/
 	  if(obj.name == ("Booster"))
 	  {
-		int randomValue = (int)(Random.value * 10);         
-		if(randomValue < 5)//Half chance to boost.
+		int randomValue = (int)(Random.value * 12);         
+		if(randomValue < 4)//Half chance to boost.
 		{
 		 	(GetComponent (typeof (AIFollow)) as AIFollow).speed = startSpeed * 1.5f;
 				startCount = true;
 		}
+		else if(randomValue < 7)//Donkey mode !
+                {
+                	print("Donkey mode !");
+                	(GetComponent (typeof (AIFollow)) as AIFollow).speed = startSpeed / 4.0f;
+					startCount = true;
+					monkeyMode = true;
+                	//Change the mesh.
+                	foreach (Transform child in transform) 
+					{
+            			if(child.gameObject.name == "Donkey_mesh")
+						{
+							SkinnedMeshRenderer donkeySkin = child.gameObject.GetComponent<SkinnedMeshRenderer>();
+	                		if(donkeySkin != null)
+	                		{
+	                			donkeySkin.enabled = true;
+	                		}
+						}
+						else if(child.gameObject.name == "Horse_mesh")
+						{
+							SkinnedMeshRenderer horseSkin = child.gameObject.GetComponent<SkinnedMeshRenderer>();
+                			if(horseSkin != null)
+                			{
+                				horseSkin.enabled = false;
+                			}
+						}
+					}
+				}
 		else	  /**User Hit a Speed Reducer.*/
 		{
 	 		(GetComponent (typeof (AIFollow)) as AIFollow).speed = halfSpeed;
