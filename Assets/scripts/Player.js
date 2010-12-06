@@ -11,6 +11,7 @@ private var controller : CharacterController;
 private var moveDirection : Vector3 = Vector3.zero;
 private var speedUp:boolean;
 private var slowDown:boolean;
+private var donkeyMode:boolean;
 private var countTime:boolean;
 private var timeCounter = 0;
 private var actualTime = 0;
@@ -465,42 +466,48 @@ function Update ()
 function MoveCharachter()
 { 
     if ((Mathf.Abs(Input.GetAxis("Vertical")) > 0.2) || (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.2)) 
-          {
+    {
         if(Input.GetButton("Run")) 
-                  {
-                    if(speedUp == true)
-                         {
-                           speed = Mathf.Abs(Input.GetAxis("Vertical")) * (runSpeed * 1.5);
-                        
-                         }
+        {
+                   if(speedUp == true)
+                   {
+                       speed = Mathf.Abs(Input.GetAxis("Vertical")) * (runSpeed * 1.5);  
+                   }
                    else if(slowDown == true)
-                     {
-                           speed = Mathf.Abs(Input.GetAxis("Vertical")) * (runSpeed / 2);                        
-                         }
+                   {
+                       speed = Mathf.Abs(Input.GetAxis("Vertical")) * (runSpeed / 2);                        
+                   }
+                   else if(slowDown == true)
+          		   {
+                   	   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed / 4);                       
+          		   } 
                    else
-                         {
-               speed = Mathf.Abs(Input.GetAxis("Vertical")) * runSpeed;
-                         }
+                   {
+               		   speed = Mathf.Abs(Input.GetAxis("Vertical")) * runSpeed;
+                   }
           } 
-                else if(speedUp == true)
-                  {
-                   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed * 1.5);   
-                  }
-                else if(slowDown == true)
-                  {
-                   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed / 2);                       
-                  } 
-            else
-                 {
-                 
-           speed = Mathf.Abs(Input.GetAxis("Vertical")) * walkSpeed;
-                 }
-           } 
-         else 
+          else if(speedUp == true)
           {
+                   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed * 1.5);   
+          }
+          else if(slowDown == true)
+          {
+                   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed / 4);                       
+          } 
+          else if(donkeyMode == true)
+          {
+                   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed / 2);                       
+          } 
+          else
+          { 
+           speed = Mathf.Abs(Input.GetAxis("Vertical")) * walkSpeed;
+          }
+    } 
+    else 
+    {
         speed = 0;
-      }
-      
+    }
+     
         if(Input.GetAxis("Vertical") != 0f)
         {
                 animState.speed = speed / 50.0;
@@ -542,13 +549,39 @@ function OnTriggerEnter(object:Collider)
           /**Determine if User Hit a Speed Booster.*/
           if(object.name == ("Booster"))
           {         
-          		var randomValue : int = (Random.value * 10);              
-                if(randomValue < 5)//Half chance to boost.
+          		var randomValue : int = (Random.value * 12);              
+                if(randomValue < 1)//Half chance to boost.
                 {
                  print("Boost");
                  countTime = true;
                  speedUp = true;
                  overallScore = (overallScore + 1000);
+                }
+                else if(randomValue < 12)//Donkey mode !
+                {
+                	print("Donkey mode !");
+                	countTime = true;
+                	donkeyMode = true;
+                	overllScore  = (overallScore - 1000);
+                	//Change the mesh.
+                	var donkey : GameObject = GameObject.Find("HorseAnim/Donkey_mesh");
+                	if(donkey != null)
+                	{
+                		var donkeySkin : SkinnedMeshRenderer = donkey.GetComponent(SkinnedMeshRenderer);
+                		if(donkeySkin != null)
+                		{
+                			donkeySkin.enabled = true;
+                		}
+                	}
+                	var horse : GameObject = GameObject.Find("HorseAnim/Horse_mesh");
+                	if(horse != null)
+                	{
+                		var horseSkin : SkinnedMeshRenderer = horse.GetComponent(SkinnedMeshRenderer);
+                		if(horseSkin != null)
+                		{
+                			horseSkin.enabled = false;
+                		}
+                	}
                 }
                 else      /**User Hit a Speed Reducer.*/
                 {
@@ -854,7 +887,41 @@ function OverallTime()
 function CheckEnhancements()
 {
  
-  if(speedUp == true)
+ if(donkeyMode == true)
+ {
+ 	if(countTime == true)
+       {
+             TimeCounterUp(); 
+       }
+       if(actualTime >= 3)
+       {
+       //Reset the mesh.
+        var donkey : GameObject = GameObject.Find("HorseAnim/Donkey_mesh");
+		if(donkey != null)
+		{
+			var donkeySkin : SkinnedMeshRenderer = donkey.GetComponent(SkinnedMeshRenderer);
+			if(donkeySkin != null)
+			{
+				donkeySkin.enabled = false;
+			}
+		}
+		var horse : GameObject = GameObject.Find("HorseAnim/Horse_mesh");
+		if(horse != null)
+		{
+			var horseSkin : SkinnedMeshRenderer = horse.GetComponent(SkinnedMeshRenderer);
+			if(horseSkin != null)
+			{
+				horseSkin.enabled = true;
+			}
+		}
+       	countTime = false;
+       	donkeyMode = false;
+       	actualTime = 0;
+        timeCounter = 0;
+        GoRace.speedChanged = false;
+       }
+ }
+ else if(speedUp == true)
     {
       if(countTime == true)
        {
