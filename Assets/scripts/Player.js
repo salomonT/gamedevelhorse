@@ -160,8 +160,14 @@ function StartSinglePlayer()
 		}
 		onBegin = false;
 		GoRace.cameraEnd = false;
+		
+		hud = GameObject.Find("HUD");
+		if(hud != null)
+		  {
+		    hudScript = hud.GetComponent(mainHUD);
+		  }
+		
 	  isRacing = false;
-
 	  countTime = false;
 	  countTime = false;
 	  speedUp = false;
@@ -421,7 +427,7 @@ function SendMovementInput(HInput : float, VInput : float, RInput : boolean, con
 
 function Update () 
 {
-        print("Update");
+   //     print("Update");
   if(KeepNetworkInfo.isNetwork == true)
   {
         UpdateMultiplayer();
@@ -442,7 +448,7 @@ function Update ()
                         CheckEnhancements();
                         LapTime();
                         OverallTime();
-                        print("Lap Time : " + printLap + "   Overall Time : " + printOverall + "  Score : " + overallScore);
+                     //   print("Lap Time : " + printLap + "   Overall Time : " + printOverall + "  Score : " + overallScore);
       }
           else
           {
