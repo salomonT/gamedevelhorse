@@ -36,6 +36,7 @@ public class StartLap : MonoBehaviour {
 		else
 		{
 			pickupTime = Time.time;
+			//print("pickupTime: " + pickupTime);
 		}
 	}
 	
@@ -158,9 +159,10 @@ public class StartLap : MonoBehaviour {
 	{	
 		
 		/**Determine if User Hit a Speed Booster.*/
-	  if(gameObject.name == ("Booster"))
+	  if(obj.name == ("Booster"))
 	  {
-		if((Random.value * 10) < 5)//Half chance to boost.
+		int randomValue = (int)(Random.value * 10);         
+		if(randomValue < 5)//Half chance to boost.
 		{
 		 	(GetComponent (typeof (AIFollow)) as AIFollow).speed = startSpeed * 1.5f;
 				startCount = true;
@@ -186,6 +188,7 @@ public class StartLap : MonoBehaviour {
   	if(obj.name == ("Waypoint1") && currentWaypoint == 0)
     {
 	 currentWaypoint = 1;
+			print("AI Checkpoint 1!");
 	}
 	
   if(obj.name == ("Waypoint2") && currentWaypoint == 1)
