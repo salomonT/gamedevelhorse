@@ -165,7 +165,14 @@ function OnGUI () {
 					Time.timeScale = 1;
 					Application.LoadLevelAsync ("GUI");
 				}
-				
+			}
+			
+			if (GoRace.stateEnd == 2 || GoRace.stateEnd == 1){
+				if(GUI.Button (Rect ((Screen.width/2)-(370/2),350,370,74), "", exit)){
+					exitFlag = 1;
+					Time.timeScale = 1;
+					Application.LoadLevelAsync ("GUI");
+				}
 			}
 		}
 		
