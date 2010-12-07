@@ -296,7 +296,7 @@ function launchingGameGUI(){
 	GUI.Box(Rect(Screen.width/4+180,Screen.height/2-30,280,50), "");
 	if(Application.CanStreamedLevelBeLoaded ((Application.loadedLevel+1))){
 		GUI.Label(Rect(Screen.width/4+200,Screen.height/2-25,285,150), "Loaded, starting the game!");
-		Application.LoadLevel( (Application.loadedLevel+1) );
+		Application.LoadLevel( /*(Application.loadedLevel+1)*/ "islandLevel" );
 	}else{
 		GUI.Label(Rect(Screen.width/4+200,Screen.height/2-25,285,150), "Starting..Loading the game: "+Mathf.Floor(Application.GetStreamProgressForLevel((Application.loadedLevel+1))*100)+" %");
 	}	
