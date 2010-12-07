@@ -45,7 +45,7 @@ function Start()
 function Update () 
 {
 	//Change in real time the graphic quality.
-			if(countFPS + 1 < Time.time)
+			if(countFPS + 0.5 < Time.time)
 			{
 				fps = 1/Time.deltaTime;
 				countFPS = Time.time;

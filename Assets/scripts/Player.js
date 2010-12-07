@@ -69,7 +69,7 @@ private var lastClientVInput : float=0;
 //The input values the server will execute on this object
 private var serverCurrentHInput : float = 0;
 private var serverCurrentVInput : float = 0;
-private var serverCurrentRIpunt : boolean = false;
+private var serverCurrentRInput : boolean = false;
 private var serverCurrentGround : boolean = false;
 
 private var alreadyCam : boolean;
@@ -82,6 +82,7 @@ private var horseSoundFX :AudioClip;
 private var fxLoopPlay : boolean;
 private var onBegin : boolean; 
 private var camTop : GameObject;
+private var isSync : boolean = false;
 
 
 
@@ -339,6 +340,7 @@ function UpdateMultiplayer(){
                 var HInput : float = Input.GetAxis("Horizontal");
                 var VInput : float = Input.GetAxis("Vertical");
                 var RInput : boolean = Input.GetButton("Run");
+                print("Client Run: " + RInput);
                 
                 //Is our input different? Do we need to update the server?
                 if(lastClientHInput!=HInput || lastClientVInput!=VInput )
@@ -363,9 +365,10 @@ function UpdateMultiplayer(){
         //Server movement code
         if(Network.isServer || Network.player==owner)
         {
+        	print("On server 2: " + serverCurrentRInput);
                 if ((Mathf.Abs(serverCurrentVInput) > 0.2) || (Mathf.Abs(serverCurrentHInput) > 0.2)) 
                 {
-                        if(serverCurrentRIpunt == true) 
+                        if(serverCurrentRInput == true) 
                         {
                                 if(speedUp == true)
                                 {
@@ -397,16 +400,25 @@ function UpdateMultiplayer(){
                 {
                         speed = 0;
                 }
-                print("V: " + serverCurrentVInput + " H: " + serverCurrentHInput + " Speed: " + speed);
                 //Actually move the player using his/her input
                 if(serverCurrentVInput != 0f)
                 {
                         animState.speed = speed / 50.0;
                         anim.Play();
-                }
-                var rotation : float = serverCurrentHInput * rotationSpeed;
-                rotation *= Time.deltaTime;
-                transform.Rotate(0, rotation, 0);
+                        audio.pitch = Mathf.Min(1.2f,animState.speed * 1.5f);
+		                audio.pitch = Mathf.Max(0.7f,audio.pitch);
+		                if (!audio.isPlaying && fxLoopPlay == false)
+		                {
+		                        audio.Play(0);
+		                        fxLoopPlay = true;
+		                }
+		        }
+		        else
+		        {
+		        	audio.Stop();
+                	fxLoopPlay = false;
+		        }
+               
                 if(serverCurrentGround == false)
                 {
                         verticalSpeed = -0.2;
@@ -415,12 +427,23 @@ function UpdateMultiplayer(){
                 {
                         verticalSpeed = 0.0;
                 }
+                
+				var rotation : float = serverCurrentHInput * rotationSpeed;
+                rotation *= Time.deltaTime;
+                if(serverCurrentRInput == true)
+			    {
+			        rotation = rotation/3.0f;
+			    }
+			    else
+			    {
+			    	print("NOOOO");
+			    }
+			    
+			    
+                transform.Rotate(0, rotation, 0);
                 var moveDirection : Vector3 = new Vector3(0, verticalSpeed, serverCurrentVInput);
                 moveDirection = transform.TransformDirection(moveDirection);
                 controller.Move(speed * moveDirection * Time.deltaTime);
-                //transform.Translate(speed * moveDirection * Time.deltaTime);
-                //moveDirection = new Vector3(0,verticalSpeed,0);
-                //transform.Translate(moveDirection * Time.deltaTime);
         }
 }
 
@@ -431,6 +454,7 @@ function SendMovementInput(HInput : float, VInput : float, RInput : boolean, con
         serverCurrentVInput = VInput;
         serverCurrentRInput = RInput;
         serverCurrentGround = control;
+        print("server Run: " + RInput);
 }
 
 function Update () 
