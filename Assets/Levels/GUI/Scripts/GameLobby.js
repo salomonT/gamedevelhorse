@@ -286,6 +286,7 @@ function HostLaunchGame(){
 function launchGame(){
 	Network.isMessageQueueRunning=false;
 	launchingGame=true;
+	KeepNetworkInfo.playerNumber = playerList.Count;
 	Application.LoadLevel("islandLevel"); 
 }
 

@@ -318,6 +318,13 @@ function SetPlayer(player : NetworkPlayer)
         }
 }
 
+//Call on client, use to synchronise with all players.
+@RPC
+function syncWithServer()
+{
+	isSync = true;
+}
+
 function ApplyGravity()
 {
         if(controller.isGrounded)
@@ -335,7 +342,12 @@ function ApplyGravity()
 function UpdateMultiplayer(){ 
         //Client code
         print("UpdateMultiplayer");
-        if(owner!=null && Network.player==owner){
+        if(isSync == false)
+        {
+			hudScript.displayWaitOtherPlayers(true);        
+        }
+        if(owner!=null && Network.player==owner && isSync == true){
+        		hudScript.displayWaitOtherPlayers(false);
                 //Only the client that owns this object executes this code
                 var HInput : float = Input.GetAxis("Horizontal");
                 var VInput : float = Input.GetAxis("Vertical");
