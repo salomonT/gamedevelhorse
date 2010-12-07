@@ -1,6 +1,8 @@
 var walkSpeed : float;
 var runSpeed : float;
 var horseMaterials : Material[]; 
+var rightWheel : GameObject;
+var leftWheel : GameObject;
 var gravity : float;
 var rotationSpeed : float;
 var owner : NetworkPlayer;
@@ -272,6 +274,8 @@ function StartSinglePlayer()
 function Start()
 {	
 	camTop = GameObject.Find("HorseAnim/CameraTopView");
+	rightWheel = GameObject.Find("HorseAnim/Sulky/rightWheel");
+	leftWheel = GameObject.Find("HorseAnim/Sulky/leftWheel");
 	fxLoopPlay = false;
 	audio.loop = true;
 	audio.volume = 1;
@@ -525,6 +529,7 @@ function MoveCharachter()
 { 
     if ((Mathf.Abs(Input.GetAxis("Vertical")) > 0.2) || (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.2)) 
     {
+    
         if(Input.GetButton("Run") && donkeyMode == false) 
         {
                    if(speedUp == true)
@@ -593,6 +598,8 @@ function MoveCharachter()
         transform.Rotate(0,rotation,0);
     moveDirection = Vector3(0, verticalSpeed, Input.GetAxis("Vertical"));
     moveDirection = transform.TransformDirection(moveDirection);
+    rightWheel.transform.RotateAroundLocal(new Vector3(1,0,0),Input.GetAxis("Vertical")*speed);
+    leftWheel.transform.RotateAroundLocal(new Vector3(1,0,0),Input.GetAxis("Vertical")*speed);
     controller.Move(moveDirection * (Time.deltaTime * speed));
 }
 
