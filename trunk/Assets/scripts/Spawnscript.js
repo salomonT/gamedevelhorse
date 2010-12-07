@@ -66,6 +66,11 @@ function Spawnplayer(newPlayer : NetworkPlayer){
 	 //Call an RPC on this new networkview, set the player who controls this player
 	 newObjectsNetworkview.RPC("SetPlayer", RPCMode.AllBuffered, newPlayer);//Set it on the owner
 	 numPos++;
+	 if(KeepNetworkInfo.playerNumber == numPos)
+	 {
+	 	networkView.RPC("syncWithServer",RPCMode.AllBuffered);
+	 }
+	 
 }
 
 

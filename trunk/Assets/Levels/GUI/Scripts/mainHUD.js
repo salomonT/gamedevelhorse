@@ -44,13 +44,18 @@ public var progressBarEmpty : Texture2D;
 public var progressBarFull : Texture2D;
 private var pickTimeProgress : float;
 private var firstEnter : boolean = false;
-
+private var disWait : boolean = false;
 
 function Start () {
 	typeGame = 0;
 	timeStart = Time.time;
 	onBegin = false;
 	audio.loop = false;
+}
+
+function displayWaitOtherPlayers(val : boolean)
+{
+	disWait = val;
 }
 
 function OnGUI () {
@@ -101,6 +106,14 @@ function OnGUI () {
 			    getWarning(), textWhite);
 			}
 			
+			if(disWait == true)
+			{
+				var mod : int = Time.time % 2;
+				if(mod == 0)
+				{
+					GUI.Label(Rect(Screen.width/2 - 150, Screen.height/2 - 40, 300, 80), "Wait other players", textWhite);
+				}
+			}
 			if(Time.time < timeStart +1.0)
 			{
 				GUI.Label(Rect(Screen.width/2-texture3.width/2,Screen.height/2-texture3.height/2, texture3.width,texture3.height), texture3);
