@@ -21,6 +21,8 @@ public class StartLap : MonoBehaviour {
 	private bool slowDown = false;
 	bool startCount = false;
 	float pickupTime;
+	GameObject rightWheel;
+	GameObject leftWheel;
 	
 	bool monkeyMode = false;
 	
@@ -66,12 +68,30 @@ public class StartLap : MonoBehaviour {
 		}
 	}
 	
+	void loadWheel(){
+		foreach (Transform child in transform) 
+		{
+			if(child.gameObject.name == "Sulky")
+			{
+				foreach (Transform wheel in child.gameObject.transform){
+					if(wheel.gameObject.name == "leftWheel"){
+   						leftWheel = wheel.gameObject;
+					}else if(wheel.gameObject.name == "rightWheel"){
+						rightWheel = wheel.gameObject;
+					}
+				}
+			}
+		}	
+	}
+	
 	void launchRace()
 	{
 		startTime = Time.time;//Get the time at the begining.
 		startSpeed = (GetComponent (typeof (AIFollow)) as AIFollow).speed;
 		halfSpeed = startSpeed / 2;
 		currentWaypoint = 0;
+		
+		loadWheel();
 		
 		//Choose a radom pickupNextPoint, to make random path.
 		pickNextPoint = (GetComponent (typeof (AIFollow)) as AIFollow).pickNextWaypointDistance;
@@ -106,6 +126,9 @@ public class StartLap : MonoBehaviour {
 				isLaunched = true;
 			}
 			countTime();
+			float sp=(GetComponent (typeof (AIFollow)) as AIFollow).speed;
+			rightWheel.transform.RotateAroundLocal(new Vector3(1,0,0),Input.GetAxis("Vertical")*sp);
+    		leftWheel.transform.RotateAroundLocal(new Vector3(1,0,0),Input.GetAxis("Vertical")*sp);
 			
 			
 			Vector3 absDiffPos;
