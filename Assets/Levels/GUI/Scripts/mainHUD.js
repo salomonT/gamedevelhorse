@@ -46,7 +46,6 @@ private var pickTimeProgress : float;
 private var firstEnter : boolean = false;
 
 
-
 function Start () {
 	typeGame = 0;
 	timeStart = Time.time;
@@ -88,7 +87,7 @@ function OnGUI () {
 			GUI.Label (Rect (ratioSW*900,ratioSH*60,ratioSW*100,ratioSH*50),
 			"Laps : " + currentNbrLaps
 			, textWhite);
-			
+						
 			if (typeGame == 1) {
 				GUI.Label (Rect (ratioSW*875,ratioSH*110,ratioSW*125,ratioSH*50),
 				"Score : " + currentScore
