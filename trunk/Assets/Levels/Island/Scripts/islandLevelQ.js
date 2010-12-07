@@ -1,13 +1,18 @@
 //Changing objects quality, depends on graphic level.
 //Created by Loic.
 
-public var rain : GameObject;
-public var cam : GameObject;
+private var rain : GameObject;
+private var cam : GameObject;
+private var sWater : GameObject;
+private var water : GameObject;
 
 function Start()
 {
 	cam = GameObject.Find("Camera");
 	rain = GameObject.Find("Rain");
+	
+	sWater = GameObject.Find("Daylight Simple Water");
+	water = GameObject.Find("Daylight Water");
 }
 
 function Update () 
@@ -19,6 +24,8 @@ function Update ()
 	{
 		rain.active = false;
 		cam.camera.farClipPlane = 300;
+		sWater.active = true;
+		water.active = false;
 	}
 	
 	//Good graphics quality, add rain, increase camera distance.
@@ -28,5 +35,7 @@ function Update ()
 	{
 		rain.active = true;
 		cam.camera.farClipPlane = 3000;
+		sWater.active = false;
+		water.active = true;
 	}
 }
