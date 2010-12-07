@@ -11,7 +11,7 @@ function Start()
 	cam = GameObject.Find("Camera");
 	rain = GameObject.Find("Rain");
 	
-	sWater = GameObject.Find("Daylight Simple Water");
+	sWater = GameObject.Find("Nighttime Simple Water");
 	water = GameObject.Find("Daylight Water");
 }
 
@@ -24,8 +24,16 @@ function Update ()
 	{
 		rain.active = false;
 		cam.camera.farClipPlane = 300;
-		sWater.active = true;
-		water.active = false;
+		if(QualitySettings.currentLevel == QualityLevel.Fastest)
+		{
+			sWater.active = true;
+			water.active = false;
+		}
+		else
+		{
+			sWater.active = false;
+			water.active = true;
+		}
 	}
 	
 	//Good graphics quality, add rain, increase camera distance.
