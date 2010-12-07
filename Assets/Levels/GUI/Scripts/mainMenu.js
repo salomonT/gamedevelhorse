@@ -1,3 +1,5 @@
+static var multiplayerGameLaunch:int = 0;
+
 private var flagStart:int = 1;
 
 private var singlePlayerVar:int = 0;
@@ -127,9 +129,6 @@ private var horseFlag : int = 1;
 private var horseSettingIsModif : int = 1;
 private var horseTmpBack : int = 0;
 
-private var multiPlayerNameVar : int = 0;
-private var playerNameInput : String = "Gordon";
-
 function Start(){
 	horse = GameObject.Find("Rotation point/HorseAnim/Horse_mesh");
 	// just for test !!
@@ -174,12 +173,6 @@ function OnGUI () {
 	if(multiPlayerVar == 1){
 		GUI.Label (Rect (0,0,Screen.width,Screen.height), backgroundMulti, GUI.skin.customStyles[0]);
 		multiPlayer();
-		flagMainMenu = 0;
-	}
-		
-	if(multiPlayerNameVar >= 1){
-		GUI.Label (Rect (0,0,Screen.width,Screen.height), backgroundMulti, GUI.skin.customStyles[0]);
-		multiPlayerName(multiPlayerNameVar);
 		flagMainMenu = 0;
 	}
 	
@@ -247,7 +240,6 @@ function resetMenu (){
 	settings_customizeHorseVar = 0;
 	settings_highScoresVar = 0;
 	launchVar = 0;
-	multiPlayerNameVar = 0;
 }
 
 function mainMenu (){
@@ -499,61 +491,13 @@ function levelCheckUnlock(){
 	
 }
 
-function multiPlayerName (parent : int){
-	
-	playerNameInput = GUILayout.TextField(playerNameInput,25);
-	/*
-	if(playerNameInput.length>=1){
-			if(GUILayout.Button("Save")){
-				PlayerPrefs.SetString("playerName", playerNameInput);
-				//OpenMenu("multiplayer");
-			}
-		}else{
-			GUILayout.Label("Enter a name to continue...");
-		}*/
-	//myWindowRect = GUILayout.Window (9, Rect(Screen.width/2-150,Screen.height/2-100,300,100), NameMenu, "Please enter a name:");	
-}
-
-function NameMenu(id : int){
-	GUILayout.BeginVertical();
-	GUILayout.Space(10);
-			
-	GUILayout.BeginHorizontal();
-	GUILayout.Space(10);
-		GUILayout.Label("Please enter your name");
-	GUILayout.Space(10);
-	GUILayout.EndHorizontal();
-	
-	GUILayout.BeginHorizontal();
-	GUILayout.Space(10);
-	playerNameInput = GUILayout.TextField("pouet");
-	GUILayout.Space(10);
-	GUILayout.EndHorizontal();	
-	
-	 GUILayout.BeginHorizontal();
-	GUILayout.Space(10);
-		if(playerNameInput.length>=1){
-			/*if(GUILayout.Button("Save")){
-				//requirePlayerName=false;
-				PlayerPrefs.SetString("playerName", playerNameInput);
-				OpenMenu("multiplayer");
-			}*/
-		}else{
-			GUILayout.Label("Enter a name to continue...");
-		}
-	GUILayout.Space(10);
-	GUILayout.EndHorizontal();
-	
-	GUILayout.EndVertical();
-}
-
 function multiPlayer (){
 	// Title picture
 	GUI.Label (Rect (ratioSW*50,ratioSH*30,233,50), "", titleMultiPlayer);
 	GUI.Label (Rect (ratioSW*25,ratioSH*140,ratioSW*(1024-50),ratioSH*5), "", underWhite);
 	// Label box
-	
-	GUI.Label (Rect (ratioSW*20,ratioSH*200,ratioSW*500,ratioSH*400),"","box");
+	multiplayerGameLaunch = 1;
+	/*GUI.Label (Rect (ratioSW*20,ratioSH*200,ratioSW*500,ratioSH*400),"","box");
 	GUI.Label (Rect (ratioSW*20,ratioSH*200,ratioSW*500,ratioSH*400),
 	"text"+"\n"+"text"+"\n"+
 	"\n"+
@@ -584,9 +528,12 @@ function multiPlayer (){
 		
 	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-100),ratioSW*200,ratioSH*100), "",backToMenuButton)){
 		audio.PlayOneShot(backToMenuButtonSound);
-		resetMenu();}
+		resetMenu();
+		multiplayerGameLaunch = 0;
+		}
 		
 	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "You can change various settings here, customize your horse and view high scores", "box");
+	*/
 }
 
 function tutorial (){

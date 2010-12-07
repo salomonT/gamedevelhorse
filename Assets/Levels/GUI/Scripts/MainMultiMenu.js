@@ -18,6 +18,7 @@ private var requirePlayerName : boolean = false;
 private var playerNameInput : String = "";
 
 function Awake(){
+	print ("multi !!!");
 	SP=this;
 	
 	playerNameInput = PlayerPrefs.GetString("playerName", "");
@@ -26,15 +27,17 @@ function Awake(){
 	
 	joinMenuScript = GetComponent(JoinMenu);
 	gameLobbyScript = GetComponent(GameLobby);
-	multiplayerScript = GetComponent(MultiplayerMenu);	
+	multiplayerScript = GetComponent(MultiplayerMenu);
 
 	OpenMenu("multiplayer");
 }
 
 
 function OnGUI(){
-	if(requirePlayerName){
-		myWindowRect = GUILayout.Window (9, Rect(Screen.width/2-150,Screen.height/2-100,300,100), NameMenu, "Please enter a name:");	
+	if(mainMenu.multiplayerGameLaunch == 1){
+		if(requirePlayerName){
+			myWindowRect = GUILayout.Window (9, Rect(Screen.width/2-150,Screen.height/2-100,300,100), NameMenu, "Please enter a name:");	
+		}
 	}
 }
 
@@ -85,7 +88,7 @@ function NameMenu(id : int){
 	
 	
 	
-	 GUILayout.BeginHorizontal();
+	GUILayout.BeginHorizontal();
 	GUILayout.Space(10);
 		if(playerNameInput.length>=1){
 			if(GUILayout.Button("Save")){
