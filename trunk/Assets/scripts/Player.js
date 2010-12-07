@@ -159,7 +159,7 @@ function StartSinglePlayer()
 	if(horse != null)
 	{
 		print("HORSE COLOR: " + GameManager.getHorseColor());
-		horse.renderer.material = horseMaterials[2];
+		horse.renderer.material = horseMaterials[GameManager.getHorseColor()];
 	}
 	var myHUD : GameObject = GameObject.Find("HUD");
 	if(myHUD != null)
