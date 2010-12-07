@@ -128,7 +128,7 @@ private var horseSettingIsModif : int = 1;
 private var horseTmpBack : int = 0;
 
 private var multiPlayerNameVar : int = 0;
-private var playerNameInput : String = "";
+private var playerNameInput : String = "Gordon";
 
 function Start(){
 	horse = GameObject.Find("Rotation point/HorseAnim/Horse_mesh");
@@ -501,8 +501,8 @@ function levelCheckUnlock(){
 
 function multiPlayerName (parent : int){
 	
-	/*playerNameInput = GUILayout.TextField(Rect(Screen.width/2-150,Screen.height/2-100,300,100));
-	
+	playerNameInput = GUILayout.TextField(playerNameInput,25);
+	/*
 	if(playerNameInput.length>=1){
 			if(GUILayout.Button("Save")){
 				PlayerPrefs.SetString("playerName", playerNameInput);
@@ -511,7 +511,7 @@ function multiPlayerName (parent : int){
 		}else{
 			GUILayout.Label("Enter a name to continue...");
 		}*/
-	myWindowRect = GUILayout.Window (9, Rect(Screen.width/2-150,Screen.height/2-100,300,100), NameMenu, "Please enter a name:");	
+	//myWindowRect = GUILayout.Window (9, Rect(Screen.width/2-150,Screen.height/2-100,300,100), NameMenu, "Please enter a name:");	
 }
 
 function NameMenu(id : int){
@@ -749,29 +749,13 @@ function settings_customizeHorse (parent : int){ // 1 : parent is Setting // 2 :
 }
 
 function settingHorseFunction(){
-
-if ( settingHorseVar >= 0 && settingHorseVar <= 12 ) {
-	horseChoosen = settingHorseVar;
-	if(horse != null)
-	{
-		horse.renderer.material = horseMaterials[settingHorseVar];
+	if ( settingHorseVar >= 0 && settingHorseVar <= 12 ) {
+		horseChoosen = settingHorseVar;
+		if(horse != null)
+		{
+			horse.renderer.material = horseMaterials[settingHorseVar];
+		}
 	}
-}
-	/*
-if ( settingHorseVar == 1 ) {
-	horseChoosen = 1;
-	if(horse != null)
-	{
-		horse.renderer.material = horseMaterials[1];
-	}
-	}
-if ( settingHorseVar == 2 ) {
-	horseChoosen = 2;
-	if(horse != null)
-	{
-		horse.renderer.material = horseMaterials[2];
-	}
-	}*/
 }
 
 function settings_highScores (){
