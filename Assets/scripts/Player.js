@@ -598,8 +598,14 @@ function MoveCharachter()
         transform.Rotate(0,rotation,0);
     moveDirection = Vector3(0, verticalSpeed, Input.GetAxis("Vertical"));
     moveDirection = transform.TransformDirection(moveDirection);
-    rightWheel.transform.RotateAroundLocal(new Vector3(1,0,0),Input.GetAxis("Vertical")*speed);
-    leftWheel.transform.RotateAroundLocal(new Vector3(1,0,0),Input.GetAxis("Vertical")*speed);
+    if(rightWheel != null)
+    {
+    	rightWheel.transform.RotateAroundLocal(new Vector3(1,0,0),Input.GetAxis("Vertical")*speed);
+    }
+    if(leftWheel != null)
+    {
+    	leftWheel.transform.RotateAroundLocal(new Vector3(1,0,0),Input.GetAxis("Vertical")*speed);
+    }    
     controller.Move(moveDirection * (Time.deltaTime * speed));
 }
 
