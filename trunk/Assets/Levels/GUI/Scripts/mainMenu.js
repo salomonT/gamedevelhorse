@@ -750,13 +750,14 @@ function settings_customizeHorse (parent : int){ // 1 : parent is Setting // 2 :
 
 function settingHorseFunction(){
 
-if ( settingHorseVar == 0 ) {
-	horseChoosen = 0;
+if ( settingHorseVar >= 0 && settingHorseVar <= 12 ) {
+	horseChoosen = settingHorseVar;
 	if(horse != null)
 	{
-		horse.renderer.material = horseMaterials[0];
+		horse.renderer.material = horseMaterials[settingHorseVar];
 	}
-	}
+}
+	/*
 if ( settingHorseVar == 1 ) {
 	horseChoosen = 1;
 	if(horse != null)
@@ -770,7 +771,7 @@ if ( settingHorseVar == 2 ) {
 	{
 		horse.renderer.material = horseMaterials[2];
 	}
-	}
+	}*/
 }
 
 function settings_highScores (){
