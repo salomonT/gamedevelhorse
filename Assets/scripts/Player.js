@@ -121,6 +121,11 @@ function StartMultiplayer()
 		horseSinglePlayer.active = false;
 	}
 	
+	var myHUD : GameObject = GameObject.Find("HUD");
+	if(myHUD != null)
+	{
+		hudScript = myHUD.GetComponent(mainHUD);
+	}
 	
 	var cam : GameObject = GameObject.Find("Camera");
 	if(cam != null)
@@ -128,7 +133,10 @@ function StartMultiplayer()
 		var follow : SplineController = cam.GetComponent(SplineController);
 		if(follow != null)
 		{
-			follow.mSplineInterp.enabled = false;
+			if(follow.mSplineInterp != null)
+			{
+				follow.mSplineInterp.enabled = false;
+			}
 			follow.enabled = false;
 		}
 	}
