@@ -54,6 +54,7 @@ var settingsGameSettingsButton : GUIStyle;
 var settingsCustomizeHorseButton : GUIStyle;
 var settingsHighScoresButton : GUIStyle;
 var saveSettingsButton : GUIStyle;
+var saveSettingsButtonDis : GUIStyle;
 
 var backToMenuButton : GUIStyle;
 
@@ -116,26 +117,21 @@ private var timeFlag : int = 0;
 private var async : AsyncOperation;
 
 private var settingHorseVar : int = 0;
-private var settingHorseVarTMP : int = settingHorseVar;
-private var settingHorseName : String = "AAA";
-var horseModel1 : Texture2D;
-var horseModel2 : Texture2D;
-var horseModel3 : Texture2D;
-private var settingHorseCurrent : Texture2D = horseModel1;
-		
-private var settingCartVar : int = 0;
-private var settingCartVarTMP : int = settingCartVarTMP;
-private var settingCartName : String = "aaa";
-var cartModel1 : Texture2D;
-var cartModel2 : Texture2D;
-var cartModel3 : Texture2D;
-private var settingCartCurrent : Texture2D = cartModel1;
 
 var renderTexture : RenderTexture;
 var horseMaterials : Material[];
+private var horseMemory : Material;
 private var horseChoosen : int = 0;
+var horse : GameObject;
+private var horseFlag : int = 1;
+private var horseSettingIsModif : int = 1;
+private var horseTmpBack : int = 0;
+
+private var multiPlayerNameVar : int = 0;
+private var playerNameInput : String = "";
 
 function Start(){
+	horse = GameObject.Find("Rotation point/HorseAnim/Horse_mesh");
 	// just for test !!
 	/*highScoreDB.addScore("loc",2000);
 	highScoreDB.addScore("pierre",500);
@@ -153,7 +149,6 @@ function OnGUI () {
 	ratioSH = (Screen.height/768.0);
 	gameTypeFunction();
 	settingHorseFunction();
-	settingCartFunction();
 	difficultyFunction();
 	levelCheckUnlock();
 	
@@ -167,6 +162,7 @@ function OnGUI () {
 		GUI.Label (Rect (0,0,Screen.width,Screen.height), backgroundSingle, GUI.skin.customStyles[0]);
 		singlePlayer();
 		flagMainMenu = 0;
+		horseTmpBack = 1;
 	}
 	
 	if(singlePlayerNextVar == 1){
@@ -181,6 +177,12 @@ function OnGUI () {
 		flagMainMenu = 0;
 	}
 		
+	if(multiPlayerNameVar >= 1){
+		GUI.Label (Rect (0,0,Screen.width,Screen.height), backgroundMulti, GUI.skin.customStyles[0]);
+		multiPlayerName(multiPlayerNameVar);
+		flagMainMenu = 0;
+	}
+	
 	if(tutorialVar == 1){
 		GUI.Label (Rect (0,0,Screen.width,Screen.height), backgroundTut, GUI.skin.customStyles[0]);
 		tutorial();
@@ -191,6 +193,7 @@ function OnGUI () {
 		GUI.Label (Rect (0,0,Screen.width,Screen.height), backgroundSett, GUI.skin.customStyles[0]);
 		settings();
 		flagMainMenu = 0;
+		horseTmpBack = 1;
 	}
 	
 	if(settings_gameSettingsVar == 1){
@@ -244,6 +247,7 @@ function resetMenu (){
 	settings_customizeHorseVar = 0;
 	settings_highScoresVar = 0;
 	launchVar = 0;
+	multiPlayerNameVar = 0;
 }
 
 function mainMenu (){
@@ -495,6 +499,54 @@ function levelCheckUnlock(){
 	
 }
 
+function multiPlayerName (parent : int){
+	
+	/*playerNameInput = GUILayout.TextField(Rect(Screen.width/2-150,Screen.height/2-100,300,100));
+	
+	if(playerNameInput.length>=1){
+			if(GUILayout.Button("Save")){
+				PlayerPrefs.SetString("playerName", playerNameInput);
+				//OpenMenu("multiplayer");
+			}
+		}else{
+			GUILayout.Label("Enter a name to continue...");
+		}*/
+	myWindowRect = GUILayout.Window (9, Rect(Screen.width/2-150,Screen.height/2-100,300,100), NameMenu, "Please enter a name:");	
+}
+
+function NameMenu(id : int){
+	GUILayout.BeginVertical();
+	GUILayout.Space(10);
+			
+	GUILayout.BeginHorizontal();
+	GUILayout.Space(10);
+		GUILayout.Label("Please enter your name");
+	GUILayout.Space(10);
+	GUILayout.EndHorizontal();
+	
+	GUILayout.BeginHorizontal();
+	GUILayout.Space(10);
+	playerNameInput = GUILayout.TextField("pouet");
+	GUILayout.Space(10);
+	GUILayout.EndHorizontal();	
+	
+	 GUILayout.BeginHorizontal();
+	GUILayout.Space(10);
+		if(playerNameInput.length>=1){
+			/*if(GUILayout.Button("Save")){
+				//requirePlayerName=false;
+				PlayerPrefs.SetString("playerName", playerNameInput);
+				OpenMenu("multiplayer");
+			}*/
+		}else{
+			GUILayout.Label("Enter a name to continue...");
+		}
+	GUILayout.Space(10);
+	GUILayout.EndHorizontal();
+	
+	GUILayout.EndVertical();
+}
+
 function multiPlayer (){
 	// Title picture
 	GUI.Label (Rect (ratioSW*50,ratioSH*30,233,50), "", titleMultiPlayer);
@@ -513,17 +565,20 @@ function multiPlayer (){
 	
 	if(GUI.Button (Rect (ratioSW*550,ratioSH*200,ratioSW*400,ratioSH*100), "",multiPlayerHostgame)){
 		audio.PlayOneShot(startAndNextButtonSound);
-		//resetMenu();
+		resetMenu();
+		multiPlayerNameVar = 1; 
 		}
 		
 	if(GUI.Button (Rect (ratioSW*550,ratioSH*370,ratioSW*400,ratioSH*100), "",multiPlayerJoingame)){
 		audio.PlayOneShot(startAndNextButtonSound);
-		//resetMenu();
+		resetMenu();
+		multiPlayerNameVar = 2; 
 		}
 		
 	if(GUI.Button (Rect (ratioSW*550,ratioSH*540,ratioSW*400,ratioSH*100), "",multiPlayerQuickgame)){
 		audio.PlayOneShot(startAndNextButtonSound);
-		//resetMenu();
+		resetMenu();
+		multiPlayerNameVar = 3; 
 		}
 		
 		
@@ -637,70 +692,65 @@ function settings_customizeHorse (parent : int){ // 1 : parent is Setting // 2 :
 	GUI.Label (Rect (ratioSW*50,ratioSH*30,178,50), "", titleSettings);
 	GUI.Label (Rect (ratioSW*25,ratioSH*140,ratioSW*(1024-50),ratioSH*5), "", underWhite);
 	// Label box
+	if (horseFlag == 1){
+		horseMemory = horse.renderer.material;
+		horseTmpBack = settingHorseVar;
+		horseFlag = 0;
+	}
 	
 	
-	GUI.Label (Rect (ratioSW*125,ratioSH*225,renderTexture.width,renderTexture.height), renderTexture, GUI.skin.customStyles[0]);
-	//GUI.Label (Rect (ratioSW*125,ratioSH*225,ratioSW*340,ratioSH*300), settingHorseCurrent, GUI.skin.customStyles[0]);
+	GUI.Label (Rect ((Screen.width-renderTexture.width)/2,(Screen.height-renderTexture.height)/2,renderTexture.width,renderTexture.height), renderTexture, GUI.skin.customStyles[0]);
 		if (settingHorseVar > 0){
-			if(GUI.Button (Rect (ratioSW*150,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowLeft)){
+			if(GUI.Button (Rect ((Screen.width-renderTexture.width)/2,ratioSH*550,20,20), "",buttonArrowLeft)){
 			audio.PlayOneShot(moveMenuButtonSound);
-			settingHorseVar--;}
+			settingHorseVar--;
+			horseSettingIsModif = 0;
+			}
 		} else {
-			if(GUI.Button (Rect (ratioSW*150,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowLeftDisable)){}
+			if(GUI.Button (Rect ((Screen.width-renderTexture.width)/2,ratioSH*550,20,20), "",buttonArrowLeftDisable)){}
 		}
-		GUI.Label (Rect (ratioSW*200,ratioSH*540,ratioSW*180,25), settingHorseName, textYellow);
-		if (settingHorseVar < 2){
-			if(GUI.Button (Rect (ratioSW*400,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowRight)){
+		
+		if (settingHorseVar < 12){
+			if(GUI.Button (Rect (((Screen.width+renderTexture.width)/2)-20,ratioSH*550,20,20), "",buttonArrowRight)){
 			audio.PlayOneShot(moveMenuButtonSound);
-			settingHorseVar++;}
+			settingHorseVar++;
+			horseSettingIsModif = 0;
+			}
 		} else {
-			if(GUI.Button (Rect (ratioSW*400,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowRightDisable)){}
+			if(GUI.Button (Rect (((Screen.width+renderTexture.width)/2)-20,ratioSH*550,20,20), "",buttonArrowRightDisable)){}
 		}
-	/* CART CUSTOM >>>> not use for the moment
-	GUI.Label (Rect (ratioSW*550,ratioSH*225,ratioSW*340,ratioSH*300), settingCartCurrent, GUI.skin.customStyles[0]);
-		if (settingCartVar > 0){
-			if(GUI.Button (Rect (ratioSW*575,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowLeft)){
-			audio.PlayOneShot(moveMenuButtonSound);
-			settingCartVar--;}
-		} else {
-			if(GUI.Button (Rect (ratioSW*575,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowLeftDisable)){}
-		}
-		GUI.Label (Rect (ratioSW*625,ratioSH*540,ratioSW*180,25), settingCartName, textYellow);
-		if (settingCartVar < 2){
-			if(GUI.Button (Rect (ratioSW*825,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowRight)){
-			audio.PlayOneShot(moveMenuButtonSound);
-			settingCartVar++;}
-		} else {
-			if(GUI.Button (Rect (ratioSW*825,ratioSH*550,ratioSW*30,ratioSH*30), "",buttonArrowRightDisable)){}
-		}*/
 		
 	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-100),ratioSW*200,ratioSH*100), "",backToMenuButton)){
 		audio.PlayOneShot(backToMenuButtonSound);
 		resetMenu();
+		horse.renderer.material = horseMaterials[0];
+		settingHorseVar = horseTmpBack;
+		horseFlag = 1;
 		if (parent == 1)
 			settingsVar = 1;
 		if (parent == 2)
 			singlePlayerVar=1;
-		settingHorseVar = settingHorseVarTMP;
-		settingCartVar = settingCartVarTMP;
 		}
 		
-	if(GUI.Button (Rect (ratioSW*(1024-175),ratioSH*(768-40-100),ratioSW*150,ratioSH*100), "",saveSettingsButton)){
-		audio.PlayOneShot(startAndNextButtonSound);
-		settingHorseVarTMP = settingHorseVar;
-		settingCartVarTMP = settingCartVar;
-		GameManager.setHorseColor(horseChoosen);
+	if(horseSettingIsModif == 1){
+		GUI.Button (Rect (ratioSW*(1024-175),ratioSH*(768-40-100),ratioSW*150,ratioSH*100), "",saveSettingsButtonDis);
+	} else {
+		if(GUI.Button (Rect (ratioSW*(1024-175),ratioSH*(768-40-100),ratioSW*150,ratioSH*100), "",saveSettingsButton)){
+			audio.PlayOneShot(startAndNextButtonSound);
+			GameManager.setHorseColor(horseChoosen);
+			horseMemory = horse.renderer.material;
+			horseTmpBack = settingHorseVar;
+			horseFlag = 1;
+			horseSettingIsModif = 1;
 		}
+	}
 		
 	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Customize your horse", "box");
 }
 
 function settingHorseFunction(){
-var horse : GameObject = GameObject.Find("Rotation point/HorseAnim/Horse_mesh");
+
 if ( settingHorseVar == 0 ) {
-	settingHorseName = "AAA";
-	settingHorseCurrent = horseModel1;
-	//GameManager.setHorseColor(0);
 	horseChoosen = 0;
 	if(horse != null)
 	{
@@ -708,9 +758,6 @@ if ( settingHorseVar == 0 ) {
 	}
 	}
 if ( settingHorseVar == 1 ) {
-	settingHorseName = "BBB";
-	settingHorseCurrent = horseModel2;
-	//GameManager.setHorseColor(1);
 	horseChoosen = 1;
 	if(horse != null)
 	{
@@ -718,29 +765,11 @@ if ( settingHorseVar == 1 ) {
 	}
 	}
 if ( settingHorseVar == 2 ) {
-	settingHorseName = "CCC";
-	settingHorseCurrent = horseModel3;
-	//GameManager.setHorseColor(2);
 	horseChoosen = 2;
 	if(horse != null)
 	{
 		horse.renderer.material = horseMaterials[2];
 	}
-	}
-}
-
-function settingCartFunction(){
-if ( settingCartVar == 0 ) {
-	settingCartName = "aaa";
-	settingCartCurrent = cartModel1;
-	}
-if ( settingCartVar == 1 ) {
-	settingCartName = "bbb";
-	settingCartCurrent = cartModel2;
-	}
-if ( settingCartVar == 2 ) {
-	settingCartName = "ccc";
-	settingCartCurrent = cartModel3;
 	}
 }
 
