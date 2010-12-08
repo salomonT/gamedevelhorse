@@ -110,6 +110,9 @@ private var hostSetting_title : String = "No server title";
 private var hostSetting_players : int = 4;
 private var hostSetting_password : String = "";
 
+var level1selected : boolean = true;
+var level2selected : boolean = false;
+var level3selected : boolean = false;
 
 function hostSettings(){
 	
@@ -129,6 +132,31 @@ function hostSettings(){
 	if(GUI.Button (Rect (100+20,115+115,150,20), "Go to lobby")){
 		StartHost(hostSetting_password, parseInt(hostSetting_players), hostSetting_title);
 	}
+	
+	
+	GUI.EndGroup();
+	
+	GUI.BeginGroup (Rect (0, 0, Screen.width, Screen.height));
+	GUI.Box (Rect (400,115,300,150), "Select Level");
+	
+		
+	if (GUI.Toggle (Rect (450, 150, 100, 30), level1selected, "Beach")){
+		level1selected = true;
+		level2selected = false;
+		level3selected = false;
+	}
+	if (GUI.Toggle (Rect (450, 180, 100, 30), level2selected, "Country side")){
+		level1selected = false;
+		level2selected = true;
+		level3selected = false;
+	} 
+	if (GUI.Toggle (Rect (450, 210, 100, 30), level3selected, "Dublin City")){
+		level1selected = false;
+		level2selected = false;
+		level3selected = true;
+	}
+	
+	
 	GUI.EndGroup();
 }
 
@@ -295,7 +323,12 @@ function launchGame(){
 	Network.isMessageQueueRunning=false;
 	launchingGame=true;
 	KeepNetworkInfo.playerNumber = playerList.Count;
-	Application.LoadLevel("islandLevel"); 
+	if (level1selected)
+		Application.LoadLevel("islandLevel");
+	else if (level2selected)
+		Application.LoadLevel("Country");
+	else if (level3selected)
+		Application.LoadLevel("City_Level_v1");
 }
 
 
@@ -305,9 +338,19 @@ function launchingGameGUI(){
 	GUI.Box(Rect(Screen.width/4+180,Screen.height/2-30,280,50), "");
 	if(Application.CanStreamedLevelBeLoaded ((Application.loadedLevel+1))){
 		GUI.Label(Rect(Screen.width/4+200,Screen.height/2-25,285,150), "Loaded, starting the game!");
-		Application.LoadLevel( /*(Application.loadedLevel+1)*/ "islandLevel" );
+			if (level1selected)
+				Application.LoadLevel("islandLevel");
+			else if (level2selected)
+				Application.LoadLevel("Country");
+			else if (level3selected)
+				Application.LoadLevel("City_Level_v1");
 	}else{
-		GUI.Label(Rect(Screen.width/4+200,Screen.height/2-25,285,150), "Starting..Loading the game: "+Mathf.Floor(Application.GetStreamProgressForLevel((Application.loadedLevel+1))*100)+" %");
-	}	
+		if (level1selected)
+			GUI.Label(Rect(Screen.width/4+200,Screen.height/2-25,285,150), "Starting..Loading the game: "+Mathf.Floor(Application.GetStreamProgressForLevel(("islandLevel"))*100)+" %");
+		else if (level2selected)
+			GUI.Label(Rect(Screen.width/4+200,Screen.height/2-25,285,150), "Starting..Loading the game: "+Mathf.Floor(Application.GetStreamProgressForLevel(("Country"))*100)+" %");
+		else if (level3selected)
+			GUI.Label(Rect(Screen.width/4+200,Screen.height/2-25,285,150), "Starting..Loading the game: "+Mathf.Floor(Application.GetStreamProgressForLevel(("City_Level_v1"))*100)+" %");
+		}	
 	
 }
