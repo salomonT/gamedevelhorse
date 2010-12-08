@@ -28,6 +28,9 @@ private var playerName : String = "";
 
 private var mainMenuScript : MainMultiMenu;
 
+private var ratioSW:float;
+private var ratioSH:float;
+
 
 function Awake(){
 	showMenu=false;
@@ -55,13 +58,18 @@ function EnableLobby(){
 
 
 function OnGUI () {
+	
+	ratioSW = (Screen.width/1024.0);
+	ratioSH = (Screen.height/768.0);
+	
 	if(!showMenu){
 		return;
 	}
 
 	
 	//Back to main menu
-	if(GUI.Button(Rect(40,10,150,20), "Back to main menu")){
+	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-100),ratioSW*200,ratioSH*100), "",mainMenu.backToMenuButtonStatic)){
+		audio.PlayOneShot(mainMenu.backToMenuButtonSoundStatic);
 		leaveLobby();
 	}
 	
@@ -105,20 +113,20 @@ private var hostSetting_password : String = "";
 
 function hostSettings(){
 	
-	GUI.BeginGroup (Rect (Screen.width/2-175, Screen.height/2-75-50, 350, 150));
-	GUI.Box (Rect (0,0,350,150), "Server options");
+	GUI.BeginGroup (Rect (0, 0, Screen.width, Screen.height));
+	GUI.Box (Rect (20,115,350,150), "Server options");
 	
-	GUI.Label (Rect (10,20,150,20), "Server title");
-	hostSetting_title = GUI.TextField (Rect (175,20,160,20), hostSetting_title);
+	GUI.Label (Rect (10+20,20+115,150,20), "Server title");
+	hostSetting_title = GUI.TextField (Rect (175+20,20+115,160,20), hostSetting_title);
 	
-	GUI.Label (Rect (10,40,150,20), "Max. players (2-32)");
-	hostSetting_players = parseInt(GUI.TextField (Rect (175,40,160,20), hostSetting_players+""));
+	GUI.Label (Rect (10+20,40+115,150,20), "Max. players (2-32)");
+	hostSetting_players = parseInt(GUI.TextField (Rect (175+20,40+115,160,20), hostSetting_players+""));
 	
-	GUI.Label (Rect (10,60,150,50), "Password\n");
-	hostSetting_password = (GUI.TextField (Rect (175,60,160,20), hostSetting_password));
+	GUI.Label (Rect (10+20,60+115,150,50), "Password\n");
+	hostSetting_password = (GUI.TextField (Rect (175+20,60+115,160,20), hostSetting_password));
 	
 	
-	if(GUI.Button (Rect (100,115,150,20), "Go to lobby")){
+	if(GUI.Button (Rect (100+20,115+115,150,20), "Go to lobby")){
 		StartHost(hostSetting_password, parseInt(hostSetting_players), hostSetting_title);
 	}
 	GUI.EndGroup();
@@ -155,33 +163,33 @@ function showLobby(){
 		currentPlayerCount++;	
 	}
 	
-	GUI.BeginGroup (Rect (Screen.width/2-200, Screen.height/2-200, 400, 180));
-	GUI.Box (Rect (0,0,400,200), "Game lobby");
+	GUI.BeginGroup (Rect (0, 0, Screen.width, Screen.height));
+	GUI.Box (Rect (20,115,400,180), "Game lobby");
 	
 
 	var pProtected="no";
 	if(serverPasswordProtected){
 		pProtected="yes";
 	}
-	GUI.Label (Rect (10,20,150,20), "Password protected");
-	GUI.Label (Rect (150,20,100,100), pProtected);
+	GUI.Label (Rect (10+20,20+115,150,20), "Password protected");
+	GUI.Label (Rect (150+20,20+115,100,100), pProtected);
 	
-	GUI.Label (Rect (10,40,150,20), "Server title");
-	GUI.Label (Rect (150,40,100,100), serverTitle);
+	GUI.Label (Rect (10+20,40+115,150,20), "Server title");
+	GUI.Label (Rect (150+20,40+115,100,100), serverTitle);
 	
-	GUI.Label (Rect (10,60,150,20), "Players");
-	GUI.Label (Rect (150,60,100,100), currentPlayerCount+"/"+serverMaxPlayers);
+	GUI.Label (Rect (10+20,60+115,150,20), "Players");
+	GUI.Label (Rect (150+20,60+115,100,100), currentPlayerCount+"/"+serverMaxPlayers);
 	
-	GUI.Label (Rect (10,80,150,20), "Current players");
-	GUI.Label (Rect (150,80,100,100), players);
+	GUI.Label (Rect (10+20,80+115,150,20), "Current players");
+	GUI.Label (Rect (150+20,80+115,100,100), players);
 	
 	
 	if(Network.isServer){
-		if(GUI.Button (Rect (25,140,150,20), "Start the game")){
+		if(GUI.Button (Rect (25+20,140+115,150,20), "Start the game")){
 			HostLaunchGame();
 		}
 	}else{
-		GUI.Label (Rect (25,140,200,40), "Waiting for the server to start the game..");
+		GUI.Label (Rect (25+20,140+115,200,40), "Waiting for the server to start the game..");
 	}
 	
 	GUI.EndGroup();

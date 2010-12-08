@@ -92,7 +92,7 @@ function TellServerOurName(name : String, info : NetworkMessageInfo){
 
 
 function Awake(){
-	window = Rect(Screen.width/2-width/2, Screen.height-height+5, width, height);	
+	window = Rect(200, 300, 580, 190);	
 }
 
 function CloseChatWindow ()
@@ -177,6 +177,7 @@ function GlobalChatWindow (id : int) {
 			lastUnfocus=Time.time;
 		}
 	}
+	
 }
 
 function HitEnter(msg : String){
