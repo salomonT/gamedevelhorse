@@ -317,25 +317,26 @@ function HostLaunchGame(){
 	
 	if (level1selected){
 		networkView.RPC("launchGame1",RPCMode.All);
-		print("launchGame1");}
-	else if (level2selected){
-		networkView.RPC("launchGame2",RPCMode.All);
-		print("launchGame2");}
-	else if (level3selected){
-		networkView.RPC("launchGame3",RPCMode.All);
-		print("launchGame3");}
-	
+	} else { 
+		if (level2selected) {
+			networkView.RPC("launchGame2",RPCMode.All);
+		} else { 
+			if (level3selected) {
+				networkView.RPC("launchGame3",RPCMode.All);
+			}
+		}
+	}
 }
-
 
 /*@RPC
 function launchGame(){
 	Network.isMessageQueueRunning=false;
 	launchingGame=true;
 	KeepNetworkInfo.playerNumber = playerList.Count;
-	if (level1selected)
+	if (level1selected){
+		print("Launch Game islandLevel");
 		Application.LoadLevel("islandLevel");
-	else if (level2selected)
+	}else if (level2selected)
 		Application.LoadLevel("Country");
 	else if (level3selected)
 		Application.LoadLevel("City_Level_v1");
@@ -346,7 +347,9 @@ function launchGame1(){
 	Network.isMessageQueueRunning=false;
 	launchingGame=true;
 	KeepNetworkInfo.playerNumber = playerList.Count;
-	Application.LoadLevel("islandLevel");
+	level1selected = true;
+	level2selected = false;
+	level3selected = false;
 }
 
 @RPC
@@ -354,7 +357,9 @@ function launchGame2(){
 	Network.isMessageQueueRunning=false;
 	launchingGame=true;
 	KeepNetworkInfo.playerNumber = playerList.Count;
-	Application.LoadLevel("Country");
+	level1selected = false;
+	level2selected = true;
+	level3selected = false;
 }
 
 @RPC
@@ -362,7 +367,9 @@ function launchGame3(){
 	Network.isMessageQueueRunning=false;
 	launchingGame=true;
 	KeepNetworkInfo.playerNumber = playerList.Count;
-	Application.LoadLevel("City_Level_v1");
+	level1selected = false;
+	level2selected = false;
+	level3selected = true;
 }
 
 
