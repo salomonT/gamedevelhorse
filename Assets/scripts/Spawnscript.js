@@ -69,6 +69,7 @@ function Spawnplayer(newPlayer : NetworkPlayer){
 	 if(KeepNetworkInfo.playerNumber == numPos)
 	 {
 	 	newObjectsNetworkview.RPC("syncWithServer",RPCMode.AllBuffered);
+	 	networkView.RPC("syncWithServer",RPCMode.AllBuffered);
 	 }
 	 
 }
@@ -100,5 +101,6 @@ function OnPlayerDisconnected(player: NetworkPlayer) {
 
 function OnDisconnectedFromServer(info : NetworkDisconnection) {
 	print("Resetting the scene the easy way.");
+	KeepNetworkInfo.isNetwork = false;
 	Application.LoadLevel(Application.loadedLevel);	
 }
