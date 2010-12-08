@@ -1,0 +1,1183 @@
+EXPORT LOG / CityEngine 2010.2 1005R
+---------------------------------------------------
+
+export started at: Tue Nov 23 17:50:07 2010
+export completed at: Tue Nov 23 17:50:16 2010
+export duration: 8.9 seconds
+
+EXPORT SETTINGS
+    format:                Autodesk FBX 2009.3
+    location:              C:\Documents and Settings\computer\Desktop\1234\models
+    base name:             my_city1234
+    file granularity:      0 (0 = single file (or split by file budget), 1 = file per initial shape)
+    file size budget:      524288000
+    mesh granularity:      1 (0 = as generated, 1 = mesh per material, 2 = use instances of inserted assets) 
+    vertex precision:      0.00100
+    normal precision:      0.00100
+    texcoord precision:    0.00010
+    merge vertices:        1
+    merge normals:         1
+    merge texcoords:       1
+    triangulate:           0
+    reproject texcoords:   0
+    vertex indexing:       0 (0 = allow shared vertices, 1 = force separate vertices)
+    normals type:          0 (0 = use vertex normals, 1 = use face normals (flat))
+    normals indexing:      0 (0 = allow shared normals, 1 = force separate normals)
+    write texcoords:       1 (0 = no texcoords, 1 = first layer, 2 = all layers)
+    write materials:       1
+    collect textures:      1
+    file type:             1 (0 = ascii, 1 = binary)
+    embed textures:        0
+    write master file:     0
+    master group name:     CityEngineSceneRoot
+    write cam data:        1
+    batch behavior:        0 (0 = normal, 1 = skip existing files, 2 = dry run)
+
+INPUT STATS
+    number of initial shapes      = 985
+    number of generated shapes    = 14146
+    number of generated meshes    = 14146
+    number of generated materials = 14146
+
+OUTPUT STATS
+    written files: 1
+    written materials: 144
+    written meshes (total polygons): 144 (15490)
+    mesh names (polygons):
+            0: 'YardGround_26' (2)
+            1: 'YardGround_7' (5)
+            2: 'RoofPlane_45' (8)
+            3: 'ParkingLot_22' (1)
+            4: 'RoofPlane_41' (24)
+            5: 'YardGround_22' (3)
+            6: 'RoofPlane_26' (9)
+            7: 'RoofPlane_20' (36)
+            8: 'YardGround_25' (1)
+            9: 'FacadeTexture_21' (88)
+           10: 'YardGround_23' (2)
+           11: 'FacadeTexture_25' (112)
+           12: 'ParkingLot_23' (2)
+           13: 'RoofPlane_37' (8)
+           14: 'FlatRoofTexture_3' (127)
+           15: 'Concrete' (1405)
+           16: 'YardGround_3' (3)
+           17: 'YardGround_15' (8)
+           18: 'YardGround_16' (3)
+           19: 'RoofPlane_47' (10)
+           20: 'FacadeTexture_23' (74)
+           21: 'FacadeTexture_5' (590)
+           22: 'ParkingLot_9' (8)
+           23: 'FacadeTexture_13' (184)
+           24: 'RoofPlane_8' (26)
+           25: 'FlatRoofTexture_5' (115)
+           26: 'RoofPlane_39' (30)
+           27: 'ParkingLot_20' (3)
+           28: 'YardGround_24' (2)
+           29: 'RoofPlane_24' (22)
+           30: 'FacadeTexture_10' (388)
+           31: 'ParkingLot_2' (36)
+           32: 'RoofPlane_28' (20)
+           33: 'RoofPlane_42' (14)
+           34: 'RoofPlane_10' (24)
+           35: 'YardGround_11' (5)
+           36: 'ParkingLot_17' (2)
+           37: 'RoofPlane_29' (14)
+           38: 'FacadeTexture_28' (12)
+           39: 'RoofPlane_21' (31)
+           40: 'ParkingLot' (28)
+           41: 'FlatRoofTexture_6' (94)
+           42: 'FacadeTexture_17' (64)
+           43: 'RoofPlane_12' (24)
+           44: 'YardGround_2' (5)
+           45: 'FacadeTexture_4' (448)
+           46: 'RoofPlane_19' (14)
+           47: 'RoofPlane_13' (4)
+           48: 'YardGround_13' (5)
+           49: 'ParkingLot_21' (1)
+           50: 'RoofPlane_22' (16)
+           51: 'YardGround_21' (8)
+           52: 'RoofPlane_38' (26)
+           53: 'Street' (114)
+           54: 'RoofPlane_1' (26)
+           55: 'FlatRoofTexture_2' (105)
+           56: 'ParkingLot_1' (27)
+           57: 'RoofPlane_17' (8)
+           58: 'RoofPlane_3' (20)
+           59: 'RoofPlane_6' (12)
+           60: 'YardGround_6' (3)
+           61: 'FlatRoofTexture' (133)
+           62: 'FacadeTexture' (348)
+           63: 'YardGround_12' (9)
+           64: 'FacadeTexture_3' (456)
+           65: 'YardGround_19' (2)
+           66: 'RoofPlane_31' (18)
+           67: 'YardGround_8' (5)
+           68: 'RoofPlane_15' (20)
+           69: 'RoofPlane_5' (8)
+           70: 'RoofPlane_44' (8)
+           71: 'YardGround_1' (5)
+           72: 'ParkingLot_11' (7)
+           73: 'RoofPlane_30' (25)
+           74: 'ParkingLot_19' (2)
+           75: 'RoofPlane_46' (4)
+           76: 'FacadeTexture_6' (299)
+           77: 'ParkingLot_3' (28)
+           78: 'ParkingLot_10' (5)
+           79: 'Curbs' (3406)
+           80: 'RoofPlane_25' (16)
+           81: 'FacadeTexture_14' (452)
+           82: 'ParkingLot_14' (12)
+           83: 'YardGround_10' (4)
+           84: 'ParkingLot_7' (2)
+           85: 'RoofPlane_33' (12)
+           86: 'FacadeTexture_7' (272)
+           87: 'FlatRoofTexture_1' (121)
+           88: 'RoofPlane_48' (4)
+           89: 'ParkingLot_16' (12)
+           90: 'ParkingLot_13' (11)
+           91: 'YardGround_20' (6)
+           92: 'FacadeTexture_1' (50)
+           93: 'FlatRoofTexture_4' (130)
+           94: 'FacadeTexture_12' (102)
+           95: 'ParkingLot_15' (3)
+           96: 'FlatRoofTexture_9' (140)
+           97: 'FacadeTexture_9' (383)
+           98: 'RoofPlane_9' (6)
+           99: 'RoofPlane_36' (28)
+          100: 'YardGround_9' (3)
+          101: 'Pavement' (1703)
+          102: 'RoofPlane_4' (32)
+          103: 'FlatRoofTexture_7' (123)
+          104: 'ParkingLot_8' (11)
+          105: 'RoofPlane' (44)
+          106: 'YardGround' (8)
+          107: 'RoofPlane_23' (34)
+          108: 'RoofPlane_18' (6)
+          109: 'FacadeTexture_26' (64)
+          110: 'FacadeTexture_18' (79)
+          111: 'FacadeTexture_11' (304)
+          112: 'YardGround_14' (2)
+          113: 'FacadeTexture_19' (454)
+          114: 'ParkingLot_12' (2)
+          115: 'YardGround_17' (3)
+          116: 'FacadeTexture_20' (96)
+          117: 'FacadeTexture_16' (56)
+          118: 'RoofPlane_16' (12)
+          119: 'RoofPlane_27' (14)
+          120: 'FacadeTexture_22' (24)
+          121: 'YardGround_4' (8)
+          122: 'FacadeTexture_8' (604)
+          123: 'ParkingLot_4' (25)
+          124: 'YardGround_27' (1)
+          125: 'RoofPlane_7' (10)
+          126: 'YardGround_18' (6)
+          127: 'FacadeTexture_24' (159)
+          128: 'ParkingLot_6' (26)
+          129: 'RoofPlane_2' (18)
+          130: 'FacadeTexture_27' (64)
+          131: 'RoofPlane_43' (10)
+          132: 'RoofPlane_32' (20)
+          133: 'FlatRoofTexture_8' (136)
+          134: 'ParkingLot_18' (1)
+          135: 'RoofPlane_34' (10)
+          136: 'RoofPlane_40' (8)
+          137: 'FacadeTexture_15' (132)
+          138: 'ParkingLot_5' (6)
+          139: 'RoofPlane_35' (4)
+          140: 'YardGround_5' (5)
+          141: 'RoofPlane_11' (12)
+          142: 'FacadeTexture_2' (80)
+          143: 'RoofPlane_14' (8)
+
+INPUT REPORT
+    collected/generated initial shapes:
+            0: OK    : shape                                    UUID: 16c13e7b-1ff1-11b2-9321-001c23a90428:0
+            1: OK    : shape_1                                  UUID: 16c13e7b-1ff1-11b2-9321-001c23a90428:1
+            2: OK    : shape_2                                  UUID: 16c13e7b-1ff1-11b2-9321-001c23a90428:2
+            3: OK    : shape_3                                  UUID: 16c13e7b-1ff1-11b2-9321-001c23a90428:3
+            4: OK    : shape_4                                  UUID: 16c13e7b-1ff1-11b2-9321-001c23a90428:4
+            5: OK    : shape_5                                  UUID: 16e402e1-1ff1-11b2-9321-001c23a90428:0
+            6: OK    : shape_6                                  UUID: 16e402e1-1ff1-11b2-9321-001c23a90428:1
+            7: OK    : shape_7                                  UUID: 16e402e1-1ff1-11b2-9321-001c23a90428:2
+            8: OK    : shape_8                                  UUID: 16e402e1-1ff1-11b2-9321-001c23a90428:3
+            9: OK    : shape_9                                  UUID: 16ebd445-1ff1-11b2-9321-001c23a90428:0
+           10: OK    : shape_10                                 UUID: 16ebd445-1ff1-11b2-9321-001c23a90428:1
+           11: OK    : shape_11                                 UUID: 16ebd445-1ff1-11b2-9321-001c23a90428:2
+           12: OK    : shape_12                                 UUID: 16ebd445-1ff1-11b2-9321-001c23a90428:3
+           13: OK    : shape_13                                 UUID: 16ec5a7f-1ff1-11b2-9321-001c23a90428:0
+           14: OK    : shape_14                                 UUID: 16ec5a7f-1ff1-11b2-9321-001c23a90428:1
+           15: OK    : shape_15                                 UUID: 16ec5a7f-1ff1-11b2-9321-001c23a90428:2
+           16: OK    : shape_16                                 UUID: 1792e43b-1ff1-11b2-9321-001c23a90428:0
+           17: OK    : shape_17                                 UUID: 1792e43b-1ff1-11b2-9321-001c23a90428:1
+           18: OK    : shape_18                                 UUID: 1792e43b-1ff1-11b2-9321-001c23a90428:2
+           19: OK    : shape_19                                 UUID: 1792e43b-1ff1-11b2-9321-001c23a90428:3
+           20: OK    : shape_20                                 UUID: 1792e43b-1ff1-11b2-9321-001c23a90428:4
+           21: OK    : shape_21                                 UUID: 179aace4-1ff1-11b2-9321-001c23a90428:0
+           22: OK    : shape_22                                 UUID: 179aace4-1ff1-11b2-9321-001c23a90428:1
+           23: OK    : shape_23                                 UUID: 179aace4-1ff1-11b2-9321-001c23a90428:2
+           24: OK    : shape_24                                 UUID: 17b72d1f-1ff1-11b2-9321-001c23a90428:0
+           25: OK    : shape_25                                 UUID: 17b72d1f-1ff1-11b2-9321-001c23a90428:1
+           26: OK    : shape_26                                 UUID: 17b72d1f-1ff1-11b2-9321-001c23a90428:2
+           27: OK    : shape_27                                 UUID: 292cf9b8-1ff1-11b2-9321-001c23a90428:3
+           28: OK    : shape_28                                 UUID: 292cf9b8-1ff1-11b2-9321-001c23a90428:4
+           29: OK    : shape_29                                 UUID: 2adc0064-1ff1-11b2-9321-001c23a90428:0
+           30: OK    : shape_30                                 UUID: 2adc0064-1ff1-11b2-9321-001c23a90428:1
+           31: OK    : shape_31                                 UUID: 2adc0064-1ff1-11b2-9321-001c23a90428:2
+           32: OK    : shape_32                                 UUID: 2adc0064-1ff1-11b2-9321-001c23a90428:3
+           33: OK    : shape_33                                 UUID: 2adc7757-1ff1-11b2-9321-001c23a90428:1
+           34: OK    : shape_34                                 UUID: 2ae1a76a-1ff1-11b2-9321-001c23a90428:0
+           35: OK    : shape_35                                 UUID: 2ae1a76a-1ff1-11b2-9321-001c23a90428:1
+           36: OK    : shape_36                                 UUID: 2ae1a76a-1ff1-11b2-9321-001c23a90428:2
+           37: OK    : shape_37                                 UUID: 2ae1a76a-1ff1-11b2-9321-001c23a90428:3
+           38: OK    : shape_38                                 UUID: 2ae1a76a-1ff1-11b2-9321-001c23a90428:4
+           39: OK    : shape_39                                 UUID: 2ae23548-1ff1-11b2-9321-001c23a90428:0
+           40: OK    : shape_40                                 UUID: 2ae23548-1ff1-11b2-9321-001c23a90428:1
+           41: OK    : shape_41                                 UUID: 2ae23548-1ff1-11b2-9321-001c23a90428:2
+           42: OK    : shape_42                                 UUID: 2af6aea6-1ff1-11b2-9321-001c23a90428:0
+           43: OK    : shape_43                                 UUID: 2af6aea6-1ff1-11b2-9321-001c23a90428:1
+           44: OK    : shape_44                                 UUID: 2af6aea6-1ff1-11b2-9321-001c23a90428:2
+           45: OK    : shape_45                                 UUID: 2af6aea6-1ff1-11b2-9321-001c23a90428:3
+           46: OK    : shape_46                                 UUID: 2af6aea6-1ff1-11b2-9321-001c23a90428:4
+           47: OK    : shape_47                                 UUID: 2af729f6-1ff1-11b2-9321-001c23a90428:0
+           48: OK    : shape_48                                 UUID: 2af729f6-1ff1-11b2-9321-001c23a90428:1
+           49: OK    : shape_49                                 UUID: 2af729f6-1ff1-11b2-9321-001c23a90428:2
+           50: OK    : shape_50                                 UUID: 2ee464e2-1ff1-11b2-9321-001c23a90428:1
+           51: OK    : shape_51                                 UUID: 2ee464e2-1ff1-11b2-9321-001c23a90428:3
+           52: OK    : shape_52                                 UUID: 2ee55099-1ff1-11b2-9321-001c23a90428:0
+           53: OK    : shape_53                                 UUID: 2ee55099-1ff1-11b2-9321-001c23a90428:1
+           54: OK    : shape_54                                 UUID: 2fa3b3fd-1ff1-11b2-9321-001c23a90428:0
+           55: OK    : shape_55                                 UUID: 2fa3b3fd-1ff1-11b2-9321-001c23a90428:1
+           56: OK    : shape_56                                 UUID: 2fa3b3fd-1ff1-11b2-9321-001c23a90428:2
+           57: OK    : shape_57                                 UUID: 2fa3b3fd-1ff1-11b2-9321-001c23a90428:3
+           58: OK    : shape_58                                 UUID: 2fa3b3fd-1ff1-11b2-9321-001c23a90428:4
+           59: OK    : shape_59                                 UUID: 302aed42-1ff1-11b2-9321-001c23a90428:0
+           60: OK    : shape_60                                 UUID: 302aed42-1ff1-11b2-9321-001c23a90428:1
+           61: OK    : shape_61                                 UUID: 302aed42-1ff1-11b2-9321-001c23a90428:2
+           62: OK    : shape_62                                 UUID: 302aed42-1ff1-11b2-9321-001c23a90428:3
+           63: OK    : shape_63                                 UUID: 302aed42-1ff1-11b2-9321-001c23a90428:4
+           64: OK    : shape_64                                 UUID: 302be728-1ff1-11b2-9321-001c23a90428:0
+           65: OK    : shape_65                                 UUID: 302be728-1ff1-11b2-9321-001c23a90428:1
+           66: OK    : shape_66                                 UUID: 302be728-1ff1-11b2-9321-001c23a90428:2
+           67: OK    : shape_67                                 UUID: 3038decd-1ff1-11b2-9321-001c23a90428:0
+           68: OK    : shape_68                                 UUID: 3038decd-1ff1-11b2-9321-001c23a90428:1
+           69: OK    : shape_69                                 UUID: 3038decd-1ff1-11b2-9321-001c23a90428:2
+           70: OK    : shape_70                                 UUID: 3038decd-1ff1-11b2-9321-001c23a90428:3
+           71: OK    : shape_71                                 UUID: 3038decd-1ff1-11b2-9321-001c23a90428:4
+           72: OK    : shape_72                                 UUID: 3039d110-1ff1-11b2-9321-001c23a90428:0
+           73: OK    : shape_73                                 UUID: 3039d110-1ff1-11b2-9321-001c23a90428:1
+           74: OK    : shape_74                                 UUID: 3039d110-1ff1-11b2-9321-001c23a90428:2
+           75: OK    : shape_75                                 UUID: 303c5718-1ff1-11b2-9321-001c23a90428:0
+           76: OK    : shape_76                                 UUID: 303c5718-1ff1-11b2-9321-001c23a90428:1
+           77: OK    : shape_77                                 UUID: 303c5718-1ff1-11b2-9321-001c23a90428:2
+           78: OK    : shape_78                                 UUID: 303c5718-1ff1-11b2-9321-001c23a90428:3
+           79: OK    : shape_79                                 UUID: 303c5718-1ff1-11b2-9321-001c23a90428:4
+           80: OK    : shape_80                                 UUID: 303cec99-1ff1-11b2-9321-001c23a90428:0
+           81: OK    : shape_81                                 UUID: 303cec99-1ff1-11b2-9321-001c23a90428:1
+           82: OK    : shape_82                                 UUID: 303cec99-1ff1-11b2-9321-001c23a90428:2
+           83: OK    : shape_83                                 UUID: 303ef751-1ff1-11b2-9321-001c23a90428:0
+           84: OK    : shape_84                                 UUID: 303ef751-1ff1-11b2-9321-001c23a90428:1
+           85: OK    : shape_85                                 UUID: 303ef751-1ff1-11b2-9321-001c23a90428:2
+           86: OK    : shape_86                                 UUID: 303ef751-1ff1-11b2-9321-001c23a90428:3
+           87: OK    : shape_87                                 UUID: 303ef751-1ff1-11b2-9321-001c23a90428:4
+           88: OK    : shape_88                                 UUID: 303f9247-1ff1-11b2-9321-001c23a90428:0
+           89: OK    : shape_89                                 UUID: 303f9247-1ff1-11b2-9321-001c23a90428:1
+           90: OK    : shape_90                                 UUID: 303f9247-1ff1-11b2-9321-001c23a90428:2
+           91: OK    : shape_91                                 UUID: 304ac50b-1ff1-11b2-9321-001c23a90428:0
+           92: OK    : shape_92                                 UUID: 304ac50b-1ff1-11b2-9321-001c23a90428:1
+           93: OK    : shape_93                                 UUID: 304ac50b-1ff1-11b2-9321-001c23a90428:2
+           94: OK    : shape_94                                 UUID: 304ac50b-1ff1-11b2-9321-001c23a90428:3
+           95: OK    : shape_95                                 UUID: 304ac50b-1ff1-11b2-9321-001c23a90428:4
+           96: OK    : shape_96                                 UUID: 304b6001-1ff1-11b2-9321-001c23a90428:0
+           97: OK    : shape_97                                 UUID: 304b6001-1ff1-11b2-9321-001c23a90428:1
+           98: OK    : shape_98                                 UUID: 304b6001-1ff1-11b2-9321-001c23a90428:2
+           99: OK    : shape_99                                 UUID: 304dec95-1ff1-11b2-9321-001c23a90428:0
+          100: OK    : shape_100                                UUID: 304dec95-1ff1-11b2-9321-001c23a90428:1
+          101: OK    : shape_101                                UUID: 304dec95-1ff1-11b2-9321-001c23a90428:2
+          102: OK    : shape_102                                UUID: 304dec95-1ff1-11b2-9321-001c23a90428:3
+          103: OK    : shape_103                                UUID: 304dec95-1ff1-11b2-9321-001c23a90428:4
+          104: OK    : shape_104                                UUID: 304eded8-1ff1-11b2-9321-001c23a90428:0
+          105: OK    : shape_105                                UUID: 304eded8-1ff1-11b2-9321-001c23a90428:1
+          106: OK    : shape_106                                UUID: 304eded8-1ff1-11b2-9321-001c23a90428:2
+          107: OK    : shape_107                                UUID: 3051d430-1ff1-11b2-9321-001c23a90428:0
+          108: OK    : shape_108                                UUID: 3051d430-1ff1-11b2-9321-001c23a90428:1
+          109: OK    : shape_109                                UUID: 3051d430-1ff1-11b2-9321-001c23a90428:2
+          110: OK    : shape_110                                UUID: 3051d430-1ff1-11b2-9321-001c23a90428:3
+          111: OK    : shape_111                                UUID: 3051d430-1ff1-11b2-9321-001c23a90428:4
+          112: OK    : shape_112                                UUID: 3052e847-1ff1-11b2-9321-001c23a90428:0
+          113: OK    : shape_113                                UUID: 3052e847-1ff1-11b2-9321-001c23a90428:1
+          114: OK    : shape_114                                UUID: 3052e847-1ff1-11b2-9321-001c23a90428:2
+          115: OK    : shape_115                                UUID: 30543cc1-1ff1-11b2-9321-001c23a90428:0
+          116: OK    : shape_116                                UUID: 30543cc1-1ff1-11b2-9321-001c23a90428:1
+          117: OK    : shape_117                                UUID: 30543cc1-1ff1-11b2-9321-001c23a90428:2
+          118: OK    : shape_118                                UUID: 30545294-1ff1-11b2-9321-001c23a90428:0
+          119: OK    : shape_119                                UUID: 30545294-1ff1-11b2-9321-001c23a90428:1
+          120: OK    : shape_120                                UUID: 30545294-1ff1-11b2-9321-001c23a90428:2
+          121: OK    : shape_121                                UUID: 305d59e3-1ff1-11b2-9321-001c23a90428:0
+          122: OK    : shape_122                                UUID: 305d59e3-1ff1-11b2-9321-001c23a90428:1
+          123: OK    : shape_123                                UUID: 305d59e3-1ff1-11b2-9321-001c23a90428:2
+          124: OK    : shape_124                                UUID: 30603850-1ff1-11b2-9321-001c23a90428:0
+          125: OK    : shape_125                                UUID: 30603850-1ff1-11b2-9321-001c23a90428:1
+          126: OK    : shape_126                                UUID: 30603850-1ff1-11b2-9321-001c23a90428:2
+          127: OK    : shape_127                                UUID: 30603850-1ff1-11b2-9321-001c23a90428:3
+          128: OK    : shape_128                                UUID: 30603850-1ff1-11b2-9321-001c23a90428:4
+          129: OK    : shape_129                                UUID: 3060be8a-1ff1-11b2-9321-001c23a90428:0
+          130: OK    : shape_130                                UUID: 3060be8a-1ff1-11b2-9321-001c23a90428:1
+          131: OK    : shape_131                                UUID: 3060be8a-1ff1-11b2-9321-001c23a90428:2
+          132: OK    : shape_132                                UUID: 3068fe26-1ff1-11b2-9321-001c23a90428:0
+          133: OK    : shape_133                                UUID: 3068fe26-1ff1-11b2-9321-001c23a90428:1
+          134: OK    : shape_134                                UUID: 3068fe26-1ff1-11b2-9321-001c23a90428:2
+          135: OK    : shape_135                                UUID: 307978ff-1ff1-11b2-9321-001c23a90428:0
+          136: OK    : shape_136                                UUID: 307978ff-1ff1-11b2-9321-001c23a90428:1
+          137: OK    : shape_137                                UUID: 307978ff-1ff1-11b2-9321-001c23a90428:2
+          138: OK    : shape_138                                UUID: 307978ff-1ff1-11b2-9321-001c23a90428:3
+          139: OK    : shape_139                                UUID: 307978ff-1ff1-11b2-9321-001c23a90428:4
+          140: OK    : shape_140                                UUID: 307a12de-1ff1-11b2-9321-001c23a90428:0
+          141: OK    : shape_141                                UUID: 307a12de-1ff1-11b2-9321-001c23a90428:1
+          142: OK    : shape_142                                UUID: 307a12de-1ff1-11b2-9321-001c23a90428:2
+          143: OK    : shape_143                                UUID: 307c14db-1ff1-11b2-9321-001c23a90428:0
+          144: OK    : shape_144                                UUID: 307c14db-1ff1-11b2-9321-001c23a90428:1
+          145: OK    : shape_145                                UUID: 307c14db-1ff1-11b2-9321-001c23a90428:2
+          146: OK    : shape_146                                UUID: 307c14db-1ff1-11b2-9321-001c23a90428:3
+          147: OK    : shape_147                                UUID: 307c14db-1ff1-11b2-9321-001c23a90428:4
+          148: OK    : shape_148                                UUID: 307cada2-1ff1-11b2-9321-001c23a90428:0
+          149: OK    : shape_149                                UUID: 307cada2-1ff1-11b2-9321-001c23a90428:1
+          150: OK    : shape_150                                UUID: 307cada2-1ff1-11b2-9321-001c23a90428:2
+          151: OK    : shape_151                                UUID: 307f557e-1ff1-11b2-9321-001c23a90428:0
+          152: OK    : shape_152                                UUID: 307f557e-1ff1-11b2-9321-001c23a90428:1
+          153: OK    : shape_153                                UUID: 307f557e-1ff1-11b2-9321-001c23a90428:2
+          154: OK    : shape_154                                UUID: 30820a73-1ff1-11b2-9321-001c23a90428:0
+          155: OK    : shape_155                                UUID: 30820a73-1ff1-11b2-9321-001c23a90428:1
+          156: OK    : shape_156                                UUID: 30820a73-1ff1-11b2-9321-001c23a90428:2
+          157: OK    : shape_157                                UUID: 30820a73-1ff1-11b2-9321-001c23a90428:3
+          158: OK    : shape_158                                UUID: 30820a73-1ff1-11b2-9321-001c23a90428:4
+          159: OK    : shape_159                                UUID: 30828a21-1ff1-11b2-9321-001c23a90428:0
+          160: OK    : shape_160                                UUID: 30828a21-1ff1-11b2-9321-001c23a90428:1
+          161: OK    : shape_161                                UUID: 30828a21-1ff1-11b2-9321-001c23a90428:2
+          162: OK    : shape_162                                UUID: 30854144-1ff1-11b2-9321-001c23a90428:0
+          163: OK    : shape_163                                UUID: 30854144-1ff1-11b2-9321-001c23a90428:1
+          164: OK    : shape_164                                UUID: 30854144-1ff1-11b2-9321-001c23a90428:2
+          165: OK    : shape_165                                UUID: 30883010-1ff1-11b2-9321-001c23a90428:0
+          166: OK    : shape_166                                UUID: 30883010-1ff1-11b2-9321-001c23a90428:1
+          167: OK    : shape_167                                UUID: 30883010-1ff1-11b2-9321-001c23a90428:2
+          168: OK    : shape_168                                UUID: 30883010-1ff1-11b2-9321-001c23a90428:3
+          169: OK    : shape_169                                UUID: 30883010-1ff1-11b2-9321-001c23a90428:4
+          170: OK    : shape_170                                UUID: 308935f7-1ff1-11b2-9321-001c23a90428:0
+          171: OK    : shape_171                                UUID: 308935f7-1ff1-11b2-9321-001c23a90428:1
+          172: OK    : shape_172                                UUID: 308935f7-1ff1-11b2-9321-001c23a90428:2
+          173: OK    : shape_173                                UUID: 308a8ecf-1ff1-11b2-9321-001c23a90428:0
+          174: OK    : shape_174                                UUID: 308a8ecf-1ff1-11b2-9321-001c23a90428:1
+          175: OK    : shape_175                                UUID: 308a8ecf-1ff1-11b2-9321-001c23a90428:2
+          176: OK    : shape_176                                UUID: 308aa4a2-1ff1-11b2-9321-001c23a90428:2
+          177: OK    : shape_177                                UUID: 308cac14-1ff1-11b2-9321-001c23a90428:0
+          178: OK    : shape_178                                UUID: 308cac14-1ff1-11b2-9321-001c23a90428:1
+          179: OK    : shape_179                                UUID: 308cac14-1ff1-11b2-9321-001c23a90428:2
+          180: OK    : shape_180                                UUID: 308cac14-1ff1-11b2-9321-001c23a90428:3
+          181: OK    : shape_181                                UUID: 308cac14-1ff1-11b2-9321-001c23a90428:4
+          182: OK    : shape_182                                UUID: 308d3136-1ff1-11b2-9321-001c23a90428:0
+          183: OK    : shape_183                                UUID: 308d3136-1ff1-11b2-9321-001c23a90428:1
+          184: OK    : shape_184                                UUID: 308d3136-1ff1-11b2-9321-001c23a90428:2
+          185: OK    : shape_185                                UUID: 3096b2be-1ff1-11b2-9321-001c23a90428:0
+          186: OK    : shape_186                                UUID: 3096b2be-1ff1-11b2-9321-001c23a90428:1
+          187: OK    : shape_187                                UUID: 3096b2be-1ff1-11b2-9321-001c23a90428:2
+          188: OK    : shape_188                                UUID: 3099300c-1ff1-11b2-9321-001c23a90428:0
+          189: OK    : shape_189                                UUID: 3099300c-1ff1-11b2-9321-001c23a90428:1
+          190: OK    : shape_190                                UUID: 3099300c-1ff1-11b2-9321-001c23a90428:2
+          191: OK    : shape_191                                UUID: 3099300c-1ff1-11b2-9321-001c23a90428:3
+          192: OK    : shape_192                                UUID: 3099cf5f-1ff1-11b2-9321-001c23a90428:0
+          193: OK    : shape_193                                UUID: 3099cf5f-1ff1-11b2-9321-001c23a90428:1
+          194: OK    : shape_194                                UUID: 3099cf5f-1ff1-11b2-9321-001c23a90428:2
+          195: OK    : shape_195                                UUID: 30a1f06c-1ff1-11b2-9321-001c23a90428:0
+          196: OK    : shape_196                                UUID: 30a1f06c-1ff1-11b2-9321-001c23a90428:1
+          197: OK    : shape_197                                UUID: 30a1f06c-1ff1-11b2-9321-001c23a90428:2
+          198: OK    : shape_198                                UUID: 30a1f06c-1ff1-11b2-9321-001c23a90428:3
+          199: OK    : shape_199                                UUID: 30a1f06c-1ff1-11b2-9321-001c23a90428:4
+          200: OK    : shape_200                                UUID: 30a28a4b-1ff1-11b2-9321-001c23a90428:0
+          201: OK    : shape_201                                UUID: 30a28a4b-1ff1-11b2-9321-001c23a90428:1
+          202: OK    : shape_202                                UUID: 30a28a4b-1ff1-11b2-9321-001c23a90428:2
+          203: OK    : shape_203                                UUID: 30a4f1c5-1ff1-11b2-9321-001c23a90428:0
+          204: OK    : shape_204                                UUID: 30a4f1c5-1ff1-11b2-9321-001c23a90428:1
+          205: OK    : shape_205                                UUID: 30a4f1c5-1ff1-11b2-9321-001c23a90428:2
+          206: OK    : shape_206                                UUID: 30a4f1c5-1ff1-11b2-9321-001c23a90428:3
+          207: OK    : shape_207                                UUID: 30a4f1c5-1ff1-11b2-9321-001c23a90428:4
+          208: OK    : shape_208                                UUID: 30a58dd2-1ff1-11b2-9321-001c23a90428:0
+          209: OK    : shape_209                                UUID: 30a58dd2-1ff1-11b2-9321-001c23a90428:1
+          210: OK    : shape_210                                UUID: 30a58dd2-1ff1-11b2-9321-001c23a90428:2
+          211: OK    : shape_211                                UUID: 30a8037b-1ff1-11b2-9321-001c23a90428:0
+          212: OK    : shape_212                                UUID: 30a8037b-1ff1-11b2-9321-001c23a90428:1
+          213: OK    : shape_213                                UUID: 30a8037b-1ff1-11b2-9321-001c23a90428:2
+          214: OK    : shape_214                                UUID: 30aac014-1ff1-11b2-9321-001c23a90428:0
+          215: OK    : shape_215                                UUID: 30aac014-1ff1-11b2-9321-001c23a90428:1
+          216: OK    : shape_216                                UUID: 30aac014-1ff1-11b2-9321-001c23a90428:2
+          217: OK    : shape_217                                UUID: 30aac014-1ff1-11b2-9321-001c23a90428:3
+          218: OK    : shape_218                                UUID: 30aac014-1ff1-11b2-9321-001c23a90428:4
+          219: OK    : shape_219                                UUID: 30ab5f67-1ff1-11b2-9321-001c23a90428:0
+          220: OK    : shape_220                                UUID: 30ab5f67-1ff1-11b2-9321-001c23a90428:1
+          221: OK    : shape_221                                UUID: 30ab5f67-1ff1-11b2-9321-001c23a90428:2
+          222: OK    : shape_222                                UUID: 30bcc3c9-1ff1-11b2-9321-001c23a90428:0
+          223: OK    : shape_223                                UUID: 30bcc3c9-1ff1-11b2-9321-001c23a90428:1
+          224: OK    : shape_224                                UUID: 30bcc3c9-1ff1-11b2-9321-001c23a90428:2
+          225: OK    : shape_225                                UUID: 30cddf0d-1ff1-11b2-9321-001c23a90428:0
+          226: OK    : shape_226                                UUID: 30cddf0d-1ff1-11b2-9321-001c23a90428:1
+          227: OK    : shape_227                                UUID: 30cddf0d-1ff1-11b2-9321-001c23a90428:2
+          228: OK    : shape_228                                UUID: 30cddf0d-1ff1-11b2-9321-001c23a90428:3
+          229: OK    : shape_229                                UUID: 30cddf0d-1ff1-11b2-9321-001c23a90428:4
+          230: OK    : shape_230                                UUID: 30ce7b1a-1ff1-11b2-9321-001c23a90428:0
+          231: OK    : shape_231                                UUID: 30ce7b1a-1ff1-11b2-9321-001c23a90428:1
+          232: OK    : shape_232                                UUID: 30ce7b1a-1ff1-11b2-9321-001c23a90428:2
+          233: OK    : shape_233                                UUID: 30d0d693-1ff1-11b2-9321-001c23a90428:0
+          234: OK    : shape_234                                UUID: 30d0d693-1ff1-11b2-9321-001c23a90428:1
+          235: OK    : shape_235                                UUID: 30d0d693-1ff1-11b2-9321-001c23a90428:2
+          236: OK    : shape_236                                UUID: 30d0d693-1ff1-11b2-9321-001c23a90428:3
+          237: OK    : shape_237                                UUID: 30d0d693-1ff1-11b2-9321-001c23a90428:4
+          238: OK    : shape_238                                UUID: 30d173b8-1ff1-11b2-9321-001c23a90428:0
+          239: OK    : shape_239                                UUID: 30d173b8-1ff1-11b2-9321-001c23a90428:1
+          240: OK    : shape_240                                UUID: 30d173b8-1ff1-11b2-9321-001c23a90428:2
+          241: OK    : shape_241                                UUID: 30d4e9d4-1ff1-11b2-9321-001c23a90428:0
+          242: OK    : shape_242                                UUID: 30d4e9d4-1ff1-11b2-9321-001c23a90428:1
+          243: OK    : shape_243                                UUID: 30d4e9d4-1ff1-11b2-9321-001c23a90428:2
+          244: OK    : shape_244                                UUID: 30d80f30-1ff1-11b2-9321-001c23a90428:0
+          245: OK    : shape_245                                UUID: 30d80f30-1ff1-11b2-9321-001c23a90428:1
+          246: OK    : shape_246                                UUID: 30d80f30-1ff1-11b2-9321-001c23a90428:2
+          247: OK    : shape_247                                UUID: 30d80f30-1ff1-11b2-9321-001c23a90428:3
+          248: OK    : shape_248                                UUID: 30d80f30-1ff1-11b2-9321-001c23a90428:4
+          249: OK    : shape_249                                UUID: 30d8b1c9-1ff1-11b2-9321-001c23a90428:0
+          250: OK    : shape_250                                UUID: 30d8b1c9-1ff1-11b2-9321-001c23a90428:1
+          251: OK    : shape_251                                UUID: 30d8b1c9-1ff1-11b2-9321-001c23a90428:2
+          252: OK    : shape_252                                UUID: 30e51ed6-1ff1-11b2-9321-001c23a90428:0
+          253: OK    : shape_253                                UUID: 30e51ed6-1ff1-11b2-9321-001c23a90428:1
+          254: OK    : shape_254                                UUID: 30e51ed6-1ff1-11b2-9321-001c23a90428:2
+          255: OK    : shape_255                                UUID: 30ee77fe-1ff1-11b2-9321-001c23a90428:0
+          256: OK    : shape_256                                UUID: 30ee77fe-1ff1-11b2-9321-001c23a90428:1
+          257: OK    : shape_257                                UUID: 30ee77fe-1ff1-11b2-9321-001c23a90428:2
+          258: OK    : shape_258                                UUID: 30ee77fe-1ff1-11b2-9321-001c23a90428:3
+          259: OK    : shape_259                                UUID: 30ee77fe-1ff1-11b2-9321-001c23a90428:4
+          260: OK    : shape_260                                UUID: 30ef163a-1ff1-11b2-9321-001c23a90428:0
+          261: OK    : shape_261                                UUID: 30ef163a-1ff1-11b2-9321-001c23a90428:1
+          262: OK    : shape_262                                UUID: 30ef163a-1ff1-11b2-9321-001c23a90428:2
+          263: OK    : shape_263                                UUID: 30f44307-1ff1-11b2-9321-001c23a90428:0
+          264: OK    : shape_264                                UUID: 30f44307-1ff1-11b2-9321-001c23a90428:1
+          265: OK    : shape_265                                UUID: 30f44307-1ff1-11b2-9321-001c23a90428:2
+          266: OK    : shape_266                                UUID: 30f44307-1ff1-11b2-9321-001c23a90428:3
+          267: OK    : shape_267                                UUID: 30f44307-1ff1-11b2-9321-001c23a90428:4
+          268: OK    : shape_268                                UUID: 30f4e489-1ff1-11b2-9321-001c23a90428:0
+          269: OK    : shape_269                                UUID: 30f4e489-1ff1-11b2-9321-001c23a90428:1
+          270: OK    : shape_270                                UUID: 30f4e489-1ff1-11b2-9321-001c23a90428:2
+          271: OK    : shape_271                                UUID: 30f76eef-1ff1-11b2-9321-001c23a90428:0
+          272: OK    : shape_272                                UUID: 30f76eef-1ff1-11b2-9321-001c23a90428:1
+          273: OK    : shape_273                                UUID: 30f76eef-1ff1-11b2-9321-001c23a90428:2
+          274: OK    : shape_274                                UUID: 30fa8dbe-1ff1-11b2-9321-001c23a90428:0
+          275: OK    : shape_275                                UUID: 30fa8dbe-1ff1-11b2-9321-001c23a90428:1
+          276: OK    : shape_276                                UUID: 30fa8dbe-1ff1-11b2-9321-001c23a90428:2
+          277: OK    : shape_277                                UUID: 30fa8dbe-1ff1-11b2-9321-001c23a90428:3
+          278: OK    : shape_278                                UUID: 30fa8dbe-1ff1-11b2-9321-001c23a90428:4
+          279: OK    : shape_279                                UUID: 30fb95d5-1ff1-11b2-9321-001c23a90428:0
+          280: OK    : shape_280                                UUID: 30fb95d5-1ff1-11b2-9321-001c23a90428:1
+          281: OK    : shape_281                                UUID: 30fb95d5-1ff1-11b2-9321-001c23a90428:2
+          282: OK    : shape_282                                UUID: 310e37c5-1ff1-11b2-9321-001c23a90428:0
+          283: OK    : shape_283                                UUID: 310e37c5-1ff1-11b2-9321-001c23a90428:1
+          284: OK    : shape_284                                UUID: 310e37c5-1ff1-11b2-9321-001c23a90428:2
+          285: OK    : shape_285                                UUID: 312293ad-1ff1-11b2-9321-001c23a90428:0
+          286: OK    : shape_286                                UUID: 312293ad-1ff1-11b2-9321-001c23a90428:1
+          287: OK    : shape_287                                UUID: 312293ad-1ff1-11b2-9321-001c23a90428:2
+          288: OK    : shape_288                                UUID: 312293ad-1ff1-11b2-9321-001c23a90428:3
+          289: OK    : shape_289                                UUID: 312293ad-1ff1-11b2-9321-001c23a90428:4
+          290: OK    : shape_290                                UUID: 31233418-1ff1-11b2-9321-001c23a90428:0
+          291: OK    : shape_291                                UUID: 31233418-1ff1-11b2-9321-001c23a90428:1
+          292: OK    : shape_292                                UUID: 31233418-1ff1-11b2-9321-001c23a90428:2
+          293: OK    : shape_293                                UUID: 3125ad08-1ff1-11b2-9321-001c23a90428:0
+          294: OK    : shape_294                                UUID: 3125ad08-1ff1-11b2-9321-001c23a90428:1
+          295: OK    : shape_295                                UUID: 3125ad08-1ff1-11b2-9321-001c23a90428:2
+          296: OK    : shape_296                                UUID: 3125ad08-1ff1-11b2-9321-001c23a90428:3
+          297: OK    : shape_297                                UUID: 3125ad08-1ff1-11b2-9321-001c23a90428:4
+          298: OK    : shape_298                                UUID: 31262dcd-1ff1-11b2-9321-001c23a90428:0
+          299: OK    : shape_299                                UUID: 31262dcd-1ff1-11b2-9321-001c23a90428:1
+          300: OK    : shape_300                                UUID: 31262dcd-1ff1-11b2-9321-001c23a90428:2
+          301: OK    : shape_301                                UUID: 3129d505-1ff1-11b2-9321-001c23a90428:0
+          302: OK    : shape_302                                UUID: 3129d505-1ff1-11b2-9321-001c23a90428:1
+          303: OK    : shape_303                                UUID: 3129d505-1ff1-11b2-9321-001c23a90428:2
+          304: OK    : shape_304                                UUID: 312ce25e-1ff1-11b2-9321-001c23a90428:0
+          305: OK    : shape_305                                UUID: 312ce25e-1ff1-11b2-9321-001c23a90428:1
+          306: OK    : shape_306                                UUID: 312ce25e-1ff1-11b2-9321-001c23a90428:2
+          307: OK    : shape_307                                UUID: 312ce25e-1ff1-11b2-9321-001c23a90428:3
+          308: OK    : shape_308                                UUID: 312ce25e-1ff1-11b2-9321-001c23a90428:4
+          309: OK    : shape_309                                UUID: 312d6552-1ff1-11b2-9321-001c23a90428:0
+          310: OK    : shape_310                                UUID: 312d6552-1ff1-11b2-9321-001c23a90428:1
+          311: OK    : shape_311                                UUID: 312d6552-1ff1-11b2-9321-001c23a90428:2
+          312: OK    : shape_312                                UUID: 31408064-1ff1-11b2-9321-001c23a90428:0
+          313: OK    : shape_313                                UUID: 31408064-1ff1-11b2-9321-001c23a90428:1
+          314: OK    : shape_314                                UUID: 31408064-1ff1-11b2-9321-001c23a90428:2
+          315: OK    : shape_315                                UUID: 314d1fa4-1ff1-11b2-9321-001c23a90428:0
+          316: OK    : shape_316                                UUID: 314d1fa4-1ff1-11b2-9321-001c23a90428:1
+          317: OK    : shape_317                                UUID: 314d1fa4-1ff1-11b2-9321-001c23a90428:2
+          318: OK    : shape_318                                UUID: 314d1fa4-1ff1-11b2-9321-001c23a90428:3
+          319: OK    : shape_319                                UUID: 314d1fa4-1ff1-11b2-9321-001c23a90428:4
+          320: OK    : shape_320                                UUID: 314dbcc9-1ff1-11b2-9321-001c23a90428:0
+          321: OK    : shape_321                                UUID: 314dbcc9-1ff1-11b2-9321-001c23a90428:1
+          322: OK    : shape_322                                UUID: 314dbcc9-1ff1-11b2-9321-001c23a90428:2
+          323: OK    : shape_323                                UUID: 3154bfed-1ff1-11b2-9321-001c23a90428:0
+          324: OK    : shape_324                                UUID: 3154bfed-1ff1-11b2-9321-001c23a90428:1
+          325: OK    : shape_325                                UUID: 3154bfed-1ff1-11b2-9321-001c23a90428:2
+          326: OK    : shape_326                                UUID: 3156efbf-1ff1-11b2-9321-001c23a90428:0
+          327: OK    : shape_327                                UUID: 3156efbf-1ff1-11b2-9321-001c23a90428:1
+          328: OK    : shape_328                                UUID: 3156efbf-1ff1-11b2-9321-001c23a90428:2
+          329: OK    : shape_329                                UUID: 3156efbf-1ff1-11b2-9321-001c23a90428:3
+          330: OK    : shape_330                                UUID: 3156efbf-1ff1-11b2-9321-001c23a90428:4
+          331: OK    : shape_331                                UUID: 3157899d-1ff1-11b2-9321-001c23a90428:0
+          332: OK    : shape_332                                UUID: 3157899d-1ff1-11b2-9321-001c23a90428:1
+          333: OK    : shape_333                                UUID: 3157899d-1ff1-11b2-9321-001c23a90428:2
+          334: OK    : shape_334                                UUID: 315a0c5f-1ff1-11b2-9321-001c23a90428:0
+          335: OK    : shape_335                                UUID: 315a0c5f-1ff1-11b2-9321-001c23a90428:1
+          336: OK    : shape_336                                UUID: 315a0c5f-1ff1-11b2-9321-001c23a90428:2
+          337: OK    : shape_337                                UUID: 315a0c5f-1ff1-11b2-9321-001c23a90428:3
+          338: OK    : shape_338                                UUID: 315a0c5f-1ff1-11b2-9321-001c23a90428:4
+          339: OK    : shape_339                                UUID: 315b0300-1ff1-11b2-9321-001c23a90428:0
+          340: OK    : shape_340                                UUID: 315b0300-1ff1-11b2-9321-001c23a90428:1
+          341: OK    : shape_341                                UUID: 315b0300-1ff1-11b2-9321-001c23a90428:2
+          342: OK    : shape_342                                UUID: 316c881f-1ff1-11b2-9321-001c23a90428:0
+          343: OK    : shape_343                                UUID: 316c881f-1ff1-11b2-9321-001c23a90428:1
+          344: OK    : shape_344                                UUID: 316c881f-1ff1-11b2-9321-001c23a90428:2
+          345: OK    : shape_345                                UUID: 317ae6ca-1ff1-11b2-9321-001c23a90428:0
+          346: OK    : shape_346                                UUID: 317ae6ca-1ff1-11b2-9321-001c23a90428:1
+          347: OK    : shape_347                                UUID: 317ae6ca-1ff1-11b2-9321-001c23a90428:2
+          348: OK    : shape_348                                UUID: 317ae6ca-1ff1-11b2-9321-001c23a90428:3
+          349: OK    : shape_349                                UUID: 317ae6ca-1ff1-11b2-9321-001c23a90428:4
+          350: OK    : shape_350                                UUID: 317b77ee-1ff1-11b2-9321-001c23a90428:0
+          351: OK    : shape_351                                UUID: 317b77ee-1ff1-11b2-9321-001c23a90428:1
+          352: OK    : shape_352                                UUID: 317b77ee-1ff1-11b2-9321-001c23a90428:2
+          353: OK    : shape_353                                UUID: 3180b631-1ff1-11b2-9321-001c23a90428:0
+          354: OK    : shape_354                                UUID: 3180b631-1ff1-11b2-9321-001c23a90428:1
+          355: OK    : shape_355                                UUID: 3180b631-1ff1-11b2-9321-001c23a90428:2
+          356: OK    : shape_356                                UUID: 3183649a-1ff1-11b2-9321-001c23a90428:0
+          357: OK    : shape_357                                UUID: 3183649a-1ff1-11b2-9321-001c23a90428:1
+          358: OK    : shape_358                                UUID: 3183649a-1ff1-11b2-9321-001c23a90428:2
+          359: OK    : shape_359                                UUID: 3183649a-1ff1-11b2-9321-001c23a90428:3
+          360: OK    : shape_360                                UUID: 3183649a-1ff1-11b2-9321-001c23a90428:4
+          361: OK    : shape_361                                UUID: 3183f6d5-1ff1-11b2-9321-001c23a90428:0
+          362: OK    : shape_362                                UUID: 3183f6d5-1ff1-11b2-9321-001c23a90428:1
+          363: OK    : shape_363                                UUID: 3183f6d5-1ff1-11b2-9321-001c23a90428:2
+          364: OK    : shape_364                                UUID: 31864cd9-1ff1-11b2-9321-001c23a90428:0
+          365: OK    : shape_365                                UUID: 31864cd9-1ff1-11b2-9321-001c23a90428:1
+          366: OK    : shape_366                                UUID: 31864cd9-1ff1-11b2-9321-001c23a90428:2
+          367: OK    : shape_367                                UUID: 31864cd9-1ff1-11b2-9321-001c23a90428:3
+          368: OK    : shape_368                                UUID: 31864cd9-1ff1-11b2-9321-001c23a90428:4
+          369: OK    : shape_369                                UUID: 3186e371-1ff1-11b2-9321-001c23a90428:0
+          370: OK    : shape_370                                UUID: 3186e371-1ff1-11b2-9321-001c23a90428:1
+          371: OK    : shape_371                                UUID: 3186e371-1ff1-11b2-9321-001c23a90428:2
+          372: OK    : shape_372                                UUID: 3192b243-1ff1-11b2-9321-001c23a90428:0
+          373: OK    : shape_373                                UUID: 3192b243-1ff1-11b2-9321-001c23a90428:1
+          374: OK    : shape_374                                UUID: 3192b243-1ff1-11b2-9321-001c23a90428:2
+          375: OK    : shape_375                                UUID: 31a559a8-1ff1-11b2-9321-001c23a90428:0
+          376: OK    : shape_376                                UUID: 31a559a8-1ff1-11b2-9321-001c23a90428:1
+          377: OK    : shape_377                                UUID: 31a559a8-1ff1-11b2-9321-001c23a90428:2
+          378: OK    : shape_378                                UUID: 31a559a8-1ff1-11b2-9321-001c23a90428:3
+          379: OK    : shape_379                                UUID: 31a559a8-1ff1-11b2-9321-001c23a90428:4
+          380: OK    : shape_380                                UUID: 31a5ee12-1ff1-11b2-9321-001c23a90428:0
+          381: OK    : shape_381                                UUID: 31a5ee12-1ff1-11b2-9321-001c23a90428:1
+          382: OK    : shape_382                                UUID: 31a5ee12-1ff1-11b2-9321-001c23a90428:2
+          383: OK    : shape_383                                UUID: 31a83fb9-1ff1-11b2-9321-001c23a90428:0
+          384: OK    : shape_384                                UUID: 31a83fb9-1ff1-11b2-9321-001c23a90428:1
+          385: OK    : shape_385                                UUID: 31a83fb9-1ff1-11b2-9321-001c23a90428:2
+          386: OK    : shape_386                                UUID: 31aa7ca3-1ff1-11b2-9321-001c23a90428:0
+          387: OK    : shape_387                                UUID: 31aa7ca3-1ff1-11b2-9321-001c23a90428:1
+          388: OK    : shape_388                                UUID: 31aa7ca3-1ff1-11b2-9321-001c23a90428:2
+          389: OK    : shape_389                                UUID: 31aa7ca3-1ff1-11b2-9321-001c23a90428:3
+          390: OK    : shape_390                                UUID: 31aa7ca3-1ff1-11b2-9321-001c23a90428:4
+          391: OK    : shape_391                                UUID: 31ab110d-1ff1-11b2-9321-001c23a90428:0
+          392: OK    : shape_392                                UUID: 31ab110d-1ff1-11b2-9321-001c23a90428:1
+          393: OK    : shape_393                                UUID: 31ab110d-1ff1-11b2-9321-001c23a90428:2
+          394: OK    : shape_394                                UUID: 31ad7541-1ff1-11b2-9321-001c23a90428:0
+          395: OK    : shape_395                                UUID: 31ad7541-1ff1-11b2-9321-001c23a90428:1
+          396: OK    : shape_396                                UUID: 31ad7541-1ff1-11b2-9321-001c23a90428:2
+          397: OK    : shape_397                                UUID: 31ad7541-1ff1-11b2-9321-001c23a90428:3
+          398: OK    : shape_398                                UUID: 31ad7541-1ff1-11b2-9321-001c23a90428:4
+          399: OK    : shape_399                                UUID: 31ae620f-1ff1-11b2-9321-001c23a90428:0
+          400: OK    : shape_400                                UUID: 31ae620f-1ff1-11b2-9321-001c23a90428:1
+          401: OK    : shape_401                                UUID: 31ae620f-1ff1-11b2-9321-001c23a90428:2
+          402: OK    : shape_402                                UUID: 31be87ca-1ff1-11b2-9321-001c23a90428:0
+          403: OK    : shape_403                                UUID: 31be87ca-1ff1-11b2-9321-001c23a90428:1
+          404: OK    : shape_404                                UUID: 31be87ca-1ff1-11b2-9321-001c23a90428:2
+          405: OK    : shape_405                                UUID: 31c77717-1ff1-11b2-9321-001c23a90428:0
+          406: OK    : shape_406                                UUID: 31c77717-1ff1-11b2-9321-001c23a90428:1
+          407: OK    : shape_407                                UUID: 31c77717-1ff1-11b2-9321-001c23a90428:2
+          408: OK    : shape_408                                UUID: 31c77717-1ff1-11b2-9321-001c23a90428:3
+          409: OK    : shape_409                                UUID: 31c77717-1ff1-11b2-9321-001c23a90428:4
+          410: OK    : shape_410                                UUID: 31c80c98-1ff1-11b2-9321-001c23a90428:0
+          411: OK    : shape_411                                UUID: 31c80c98-1ff1-11b2-9321-001c23a90428:1
+          412: OK    : shape_412                                UUID: 31c80c98-1ff1-11b2-9321-001c23a90428:2
+          413: OK    : shape_413                                UUID: 31ced6fd-1ff1-11b2-9321-001c23a90428:0
+          414: OK    : shape_414                                UUID: 31ced6fd-1ff1-11b2-9321-001c23a90428:1
+          415: OK    : shape_415                                UUID: 31ced6fd-1ff1-11b2-9321-001c23a90428:2
+          416: OK    : shape_416                                UUID: 31ced6fd-1ff1-11b2-9321-001c23a90428:3
+          417: OK    : shape_417                                UUID: 31ced6fd-1ff1-11b2-9321-001c23a90428:4
+          418: OK    : shape_418                                UUID: 31cf5f66-1ff1-11b2-9321-001c23a90428:0
+          419: OK    : shape_419                                UUID: 31cf5f66-1ff1-11b2-9321-001c23a90428:1
+          420: OK    : shape_420                                UUID: 31cf5f66-1ff1-11b2-9321-001c23a90428:2
+          421: OK    : shape_421                                UUID: 31d262ed-1ff1-11b2-9321-001c23a90428:0
+          422: OK    : shape_422                                UUID: 31d262ed-1ff1-11b2-9321-001c23a90428:1
+          423: OK    : shape_423                                UUID: 31d262ed-1ff1-11b2-9321-001c23a90428:2
+          424: OK    : shape_424                                UUID: 31d53be5-1ff1-11b2-9321-001c23a90428:0
+          425: OK    : shape_425                                UUID: 31d53be5-1ff1-11b2-9321-001c23a90428:1
+          426: OK    : shape_426                                UUID: 31d53be5-1ff1-11b2-9321-001c23a90428:2
+          427: OK    : shape_427                                UUID: 31d53be5-1ff1-11b2-9321-001c23a90428:3
+          428: OK    : shape_428                                UUID: 31d53be5-1ff1-11b2-9321-001c23a90428:4
+          429: OK    : shape_429                                UUID: 31d5ba7b-1ff1-11b2-9321-001c23a90428:0
+          430: OK    : shape_430                                UUID: 31d5ba7b-1ff1-11b2-9321-001c23a90428:1
+          431: OK    : shape_431                                UUID: 31d5ba7b-1ff1-11b2-9321-001c23a90428:2
+          432: OK    : shape_432                                UUID: 31e1a8f2-1ff1-11b2-9321-001c23a90428:0
+          433: OK    : shape_433                                UUID: 31e1a8f2-1ff1-11b2-9321-001c23a90428:1
+          434: OK    : shape_434                                UUID: 31e1a8f2-1ff1-11b2-9321-001c23a90428:2
+          435: OK    : shape_435                                UUID: 31f6f834-1ff1-11b2-9321-001c23a90428:0
+          436: OK    : shape_436                                UUID: 31f6f834-1ff1-11b2-9321-001c23a90428:1
+          437: OK    : shape_437                                UUID: 31f6f834-1ff1-11b2-9321-001c23a90428:2
+          438: OK    : shape_438                                UUID: 31f6f834-1ff1-11b2-9321-001c23a90428:3
+          439: OK    : shape_439                                UUID: 31f6f834-1ff1-11b2-9321-001c23a90428:4
+          440: OK    : shape_440                                UUID: 31f775b3-1ff1-11b2-9321-001c23a90428:0
+          441: OK    : shape_441                                UUID: 31f775b3-1ff1-11b2-9321-001c23a90428:1
+          442: OK    : shape_442                                UUID: 31f775b3-1ff1-11b2-9321-001c23a90428:2
+          443: OK    : shape_443                                UUID: 31f9dd2d-1ff1-11b2-9321-001c23a90428:0
+          444: OK    : shape_444                                UUID: 31f9dd2d-1ff1-11b2-9321-001c23a90428:1
+          445: OK    : shape_445                                UUID: 31f9dd2d-1ff1-11b2-9321-001c23a90428:2
+          446: OK    : shape_446                                UUID: 31f9dd2d-1ff1-11b2-9321-001c23a90428:3
+          447: OK    : shape_447                                UUID: 31f9dd2d-1ff1-11b2-9321-001c23a90428:4
+          448: OK    : shape_448                                UUID: 31fa6f68-1ff1-11b2-9321-001c23a90428:0
+          449: OK    : shape_449                                UUID: 31fa6f68-1ff1-11b2-9321-001c23a90428:1
+          450: OK    : shape_450                                UUID: 31fa6f68-1ff1-11b2-9321-001c23a90428:2
+          451: OK    : shape_451                                UUID: 31fccbf8-1ff1-11b2-9321-001c23a90428:0
+          452: OK    : shape_452                                UUID: 31fccbf8-1ff1-11b2-9321-001c23a90428:1
+          453: OK    : shape_453                                UUID: 31fccbf8-1ff1-11b2-9321-001c23a90428:2
+          454: OK    : shape_454                                UUID: 31ff8779-1ff1-11b2-9321-001c23a90428:0
+          455: OK    : shape_455                                UUID: 31ff8779-1ff1-11b2-9321-001c23a90428:1
+          456: OK    : shape_456                                UUID: 31ff8779-1ff1-11b2-9321-001c23a90428:2
+          457: OK    : shape_457                                UUID: 31ff8779-1ff1-11b2-9321-001c23a90428:3
+          458: OK    : shape_458                                UUID: 31ff8779-1ff1-11b2-9321-001c23a90428:4
+          459: OK    : shape_459                                UUID: 32007219-1ff1-11b2-9321-001c23a90428:0
+          460: OK    : shape_460                                UUID: 32007219-1ff1-11b2-9321-001c23a90428:1
+          461: OK    : shape_461                                UUID: 32007219-1ff1-11b2-9321-001c23a90428:2
+          462: OK    : shape_462                                UUID: 32102df9-1ff1-11b2-9321-001c23a90428:0
+          463: OK    : shape_463                                UUID: 32102df9-1ff1-11b2-9321-001c23a90428:1
+          464: OK    : shape_464                                UUID: 32102df9-1ff1-11b2-9321-001c23a90428:2
+          465: OK    : shape_465                                UUID: 321d488a-1ff1-11b2-9321-001c23a90428:0
+          466: OK    : shape_466                                UUID: 321d488a-1ff1-11b2-9321-001c23a90428:1
+          467: OK    : shape_467                                UUID: 321d488a-1ff1-11b2-9321-001c23a90428:2
+          468: OK    : shape_468                                UUID: 321d488a-1ff1-11b2-9321-001c23a90428:3
+          469: OK    : shape_469                                UUID: 321d488a-1ff1-11b2-9321-001c23a90428:4
+          470: OK    : shape_470                                UUID: 321dd9ad-1ff1-11b2-9321-001c23a90428:0
+          471: OK    : shape_471                                UUID: 321dd9ad-1ff1-11b2-9321-001c23a90428:1
+          472: OK    : shape_472                                UUID: 321dd9ad-1ff1-11b2-9321-001c23a90428:2
+          473: OK    : shape_473                                UUID: 3220100c-1ff1-11b2-9321-001c23a90428:0
+          474: OK    : shape_474                                UUID: 3220100c-1ff1-11b2-9321-001c23a90428:1
+          475: OK    : shape_475                                UUID: 3220100c-1ff1-11b2-9321-001c23a90428:2
+          476: OK    : shape_476                                UUID: 3220100c-1ff1-11b2-9321-001c23a90428:3
+          477: OK    : shape_477                                UUID: 3220100c-1ff1-11b2-9321-001c23a90428:4
+          478: OK    : shape_478                                UUID: 3220a35e-1ff1-11b2-9321-001c23a90428:0
+          479: OK    : shape_479                                UUID: 3220a35e-1ff1-11b2-9321-001c23a90428:1
+          480: OK    : shape_480                                UUID: 3220a35e-1ff1-11b2-9321-001c23a90428:2
+          481: OK    : shape_481                                UUID: 32238511-1ff1-11b2-9321-001c23a90428:0
+          482: OK    : shape_482                                UUID: 32238511-1ff1-11b2-9321-001c23a90428:1
+          483: OK    : shape_483                                UUID: 32238511-1ff1-11b2-9321-001c23a90428:2
+          484: OK    : shape_484                                UUID: 322650f0-1ff1-11b2-9321-001c23a90428:0
+          485: OK    : shape_485                                UUID: 322650f0-1ff1-11b2-9321-001c23a90428:1
+          486: OK    : shape_486                                UUID: 322650f0-1ff1-11b2-9321-001c23a90428:2
+          487: OK    : shape_487                                UUID: 322650f0-1ff1-11b2-9321-001c23a90428:3
+          488: OK    : shape_488                                UUID: 322650f0-1ff1-11b2-9321-001c23a90428:4
+          489: OK    : shape_489                                UUID: 3226ebe6-1ff1-11b2-9321-001c23a90428:0
+          490: OK    : shape_490                                UUID: 3226ebe6-1ff1-11b2-9321-001c23a90428:1
+          491: OK    : shape_491                                UUID: 3226ebe6-1ff1-11b2-9321-001c23a90428:2
+          492: OK    : shape_492                                UUID: 323268df-1ff1-11b2-9321-001c23a90428:0
+          493: OK    : shape_493                                UUID: 323268df-1ff1-11b2-9321-001c23a90428:1
+          494: OK    : shape_494                                UUID: 323268df-1ff1-11b2-9321-001c23a90428:2
+          495: OK    : shape_495                                UUID: 325ccc76-1ff1-11b2-9321-001c23a90428:1
+          496: OK    : shape_496                                UUID: 325ccc76-1ff1-11b2-9321-001c23a90428:2
+          497: OK    : shape_497                                UUID: 325d736d-1ff1-11b2-9321-001c23a90428:0
+          498: OK    : shape_498                                UUID: 325d736d-1ff1-11b2-9321-001c23a90428:2
+          499: OK    : shape_499                                UUID: 3262d8f9-1ff1-11b2-9321-001c23a90428:0
+          500: OK    : shape_500                                UUID: 3262d8f9-1ff1-11b2-9321-001c23a90428:1
+          501: OK    : shape_501                                UUID: 3262d8f9-1ff1-11b2-9321-001c23a90428:2
+          502: OK    : shape_502                                UUID: 3262d8f9-1ff1-11b2-9321-001c23a90428:3
+          503: OK    : shape_503                                UUID: 3262d8f9-1ff1-11b2-9321-001c23a90428:4
+          504: OK    : shape_504                                UUID: 32637ff0-1ff1-11b2-9321-001c23a90428:0
+          505: OK    : shape_505                                UUID: 32637ff0-1ff1-11b2-9321-001c23a90428:1
+          506: OK    : shape_506                                UUID: 32637ff0-1ff1-11b2-9321-001c23a90428:2
+          507: OK    : shape_507                                UUID: 326628e4-1ff1-11b2-9321-001c23a90428:0
+          508: OK    : shape_508                                UUID: 326628e4-1ff1-11b2-9321-001c23a90428:1
+          509: OK    : shape_509                                UUID: 326628e4-1ff1-11b2-9321-001c23a90428:2
+          510: OK    : shape_510                                UUID: 326982a1-1ff1-11b2-9321-001c23a90428:0
+          511: OK    : shape_511                                UUID: 326982a1-1ff1-11b2-9321-001c23a90428:1
+          512: OK    : shape_512                                UUID: 326982a1-1ff1-11b2-9321-001c23a90428:2
+          513: OK    : shape_513                                UUID: 326982a1-1ff1-11b2-9321-001c23a90428:3
+          514: OK    : shape_514                                UUID: 326982a1-1ff1-11b2-9321-001c23a90428:4
+          515: OK    : shape_515                                UUID: 326aafd2-1ff1-11b2-9321-001c23a90428:0
+          516: OK    : shape_516                                UUID: 326aafd2-1ff1-11b2-9321-001c23a90428:1
+          517: OK    : shape_517                                UUID: 326aafd2-1ff1-11b2-9321-001c23a90428:2
+          518: OK    : shape_518                                UUID: 327e2e32-1ff1-11b2-9321-001c23a90428:0
+          519: OK    : shape_519                                UUID: 327e2e32-1ff1-11b2-9321-001c23a90428:1
+          520: OK    : shape_520                                UUID: 327e2e32-1ff1-11b2-9321-001c23a90428:2
+          521: OK    : shape_521                                UUID: 3292c61f-1ff1-11b2-9321-001c23a90428:1
+          522: OK    : shape_522                                UUID: 3292c61f-1ff1-11b2-9321-001c23a90428:2
+          523: OK    : shape_523                                UUID: 32942d26-1ff1-11b2-9321-001c23a90428:2
+          524: OK    : shape_524                                UUID: 32971565-1ff1-11b2-9321-001c23a90428:0
+          525: OK    : shape_525                                UUID: 32971565-1ff1-11b2-9321-001c23a90428:1
+          526: OK    : shape_526                                UUID: 32971565-1ff1-11b2-9321-001c23a90428:2
+          527: OK    : shape_527                                UUID: 32971565-1ff1-11b2-9321-001c23a90428:3
+          528: OK    : shape_528                                UUID: 32971565-1ff1-11b2-9321-001c23a90428:4
+          529: OK    : shape_529                                UUID: 32982bab-1ff1-11b2-9321-001c23a90428:0
+          530: OK    : shape_530                                UUID: 32982bab-1ff1-11b2-9321-001c23a90428:1
+          531: OK    : shape_531                                UUID: 32982bab-1ff1-11b2-9321-001c23a90428:2
+          532: OK    : shape_532                                UUID: 329b70ac-1ff1-11b2-9321-001c23a90428:0
+          533: OK    : shape_533                                UUID: 329b70ac-1ff1-11b2-9321-001c23a90428:1
+          534: OK    : shape_534                                UUID: 329b70ac-1ff1-11b2-9321-001c23a90428:2
+          535: OK    : shape_535                                UUID: 329e671b-1ff1-11b2-9321-001c23a90428:0
+          536: OK    : shape_536                                UUID: 329e671b-1ff1-11b2-9321-001c23a90428:1
+          537: OK    : shape_537                                UUID: 329e671b-1ff1-11b2-9321-001c23a90428:2
+          538: OK    : shape_538                                UUID: 329e671b-1ff1-11b2-9321-001c23a90428:3
+          539: OK    : shape_539                                UUID: 329e671b-1ff1-11b2-9321-001c23a90428:4
+          540: OK    : shape_540                                UUID: 329e671b-1ff1-11b2-9321-001c23a90428:5
+          541: OK    : shape_541                                UUID: 329ef610-1ff1-11b2-9321-001c23a90428:0
+          542: OK    : shape_542                                UUID: 329ef610-1ff1-11b2-9321-001c23a90428:1
+          543: OK    : shape_543                                UUID: 329ef610-1ff1-11b2-9321-001c23a90428:2
+          544: OK    : shape_544                                UUID: 32ad651a-1ff1-11b2-9321-001c23a90428:0
+          545: OK    : shape_545                                UUID: 32ad651a-1ff1-11b2-9321-001c23a90428:1
+          546: OK    : shape_546                                UUID: 32ad651a-1ff1-11b2-9321-001c23a90428:2
+          547: OK    : shape_547                                UUID: 32b21122-1ff1-11b2-9321-001c23a90428:0
+          548: OK    : shape_548                                UUID: 32b21122-1ff1-11b2-9321-001c23a90428:1
+          549: OK    : shape_549                                UUID: 32b21122-1ff1-11b2-9321-001c23a90428:2
+          550: OK    : shape_550                                UUID: 32ca7562-1ff1-11b2-9321-001c23a90428:1
+          551: OK    : shape_551                                UUID: 32ca7562-1ff1-11b2-9321-001c23a90428:2
+          552: OK    : shape_552                                UUID: 32cafb9b-1ff1-11b2-9321-001c23a90428:2
+          553: OK    : shape_553                                UUID: 32cdd7d9-1ff1-11b2-9321-001c23a90428:0
+          554: OK    : shape_554                                UUID: 32cdd7d9-1ff1-11b2-9321-001c23a90428:1
+          555: OK    : shape_555                                UUID: 32cdd7d9-1ff1-11b2-9321-001c23a90428:2
+          556: OK    : shape_556                                UUID: 32cdd7d9-1ff1-11b2-9321-001c23a90428:3
+          557: OK    : shape_557                                UUID: 32cdd7d9-1ff1-11b2-9321-001c23a90428:4
+          558: OK    : shape_558                                UUID: 32ce74fe-1ff1-11b2-9321-001c23a90428:0
+          559: OK    : shape_559                                UUID: 32ce74fe-1ff1-11b2-9321-001c23a90428:1
+          560: OK    : shape_560                                UUID: 32ce74fe-1ff1-11b2-9321-001c23a90428:2
+          561: OK    : shape_561                                UUID: 32d15c26-1ff1-11b2-9321-001c23a90428:0
+          562: OK    : shape_562                                UUID: 32d15c26-1ff1-11b2-9321-001c23a90428:1
+          563: OK    : shape_563                                UUID: 32d15c26-1ff1-11b2-9321-001c23a90428:2
+          564: OK    : shape_564                                UUID: 32d56020-1ff1-11b2-9321-001c23a90428:0
+          565: OK    : shape_565                                UUID: 32d56020-1ff1-11b2-9321-001c23a90428:1
+          566: OK    : shape_566                                UUID: 32d56020-1ff1-11b2-9321-001c23a90428:2
+          567: OK    : shape_567                                UUID: 32d56020-1ff1-11b2-9321-001c23a90428:3
+          568: OK    : shape_568                                UUID: 32d56020-1ff1-11b2-9321-001c23a90428:4
+          569: OK    : shape_569                                UUID: 32d6c3e1-1ff1-11b2-9321-001c23a90428:0
+          570: OK    : shape_570                                UUID: 32d6c3e1-1ff1-11b2-9321-001c23a90428:1
+          571: OK    : shape_571                                UUID: 32d6c3e1-1ff1-11b2-9321-001c23a90428:2
+          572: OK    : shape_572                                UUID: 32e8884a-1ff1-11b2-9321-001c23a90428:0
+          573: OK    : shape_573                                UUID: 32e8884a-1ff1-11b2-9321-001c23a90428:1
+          574: OK    : shape_574                                UUID: 32e8884a-1ff1-11b2-9321-001c23a90428:2
+          575: OK    : shape_575                                UUID: 32f4b2c6-1ff1-11b2-9321-001c23a90428:1
+          576: OK    : shape_576                                UUID: 32f4b2c6-1ff1-11b2-9321-001c23a90428:2
+          577: OK    : shape_577                                UUID: 32f52cff-1ff1-11b2-9321-001c23a90428:2
+          578: OK    : shape_578                                UUID: 32f998a5-1ff1-11b2-9321-001c23a90428:0
+          579: OK    : shape_579                                UUID: 32f998a5-1ff1-11b2-9321-001c23a90428:1
+          580: OK    : shape_580                                UUID: 32f998a5-1ff1-11b2-9321-001c23a90428:2
+          581: OK    : shape_581                                UUID: 32f998a5-1ff1-11b2-9321-001c23a90428:3
+          582: OK    : shape_582                                UUID: 32f998a5-1ff1-11b2-9321-001c23a90428:4
+          583: OK    : shape_583                                UUID: 32fa6fa0-1ff1-11b2-9321-001c23a90428:0
+          584: OK    : shape_584                                UUID: 32fa6fa0-1ff1-11b2-9321-001c23a90428:1
+          585: OK    : shape_585                                UUID: 32fa6fa0-1ff1-11b2-9321-001c23a90428:2
+          586: OK    : shape_586                                UUID: 32fcdebd-1ff1-11b2-9321-001c23a90428:0
+          587: OK    : shape_587                                UUID: 32fcdebd-1ff1-11b2-9321-001c23a90428:1
+          588: OK    : shape_588                                UUID: 32fcdebd-1ff1-11b2-9321-001c23a90428:2
+          589: OK    : shape_589                                UUID: 32ff846b-1ff1-11b2-9321-001c23a90428:0
+          590: OK    : shape_590                                UUID: 32ff846b-1ff1-11b2-9321-001c23a90428:1
+          591: OK    : shape_591                                UUID: 32ff846b-1ff1-11b2-9321-001c23a90428:2
+          592: OK    : shape_592                                UUID: 330c4468-1ff1-11b2-9321-001c23a90428:0
+          593: OK    : shape_593                                UUID: 330c4468-1ff1-11b2-9321-001c23a90428:1
+          594: OK    : shape_594                                UUID: 330c4468-1ff1-11b2-9321-001c23a90428:2
+          595: OK    : shape_595                                UUID: 330c4468-1ff1-11b2-9321-001c23a90428:3
+          596: OK    : shape_596                                UUID: 330c4468-1ff1-11b2-9321-001c23a90428:4
+          597: OK    : shape_597                                UUID: 330d1fc1-1ff1-11b2-9321-001c23a90428:0
+          598: OK    : shape_598                                UUID: 330d1fc1-1ff1-11b2-9321-001c23a90428:1
+          599: OK    : shape_599                                UUID: 330d1fc1-1ff1-11b2-9321-001c23a90428:2
+          600: OK    : shape_600                                UUID: 331e5764-1ff1-11b2-9321-001c23a90428:0
+          601: OK    : shape_601                                UUID: 331e5764-1ff1-11b2-9321-001c23a90428:1
+          602: OK    : shape_602                                UUID: 331e5764-1ff1-11b2-9321-001c23a90428:2
+          603: OK    : shape_603                                UUID: 331e5764-1ff1-11b2-9321-001c23a90428:3
+          604: OK    : shape_604                                UUID: 331e5764-1ff1-11b2-9321-001c23a90428:4
+          605: OK    : shape_605                                UUID: 331ef371-1ff1-11b2-9321-001c23a90428:0
+          606: OK    : shape_606                                UUID: 331ef371-1ff1-11b2-9321-001c23a90428:1
+          607: OK    : shape_607                                UUID: 331ef371-1ff1-11b2-9321-001c23a90428:2
+          608: OK    : shape_608                                UUID: 3324a679-1ff1-11b2-9321-001c23a90428:1
+          609: OK    : shape_609                                UUID: 3324a679-1ff1-11b2-9321-001c23a90428:2
+          610: OK    : shape_610                                UUID: 33273ab1-1ff1-11b2-9321-001c23a90428:0
+          611: OK    : shape_611                                UUID: 33273ab1-1ff1-11b2-9321-001c23a90428:1
+          612: OK    : shape_612                                UUID: 33273ab1-1ff1-11b2-9321-001c23a90428:2
+          613: OK    : shape_613                                UUID: 33273ab1-1ff1-11b2-9321-001c23a90428:3
+          614: OK    : shape_614                                UUID: 33283268-1ff1-11b2-9321-001c23a90428:0
+          615: OK    : shape_615                                UUID: 33283268-1ff1-11b2-9321-001c23a90428:1
+          616: OK    : shape_616                                UUID: 33283268-1ff1-11b2-9321-001c23a90428:2
+          617: OK    : shape_617                                UUID: 33336644-1ff1-11b2-9321-001c23a90428:0
+          618: OK    : shape_618                                UUID: 33336644-1ff1-11b2-9321-001c23a90428:1
+          619: OK    : shape_619                                UUID: 33336644-1ff1-11b2-9321-001c23a90428:2
+          620: OK    : shape_620                                UUID: 333379e9-1ff1-11b2-9321-001c23a90428:0
+          621: OK    : shape_621                                UUID: 333379e9-1ff1-11b2-9321-001c23a90428:1
+          622: OK    : shape_622                                UUID: 333379e9-1ff1-11b2-9321-001c23a90428:2
+          623: OK    : shape_623                                UUID: 33363452-1ff1-11b2-9321-001c23a90428:0
+          624: OK    : shape_624                                UUID: 33363452-1ff1-11b2-9321-001c23a90428:1
+          625: OK    : shape_625                                UUID: 33363452-1ff1-11b2-9321-001c23a90428:2
+          626: OK    : shape_626                                UUID: 333941ac-1ff1-11b2-9321-001c23a90428:0
+          627: OK    : shape_627                                UUID: 333941ac-1ff1-11b2-9321-001c23a90428:1
+          628: OK    : shape_628                                UUID: 333941ac-1ff1-11b2-9321-001c23a90428:2
+          629: OK    : shape_629                                UUID: 333941ac-1ff1-11b2-9321-001c23a90428:3
+          630: OK    : shape_630                                UUID: 333ab4b4-1ff1-11b2-9321-001c23a90428:0
+          631: OK    : shape_631                                UUID: 333ab4b4-1ff1-11b2-9321-001c23a90428:1
+          632: OK    : shape_632                                UUID: 333ab4b4-1ff1-11b2-9321-001c23a90428:2
+          633: OK    : shape_633                                UUID: 333c7308-1ff1-11b2-9321-001c23a90428:0
+          634: OK    : shape_634                                UUID: 333c7308-1ff1-11b2-9321-001c23a90428:1
+          635: OK    : shape_635                                UUID: 333c7308-1ff1-11b2-9321-001c23a90428:2
+          636: OK    : shape_636                                UUID: 333c87c4-1ff1-11b2-9321-001c23a90428:0
+          637: OK    : shape_637                                UUID: 333c87c4-1ff1-11b2-9321-001c23a90428:1
+          638: OK    : shape_638                                UUID: 333c87c4-1ff1-11b2-9321-001c23a90428:2
+          639: OK    : shape_639                                UUID: 3352559d-1ff1-11b2-9321-001c23a90428:0
+          640: OK    : shape_640                                UUID: 3352559d-1ff1-11b2-9321-001c23a90428:1
+          641: OK    : shape_641                                UUID: 3352559d-1ff1-11b2-9321-001c23a90428:2
+          642: OK    : shape_642                                UUID: 3352559d-1ff1-11b2-9321-001c23a90428:3
+          643: OK    : shape_643                                UUID: 3352559d-1ff1-11b2-9321-001c23a90428:4
+          644: OK    : shape_644                                UUID: 33551f4d-1ff1-11b2-9321-001c23a90428:0
+          645: OK    : shape_645                                UUID: 33551f4d-1ff1-11b2-9321-001c23a90428:1
+          646: OK    : shape_646                                UUID: 33551f4d-1ff1-11b2-9321-001c23a90428:2
+          647: OK    : shape_647                                UUID: 335db1d9-1ff1-11b2-9321-001c23a90428:0
+          648: OK    : shape_648                                UUID: 335db1d9-1ff1-11b2-9321-001c23a90428:1
+          649: OK    : shape_649                                UUID: 335db1d9-1ff1-11b2-9321-001c23a90428:2
+          650: OK    : shape_650                                UUID: 337d0c23-1ff1-11b2-9321-001c23a90428:0
+          651: OK    : shape_651                                UUID: 337d0c23-1ff1-11b2-9321-001c23a90428:1
+          652: OK    : shape_652                                UUID: 337d0c23-1ff1-11b2-9321-001c23a90428:2
+          653: OK    : shape_653                                UUID: 527aad9f-1ff1-11b2-9321-001c23a90428:0
+          654: OK    : shape_654                                UUID: 527aad9f-1ff1-11b2-9321-001c23a90428:1
+          655: OK    : shape_655                                UUID: 527aad9f-1ff1-11b2-9321-001c23a90428:3
+          656: OK    : shape_656                                UUID: 527aad9f-1ff1-11b2-9321-001c23a90428:4
+          657: OK    : shape_657                                UUID: 52825c17-1ff1-11b2-9321-001c23a90428:0
+          658: OK    : shape_658                                UUID: 52825c17-1ff1-11b2-9321-001c23a90428:1
+          659: OK    : shape_659                                UUID: 52825c17-1ff1-11b2-9321-001c23a90428:2
+          660: OK    : shape_660                                UUID: 52825c17-1ff1-11b2-9321-001c23a90428:3
+          661: OK    : shape_661                                UUID: 52825c17-1ff1-11b2-9321-001c23a90428:4
+          662: OK    : shape_662                                UUID: 52825c17-1ff1-11b2-9321-001c23a90428:5
+          663: OK    : shape_663                                UUID: 52825c17-1ff1-11b2-9321-001c23a90428:6
+          664: OK    : shape_664                                UUID: 52825c17-1ff1-11b2-9321-001c23a90428:7
+          665: OK    : shape_665                                UUID: 52825c17-1ff1-11b2-9321-001c23a90428:8
+          666: OK    : shape_666                                UUID: 5284b21b-1ff1-11b2-9321-001c23a90428:0
+          667: OK    : shape_667                                UUID: 5284b21b-1ff1-11b2-9321-001c23a90428:1
+          668: OK    : shape_668                                UUID: 5284b21b-1ff1-11b2-9321-001c23a90428:4
+          669: OK    : shape_669                                UUID: 5284b21b-1ff1-11b2-9321-001c23a90428:5
+          670: OK    : shape_670                                UUID: 5289ce8a-1ff1-11b2-9321-001c23a90428:0
+          671: OK    : shape_671                                UUID: 5289ce8a-1ff1-11b2-9321-001c23a90428:2
+          672: OK    : shape_672                                UUID: 5289ce8a-1ff1-11b2-9321-001c23a90428:3
+          673: OK    : shape_673                                UUID: 5289ce8a-1ff1-11b2-9321-001c23a90428:6
+          674: OK    : shape_674                                UUID: 5289ce8a-1ff1-11b2-9321-001c23a90428:7
+          675: OK    : shape_675                                UUID: 5290b894-1ff1-11b2-9321-001c23a90428:0
+          676: OK    : shape_676                                UUID: 5290b894-1ff1-11b2-9321-001c23a90428:2
+          677: OK    : shape_677                                UUID: 5290b894-1ff1-11b2-9321-001c23a90428:3
+          678: OK    : shape_678                                UUID: 5290b894-1ff1-11b2-9321-001c23a90428:4
+          679: OK    : shape_679                                UUID: 5294330e-1ff1-11b2-9321-001c23a90428:0
+          680: OK    : shape_680                                UUID: 5294330e-1ff1-11b2-9321-001c23a90428:1
+          681: OK    : shape_681                                UUID: 5294330e-1ff1-11b2-9321-001c23a90428:2
+          682: OK    : shape_682                                UUID: 5295e8a7-1ff1-11b2-9321-001c23a90428:0
+          683: OK    : shape_683                                UUID: 5295e8a7-1ff1-11b2-9321-001c23a90428:1
+          684: OK    : shape_684                                UUID: 5295e8a7-1ff1-11b2-9321-001c23a90428:2
+          685: OK    : shape_685                                UUID: 5295e8a7-1ff1-11b2-9321-001c23a90428:3
+          686: OK    : shape_686                                UUID: 5295e8a7-1ff1-11b2-9321-001c23a90428:4
+          687: OK    : shape_687                                UUID: 5295e8a7-1ff1-11b2-9321-001c23a90428:5
+          688: OK    : shape_688                                UUID: 5295e8a7-1ff1-11b2-9321-001c23a90428:6
+          689: OK    : shape_689                                UUID: 5295e8a7-1ff1-11b2-9321-001c23a90428:7
+          690: OK    : shape_690                                UUID: 52a816ec-1ff1-11b2-9321-001c23a90428:0
+          691: OK    : shape_691                                UUID: 52a816ec-1ff1-11b2-9321-001c23a90428:1
+          692: OK    : shape_692                                UUID: 52a816ec-1ff1-11b2-9321-001c23a90428:2
+          693: OK    : shape_693                                UUID: 52a816ec-1ff1-11b2-9321-001c23a90428:3
+          694: OK    : shape_694                                UUID: 52a816ec-1ff1-11b2-9321-001c23a90428:4
+          695: OK    : shape_695                                UUID: 52a816ec-1ff1-11b2-9321-001c23a90428:5
+          696: OK    : shape_696                                UUID: 52a816ec-1ff1-11b2-9321-001c23a90428:6
+          697: OK    : shape_697                                UUID: 52a816ec-1ff1-11b2-9321-001c23a90428:7
+          698: OK    : shape_698                                UUID: 52a8d29e-1ff1-11b2-9321-001c23a90428:1
+          699: OK    : shape_699                                UUID: 52a8d29e-1ff1-11b2-9321-001c23a90428:2
+          700: OK    : shape_700                                UUID: 52a8d29e-1ff1-11b2-9321-001c23a90428:4
+          701: OK    : shape_701                                UUID: 52ab2216-1ff1-11b2-9321-001c23a90428:0
+          702: OK    : shape_702                                UUID: 52ab2216-1ff1-11b2-9321-001c23a90428:1
+          703: OK    : shape_703                                UUID: 52ab2216-1ff1-11b2-9321-001c23a90428:2
+          704: OK    : shape_704                                UUID: 52ae525b-1ff1-11b2-9321-001c23a90428:0
+          705: OK    : shape_705                                UUID: 52ae525b-1ff1-11b2-9321-001c23a90428:2
+          706: OK    : shape_706                                UUID: 52ae525b-1ff1-11b2-9321-001c23a90428:5
+          707: OK    : shape_707                                UUID: 52ae525b-1ff1-11b2-9321-001c23a90428:6
+          708: OK    : shape_708                                UUID: 52b364f8-1ff1-11b2-9321-001c23a90428:0
+          709: OK    : shape_709                                UUID: 52b364f8-1ff1-11b2-9321-001c23a90428:1
+          710: OK    : shape_710                                UUID: 52b364f8-1ff1-11b2-9321-001c23a90428:2
+          711: OK    : shape_711                                UUID: 52b364f8-1ff1-11b2-9321-001c23a90428:3
+          712: OK    : shape_712                                UUID: 52b364f8-1ff1-11b2-9321-001c23a90428:4
+          713: OK    : shape_713                                UUID: 52b364f8-1ff1-11b2-9321-001c23a90428:5
+          714: OK    : shape_714                                UUID: 52b5be42-1ff1-11b2-9321-001c23a90428:0
+          715: OK    : shape_715                                UUID: 52b5be42-1ff1-11b2-9321-001c23a90428:1
+          716: OK    : shape_716                                UUID: 52b5be42-1ff1-11b2-9321-001c23a90428:2
+          717: OK    : shape_717                                UUID: 52b5be42-1ff1-11b2-9321-001c23a90428:3
+          718: OK    : shape_718                                UUID: 52b5be42-1ff1-11b2-9321-001c23a90428:4
+          719: OK    : shape_719                                UUID: 52c5bee3-1ff1-11b2-9321-001c23a90428:2
+          720: OK    : shape_720                                UUID: 52c5bee3-1ff1-11b2-9321-001c23a90428:3
+          721: OK    : shape_721                                UUID: 52c5bee3-1ff1-11b2-9321-001c23a90428:6
+          722: OK    : shape_722                                UUID: 52c8c8f6-1ff1-11b2-9321-001c23a90428:0
+          723: OK    : shape_723                                UUID: 52c8c8f6-1ff1-11b2-9321-001c23a90428:1
+          724: OK    : shape_724                                UUID: 52c8c8f6-1ff1-11b2-9321-001c23a90428:2
+          725: OK    : shape_725                                UUID: 52c8c8f6-1ff1-11b2-9321-001c23a90428:3
+          726: OK    : shape_726                                UUID: 52c8c8f6-1ff1-11b2-9321-001c23a90428:4
+          727: OK    : shape_727                                UUID: 52ca3f44-1ff1-11b2-9321-001c23a90428:1
+          728: OK    : shape_728                                UUID: 52ca3f44-1ff1-11b2-9321-001c23a90428:2
+          729: OK    : shape_729                                UUID: 52ca3f44-1ff1-11b2-9321-001c23a90428:3
+          730: OK    : shape_730                                UUID: 52ca3f44-1ff1-11b2-9321-001c23a90428:5
+          731: OK    : shape_731                                UUID: 52ca3f44-1ff1-11b2-9321-001c23a90428:6
+          732: OK    : shape_732                                UUID: 52dcee4d-1ff1-11b2-9321-001c23a90428:0
+          733: OK    : shape_733                                UUID: 52dcee4d-1ff1-11b2-9321-001c23a90428:1
+          734: OK    : shape_734                                UUID: 52dcee4d-1ff1-11b2-9321-001c23a90428:2
+          735: OK    : shape_735                                UUID: 52dcee4d-1ff1-11b2-9321-001c23a90428:3
+          736: OK    : shape_736                                UUID: 52dcee4d-1ff1-11b2-9321-001c23a90428:4
+          737: OK    : shape_737                                UUID: 52dcee4d-1ff1-11b2-9321-001c23a90428:5
+          738: OK    : shape_738                                UUID: 52df9970-1ff1-11b2-9321-001c23a90428:0
+          739: OK    : shape_739                                UUID: 52df9970-1ff1-11b2-9321-001c23a90428:1
+          740: OK    : shape_740                                UUID: 52df9970-1ff1-11b2-9321-001c23a90428:2
+          741: OK    : shape_741                                UUID: 52df9970-1ff1-11b2-9321-001c23a90428:3
+          742: OK    : shape_742                                UUID: 52df9970-1ff1-11b2-9321-001c23a90428:4
+          743: OK    : shape_743                                UUID: 52df9970-1ff1-11b2-9321-001c23a90428:5
+          744: OK    : shape_744                                UUID: 52df9970-1ff1-11b2-9321-001c23a90428:6
+          745: OK    : shape_745                                UUID: 52df9970-1ff1-11b2-9321-001c23a90428:7
+          746: OK    : shape_746                                UUID: 52e1eb17-1ff1-11b2-9321-001c23a90428:0
+          747: OK    : shape_747                                UUID: 52e1eb17-1ff1-11b2-9321-001c23a90428:1
+          748: OK    : shape_748                                UUID: 52e1eb17-1ff1-11b2-9321-001c23a90428:2
+          749: OK    : shape_749                                UUID: 52e1eb17-1ff1-11b2-9321-001c23a90428:3
+          750: OK    : shape_750                                UUID: 52e1eb17-1ff1-11b2-9321-001c23a90428:4
+          751: OK    : shape_751                                UUID: 52e1eb17-1ff1-11b2-9321-001c23a90428:5
+          752: OK    : shape_752                                UUID: 52f14c64-1ff1-11b2-9321-001c23a90428:0
+          753: OK    : shape_753                                UUID: 52f14c64-1ff1-11b2-9321-001c23a90428:1
+          754: OK    : shape_754                                UUID: 52f14c64-1ff1-11b2-9321-001c23a90428:2
+          755: OK    : shape_755                                UUID: 52f14c64-1ff1-11b2-9321-001c23a90428:3
+          756: OK    : shape_756                                UUID: 52f14c64-1ff1-11b2-9321-001c23a90428:4
+          757: OK    : shape_757                                UUID: 53007dad-1ff1-11b2-9321-001c23a90428:0
+          758: OK    : shape_758                                UUID: 53007dad-1ff1-11b2-9321-001c23a90428:1
+          759: OK    : shape_759                                UUID: 53007dad-1ff1-11b2-9321-001c23a90428:2
+          760: OK    : shape_760                                UUID: 53007dad-1ff1-11b2-9321-001c23a90428:3
+          761: OK    : shape_761                                UUID: 53007dad-1ff1-11b2-9321-001c23a90428:4
+          762: OK    : shape_762                                UUID: 53007dad-1ff1-11b2-9321-001c23a90428:5
+          763: OK    : shape_763                                UUID: 53013731-1ff1-11b2-9321-001c23a90428:0
+          764: OK    : shape_764                                UUID: 53013731-1ff1-11b2-9321-001c23a90428:1
+          765: OK    : shape_765                                UUID: 53013731-1ff1-11b2-9321-001c23a90428:2
+          766: OK    : shape_766                                UUID: 53013731-1ff1-11b2-9321-001c23a90428:3
+          767: OK    : shape_767                                UUID: 53013731-1ff1-11b2-9321-001c23a90428:4
+          768: OK    : shape_768                                UUID: 53013731-1ff1-11b2-9321-001c23a90428:5
+          769: OK    : shape_769                                UUID: 5301f62a-1ff1-11b2-9321-001c23a90428:0
+          770: OK    : shape_770                                UUID: 5301f62a-1ff1-11b2-9321-001c23a90428:1
+          771: OK    : shape_771                                UUID: 5301f62a-1ff1-11b2-9321-001c23a90428:2
+          772: OK    : shape_772                                UUID: 5301f62a-1ff1-11b2-9321-001c23a90428:3
+          773: OK    : shape_773                                UUID: 5301f62a-1ff1-11b2-9321-001c23a90428:4
+          774: OK    : shape_774                                UUID: 5301f62a-1ff1-11b2-9321-001c23a90428:5
+          775: OK    : shape_775                                UUID: 5301f62a-1ff1-11b2-9321-001c23a90428:6
+          776: OK    : shape_776                                UUID: 5301f62a-1ff1-11b2-9321-001c23a90428:7
+          777: OK    : shape_777                                UUID: 530bbb5b-1ff1-11b2-9321-001c23a90428:0
+          778: OK    : shape_778                                UUID: 530bbb5b-1ff1-11b2-9321-001c23a90428:1
+          779: OK    : shape_779                                UUID: 530bbb5b-1ff1-11b2-9321-001c23a90428:2
+          780: OK    : shape_780                                UUID: 530bbb5b-1ff1-11b2-9321-001c23a90428:3
+          781: OK    : shape_781                                UUID: 530bbb5b-1ff1-11b2-9321-001c23a90428:4
+          782: OK    : shape_782                                UUID: 530bbb5b-1ff1-11b2-9321-001c23a90428:5
+          783: OK    : shape_783                                UUID: 53108b66-1ff1-11b2-9321-001c23a90428:0
+          784: OK    : shape_784                                UUID: 53108b66-1ff1-11b2-9321-001c23a90428:2
+          785: OK    : shape_785                                UUID: 53108b66-1ff1-11b2-9321-001c23a90428:3
+          786: OK    : shape_786                                UUID: 53108b66-1ff1-11b2-9321-001c23a90428:4
+          787: OK    : shape_787                                UUID: 5314dbc4-1ff1-11b2-9321-001c23a90428:0
+          788: OK    : shape_788                                UUID: 5314dbc4-1ff1-11b2-9321-001c23a90428:1
+          789: OK    : shape_789                                UUID: 5314dbc4-1ff1-11b2-9321-001c23a90428:2
+          790: OK    : shape_790                                UUID: 5314dbc4-1ff1-11b2-9321-001c23a90428:3
+          791: OK    : shape_791                                UUID: 5314dbc4-1ff1-11b2-9321-001c23a90428:4
+          792: OK    : shape_792                                UUID: 5314dbc4-1ff1-11b2-9321-001c23a90428:5
+          793: OK    : shape_793                                UUID: 53214245-1ff1-11b2-9321-001c23a90428:0
+          794: OK    : shape_794                                UUID: 53214245-1ff1-11b2-9321-001c23a90428:2
+          795: OK    : shape_795                                UUID: 53214245-1ff1-11b2-9321-001c23a90428:3
+          796: OK    : shape_796                                UUID: 53214245-1ff1-11b2-9321-001c23a90428:4
+          797: OK    : shape_797                                UUID: 53214245-1ff1-11b2-9321-001c23a90428:5
+          798: OK    : shape_798                                UUID: 53237f30-1ff1-11b2-9321-001c23a90428:0
+          799: OK    : shape_799                                UUID: 53237f30-1ff1-11b2-9321-001c23a90428:1
+          800: OK    : shape_800                                UUID: 53237f30-1ff1-11b2-9321-001c23a90428:2
+          801: OK    : shape_801                                UUID: 53237f30-1ff1-11b2-9321-001c23a90428:3
+          802: OK    : shape_802                                UUID: 53237f30-1ff1-11b2-9321-001c23a90428:4
+          803: OK    : shape_803                                UUID: 53237f30-1ff1-11b2-9321-001c23a90428:5
+          804: OK    : shape_804                                UUID: 5325ca4a-1ff1-11b2-9321-001c23a90428:0
+          805: OK    : shape_805                                UUID: 5325ca4a-1ff1-11b2-9321-001c23a90428:1
+          806: OK    : shape_806                                UUID: 5325ca4a-1ff1-11b2-9321-001c23a90428:2
+          807: OK    : shape_807                                UUID: 5325ca4a-1ff1-11b2-9321-001c23a90428:3
+          808: OK    : shape_808                                UUID: 5325ca4a-1ff1-11b2-9321-001c23a90428:4
+          809: OK    : shape_809                                UUID: 5325ca4a-1ff1-11b2-9321-001c23a90428:5
+          810: OK    : shape_810                                UUID: 532b48f0-1ff1-11b2-9321-001c23a90428:0
+          811: OK    : shape_811                                UUID: 532b48f0-1ff1-11b2-9321-001c23a90428:1
+          812: OK    : shape_812                                UUID: 532b48f0-1ff1-11b2-9321-001c23a90428:2
+          813: OK    : shape_813                                UUID: 532b48f0-1ff1-11b2-9321-001c23a90428:3
+          814: OK    : shape_814                                UUID: 532b48f0-1ff1-11b2-9321-001c23a90428:4
+          815: OK    : shape_815                                UUID: 532b48f0-1ff1-11b2-9321-001c23a90428:5
+          816: OK    : shape_816                                UUID: 532b48f0-1ff1-11b2-9321-001c23a90428:6
+          817: OK    : shape_817                                UUID: 532b48f0-1ff1-11b2-9321-001c23a90428:7
+          818: OK    : shape_818                                UUID: 532f3a5c-1ff1-11b2-9321-001c23a90428:0
+          819: OK    : shape_819                                UUID: 532f3a5c-1ff1-11b2-9321-001c23a90428:1
+          820: OK    : shape_820                                UUID: 532f3a5c-1ff1-11b2-9321-001c23a90428:2
+          821: OK    : shape_821                                UUID: 532f3a5c-1ff1-11b2-9321-001c23a90428:3
+          822: OK    : shape_822                                UUID: 532f3a5c-1ff1-11b2-9321-001c23a90428:4
+          823: OK    : shape_823                                UUID: 532f3a5c-1ff1-11b2-9321-001c23a90428:5
+          824: OK    : shape_824                                UUID: 532f3a5c-1ff1-11b2-9321-001c23a90428:6
+          825: OK    : shape_825                                UUID: 5330ecb0-1ff1-11b2-9321-001c23a90428:0
+          826: OK    : shape_826                                UUID: 5330ecb0-1ff1-11b2-9321-001c23a90428:1
+          827: OK    : shape_827                                UUID: 5330ecb0-1ff1-11b2-9321-001c23a90428:2
+          828: OK    : shape_828                                UUID: 5330ecb0-1ff1-11b2-9321-001c23a90428:3
+          829: OK    : shape_829                                UUID: 5330ecb0-1ff1-11b2-9321-001c23a90428:4
+          830: OK    : shape_830                                UUID: 5330ecb0-1ff1-11b2-9321-001c23a90428:5
+          831: OK    : shape_831                                UUID: 5330ecb0-1ff1-11b2-9321-001c23a90428:6
+          832: OK    : shape_832                                UUID: 53325fb8-1ff1-11b2-9321-001c23a90428:4
+          833: OK    : shape_833                                UUID: 5338949b-1ff1-11b2-9321-001c23a90428:0
+          834: OK    : shape_834                                UUID: 5338949b-1ff1-11b2-9321-001c23a90428:1
+          835: OK    : shape_835                                UUID: 5338949b-1ff1-11b2-9321-001c23a90428:2
+          836: OK    : shape_836                                UUID: 5338949b-1ff1-11b2-9321-001c23a90428:3
+          837: OK    : shape_837                                UUID: 5338949b-1ff1-11b2-9321-001c23a90428:4
+          838: OK    : shape_838                                UUID: 5338949b-1ff1-11b2-9321-001c23a90428:5
+          839: OK    : shape_839                                UUID: 5341c67a-1ff1-11b2-9321-001c23a90428:0
+          840: OK    : shape_840                                UUID: 5341c67a-1ff1-11b2-9321-001c23a90428:1
+          841: OK    : shape_841                                UUID: 5341c67a-1ff1-11b2-9321-001c23a90428:2
+          842: OK    : shape_842                                UUID: 5341c67a-1ff1-11b2-9321-001c23a90428:3
+          843: OK    : shape_843                                UUID: 5341c67a-1ff1-11b2-9321-001c23a90428:4
+          844: OK    : shape_844                                UUID: 55324a54-1ff1-11b2-9321-001c23a90428:0
+          845: OK    : shape_845                                UUID: 55324a54-1ff1-11b2-9321-001c23a90428:2
+          846: OK    : shape_846                                UUID: 55324a54-1ff1-11b2-9321-001c23a90428:3
+          847: OK    : shape_847                                UUID: 55324a54-1ff1-11b2-9321-001c23a90428:4
+          848: OK    : shape_848                                UUID: 55324a54-1ff1-11b2-9321-001c23a90428:6
+          849: OK    : shape_849                                UUID: 55331320-1ff1-11b2-9321-001c23a90428:0
+          850: OK    : shape_850                                UUID: 553b7a04-1ff1-11b2-9321-001c23a90428:0
+          851: OK    : shape_851                                UUID: 553b7a04-1ff1-11b2-9321-001c23a90428:1
+          852: OK    : shape_852                                UUID: 553b7a04-1ff1-11b2-9321-001c23a90428:2
+          853: OK    : shape_853                                UUID: 5541822a-1ff1-11b2-9321-001c23a90428:0
+          854: OK    : shape_854                                UUID: 554843d4-1ff1-11b2-9321-001c23a90428:0
+          855: OK    : shape_855                                UUID: 554843d4-1ff1-11b2-9321-001c23a90428:1
+          856: OK    : shape_856                                UUID: 554843d4-1ff1-11b2-9321-001c23a90428:2
+          857: OK    : shape_857                                UUID: 554c2eb4-1ff1-11b2-9321-001c23a90428:0
+          858: OK    : shape_858                                UUID: 554c2eb4-1ff1-11b2-9321-001c23a90428:1
+          859: OK    : shape_859                                UUID: 554c2eb4-1ff1-11b2-9321-001c23a90428:3
+          860: OK    : shape_860                                UUID: 554c2eb4-1ff1-11b2-9321-001c23a90428:5
+          861: OK    : shape_861                                UUID: 554c2eb4-1ff1-11b2-9321-001c23a90428:6
+          862: OK    : shape_862                                UUID: 554db561-1ff1-11b2-9321-001c23a90428:0
+          863: OK    : shape_863                                UUID: 554db561-1ff1-11b2-9321-001c23a90428:2
+          864: OK    : shape_864                                UUID: 55500b65-1ff1-11b2-9321-001c23a90428:1
+          865: OK    : shape_865                                UUID: 55500b65-1ff1-11b2-9321-001c23a90428:2
+          866: OK    : shape_866                                UUID: 55500b65-1ff1-11b2-9321-001c23a90428:3
+          867: OK    : shape_867                                UUID: 55500b65-1ff1-11b2-9321-001c23a90428:7
+          868: OK    : shape_868                                UUID: 5550d776-1ff1-11b2-9321-001c23a90428:4
+          869: OK    : shape_869                                UUID: 5560c244-1ff1-11b2-9321-001c23a90428:0
+          870: OK    : shape_870                                UUID: 5560c244-1ff1-11b2-9321-001c23a90428:1
+          871: OK    : shape_871                                UUID: 5560c244-1ff1-11b2-9321-001c23a90428:3
+          872: OK    : shape_872                                UUID: 5560c244-1ff1-11b2-9321-001c23a90428:4
+          873: OK    : shape_873                                UUID: 5560c244-1ff1-11b2-9321-001c23a90428:5
+          874: OK    : shape_874                                UUID: 5560c244-1ff1-11b2-9321-001c23a90428:6
+          875: OK    : shape_875                                UUID: 5560c244-1ff1-11b2-9321-001c23a90428:7
+          876: OK    : shape_876                                UUID: 5560c244-1ff1-11b2-9321-001c23a90428:8
+          877: OK    : shape_877                                UUID: 5560c244-1ff1-11b2-9321-001c23a90428:9
+          878: OK    : shape_878                                UUID: 5560c244-1ff1-11b2-9321-001c23a90428:10
+          879: OK    : shape_879                                UUID: 5560c244-1ff1-11b2-9321-001c23a90428:11
+          880: OK    : shape_880                                UUID: 5564e3b4-1ff1-11b2-9321-001c23a90428:0
+          881: OK    : shape_881                                UUID: 5564e3b4-1ff1-11b2-9321-001c23a90428:1
+          882: OK    : shape_882                                UUID: 5564e3b4-1ff1-11b2-9321-001c23a90428:2
+          883: OK    : shape_883                                UUID: 5564e3b4-1ff1-11b2-9321-001c23a90428:3
+          884: OK    : shape_884                                UUID: 5564e3b4-1ff1-11b2-9321-001c23a90428:4
+          885: OK    : shape_885                                UUID: 5564e3b4-1ff1-11b2-9321-001c23a90428:5
+          886: OK    : shape_886                                UUID: 5565a2ad-1ff1-11b2-9321-001c23a90428:0
+          887: OK    : shape_887                                UUID: 5565a2ad-1ff1-11b2-9321-001c23a90428:1
+          888: OK    : shape_888                                UUID: 5565a2ad-1ff1-11b2-9321-001c23a90428:2
+          889: OK    : shape_889                                UUID: 5565a2ad-1ff1-11b2-9321-001c23a90428:3
+          890: OK    : shape_890                                UUID: 5565a2ad-1ff1-11b2-9321-001c23a90428:4
+          891: OK    : shape_891                                UUID: 5565a2ad-1ff1-11b2-9321-001c23a90428:5
+          892: OK    : shape_892                                UUID: 5565a2ad-1ff1-11b2-9321-001c23a90428:6
+          893: OK    : shape_893                                UUID: 5565a2ad-1ff1-11b2-9321-001c23a90428:7
+          894: OK    : shape_894                                UUID: 5567bff2-1ff1-11b2-9321-001c23a90428:0
+          895: OK    : shape_895                                UUID: 5567bff2-1ff1-11b2-9321-001c23a90428:1
+          896: OK    : shape_896                                UUID: 5567bff2-1ff1-11b2-9321-001c23a90428:2
+          897: OK    : shape_897                                UUID: 5567bff2-1ff1-11b2-9321-001c23a90428:3
+          898: OK    : shape_898                                UUID: 5567bff2-1ff1-11b2-9321-001c23a90428:4
+          899: OK    : shape_899                                UUID: 5567bff2-1ff1-11b2-9321-001c23a90428:5
+          900: OK    : shape_900                                UUID: 5567bff2-1ff1-11b2-9321-001c23a90428:6
+          901: OK    : shape_901                                UUID: 55693bb5-1ff1-11b2-9321-001c23a90428:0
+          902: OK    : shape_902                                UUID: 55693bb5-1ff1-11b2-9321-001c23a90428:1
+          903: OK    : shape_903                                UUID: 55693bb5-1ff1-11b2-9321-001c23a90428:4
+          904: OK    : shape_904                                UUID: 55693bb5-1ff1-11b2-9321-001c23a90428:5
+          905: OK    : shape_905                                UUID: 55693bb5-1ff1-11b2-9321-001c23a90428:6
+          906: OK    : shape_906                                UUID: 557a56fa-1ff1-11b2-9321-001c23a90428:0
+          907: OK    : shape_907                                UUID: 557a56fa-1ff1-11b2-9321-001c23a90428:1
+          908: OK    : shape_908                                UUID: 557a56fa-1ff1-11b2-9321-001c23a90428:2
+          909: OK    : shape_909                                UUID: 557a56fa-1ff1-11b2-9321-001c23a90428:3
+          910: OK    : shape_910                                UUID: 557a56fa-1ff1-11b2-9321-001c23a90428:4
+          911: OK    : shape_911                                UUID: 557a56fa-1ff1-11b2-9321-001c23a90428:5
+          912: OK    : shape_912                                UUID: 557a56fa-1ff1-11b2-9321-001c23a90428:6
+          913: OK    : shape_913                                UUID: 557c8b29-1ff1-11b2-9321-001c23a90428:0
+          914: OK    : shape_914                                UUID: 557c8b29-1ff1-11b2-9321-001c23a90428:1
+          915: OK    : shape_915                                UUID: 557c8b29-1ff1-11b2-9321-001c23a90428:2
+          916: OK    : shape_916                                UUID: 557c8b29-1ff1-11b2-9321-001c23a90428:3
+          917: OK    : shape_917                                UUID: 557c8b29-1ff1-11b2-9321-001c23a90428:4
+          918: OK    : shape_918                                UUID: 557c8b29-1ff1-11b2-9321-001c23a90428:5
+          919: OK    : shape_919                                UUID: 557c8b29-1ff1-11b2-9321-001c23a90428:6
+          920: OK    : shape_920                                UUID: 557c8b29-1ff1-11b2-9321-001c23a90428:7
+          921: OK    : shape_921                                UUID: 557d490b-1ff1-11b2-9321-001c23a90428:0
+          922: OK    : shape_922                                UUID: 557d490b-1ff1-11b2-9321-001c23a90428:1
+          923: OK    : shape_923                                UUID: 557d490b-1ff1-11b2-9321-001c23a90428:2
+          924: OK    : shape_924                                UUID: 557d490b-1ff1-11b2-9321-001c23a90428:3
+          925: OK    : shape_925                                UUID: 557d490b-1ff1-11b2-9321-001c23a90428:4
+          926: OK    : shape_926                                UUID: 557d490b-1ff1-11b2-9321-001c23a90428:5
+          927: OK    : shape_927                                UUID: 55856c47-1ff1-11b2-9321-001c23a90428:0
+          928: OK    : shape_928                                UUID: 55856c47-1ff1-11b2-9321-001c23a90428:1
+          929: OK    : shape_929                                UUID: 55856c47-1ff1-11b2-9321-001c23a90428:3
+          930: OK    : shape_930                                UUID: 55856c47-1ff1-11b2-9321-001c23a90428:4
+          931: OK    : shape_931                                UUID: 55862b40-1ff1-11b2-9321-001c23a90428:0
+          932: OK    : shape_932                                UUID: 55862b40-1ff1-11b2-9321-001c23a90428:1
+          933: OK    : shape_933                                UUID: 55862b40-1ff1-11b2-9321-001c23a90428:2
+          934: OK    : shape_934                                UUID: 55862b40-1ff1-11b2-9321-001c23a90428:3
+          935: OK    : shape_935                                UUID: 55862b40-1ff1-11b2-9321-001c23a90428:4
+          936: OK    : shape_936                                UUID: 55862b40-1ff1-11b2-9321-001c23a90428:5
+          937: OK    : shape_937                                UUID: 558b4580-1ff1-11b2-9321-001c23a90428:0
+          938: OK    : shape_938                                UUID: 558df72f-1ff1-11b2-9321-001c23a90428:0
+          939: OK    : shape_939                                UUID: 558df72f-1ff1-11b2-9321-001c23a90428:1
+          940: OK    : shape_940                                UUID: 558df72f-1ff1-11b2-9321-001c23a90428:2
+          941: OK    : shape_941                                UUID: 558df72f-1ff1-11b2-9321-001c23a90428:3
+          942: OK    : shape_942                                UUID: 558df72f-1ff1-11b2-9321-001c23a90428:4
+          943: OK    : shape_943                                UUID: 558df72f-1ff1-11b2-9321-001c23a90428:5
+          944: OK    : shape_944                                UUID: 558df72f-1ff1-11b2-9321-001c23a90428:6
+          945: OK    : shape_945                                UUID: 558df72f-1ff1-11b2-9321-001c23a90428:7
+          946: OK    : shape_946                                UUID: 55951d3e-1ff1-11b2-9321-001c23a90428:0
+          947: OK    : shape_947                                UUID: 55951d3e-1ff1-11b2-9321-001c23a90428:2
+          948: OK    : shape_948                                UUID: 55951d3e-1ff1-11b2-9321-001c23a90428:3
+          949: OK    : shape_949                                UUID: 55951d3e-1ff1-11b2-9321-001c23a90428:4
+          950: OK    : shape_950                                UUID: 55951d3e-1ff1-11b2-9321-001c23a90428:5
+          951: OK    : shape_951                                UUID: 55951d3e-1ff1-11b2-9321-001c23a90428:6
+          952: OK    : shape_952                                UUID: 559a2a66-1ff1-11b2-9321-001c23a90428:0
+          953: OK    : shape_953                                UUID: 559a2a66-1ff1-11b2-9321-001c23a90428:1
+          954: OK    : shape_954                                UUID: 559a2a66-1ff1-11b2-9321-001c23a90428:2
+          955: OK    : shape_955                                UUID: 559a2a66-1ff1-11b2-9321-001c23a90428:3
+          956: OK    : shape_956                                UUID: 559a2a66-1ff1-11b2-9321-001c23a90428:4
+          957: OK    : shape_957                                UUID: 559ae2d2-1ff1-11b2-9321-001c23a90428:0
+          958: OK    : shape_958                                UUID: 55a035d1-1ff1-11b2-9321-001c23a90428:0
+          959: OK    : shape_959                                UUID: 55a035d1-1ff1-11b2-9321-001c23a90428:1
+          960: OK    : shape_960                                UUID: 55a035d1-1ff1-11b2-9321-001c23a90428:2
+          961: OK    : shape_961                                UUID: 55a035d1-1ff1-11b2-9321-001c23a90428:3
+          962: OK    : shape_962                                UUID: 55a035d1-1ff1-11b2-9321-001c23a90428:4
+          963: OK    : shape_963                                UUID: 55a035d1-1ff1-11b2-9321-001c23a90428:5
+          964: OK    : shape_964                                UUID: 55a035d1-1ff1-11b2-9321-001c23a90428:6
+          965: OK    : shape_965                                UUID: 55a0ee3e-1ff1-11b2-9321-001c23a90428:0
+          966: OK    : shape_966                                UUID: 55a0ee3e-1ff1-11b2-9321-001c23a90428:1
+          967: OK    : shape_967                                UUID: 55a0ee3e-1ff1-11b2-9321-001c23a90428:2
+          968: OK    : shape_968                                UUID: 55a0ee3e-1ff1-11b2-9321-001c23a90428:3
+          969: OK    : shape_969                                UUID: 55a0ee3e-1ff1-11b2-9321-001c23a90428:4
+          970: OK    : shape_970                                UUID: 55a0ee3e-1ff1-11b2-9321-001c23a90428:5
+          971: OK    : shape_971                                UUID: 55a1a7c2-1ff1-11b2-9321-001c23a90428:0
+          972: OK    : shape_972                                UUID: 55a1a7c2-1ff1-11b2-9321-001c23a90428:1
+          973: OK    : shape_973                                UUID: 55a1a7c2-1ff1-11b2-9321-001c23a90428:2
+          974: OK    : shape_974                                UUID: 55a1a7c2-1ff1-11b2-9321-001c23a90428:3
+          975: OK    : shape_975                                UUID: 55a1a7c2-1ff1-11b2-9321-001c23a90428:4
+          976: OK    : shape_976                                UUID: 55a1a7c2-1ff1-11b2-9321-001c23a90428:5
+          977: OK    : shape_977                                UUID: 55a26146-1ff1-11b2-9321-001c23a90428:0
+          978: OK    : shape_978                                UUID: 55a26146-1ff1-11b2-9321-001c23a90428:1
+          979: OK    : shape_979                                UUID: 55a26146-1ff1-11b2-9321-001c23a90428:2
+          980: OK    : shape_980                                UUID: 55a26146-1ff1-11b2-9321-001c23a90428:3
+          981: OK    : shape_981                                UUID: 55a26146-1ff1-11b2-9321-001c23a90428:4
+          982: OK    : shape_982                                UUID: 55a26146-1ff1-11b2-9321-001c23a90428:5
+          983: OK    : shape_983                                UUID: 55a26146-1ff1-11b2-9321-001c23a90428:6
+          984: OK    : shape_984                                UUID: 55a26146-1ff1-11b2-9321-001c23a90428:7
+
+OUTPUT REPORT
+    written files & status:
+            0: OK:      C:\Documents and Settings\computer\Desktop\1234\models\my_city1234_0.fbx
+

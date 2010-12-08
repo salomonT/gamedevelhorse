@@ -1,0 +1,258 @@
+fileFormatVersion: 1
+guid: 5de77c8d4d55743e58d00ed08ebc9bc1
+ModelImporter:
+  importerVersion: 7
+  meshes:
+    scaleFactor: 1
+    useFileUnits: 1
+    meshCompression: 0
+    generateColliders: 0
+    swapUVs: 0
+  tangentSpace:
+    normalImportMode: 0
+    tangentImportMode: 1
+    smoothingAngle: 60
+    splitTangents: 1
+  materials:
+    generation: 1
+  animations:
+    generation: 3
+    bakeAnimations: 0
+    animationCompression: 1
+    animationWrapMode: 0
+    splitAnimations: 1
+  nodeInfo:
+    Untitled_Object1_rFoot_Site:
+    - 100000
+    - 400000
+    Untitled_Object1_rAnkle:
+    - 100002
+    - 400002
+    //RootNode:
+    - 100004
+    - 400004
+    - 11100000
+    Untitled_Object1_rLeg:
+    - 100006
+    - 400006
+    Untitled_Object1_rFoot:
+    - 100008
+    - 400008
+    Untitled_Object1_lFoot_Site:
+    - 100010
+    - 400010
+    Untitled_Object1_rShin:
+    - 100012
+    - 400012
+    Untitled_Object1_lAnkle:
+    - 100014
+    - 400014
+    Untitled_Object1_rThigh:
+    - 100016
+    - 400016
+    Untitled_Object1_lLeg:
+    - 100018
+    - 400018
+    Untitled_Object1_lFoot:
+    - 100020
+    - 400020
+    Untitled_Object1_joint29:
+    - 100022
+    - 400022
+    Untitled_Object1_lShin:
+    - 100024
+    - 400024
+    Untitled_Object1_Tail3:
+    - 100026
+    - 400026
+    Untitled_Object1_lThigh:
+    - 100028
+    - 400028
+    Untitled_Object1_Tail1:
+    - 100030
+    - 400030
+    Untitled_Object1_Tail4:
+    - 100032
+    - 400032
+    Untitled_Object1_rHand:
+    - 100034
+    - 400034
+    Untitled_Object1_Tail2:
+    - 100036
+    - 400036
+    Untitled_Object1_rForeArm:
+    - 100038
+    - 400038
+    Untitled_Object1_rHand_Site:
+    - 100040
+    - 400040
+    Untitled_Object1_rShldr:
+    - 100042
+    - 400042
+    Untitled_Object1_rWrist:
+    - 100044
+    - 400044
+    Untitled_Object1_lHand:
+    - 100046
+    - 400046
+    Untitled_Object1_rUpArm:
+    - 100048
+    - 400048
+    Untitled_Object1_lForeArm:
+    - 100050
+    - 400050
+    Untitled_Object1_lHand_Site:
+    - 100052
+    - 400052
+    Untitled_Object1_lShldr:
+    - 100054
+    - 400054
+    Untitled_Object1_lWrist:
+    - 100056
+    - 400056
+    Untitled_Object1_pasted__joint20:
+    - 100058
+    - 400058
+    Untitled_Object1_lUpArm:
+    - 100060
+    - 400060
+    Untitled_Object1_chest:
+    - 100062
+    - 400062
+    Untitled_Object1_pasted__joint21:
+    - 100064
+    - 400064
+    Untitled_Object1_abdomen:
+    - 100066
+    - 400066
+    Untitled_Object1_pasted__joint19:
+    - 100068
+    - 400068
+    Untitled_Object1_instance_controller_node_0:
+    - 100070
+    - 400070
+    - 13700000
+    Untitled_Object1_pasted__null:
+    - 100072
+    - 400072
+    Untitled_Object_rFoot:
+    - 100074
+    - 400074
+    Untitled_Object1_hip:
+    - 100076
+    - 400076
+    Untitled_Object_rShin:
+    - 100078
+    - 400078
+    Untitled_Object_rFoot_Site:
+    - 100080
+    - 400080
+    Untitled_Object_rThigh:
+    - 100082
+    - 400082
+    Untitled_Object_rAnkle:
+    - 100084
+    - 400084
+    Untitled_Object_lFoot:
+    - 100086
+    - 400086
+    Untitled_Object_rLeg:
+    - 100088
+    - 400088
+    Untitled_Object_lShin:
+    - 100090
+    - 400090
+    Untitled_Object_lFoot_Site:
+    - 100092
+    - 400092
+    Untitled_Object_lThigh:
+    - 100094
+    - 400094
+    Untitled_Object_lAnkle:
+    - 100096
+    - 400096
+    Untitled_Object_Tail4:
+    - 100098
+    - 400098
+    Untitled_Object_lLeg:
+    - 100100
+    - 400100
+    Untitled_Object_Tail2:
+    - 100102
+    - 400102
+    Untitled_Object_joint29:
+    - 100104
+    - 400104
+    Untitled_Object_rHand_Site:
+    - 100106
+    - 400106
+    Untitled_Object_Tail3:
+    - 100108
+    - 400108
+    Untitled_Object_rWrist:
+    - 100110
+    - 400110
+    Untitled_Object_Tail1:
+    - 100112
+    - 400112
+    Untitled_Object_rUpArm:
+    - 100114
+    - 400114
+    Untitled_Object_rHand:
+    - 100116
+    - 400116
+    Untitled_Object_lHand_Site:
+    - 100118
+    - 400118
+    Untitled_Object_rForeArm:
+    - 100120
+    - 400120
+    Untitled_Object_lWrist:
+    - 100122
+    - 400122
+    Untitled_Object_rShldr:
+    - 100124
+    - 400124
+    Untitled_Object_lUpArm:
+    - 100126
+    - 400126
+    Untitled_Object_lHand:
+    - 100128
+    - 400128
+    Untitled_Object_joint21:
+    - 100130
+    - 400130
+    Untitled_Object_lForeArm:
+    - 100132
+    - 400132
+    Untitled_Object_joint19:
+    - 100134
+    - 400134
+    Untitled_Object_lShldr:
+    - 100136
+    - 400136
+    Untitled_Object_null:
+    - 100138
+    - 400138
+    Untitled_Object_joint20:
+    - 100140
+    - 400140
+    Untitled_Object_hip:
+    - 100142
+    - 400142
+    Untitled_Object_chest:
+    - 100144
+    - 400144
+    Untitled_Object_abdomen:
+    - 100146
+    - 400146
+    Untitled_Object_instance_controller_node_0:
+    - 100148
+    - 400148
+    - 13700002
+AssetImporter:
+  importerVersion: 1
+  fileIDToRecycleName:
+    4300000: Untitled_Object_instance_controller_node_0
+    4300002: Untitled_Object1_instance_controller_node_0
+    7400000: Take 001 //// HorseDonkey
