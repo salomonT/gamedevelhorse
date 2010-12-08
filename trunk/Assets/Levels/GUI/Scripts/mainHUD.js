@@ -47,7 +47,7 @@ private var firstEnter : boolean = false;
 private var disWait : boolean = false;
 
 function Start () {
-	typeGame = 0;
+	typeGame = GameManager.getGameType();
 	timeStart = Time.time;
 	onBegin = false;
 	audio.loop = false;

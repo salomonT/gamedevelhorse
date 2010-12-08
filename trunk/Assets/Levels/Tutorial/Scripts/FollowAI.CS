@@ -19,6 +19,7 @@ public class FollowAI : MonoBehaviour {
 	private CharacterController controller;
 	private AIAnimation animator;
 	private Seeker seeker;
+
 	
 	// Make sure there is always a character controller
 	
@@ -178,6 +179,17 @@ public class FollowAI : MonoBehaviour {
 		// Move the character
 		direction = forward * speed * speedModifier * 5;
 		controller.SimpleMove(direction);
+		
+		Animation anim = GetComponent<Animation>();
+		if(anim != null)
+			{
+				AnimationState state = anim["Take 001"];
+				if(state != null)
+				{
+					state.speed = speed/50.0f * 5;
+				}
+				anim.Play();
+			}
 		
 		if (animator != null) {
 			animator.SetSpeed (speed * speedModifier);
