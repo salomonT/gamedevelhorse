@@ -314,7 +314,14 @@ function HostLaunchGame(){
 	Network.maxConnections = -1;
 	MasterServer.UnregisterHost();	
 	
-	networkView.RPC("launchGame",RPCMode.All);
+	
+	if (level1selected)
+		networkView.RPC("launchGame1",RPCMode.All);
+	else if (level2selected)
+		networkView.RPC("launchGame2",RPCMode.All);
+	else if (level3selected)
+		networkView.RPC("launchGame3",RPCMode.All);
+	
 }
 
 
@@ -329,6 +336,32 @@ function launchGame(){
 		Application.LoadLevel("Country");
 	else if (level3selected)
 		Application.LoadLevel("City_Level_v1");
+}
+
+@RPC
+function launchGame1(){
+	Network.isMessageQueueRunning=false;
+	launchingGame=true;
+	KeepNetworkInfo.playerNumber = playerList.Count;
+	Application.LoadLevel("islandLevel");
+}
+
+@RPC
+function launchGame2(){
+	Network.isMessageQueueRunning=false;
+	launchingGame=true;
+	KeepNetworkInfo.playerNumber = playerList.Count;
+	if (level1selected)
+	Application.LoadLevel("Country");
+}
+
+@RPC
+function launchGame3(){
+	Network.isMessageQueueRunning=false;
+	launchingGame=true;
+	KeepNetworkInfo.playerNumber = playerList.Count;
+	if (level1selected)
+	Application.LoadLevel("City_Level_v1");
 }
 
 
