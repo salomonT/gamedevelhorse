@@ -69,9 +69,9 @@ function Spawnplayer(newPlayer : NetworkPlayer){
 	 if(KeepNetworkInfo.playerNumber == numPos)
 	 {
 	 	newObjectsNetworkview.RPC("syncWithServer",RPCMode.AllBuffered);
-	 	networkView.RPC("syncWithServer",RPCMode.AllBuffered);
+	 	var pp : Player = myNewTrans.gameObject.GetComponent(Player);
+	 	pp.syncWithServer();
 	 }
-	 
 }
 
 
