@@ -315,17 +315,20 @@ function HostLaunchGame(){
 	MasterServer.UnregisterHost();	
 	
 	
-	if (level1selected)
+	if (level1selected){
 		networkView.RPC("launchGame1",RPCMode.All);
-	else if (level2selected)
+		print("launchGame1");}
+	else if (level2selected){
 		networkView.RPC("launchGame2",RPCMode.All);
-	else if (level3selected)
+		print("launchGame2");}
+	else if (level3selected){
 		networkView.RPC("launchGame3",RPCMode.All);
+		print("launchGame3");}
 	
 }
 
 
-@RPC
+/*@RPC
 function launchGame(){
 	Network.isMessageQueueRunning=false;
 	launchingGame=true;
@@ -336,7 +339,7 @@ function launchGame(){
 		Application.LoadLevel("Country");
 	else if (level3selected)
 		Application.LoadLevel("City_Level_v1");
-}
+}*/
 
 @RPC
 function launchGame1(){
@@ -351,7 +354,6 @@ function launchGame2(){
 	Network.isMessageQueueRunning=false;
 	launchingGame=true;
 	KeepNetworkInfo.playerNumber = playerList.Count;
-	if (level1selected)
 	Application.LoadLevel("Country");
 }
 
@@ -360,7 +362,6 @@ function launchGame3(){
 	Network.isMessageQueueRunning=false;
 	launchingGame=true;
 	KeepNetworkInfo.playerNumber = playerList.Count;
-	if (level1selected)
 	Application.LoadLevel("City_Level_v1");
 }
 
