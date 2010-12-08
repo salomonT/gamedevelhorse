@@ -37,6 +37,10 @@ private var errorMessage : String = "";
 private var lastquickplayConnectionTime : float;
 
 
+private var ratioSW:float;
+private var ratioSH:float;
+
+
 var customButton : GUIStyle;
 
 private var showMenu : boolean = false;
@@ -148,13 +152,18 @@ function OnConnectedToServer(){
 
 function OnGUI ()
 {		
+	
+	ratioSW = (Screen.width/1024.0);
+	ratioSH = (Screen.height/768.0);
+	
 	if(!showMenu){
 		return;
 	}
 
 
 	//Back to main menu
-	if(GUI.Button(Rect(40,10,150,20), "Back to main menu")){
+	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-100),ratioSW*200,ratioSH*100), "",mainMenu.backToMenuButtonStatic)){
+		audio.PlayOneShot(mainMenu.backToMenuButtonSoundStatic);
 		showMenu=false;
 		mainMenuScript.OpenMenu("multiplayer");
 	}

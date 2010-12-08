@@ -14,8 +14,11 @@ private var joinMenuScript : JoinMenu;
 private var gameLobbyScript : GameLobby;
 private var multiplayerScript : MultiplayerMenu;
 
-private var requirePlayerName : boolean = false;
+ var requirePlayerName : boolean = false;
 private var playerNameInput : String = "";
+
+private var ratioSW:float;
+private var ratioSH:float;
 
 function Awake(){
 	print ("multi !!!");
@@ -34,9 +37,20 @@ function Awake(){
 
 
 function OnGUI(){
-	if(mainMenu.multiplayerGameLaunch == 1){
-		if(requirePlayerName){
-			myWindowRect = GUILayout.Window (9, Rect(Screen.width/2-150,Screen.height/2-100,300,100), NameMenu, "Please enter a name:");	
+	
+	ratioSW = (Screen.width/1024.0);
+	ratioSH = (Screen.height/768.0);
+	
+	if(mainMenu.multiplayerGameLaunch == 1 && requirePlayerName){
+
+		myWindowRect = GUILayout.Window (9, Rect(Screen.width/2-150,Screen.height/2-100,300,100), NameMenu, "Please enter a name:");	
+		
+		if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-100),ratioSW*200,ratioSH*100), "",mainMenu.backToMenuButtonStatic)){
+		audio.PlayOneShot(mainMenu.backToMenuButtonSoundStatic);
+		mainMenu.resetMenu();
+		mainMenu.multiplayerGameLaunch = 0;
+		multiplayerScript.DiseableMenu();
+		requirePlayerName=true;
 		}
 	}
 }

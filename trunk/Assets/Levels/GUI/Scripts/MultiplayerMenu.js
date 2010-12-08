@@ -12,9 +12,15 @@ private var showMenu : boolean = false;
 private var myWindowRect : Rect;
 private var mainMenuScript : MainMultiMenu;
 
+private var ratioSW:float;
+private var ratioSH:float;
+
+private var mainMultiMenuScript : MainMultiMenu;
 
 function Awake(){
 	myWindowRect  = Rect (Screen.width/2-150,Screen.height/2-100,300,200);	
+	
+	mainMultiMenuScript = GetComponent(MainMultiMenu);
 }
 
 
@@ -27,12 +33,26 @@ function EnableMenu(){
 	showMenu=true;
 }
 
+function DiseableMenu(){
+	showMenu=false;
+}
+
 function OnGUI ()
 {		
+	
+	ratioSW = (Screen.width/1024.0);
+	ratioSH = (Screen.height/768.0);
+	
 	if(!showMenu){
 		return;
 	}
-	myWindowRect = GUILayout.Window (0, myWindowRect, windowGUI, "Multiplayer");			
+	myWindowRect = GUILayout.Window (0, myWindowRect, windowGUI, "Multiplayer");
+	
+	if(GUI.Button (Rect (ratioSW*25,ratioSH*(768-40-100),ratioSW*200,ratioSH*100), "",mainMenu.backToMenuButtonStatic)){
+		audio.PlayOneShot(mainMenu.backToMenuButtonSoundStatic);
+		DiseableMenu();
+		mainMultiMenuScript.requirePlayerName=true;
+		}
 }
 
 

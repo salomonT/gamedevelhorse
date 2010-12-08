@@ -2,18 +2,18 @@ static var multiplayerGameLaunch:int = 0;
 
 private var flagStart:int = 1;
 
-private var singlePlayerVar:int = 0;
-private var singlePlayerNextVar:int = 0;
-private var multiPlayerVar:int = 0;
-private var multiPlayer_localPlayVar:int = 0;
-private var multiPlayer_networkPlayVar:int = 0;
-private var tutorialVar:int = 0;
-private var extrasVar:int = 0;
-private var settingsVar:int = 0;
-private var settings_gameSettingsVar = 0;
-private var settings_customizeHorseVar = 0;
-private var settings_highScoresVar = 0;
-private var launchVar:int = 0;
+static var singlePlayerVar:int = 0;
+static var singlePlayerNextVar:int = 0;
+static var multiPlayerVar:int = 0;
+static var multiPlayer_localPlayVar:int = 0;
+static var multiPlayer_networkPlayVar:int = 0;
+static var tutorialVar:int = 0;
+static var extrasVar:int = 0;
+static var settingsVar:int = 0;
+static var settings_gameSettingsVar = 0;
+static var settings_customizeHorseVar = 0;
+static var settings_highScoresVar = 0;
+static var launchVar:int = 0;
 
 private var ratioSW:float;
 private var ratioSH:float;
@@ -58,6 +58,7 @@ var settingsHighScoresButton : GUIStyle;
 var saveSettingsButton : GUIStyle;
 var saveSettingsButtonDis : GUIStyle;
 
+static var backToMenuButtonStatic : GUIStyle;
 var backToMenuButton : GUIStyle;
 
 var titleWhite : GUIStyle;
@@ -109,6 +110,7 @@ var tutorialKeyboard : Texture2D;
 
 var startAndNextButtonSound : AudioClip;
 var backToMenuButtonSound : AudioClip;
+static var backToMenuButtonSoundStatic : AudioClip;
 var hoverButtonSound : AudioClip;
 var moveMenuButtonSound : AudioClip;
 
@@ -131,6 +133,8 @@ private var horseTmpBack : int = 0;
 
 function Start(){
 	horse = GameObject.Find("Rotation point/HorseAnim/Horse_mesh");
+	backToMenuButtonSoundStatic = backToMenuButtonSound;
+	backToMenuButtonStatic = backToMenuButton;
 	// just for test !!
 	/*highScoreDB.addScore("loc",2000);
 	highScoreDB.addScore("pierre",500);
@@ -228,7 +232,7 @@ function OnGUI () {
 	
 }
 
-function resetMenu (){
+static function resetMenu (){
 	singlePlayerVar = 0;
 	singlePlayerNextVar = 0;
 	multiPlayerVar = 0;
@@ -572,8 +576,8 @@ function settings (){
 	
 	GUI.Label (Rect (ratioSW*20,ratioSH*200,ratioSW*500,ratioSH*400),"","box");
 	GUI.Label (Rect (ratioSW*20,ratioSH*200,ratioSW*500,ratioSH*400),
-	"Change game settings such as "+"\n"+"volume and sound FX"+"\n"+
-	"\n"+
+	/*"Change game settings such as "+"\n"+"volume and sound FX"+"\n"+
+	"\n"+*/
 	"Cuztomize your player by chossing "+"\n"+"a horse and cart from the selection"+"\n"+
 	"\n"+
 	"View the scrore you achieved for "+"\n"+"each level"
@@ -585,12 +589,12 @@ function settings (){
 		resetMenu();
 		settings_gameSettingsVar = 1;}*/
 		
-	if(GUI.Button (Rect (ratioSW*550,ratioSH*370,ratioSW*400,ratioSH*100), "",settingsCustomizeHorseButton)){
+	if(GUI.Button (Rect (/*ratioSW*550,ratioSH*370*/ratioSW*550,ratioSH*250,ratioSW*400,ratioSH*100), "",settingsCustomizeHorseButton)){
 		audio.PlayOneShot(startAndNextButtonSound);
 		resetMenu();
 		settings_customizeHorseVar = 1;}
 		
-	if(GUI.Button (Rect (ratioSW*550,ratioSH*540,ratioSW*400,ratioSH*100), "",settingsHighScoresButton)){
+	if(GUI.Button (Rect (/*ratioSW*550,ratioSH*540*/ratioSW*550,ratioSH*420,ratioSW*400,ratioSH*100), "",settingsHighScoresButton)){
 		audio.PlayOneShot(startAndNextButtonSound);
 		resetMenu();
 		settings_highScoresVar = 1;}
