@@ -31,6 +31,8 @@ var boosterReset:GameObject;
 var reducerReset:GameObject;
 var raceRotation:Quaternion;
 var racePosition:Vector3;
+var awaitOutcome:boolean;
+var typeGame:int;
 
 
 var gravity : float;
@@ -50,10 +52,16 @@ private var camTop : GameObject;
 
 var lapTime:float = 0;
 var overallTime:float = 0;
+var tutorialTime: float = 0;
 var lapTimeSeconds:int = 0;
 var lapTimeMinutes:int = 0;
 var overallTimeSeconds:int = 0;
 var overallTimeMinutes:int = 0;
+var tutorialTimeSeconds:int = 0;
+var tutorialTimeMinutes:int = 0;
+var maxTime:int;
+var timeRemaining:int;
+var stop:boolean = false;
 var setRace: boolean;
 var hud : GameObject; 
 var hudScript:tutorialHUD;
@@ -61,12 +69,20 @@ var hudScript:tutorialHUD;
 function Start()
 {
 	GoRace.stateEnd = 0;
-	camTop = GameObject.Find("HorseAnim/CameraTopView");
+	GameManager.setLaps(2);
+	
 	if(camTop != null)
-	{
-	print("False");
+	  {
+	    print("False");
 		camTop.active = false;
-	}
+	  }
+	camTop = GameObject.Find("HorseAnim/CameraTopView");
+	  
+    if(camTop != null)
+      {
+   	   camTop.active = true;
+     }
+	  
 	onBegin = false;
 	GoRace.cameraEnd = false;
 	fxLoopPlay = false;
@@ -101,12 +117,27 @@ function Start()
   tutorialComplete = false;
   counter = 0;
   tutorialCounter = 60;
+  tutorialTime = Time.time;
+  maxTime = 60;
+  timeRemaining = 0;  
+  awaitOutcome = false;
   
+  typeGame = GameManager.getGameType();
+  if(typeGame != 3)
+    {
+	 typeGame = 3;
+	}
+
   hud = GameObject.Find("HUD");
   if(hud != null)
    {
   	 hudScript = hud.GetComponent(tutorialHUD);
-   }
+   }   
+   
+  if(hudScript != null)
+	{
+	  hudScript.setInstruction("Complete the Tutorial");
+	}
 }
 
 
@@ -140,6 +171,7 @@ function Update ()
 	      {
 	        hudScript.setInitiate(false);
 		  }
+		  
 	   } 
 	   
 	   
@@ -149,6 +181,8 @@ function Update ()
 	   CheckEnhancements();
 	   LapTime();
 	   OverallTime();
+	   GoRace.setRunGame(true);
+
 //	   print("Lap Time : " + printLap + "   Overall Time : " + printOverall + "  Score : " + overallScore);
 	  }
     else
@@ -161,29 +195,18 @@ else
     MoveCharachter();
 	CheckEnhancements();
 	TutorialCountDown();
-//	print("Time Remaining : " + tutorialCounter);
-	
-	if(tutorialCounter == 0)
-	  {
-	    ResetGame();
-	  }
+    //	print("Time Remaining : " + tutorialCounter);
   }
-	
 
-if(raceCompleted)
-  {
-    print("Race Over");
-  }
-  
 }
 
 
 
-/**Move the Playable Charachter*/
+/**Move the Playable Charachter.*/
 function MoveCharachter()
 {
-  runSpeed = 20;
-  walkSpeed = 10;
+  runSpeed = 35;
+  walkSpeed = 15;
   
     if ((Mathf.Abs(Input.GetAxis("Vertical")) > 0.2) || (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.2)) 
 	  {
@@ -238,11 +261,13 @@ function MoveCharachter()
 	  audio.Stop();
 	  fxLoopPlay = false;
 	 }
+	 
 
-
+    ApplyGravity();
+	
     transform.eulerAngles.y += Input.GetAxis("Horizontal");
-    moveDirection = Vector3(0, 0, Input.GetAxis("Vertical"));
-    moveDirection = transform.TransformDirection(moveDirection);
+    moveDirection = Vector3(0, verticalSpeed, Input.GetAxis("Vertical"));
+	moveDirection = transform.TransformDirection(moveDirection);
     controller.Move(moveDirection * (Time.deltaTime * speed));
 }
 
@@ -316,6 +341,8 @@ function OnTriggerEnter(object:Collider)
 	     racePosition = transform.position;
 		 raceRotation = transform.rotation;
 	    }
+		
+	
 	}
   
   /**Check for Collision With FinishLine.*/  
@@ -332,12 +359,16 @@ function OnTriggerEnter(object:Collider)
 	  	hudScript.setLaps(lapCounter);
 	  }
 	 
-
-	 /**Determine if Race has Been Completed*/
-	 if(lapCounter == totalLaps)
+	 
+	 CheckGameManager();
+	 
+	 /**Place Horse Stationery at Race Completion.*/
+	 if(raceCompleted)
 	   {
-	     raceCompleted = true;
+	     transform.position = racePosition;
+		 transform.rotation = raceRotation;
 	   }
+	   
 	}
 	
   
@@ -393,31 +424,36 @@ function OnTriggerEnter(object:Collider)
 	  
 	  if(object.name == "Tutorial3")
         {
-		  instruction = "Use DIRECTIONAL Keys to Avoid Fences";
+		  instruction = "Avoid Hitting the Fences";
 		}	
 		
   	  if(object.name == "Tutorial4")
         {
-		  instruction = "Collect Booster";
+		  instruction = "Collect Booster Object";
 		}		
 	  
 	  if(object.name == "Tutorial5")
         {
-		  instruction = "Collect Reducer";
+		  instruction = "Collect Reducer Object";
 		}	
 		
   	  if(object.name == "Tutorial6")
         {
-		  instruction = "Take Start Position";
+		  instruction = "Take Starting Position";
 		}	
 		
 	/**Update Hud.*/
 	if(hudScript != null)
 	  {
-	  	hudScript.setOverallTime(instruction);
+	  	hudScript.setInstruction(instruction);
 	  }
 
-    
+
+     /**Check for Fence Collisions*/
+     if(object.name == "fence1" || object.name == "fence2" || object.name == "fence3" || object.name == "fence4" )
+	  {
+	    ResetGameFence();
+	  }
  }
 
 
@@ -530,25 +566,36 @@ function RaceCountDown()
 	 }
  }
 
+
 /**Count Down For the Tutorial*/
 function TutorialCountDown()
 {
- counter++;
- 
- if(counter == 40)
-   {
-    counter = 0;
-	tutorialCounter --;
-   }
-   
-   		
-  /**Update Hud.*/
-  if(hudScript != null)
-	{
-	  hudScript.setLapTime("Time Remaining : " + tutorialCounter);
-	}
-	 
+
+if(stop == false)
+  {
+    tutorialTimeMinutes = (Time.time - tutorialTime)/60;
+    tutorialTimeSeconds = (Time.time - tutorialTime) - (tutorialTimeMinutes*60);
+  
+    timeRemaining = (maxTime - tutorialTimeSeconds);
+  
+    /**Update Hud.*/
+    if(hudScript != null)
+	  {
+	    hudScript.setTimeRemaining("Time Remaining : " + (timeRemaining - 1));
+	  }	 
 	
+	  if(timeRemaining < 2)
+	    {
+	      stop = true;
+	//	  ResetGame();
+	  }
+  }	  
+  else
+  {
+    stop = false;
+    hudScript.setTimeRemaining("Time Remaining : 60");
+  }
+
 }
 
 
@@ -577,12 +624,57 @@ function TimeCounterUp():Number
 	}
 }
 
+/**Returns Lap Counter to Tutorial Control.*/
+function getLapCount():int
+{
+  return lapCounter;
+}
 
+
+/**Resets Tutorial If Time Runs Out.*/
 function ResetGame()
 {
-  tutorialCounter = 60;
+  tutorialTime = Time.time;
+  tutorialTimeSeconds = 0;
+  timeRemaining = 0;
   transform.position = startPosition;
   transform.rotation = startRotation;
   boosterReset.gameObject.SetActiveRecursively(true);
   reducerReset.gameObject.SetActiveRecursively(true);
  }
+ 
+ 
+ /**Resets Tutorial If Fence Collision.*/
+ function ResetGameFence()
+{
+  transform.position = startPosition;
+  transform.rotation = startRotation;
+  boosterReset.gameObject.SetActiveRecursively(true);
+  reducerReset.gameObject.SetActiveRecursively(true);
+}
+
+
+/**Check the GameManager.*/
+function CheckGameManager()
+{  
+  if(typeGame== 3 && raceCompleted == false) 
+    {
+	  if(lapCounter >= 2) 
+	    {
+		 GameManager.getFinishedArray().Add("Player 1");
+		
+		 raceCompleted = true;	
+
+		// If there is only 1 player in the array (you) then you won!
+		if(GameManager.getFinishedArray().Count == 1) 
+		  {
+			GoRace.stateEnd = 1;
+		  }
+	   else if(GameManager.getFinishedArray().Count > 1) 
+		  {
+			GoRace.stateEnd=2;
+		  }
+	}
+  
+  }		
+}

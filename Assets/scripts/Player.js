@@ -41,6 +41,7 @@ private var setRace:boolean = false;
 private var hud:GameObject;
 private var hudScript:mainHUD;
 
+private var typeGame:int = 0;
 private var lapsInRace:int = 0;
 private var hasMandatoryOne:boolean;
 private var hasMandatoryTwo:boolean;
@@ -199,10 +200,9 @@ function StartSinglePlayer()
 	  totalLaps = 2;
 	  raceCompleted = false;
 	  
-	  print("Game Mode: " + GameManager.getGameType());
-	  if(GameManager.getGameType() == 0)
-	  {
-	    /**Make all Mandatory Objects Invisible*/
+	  typeGame = GameManager.getGameType();
+	  
+ 	    /**Make all Mandatory Objects Invisible*/
 	  	mandatory1A = GameObject.Find("Mandatories/Mandatory1A");
 	  	if(mandatory1A != null)
 	  	mandatory1A.SetActiveRecursively(false);
@@ -239,7 +239,7 @@ function StartSinglePlayer()
 	  	mandatory3D = GameObject.Find("Mandatories/Mandatory3D");
 	  	if(mandatory3D != null)
 	  	mandatory3D.SetActiveRecursively(false);
-	  }
+	  
 	  
 	  
 	  Debug.Log("MODIFYING AI DIFFICULTY");
@@ -268,6 +268,37 @@ function StartSinglePlayer()
 	 		 } //if
     	} //if
 	  } //for
+	  
+	  
+	  /**Determine How Many Mandatory Items are Needed to Win the Game.*/
+	  if(typeGame == 1)
+	    {
+		  if(lapsInRace == 1)
+		   {
+		     hasMandatoryOne = false;
+			 mandatoryTotal = 1;
+		   }
+		 else if(lapsInRace == 2) 
+	       {
+			  hasMandatoryOne = false;
+		      hasMandatoryTwo = false;
+		      mandatoryTotal = 2;
+		   }	
+		else if(lapsInRace == 3)
+		   {
+		     hasMandatoryOne = false;
+			 hasMandatoryTwo = false;
+			 hasMandatoryThree = false;
+			 mandatoryTotal = 3;
+		   }
+		   
+		  /**Set The First Set of Mandatory Objects to be Visible*/
+		  mandatory1A.SetActiveRecursively(true);	
+		  mandatory1B.SetActiveRecursively(true);
+		  mandatory1C.SetActiveRecursively(true);
+		  mandatory1D.SetActiveRecursively(true);
+		}
+	  
 		
 }
 
@@ -674,10 +705,10 @@ function OnTriggerEnter(object:Collider)
   if(object.name == ("FinishLine") && currentWaypoint == 6)
     {
 	
-	 if(GameManager.getGameType() == 1)
+	 if(typeGame == 1)
 	   {
 	     currentWaypoint = 0;
-		 		 print("Lap Counter " + (lapCounter + 1) + " Mandatory Count " + mandatoryCount);
+		 print("Lap Counter " + (lapCounter + 1) + " Mandatory Count " + mandatoryCount);
 
 		 /**Determine If Mandatory Item Was Collected*/
 		 if((lapCounter + 1) == mandatoryCount)
@@ -736,34 +767,36 @@ function OnTriggerEnter(object:Collider)
   /**Check For Collisions With Waypoints*/
   if(object.name == ("Waypoint1") && currentWaypoint == 0)
     {
-         currentWaypoint = 1;
-        }
+      currentWaypoint = 1;
+    }
         
   if(object.name == ("Waypoint2") && currentWaypoint == 1)
     {
-         currentWaypoint = 2;
-        }
+      currentWaypoint = 2;
+    }
         
   if(object.name == ("Waypoint3") && currentWaypoint == 2)
     {
-         currentWaypoint = 3;
-        }       
+      currentWaypoint = 3;
+    }       
         
   if(object.name == ("Waypoint4") && currentWaypoint == 3)
     {
-         currentWaypoint = 4;
-        }       
+      currentWaypoint = 4;
+    }       
         
   if(object.name == ("Waypoint5") && currentWaypoint == 4)
     {
-         currentWaypoint = 5;
-        }       
+      currentWaypoint = 5;
+    }       
         
   if(object.name == ("Waypoint6") && currentWaypoint == 5)
   {
-         currentWaypoint = 6;
+    currentWaypoint = 6;
   }
   
+  
+  /**Check for Collisions with Mandatory Objects.*/
     if(object.name.Contains("Mandatory1"))
     {
 	  if(hasMandatoryOne == false)
@@ -783,10 +816,9 @@ function OnTriggerEnter(object:Collider)
 		  print("Hit Mandatory 1 " + object.collider.name);
 		}	
 	  else
-	  {
-	  		  object.gameObject.SetActiveRecursively(true);
-
-	  }
+	    {
+		 object.gameObject.SetActiveRecursively(true);
+		}
     }	
 	
   if(object.name.Contains("Mandatory2"))
@@ -807,6 +839,10 @@ function OnTriggerEnter(object:Collider)
 		   
   		  print("Hit Mandatory 2");
 		}	
+	  else
+		{
+		  object.gameObject.SetActiveRecursively(false);
+		}
     }	
 	
   if(object.name.Contains("Mandatory3"))
@@ -826,8 +862,12 @@ function OnTriggerEnter(object:Collider)
 		   }
 		   
 		  print("Hit Mandatory 3");
-		}	
-    }	
+		}
+	  else
+        {
+		  object.gameObject.SetActiveRecursively(false);
+		}
+}	
 	
    
     /**Update the HUD*/
@@ -845,7 +885,7 @@ function OnTriggerEnter(object:Collider)
 */
 function OnControllerColliderHit(object : ControllerColliderHit)
 {
-	print("OnControllerColliderHit" + object.collider.name);
+//	print("OnControllerColliderHit" + object.collider.name);
   if(object.collider.name.Contains("Mandatory1"))
     {
 	  if(hasMandatoryOne == false)
@@ -927,7 +967,7 @@ function OnControllerColliderHit(object : ControllerColliderHit)
   
   /**Mandatory Items Two Appear.*/
   function SetMandatoryItemsTwo(createReplica:String)
-  {
+  {print("String " + createReplica);
     if(createReplica == "Mandatory1A")
 	  {
 	    mandatory2A.SetActiveRecursively(true);
