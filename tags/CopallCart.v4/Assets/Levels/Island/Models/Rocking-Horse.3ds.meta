@@ -1,0 +1,58 @@
+fileFormatVersion: 1
+guid: f31ea89fb21a44fc28dfa94c0787ba39
+ModelImporter:
+  importerVersion: 7
+  meshes:
+    scaleFactor: 0.01
+    useFileUnits: 1
+    meshCompression: 0
+    generateColliders: 0
+    swapUVs: 0
+  tangentSpace:
+    normalImportMode: 0
+    tangentImportMode: 1
+    smoothingAngle: 60
+    splitTangents: 1
+  materials:
+    generation: 1
+  animations:
+    generation: 3
+    bakeAnimations: 0
+    animationCompression: 1
+    animationWrapMode: 0
+    splitAnimations: 1
+  nodeInfo:
+    Main-Light.target:
+    - 100000
+    - 400000
+    //RootNode:
+    - 100002
+    - 400002
+    - 11100000
+    rocking-h1:
+    - 100004
+    - 400004
+    floor:
+    - 100006
+    - 400006
+    - 3300000
+    - 2300000
+    lightwave.target:
+    - 100008
+    - 400008
+    lightwave:
+    - 100010
+    - 400010
+    Main-Light:
+    - 100012
+    - 400012
+    rocking-ho:
+    - 100014
+    - 400014
+    - 3300002
+    - 2300002
+AssetImporter:
+  importerVersion: 1
+  fileIDToRecycleName:
+    4300000: floor
+    4300002: rocking-ho
