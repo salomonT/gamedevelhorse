@@ -655,15 +655,35 @@ function OnTriggerEnter(object:Collider)
           /**Determine if User Hit a Speed Booster.*/
           if(object.name == ("Booster"))
           {         
-          		var randomValue : int = (Random.value * 12);              
-                if(randomValue < 4)//Half chance to boost.
+          		var randomValue : int = (Random.value * 12); 
+          		
+          		var first : int;             
+          		var second : int;
+          		
+          		if(GameManager.getDifficulty == 0)
+          		{
+          			first = 1;
+          			second = 2;
+          		}
+          		else if(GameManager.getDifficulty == 1)
+          		{
+          			first = 4;
+          			second = 8;
+          		}
+          		else if(GameManager.getDifficulty == 2)
+          		{
+          			first = 5;
+          			second = 10;
+          		}
+          		
+                if(randomValue < first)//Half chance to boost.
                 {
                  print("Boost");
                  countTime = true;
                  speedUp = true;
                  overallScore = (overallScore + 1000);
                 }
-                else if(randomValue < 7)//Donkey mode !
+                else if(randomValue < second)//Donkey mode !
                 {
                 	print("Donkey mode !");
                 	countTime = true;
@@ -1074,7 +1094,7 @@ function CheckEnhancements()
        {
              TimeCounterUp(); 
        }
-       if(actualTime >= 3)
+       if(actualTime >= 6)
        {
        //Reset the mesh.
         var donkey : GameObject = GameObject.Find("HorseAnim/Donkey_mesh");
@@ -1323,20 +1343,25 @@ function OnSerializeNetworkView(stream : BitStream, info : NetworkMessageInfo)
 		//The owner sends it's position over the network
 		
 		var pos : Vector3 = transform.position;		
+		var rot : Quaternion = transform.rotation;
 		stream.Serialize(pos);//"Encode" it, and send it
+		stream.Serialize(rot);
 				
 	}else{
 		//Executed on all non-owners
 		//This client receive a position and set the object to it
 		
 		var posReceive : Vector3 = Vector3.zero;
+		var rotReceive : Quaternion;
 		stream.Serialize(posReceive); //"Decode" it and receive it
+		stream.Serialize(rotReceive);
 		
 		//We've just recieved the current servers position of this object in 'posReceive'.
 		
 		//transform.position = posReceive;		
 		//To reduce laggy movement a bit you could comment the line above and use position lerping below instead:	
 		transform.position = Vector3.Lerp(transform.position, posReceive, 0.9); //"lerp" to the posReceive by 90%
+		transform.rotation = Quaternion.Lerp(transform.rotation, rotReceive, 0.9);
 		
 	}
 }
