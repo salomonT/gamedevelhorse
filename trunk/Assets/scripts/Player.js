@@ -110,7 +110,7 @@ function AcclerateCharacter()
 function StartMultiplayer()
 {
    	GoRace.cameraEnd = true;
-//Disable the singleplayer horses.
+	//Disable the singleplayer horses.
 	var horsePlayers : GameObject = GameObject.Find("players");
 	if(horsePlayers != null)
 	{
@@ -144,11 +144,11 @@ function StartMultiplayer()
 		}
 	}
 
-        if(Network.isClient)
-        {
-                print("DISABLED");
-                //GetComponent(Player).enabled=false;    // disable this script (this disables Update());       
-        }
+    if(Network.isClient)
+    {
+            print("DISABLED: " + KeepNetworkInfo.playerName);
+            GetComponent(Player).enabled=false;    // disable this script (this disables Update());       
+    }
 }
 
 function StartSinglePlayer()
@@ -334,8 +334,8 @@ function SetPlayer(player : NetworkPlayer)
         if(player==Network.player){
                 //Hey thats us! We can control this player: enable this script (this enables Update());
                 GetComponent(Player).enabled=true;
-                print("ENABLED");
-                print(KeepNetworkInfo.playerName);
+                print("ENABLED: " + KeepNetworkInfo.playerName);
+                
                 
                 if(alreadyCam == false)
                 {
