@@ -1,0 +1,86 @@
+fileFormatVersion: 1
+guid: 9f048843a34fef14bb6941d7ebaf28ae
+ModelImporter:
+  importerVersion: 7
+  meshes:
+    scaleFactor: 0.01
+    useFileUnits: 1
+    meshCompression: 0
+    generateColliders: 1
+    swapUVs: 0
+  tangentSpace:
+    normalImportMode: 0
+    tangentImportMode: 1
+    smoothingAngle: 60
+    splitTangents: 1
+  materials:
+    generation: 1
+  animations:
+    generation: 3
+    bakeAnimations: 0
+    animationCompression: 1
+    animationWrapMode: 0
+    splitAnimations: 1
+  nodeInfo:
+    TruckBody:
+    - 100000
+    - 400000
+    - 3300000
+    - 2300000
+    - 6400012
+    Right_Front:
+    - 100002
+    - 400002
+    - 3300002
+    - 2300002
+    - 6400006
+    Right Pivot:
+    - 100004
+    - 400004
+    Left_Front:
+    - 100006
+    - 400006
+    - 3300004
+    - 2300004
+    - 6400000
+    Left Pivot:
+    - 100008
+    - 400008
+    Left_Rear:
+    - 100010
+    - 400010
+    - 3300006
+    - 2300006
+    - 6400002
+    Right_Rear:
+    - 100012
+    - 400012
+    - 3300008
+    - 2300008
+    - 6400008
+    Left_Wiper:
+    - 100014
+    - 400014
+    - 3300010
+    - 2300010
+    - 6400004
+    Right_Wiper:
+    - 100016
+    - 400016
+    - 3300012
+    - 2300012
+    - 6400010
+    //RootNode:
+    - 100018
+    - 400018
+    - 11100000
+AssetImporter:
+  importerVersion: 1
+  fileIDToRecycleName:
+    4300000: Right_Wiper
+    4300002: Left_Wiper
+    4300004: Right_Rear
+    4300006: Left_Rear
+    4300008: Left_Front
+    4300010: Right_Front
+    4300012: TruckBody
