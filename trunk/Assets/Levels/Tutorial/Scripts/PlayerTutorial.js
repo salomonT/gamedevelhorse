@@ -587,7 +587,7 @@ if(stop == false)
 	  if(timeRemaining < 2)
 	    {
 	      stop = true;
-	//	  ResetGame();
+		  ResetGame();
 	  }
   }	  
   else

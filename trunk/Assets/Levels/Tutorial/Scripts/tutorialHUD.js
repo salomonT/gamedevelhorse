@@ -50,12 +50,13 @@ function Start () {
 function OnGUI () {
 	ratioSW = (Screen.width/1024.0);
 	ratioSH = (Screen.height/768.0);
-	
+	onBegin = true;
 	if(onBegin == false)
 		{
 			timeStart = Time.time;
 			onBegin = true;
 			audio.Play(0);
+
 		}
 		else
 		{
@@ -154,6 +155,7 @@ function OnGUI () {
 			{
 				GUI.Label(Rect(Screen.width/2-textureLost.width/2,Screen.height/2-textureLost.height/2, textureLost.width,textureLost.height), textureLost);
 			}
+			
 		}
 	}
 }
