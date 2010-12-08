@@ -6,8 +6,9 @@ var leftWheel : GameObject;
 var gravity : float;
 var rotationSpeed : float;
 var owner : NetworkPlayer;
+var setplayer : boolean = false;
 
-
+private var pp : Player;
 private var speed : float = 0;
 private var controller : CharacterController;
 private var moveDirection : Vector3 = Vector3.zero;
@@ -144,10 +145,11 @@ function StartMultiplayer()
 		}
 	}
 
-    if(Network.isClient)
+    if(Network.isClient && !setplayer)
     {
+            pp = GetComponent(Player);
             print("DISABLED: " + KeepNetworkInfo.playerName);
-            GetComponent(Player).enabled=false;    // disable this script (this disables Update());       
+            pp.enabled=false;    // disable this script (this disables Update());       
     }
 }
 
@@ -333,7 +335,9 @@ function SetPlayer(player : NetworkPlayer)
         owner = player;
         if(player==Network.player){
                 //Hey thats us! We can control this player: enable this script (this enables Update());
-                GetComponent(Player).enabled=true;
+                setplayer=true;
+                pp = GetComponent(Player);
+                pp.enabled=true;
                 print("ENABLED: " + KeepNetworkInfo.playerName);
                 
                 
