@@ -574,11 +574,7 @@ function MoveCharachter()
                    else if(slowDown == true)
                    {
                        speed = Mathf.Abs(Input.GetAxis("Vertical")) * (runSpeed / 2);                        
-                   }
-                   else if(slowDown == true)
-          		   {
-                   	   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed / 4);                       
-          		   } 
+                   } 
                    else
                    {
                		   speed = Mathf.Abs(Input.GetAxis("Vertical")) * runSpeed;
@@ -590,11 +586,11 @@ function MoveCharachter()
           }
           else if(slowDown == true)
           {
-                   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed / 4);                       
+                   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed / 2);                       
           } 
           else if(donkeyMode == true)
           {
-                   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed / 2);                       
+                   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed / 2.5);                       
           } 
           else
           { 
