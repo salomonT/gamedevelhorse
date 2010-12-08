@@ -1315,3 +1315,28 @@ function checkGameManager() : void {
                 // ADD OTHER GAME TYPES HERE, SIMILAR TO ABOVE
         
 }
+
+function OnSerializeNetworkView(stream : BitStream, info : NetworkMessageInfo)
+{
+	if (stream.isWriting){
+		//This is executed on the owner of the networkview
+		//The owner sends it's position over the network
+		
+		var pos : Vector3 = transform.position;		
+		stream.Serialize(pos);//"Encode" it, and send it
+				
+	}else{
+		//Executed on all non-owners
+		//This client receive a position and set the object to it
+		
+		var posReceive : Vector3 = Vector3.zero;
+		stream.Serialize(posReceive); //"Decode" it and receive it
+		
+		//We've just recieved the current servers position of this object in 'posReceive'.
+		
+		//transform.position = posReceive;		
+		//To reduce laggy movement a bit you could comment the line above and use position lerping below instead:	
+		transform.position = Vector3.Lerp(transform.position, posReceive, 0.9); //"lerp" to the posReceive by 90%
+		
+	}
+}
