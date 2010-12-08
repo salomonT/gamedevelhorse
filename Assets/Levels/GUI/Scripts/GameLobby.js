@@ -333,24 +333,21 @@ function launchGame(){
 
 
 function launchingGameGUI(){
+	var level : String;
+	if (level1selected)
+		level = "islandLevel";
+	else if (level2selected)
+		level = "Country";
+	else if (level3selected)
+		level = "City_Level_v1";
 	//Show loading progress, ADD LOADINGSCREEN?
 	KeepNetworkInfo.isNetwork = true;
 	GUI.Box(Rect(Screen.width/4+180,Screen.height/2-30,280,50), "");
-	if(Application.CanStreamedLevelBeLoaded ((Application.loadedLevel+1))){
+	if(Application.CanStreamedLevelBeLoaded ((level))){
 		GUI.Label(Rect(Screen.width/4+200,Screen.height/2-25,285,150), "Loaded, starting the game!");
-			if (level1selected)
-				Application.LoadLevel("islandLevel");
-			else if (level2selected)
-				Application.LoadLevel("Country");
-			else if (level3selected)
-				Application.LoadLevel("City_Level_v1");
+		Application.LoadLevel(level);
 	}else{
-		if (level1selected)
-			GUI.Label(Rect(Screen.width/4+200,Screen.height/2-25,285,150), "Starting..Loading the game: "+Mathf.Floor(Application.GetStreamProgressForLevel(("islandLevel"))*100)+" %");
-		else if (level2selected)
-			GUI.Label(Rect(Screen.width/4+200,Screen.height/2-25,285,150), "Starting..Loading the game: "+Mathf.Floor(Application.GetStreamProgressForLevel(("Country"))*100)+" %");
-		else if (level3selected)
-			GUI.Label(Rect(Screen.width/4+200,Screen.height/2-25,285,150), "Starting..Loading the game: "+Mathf.Floor(Application.GetStreamProgressForLevel(("City_Level_v1"))*100)+" %");
-		}	
+		GUI.Label(Rect(Screen.width/4+200,Screen.height/2-25,285,150), "Starting..Loading the game: "+Mathf.Floor(Application.GetStreamProgressForLevel((level))*100)+" %");
+	}	
 	
 }
