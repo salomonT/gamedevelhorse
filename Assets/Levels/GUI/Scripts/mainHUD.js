@@ -177,6 +177,7 @@ function OnGUI () {
 					exitFlag = 1;
 					Time.timeScale = 1;
 					Application.LoadLevelAsync ("GUI");
+					mainMenu.resetMenu();
 				}
 			}
 			
@@ -185,6 +186,7 @@ function OnGUI () {
 					exitFlag = 1;
 					Time.timeScale = 1;
 					Application.LoadLevelAsync ("GUI");
+					mainMenu.resetMenu();
 				}
 			}
 		}
