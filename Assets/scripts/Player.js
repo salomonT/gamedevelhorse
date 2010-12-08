@@ -656,17 +656,17 @@ function OnTriggerEnter(object:Collider)
           		var first : int;             
           		var second : int;
           		
-          		if(GameManager.getDifficulty == 0)
+          		if(GameManager.getDifficulty() == 0)
           		{
           			first = 1;
           			second = 2;
           		}
-          		else if(GameManager.getDifficulty == 1)
+          		else if(GameManager.getDifficulty() == 1)
           		{
           			first = 4;
           			second = 8;
           		}
-          		else if(GameManager.getDifficulty == 2)
+          		else if(GameManager.getDifficulty() == 2)
           		{
           			first = 5;
           			second = 10;
@@ -674,10 +674,10 @@ function OnTriggerEnter(object:Collider)
           		
                 if(randomValue < first)//Half chance to boost.
                 {
-                 print("Boost");
-                 countTime = true;
-                 speedUp = true;
-                 overallScore = (overallScore + 1000);
+					print("Reduce");
+					countTime = true;
+					slowDown = true;
+					overallScore = (overallScore - 500);
                 }
                 else if(randomValue < second)//Donkey mode !
                 {
@@ -707,10 +707,10 @@ function OnTriggerEnter(object:Collider)
                 }
                 else      /**User Hit a Speed Reducer.*/
                 {
-                	print("Reduce");
-                        countTime = true;
-                        slowDown = true;
-                        overallScore = (overallScore - 500);
+                	print("Boost");
+                 	countTime = true;
+                 	speedUp = true;
+                 	overallScore = (overallScore + 1000);
                 }  
                 GoRace.speedChanged = true;                     
            }
