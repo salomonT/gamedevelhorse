@@ -11,6 +11,7 @@
 
 public var playerPrefab : Transform;
 public var playerScripts : ArrayList = new ArrayList();
+private var networkPlayer : ArrayList = new ArrayList();
 
 public var numPos : int = 0;
 
@@ -65,12 +66,14 @@ function Spawnplayer(newPlayer : NetworkPlayer){
 	
 	 //Call an RPC on this new networkview, set the player who controls this player
 	 newObjectsNetworkview.RPC("SetPlayer", RPCMode.AllBuffered, newPlayer);//Set it on the owner
+	 networkPlayer.Add(newObjectsNetworkview);
 	 numPos++;
 	 if(KeepNetworkInfo.playerNumber == numPos)
 	 {
-	 	newObjectsNetworkview.RPC("syncWithServer",RPCMode.AllBuffered);
-	 	var pp : Player = myNewTrans.gameObject.GetComponent(Player);
-	 	pp.syncWithServer();
+	 	for(var i=0;i < networkPlayer.Count; i++){
+	 		var p : NetworkView = networkPlayer[i];
+	 		p.RPC("syncWithServer",RPCMode.AllBuffered);
+	 	}
 	 }
 }
 
