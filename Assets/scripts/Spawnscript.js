@@ -105,5 +105,5 @@ function OnPlayerDisconnected(player: NetworkPlayer) {
 function OnDisconnectedFromServer(info : NetworkDisconnection) {
 	print("Resetting the scene the easy way.");
 	KeepNetworkInfo.isNetwork = false;
-	Application.LoadLevel(Application.loadedLevel);	
+	Application.LoadLevel("GUI");	
 }
