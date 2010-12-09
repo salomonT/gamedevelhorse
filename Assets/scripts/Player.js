@@ -210,42 +210,7 @@ function StartSinglePlayer()
 	  
 	  typeGame = GameManager.getGameType();
  	    /**Make all Mandatory Objects Invisible*/
-	  	mandatory1A = GameObject.Find("Mandatories/Mandatory1A");
-	  	if(mandatory1A != null)
-	  	mandatory1A.SetActiveRecursively(false);
-	  	mandatory1B = GameObject.Find("Mandatories/Mandatory1B");
-	  	if(mandatory1B != null)
-	  	mandatory1B.SetActiveRecursively(false);
-	  	mandatory1C = GameObject.Find("Mandatories/Mandatory1C");
-	  	if(mandatory1C != null)
-	  	mandatory1C.SetActiveRecursively(false);
-      	mandatory1D = GameObject.Find("Mandatories/Mandatory1D");
-      	if(mandatory1D != null)
-	  	mandatory1D.SetActiveRecursively(false);
-	  	mandatory2A = GameObject.Find("Mandatories/Mandatory2A");
-	  	if(mandatory2A != null)
-	 	mandatory2A.SetActiveRecursively(false);
-	  	mandatory2B = GameObject.Find("Mandatories/Mandatory2B");
-	  	if(mandatory2B != null)
-	  	mandatory2B.SetActiveRecursively(false);
-      	mandatory2C = GameObject.Find("Mandatories/Mandatory2C");
-      	if(mandatory2C != null)
-	  	mandatory2C.SetActiveRecursively(false);
-	  	mandatory2D = GameObject.Find("Mandatories/Mandatory2D");
-	  	if(mandatory2D != null)
-	  	mandatory2D.SetActiveRecursively(false);
-	  	mandatory3A = GameObject.Find("Mandatories/Mandatory3A");
-	  	if(mandatory3A != null)
-	  	mandatory3A.SetActiveRecursively(false);
-	  	mandatory3B = GameObject.Find("Mandatories/Mandatory3B");
-	  	if(mandatory3B != null)
-	  	mandatory3B.SetActiveRecursively(false);
-	  	mandatory3C = GameObject.Find("Mandatories/Mandatory3C");
-	  	if(mandatory3C != null)
-	  	mandatory3C.SetActiveRecursively(false);
-	  	mandatory3D = GameObject.Find("Mandatories/Mandatory3D");
-	  	if(mandatory3D != null)
-	  	mandatory3D.SetActiveRecursively(false);
+
 	  
 	  
 	  
@@ -318,7 +283,42 @@ function Start()
 	audio.loop = true;
 	audio.volume = 1;
 	
-	
+		  	mandatory1A = GameObject.Find("Mandatories/Mandatory1A");
+	  	if(mandatory1A != null)
+	  	mandatory1A.SetActiveRecursively(false);
+	  	mandatory1B = GameObject.Find("Mandatories/Mandatory1B");
+	  	if(mandatory1B != null)
+	  	mandatory1B.SetActiveRecursively(false);
+	  	mandatory1C = GameObject.Find("Mandatories/Mandatory1C");
+	  	if(mandatory1C != null)
+	  	mandatory1C.SetActiveRecursively(false);
+      	mandatory1D = GameObject.Find("Mandatories/Mandatory1D");
+      	if(mandatory1D != null)
+	  	mandatory1D.SetActiveRecursively(false);
+	  	mandatory2A = GameObject.Find("Mandatories/Mandatory2A");
+	  	if(mandatory2A != null)
+	 	mandatory2A.SetActiveRecursively(false);
+	  	mandatory2B = GameObject.Find("Mandatories/Mandatory2B");
+	  	if(mandatory2B != null)
+	  	mandatory2B.SetActiveRecursively(false);
+      	mandatory2C = GameObject.Find("Mandatories/Mandatory2C");
+      	if(mandatory2C != null)
+	  	mandatory2C.SetActiveRecursively(false);
+	  	mandatory2D = GameObject.Find("Mandatories/Mandatory2D");
+	  	if(mandatory2D != null)
+	  	mandatory2D.SetActiveRecursively(false);
+	  	mandatory3A = GameObject.Find("Mandatories/Mandatory3A");
+	  	if(mandatory3A != null)
+	  	mandatory3A.SetActiveRecursively(false);
+	  	mandatory3B = GameObject.Find("Mandatories/Mandatory3B");
+	  	if(mandatory3B != null)
+	  	mandatory3B.SetActiveRecursively(false);
+	  	mandatory3C = GameObject.Find("Mandatories/Mandatory3C");
+	  	if(mandatory3C != null)
+	  	mandatory3C.SetActiveRecursively(false);
+	  	mandatory3D = GameObject.Find("Mandatories/Mandatory3D");
+	  	if(mandatory3D != null)
+	  	mandatory3D.SetActiveRecursively(false);
 	anim = GetComponent(Animation);
 	animState = anim["Take 001"];
 	startTime = Time.time;
