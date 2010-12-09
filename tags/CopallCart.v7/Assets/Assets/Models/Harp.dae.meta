@@ -1,0 +1,713 @@
+fileFormatVersion: 1
+guid: 74b1a99c573804a9789ce8a5dc67ee8a
+ModelImporter:
+  importerVersion: 7
+  meshes:
+    scaleFactor: 1
+    useFileUnits: 1
+    meshCompression: 0
+    generateColliders: 0
+    swapUVs: 0
+  tangentSpace:
+    normalImportMode: 0
+    tangentImportMode: 1
+    smoothingAngle: 60
+    splitTangents: 1
+  materials:
+    generation: 1
+  animations:
+    generation: 3
+    bakeAnimations: 0
+    animationCompression: 1
+    animationWrapMode: 0
+    splitAnimations: 1
+  nodeInfo:
+    //RootNode:
+    - 100000
+    - 400000
+    - 11100000
+    Irish_Harp_Mesh61:
+    - 100002
+    - 400002
+    - 3300000
+    - 2300000
+    Irish_Harp_Group50:
+    - 100004
+    - 400004
+    Irish_Harp_Group48:
+    - 100006
+    - 400006
+    Irish_Harp_Group66:
+    - 100008
+    - 400008
+    Irish_Harp_Group64:
+    - 100010
+    - 400010
+    Irish_Harp_Group63:
+    - 100012
+    - 400012
+    Irish_Harp_Mesh67:
+    - 100014
+    - 400014
+    - 3300002
+    - 2300002
+    Irish_Harp_Mesh68:
+    - 100016
+    - 400016
+    - 3300004
+    - 2300004
+    Irish_Harp_Mesh69:
+    - 100018
+    - 400018
+    - 3300006
+    - 2300006
+    Irish_Harp_Group54:
+    - 100020
+    - 400020
+    Irish_Harp_Mesh25:
+    - 100022
+    - 400022
+    - 3300008
+    - 2300008
+    Irish_Harp_Group61:
+    - 100024
+    - 400024
+    Irish_Harp_Group53:
+    - 100026
+    - 400026
+    Irish_Harp_Group70:
+    - 100028
+    - 400028
+    Irish_Harp_Mesh26:
+    - 100030
+    - 400030
+    - 3300010
+    - 2300010
+    Irish_Harp_Group52:
+    - 100032
+    - 400032
+    Irish_Harp_Group65:
+    - 100034
+    - 400034
+    Irish_Harp_Mesh73:
+    - 100036
+    - 400036
+    - 3300012
+    - 2300012
+    Irish_Harp_Mesh32:
+    - 100038
+    - 400038
+    - 3300014
+    - 2300014
+    Irish_Harp_Mesh57:
+    - 100040
+    - 400040
+    - 3300016
+    - 2300016
+    Irish_Harp_Group58:
+    - 100042
+    - 400042
+    Irish_Harp_Mesh64:
+    - 100044
+    - 400044
+    - 3300018
+    - 2300018
+    Irish_Harp_Group28:
+    - 100046
+    - 400046
+    Irish_Harp_Group43:
+    - 100048
+    - 400048
+    Irish_Harp_Mesh60:
+    - 100050
+    - 400050
+    - 3300020
+    - 2300020
+    Irish_Harp_Mesh30:
+    - 100052
+    - 400052
+    - 3300022
+    - 2300022
+    Irish_Harp_Group39:
+    - 100054
+    - 400054
+    Irish_Harp_Group35:
+    - 100056
+    - 400056
+    Irish_Harp_Mesh44:
+    - 100058
+    - 400058
+    - 3300024
+    - 2300024
+    Irish_Harp_Mesh31:
+    - 100060
+    - 400060
+    - 3300026
+    - 2300026
+    Irish_Harp_Group71:
+    - 100062
+    - 400062
+    Irish_Harp_Mesh54:
+    - 100064
+    - 400064
+    - 3300028
+    - 2300028
+    Irish_Harp_Mesh35:
+    - 100066
+    - 400066
+    - 3300030
+    - 2300030
+    Irish_Harp_Mesh24:
+    - 100068
+    - 400068
+    - 3300032
+    - 2300032
+    Irish_Harp_Mesh70:
+    - 100070
+    - 400070
+    - 3300034
+    - 2300034
+    Irish_Harp_Mesh52:
+    - 100072
+    - 400072
+    - 3300036
+    - 2300036
+    Irish_Harp_Group26:
+    - 100074
+    - 400074
+    Irish_Harp_Mesh59:
+    - 100076
+    - 400076
+    - 3300038
+    - 2300038
+    Irish_Harp_Mesh50:
+    - 100078
+    - 400078
+    - 3300040
+    - 2300040
+    Irish_Harp_Mesh36:
+    - 100080
+    - 400080
+    - 3300042
+    - 2300042
+    Irish_Harp_Mesh53:
+    - 100082
+    - 400082
+    - 3300044
+    - 2300044
+    Irish_Harp_Group74:
+    - 100084
+    - 400084
+    Irish_Harp_Group29:
+    - 100086
+    - 400086
+    Irish_Harp_Group47:
+    - 100088
+    - 400088
+    Irish_Harp_Mesh55:
+    - 100090
+    - 400090
+    - 3300046
+    - 2300046
+    Irish_Harp_Mesh56:
+    - 100092
+    - 400092
+    - 3300048
+    - 2300048
+    Irish_Harp_Mesh41:
+    - 100094
+    - 400094
+    - 3300050
+    - 2300050
+    Irish_Harp_Group57:
+    - 100096
+    - 400096
+    Irish_Harp_Mesh46:
+    - 100098
+    - 400098
+    - 3300052
+    - 2300052
+    Irish_Harp_Group69:
+    - 100100
+    - 400100
+    Irish_Harp_Mesh66:
+    - 100102
+    - 400102
+    - 3300054
+    - 2300054
+    Irish_Harp_Mesh38:
+    - 100104
+    - 400104
+    - 3300056
+    - 2300056
+    Irish_Harp_Mesh40:
+    - 100106
+    - 400106
+    - 3300058
+    - 2300058
+    Irish_Harp_Group73:
+    - 100108
+    - 400108
+    Irish_Harp_Group42:
+    - 100110
+    - 400110
+    Irish_Harp_Group46:
+    - 100112
+    - 400112
+    Irish_Harp_Mesh48:
+    - 100114
+    - 400114
+    - 3300060
+    - 2300060
+    Irish_Harp_Group44:
+    - 100116
+    - 400116
+    Irish_Harp_Group55:
+    - 100118
+    - 400118
+    Irish_Harp_Mesh43:
+    - 100120
+    - 400120
+    - 3300062
+    - 2300062
+    Irish_Harp_Mesh63:
+    - 100122
+    - 400122
+    - 3300064
+    - 2300064
+    Irish_Harp_Mesh42:
+    - 100124
+    - 400124
+    - 3300066
+    - 2300066
+    Irish_Harp_Mesh65:
+    - 100126
+    - 400126
+    - 3300068
+    - 2300068
+    Irish_Harp_Group68:
+    - 100128
+    - 400128
+    Irish_Harp_Group34:
+    - 100130
+    - 400130
+    Irish_Harp_Group72:
+    - 100132
+    - 400132
+    Irish_Harp_Mesh29:
+    - 100134
+    - 400134
+    - 3300070
+    - 2300070
+    Irish_Harp_Mesh51:
+    - 100136
+    - 400136
+    - 3300072
+    - 2300072
+    Irish_Harp_Group45:
+    - 100138
+    - 400138
+    Irish_Harp_Group36:
+    - 100140
+    - 400140
+    Irish_Harp_Mesh49:
+    - 100142
+    - 400142
+    - 3300074
+    - 2300074
+    Irish_Harp_Group59:
+    - 100144
+    - 400144
+    Irish_Harp_Group38:
+    - 100146
+    - 400146
+    Irish_Harp_Group51:
+    - 100148
+    - 400148
+    Irish_Harp_Mesh62:
+    - 100150
+    - 400150
+    - 3300076
+    - 2300076
+    Irish_Harp_Group33:
+    - 100152
+    - 400152
+    Irish_Harp_Group49:
+    - 100154
+    - 400154
+    Irish_Harp_Group67:
+    - 100156
+    - 400156
+    Irish_Harp_Mesh28:
+    - 100158
+    - 400158
+    - 3300078
+    - 2300078
+    Irish_Harp_Group62:
+    - 100160
+    - 400160
+    Irish_Harp_Group32:
+    - 100162
+    - 400162
+    Irish_Harp_Mesh47:
+    - 100164
+    - 400164
+    - 3300080
+    - 2300080
+    Irish_Harp_Mesh33:
+    - 100166
+    - 400166
+    - 3300082
+    - 2300082
+    Irish_Harp_Group31:
+    - 100168
+    - 400168
+    Irish_Harp_Group27:
+    - 100170
+    - 400170
+    Irish_Harp_Mesh72:
+    - 100172
+    - 400172
+    - 3300084
+    - 2300084
+    Irish_Harp_Mesh74:
+    - 100174
+    - 400174
+    - 3300086
+    - 2300086
+    Irish_Harp_Mesh34:
+    - 100176
+    - 400176
+    - 3300088
+    - 2300088
+    Irish_Harp_Mesh39:
+    - 100178
+    - 400178
+    - 3300090
+    - 2300090
+    Irish_Harp_Mesh23:
+    - 100180
+    - 400180
+    - 3300092
+    - 2300092
+    Irish_Harp_Group60:
+    - 100182
+    - 400182
+    Irish_Harp_Mesh27:
+    - 100184
+    - 400184
+    - 3300094
+    - 2300094
+    Irish_Harp_Group40:
+    - 100186
+    - 400186
+    Irish_Harp_Group41:
+    - 100188
+    - 400188
+    Irish_Harp_Mesh58:
+    - 100190
+    - 400190
+    - 3300096
+    - 2300096
+    Irish_Harp_Mesh71:
+    - 100192
+    - 400192
+    - 3300098
+    - 2300098
+    Irish_Harp_Mesh45:
+    - 100194
+    - 400194
+    - 3300100
+    - 2300100
+    Irish_Harp_Group56:
+    - 100196
+    - 400196
+    Irish_Harp_Mesh37:
+    - 100198
+    - 400198
+    - 3300102
+    - 2300102
+    Irish_Harp_Group30:
+    - 100200
+    - 400200
+    Irish_Harp_Group25:
+    - 100202
+    - 400202
+    Irish_Harp_Group37:
+    - 100204
+    - 400204
+    Irish_Harp_Group24:
+    - 100206
+    - 400206
+    Irish_Harp_Group23:
+    - 100208
+    - 400208
+    Irish_Harp_Mesh21:
+    - 100210
+    - 400210
+    - 3300104
+    - 2300104
+    Irish_Harp_Mesh22:
+    - 100212
+    - 400212
+    - 3300106
+    - 2300106
+    Irish_Harp_Group21:
+    - 100214
+    - 400214
+    Irish_Harp_Mesh20:
+    - 100216
+    - 400216
+    - 3300108
+    - 2300108
+    Irish_Harp_Group22:
+    - 100218
+    - 400218
+    Irish_Harp_Group20:
+    - 100220
+    - 400220
+    Irish_Harp_Mesh18:
+    - 100222
+    - 400222
+    - 3300110
+    - 2300110
+    Irish_Harp_Mesh19:
+    - 100224
+    - 400224
+    - 3300112
+    - 2300112
+    Irish_Harp_Group18:
+    - 100226
+    - 400226
+    Irish_Harp_Mesh17:
+    - 100228
+    - 400228
+    - 3300114
+    - 2300114
+    Irish_Harp_Group19:
+    - 100230
+    - 400230
+    Irish_Harp_Group17:
+    - 100232
+    - 400232
+    Irish_Harp_Mesh15:
+    - 100234
+    - 400234
+    - 3300116
+    - 2300116
+    Irish_Harp_Mesh16:
+    - 100236
+    - 400236
+    - 3300118
+    - 2300118
+    Irish_Harp_Group15:
+    - 100238
+    - 400238
+    Irish_Harp_Mesh14:
+    - 100240
+    - 400240
+    - 3300120
+    - 2300120
+    Irish_Harp_Group16:
+    - 100242
+    - 400242
+    Irish_Harp_Group14:
+    - 100244
+    - 400244
+    Irish_Harp_Mesh12:
+    - 100246
+    - 400246
+    - 3300122
+    - 2300122
+    Irish_Harp_Mesh13:
+    - 100248
+    - 400248
+    - 3300124
+    - 2300124
+    Irish_Harp_Group12:
+    - 100250
+    - 400250
+    Irish_Harp_Mesh11:
+    - 100252
+    - 400252
+    - 3300126
+    - 2300126
+    Irish_Harp_Group13:
+    - 100254
+    - 400254
+    Irish_Harp_Group11:
+    - 100256
+    - 400256
+    Irish_Harp_Mesh9:
+    - 100258
+    - 400258
+    - 3300128
+    - 2300128
+    Irish_Harp_Mesh10:
+    - 100260
+    - 400260
+    - 3300130
+    - 2300130
+    Irish_Harp_Group9:
+    - 100262
+    - 400262
+    Irish_Harp_Mesh8:
+    - 100264
+    - 400264
+    - 3300132
+    - 2300132
+    Irish_Harp_Group10:
+    - 100266
+    - 400266
+    Irish_Harp_Group8:
+    - 100268
+    - 400268
+    Irish_Harp_Mesh6:
+    - 100270
+    - 400270
+    - 3300134
+    - 2300134
+    Irish_Harp_Mesh7:
+    - 100272
+    - 400272
+    - 3300136
+    - 2300136
+    Irish_Harp_Group6:
+    - 100274
+    - 400274
+    Irish_Harp_Mesh5:
+    - 100276
+    - 400276
+    - 3300138
+    - 2300138
+    Irish_Harp_Group7:
+    - 100278
+    - 400278
+    Irish_Harp_Group5:
+    - 100280
+    - 400280
+    Irish_Harp_Mesh3:
+    - 100282
+    - 400282
+    - 3300140
+    - 2300140
+    Irish_Harp_Mesh4:
+    - 100284
+    - 400284
+    - 3300142
+    - 2300142
+    Irish_Harp_Group3:
+    - 100286
+    - 400286
+    Irish_Harp_Mesh2:
+    - 100288
+    - 400288
+    - 3300144
+    - 2300144
+    Irish_Harp_Group4:
+    - 100290
+    - 400290
+    Irish_Harp_Group2:
+    - 100292
+    - 400292
+    Irish_Harp_Model:
+    - 100294
+    - 400294
+    Irish_Harp_Mesh1:
+    - 100296
+    - 400296
+    - 3300146
+    - 2300146
+    Box_polySurface28:
+    - 100298
+    - 400298
+    - 3300148
+    - 2300148
+    Irish_Harp_Group1:
+    - 100300
+    - 400300
+    Box_pCube1:
+    - 100302
+    - 400302
+    - 3300150
+    - 2300150
+AssetImporter:
+  importerVersion: 1
+  fileIDToRecycleName:
+    4300000: pCube1
+    4300002: Box_pCube1
+    4300004: Box_polySurface28
+    4300006: Irish_Harp_Mesh1
+    4300008: Irish_Harp_Mesh2
+    4300010: Irish_Harp_Mesh3
+    4300012: Irish_Harp_Mesh4
+    4300014: Irish_Harp_Mesh5
+    4300016: Irish_Harp_Mesh6
+    4300018: Irish_Harp_Mesh7
+    4300020: Irish_Harp_Mesh8
+    4300022: Irish_Harp_Mesh9
+    4300024: Irish_Harp_Mesh10
+    4300026: Irish_Harp_Mesh11
+    4300028: Irish_Harp_Mesh12
+    4300030: Irish_Harp_Mesh13
+    4300032: Irish_Harp_Mesh14
+    4300034: Irish_Harp_Mesh15
+    4300036: Irish_Harp_Mesh16
+    4300038: Irish_Harp_Mesh17
+    4300040: Irish_Harp_Mesh18
+    4300042: Irish_Harp_Mesh19
+    4300044: Irish_Harp_Mesh20
+    4300046: Irish_Harp_Mesh21
+    4300048: Irish_Harp_Mesh22
+    4300050: Irish_Harp_Mesh23
+    4300052: Irish_Harp_Mesh24
+    4300054: Irish_Harp_Mesh25
+    4300056: Irish_Harp_Mesh26
+    4300058: Irish_Harp_Mesh27
+    4300060: Irish_Harp_Mesh28
+    4300062: Irish_Harp_Mesh29
+    4300064: Irish_Harp_Mesh30
+    4300066: Irish_Harp_Mesh31
+    4300068: Irish_Harp_Mesh32
+    4300070: Irish_Harp_Mesh33
+    4300072: Irish_Harp_Mesh34
+    4300074: Irish_Harp_Mesh35
+    4300076: Irish_Harp_Mesh36
+    4300078: Irish_Harp_Mesh37
+    4300080: Irish_Harp_Mesh38
+    4300082: Irish_Harp_Mesh39
+    4300084: Irish_Harp_Mesh40
+    4300086: Irish_Harp_Mesh41
+    4300088: Irish_Harp_Mesh42
+    4300090: Irish_Harp_Mesh43
+    4300092: Irish_Harp_Mesh44
+    4300094: Irish_Harp_Mesh45
+    4300096: Irish_Harp_Mesh46
+    4300098: Irish_Harp_Mesh47
+    4300100: Irish_Harp_Mesh48
+    4300102: Irish_Harp_Mesh49
+    4300104: Irish_Harp_Mesh50
+    4300106: Irish_Harp_Mesh51
+    4300108: Irish_Harp_Mesh52
+    4300110: Irish_Harp_Mesh53
+    4300112: Irish_Harp_Mesh54
+    4300114: Irish_Harp_Mesh55
+    4300116: Irish_Harp_Mesh56
+    4300118: Irish_Harp_Mesh57
+    4300120: Irish_Harp_Mesh58
+    4300122: Irish_Harp_Mesh59
+    4300124: Irish_Harp_Mesh60
+    4300126: Irish_Harp_Mesh61
+    4300128: Irish_Harp_Mesh62
+    4300130: Irish_Harp_Mesh63
+    4300132: Irish_Harp_Mesh64
+    4300134: Irish_Harp_Mesh65
+    4300136: Irish_Harp_Mesh66
+    4300138: Irish_Harp_Mesh67
+    4300140: Irish_Harp_Mesh68
+    4300142: Irish_Harp_Mesh69
+    4300144: Irish_Harp_Mesh70
+    4300146: Irish_Harp_Mesh71
+    4300148: Irish_Harp_Mesh72
+    4300150: Irish_Harp_Mesh73
+    4300152: Irish_Harp_Mesh74
