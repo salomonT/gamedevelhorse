@@ -119,6 +119,13 @@ function AcclerateCharacter()
 
 function StartMultiplayer()
 {
+	for (var child : Transform in transform) 
+	{
+		if(child.gameObject.name == "Horse_mesh")
+		{
+			child.gameObject.renderer.material = horseMaterials[Random.Range(0,12)];
+		}
+	}
    	GoRace.cameraEnd = true;
 	//Disable the singleplayer horses.
 	var horsePlayers : GameObject = GameObject.Find("players");
@@ -1416,6 +1423,7 @@ function checkGameManager() : void {
                                         //}
                                         
                                         // Display YOU WON on the screen
+                                        highScoreDB.addScore("Player", overallScore);
                                         GoRace.stateEnd=1;
 
                                 } else if(GameManager.getFinishedArray().Count > 1) {
@@ -1429,7 +1437,7 @@ function checkGameManager() : void {
 											camMusic.audio.Play(0);
                                         }
 
-
+										highScoreDB.addScore("Player", overallScore);
                                 }
 
                         }
@@ -1450,20 +1458,29 @@ function checkGameManager() : void {
 				// If there is only 1 player in the array (you) then you won!
 				if(GameManager.getFinishedArray().Count == 1) {
 					Debug.Log("You Won!");
-					
+					highScoreDB.addScore("Player", overallScore);
 					//for(var i=0; i<GameManager.getFinishedArray().Count; i++) {
 						//Debug.Log("Finished Array [" +i +"] = " + GameManager.getFinishedArray()[i]);
 						//Debug.Log("test " +i);
 					//}
-					
+					if(camMusic != null)
+                    {
+						camMusic.audio.clip = wonSound;
+						camMusic.audio.Play(0);
+                    }
 					// Display YOU WON on the screen
 					GoRace.stateEnd=1;
 
 				} else if(GameManager.getFinishedArray().Count > 1) {
 					Debug.Log("You Lost!");
-					
+					highScoreDB.addScore("Player", overallScore);
 					// Display YOU LOST on the screen
 					GoRace.stateEnd=2;
+					if(camMusic != null)
+                    {
+						camMusic.audio.clip = lostSound;
+						camMusic.audio.Play(0);
+                    }
 
 				}
 
