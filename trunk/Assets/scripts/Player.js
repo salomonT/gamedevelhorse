@@ -93,7 +93,8 @@ public var wonSound : AudioClip;
 public var lostSound : AudioClip;
 
 private var firstEnd : boolean = false;
-private var lastSpeed : float;
+private var lastSpeed : float; 
+private var mainCam : GameObject;
 
 
 
@@ -323,6 +324,8 @@ function Start()
 	animState = anim["Take 001"];
 	startTime = Time.time;
   	controller = GetComponent(CharacterController);
+  	
+  	mainCam = GameObject.Find("Camera");
 
   if(KeepNetworkInfo.isNetwork == true)	//Multiplayer mode.
   {
@@ -566,7 +569,7 @@ function Update ()
 /**Move the Playable Charachter*/
 function MoveCharachter()
 { 
-    if ((Mathf.Abs(Input.GetAxis("Vertical")) > 0.2) || (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.2)) 
+    if (((Mathf.Abs(Input.GetAxis("Vertical")) > 0.2) || (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.2)) && !raceCompleted) 
     {
     
         if(Input.GetButton("Run") && donkeyMode == false) 
@@ -599,9 +602,10 @@ function MoveCharachter()
           else
           { 
            speed = Mathf.Abs(Input.GetAxis("Vertical")) * walkSpeed;
-          }
+          } 
+          lastSpeed = speed;
     } 
-    else 
+    else if(!raceCompleted)
     {
         speed = 0;
     }
@@ -609,13 +613,19 @@ function MoveCharachter()
     //End of race, reduce speed till zero.
     if(raceCompleted == true)
     {
-    	 if(firstEnd == false)
-    	 {
-    	 	 firstEnd = true;
-    	 	 lastSpeed = speed;
-    	 }
+
     	 speed = Mathf.Max(0, (lastSpeed - 0.5)); 
-    	 lastSpeed = speed;
+    	 lastSpeed = speed; 
+    	 
+    	 //Rotate camera around player.
+    	  if(mainCam != null)
+    	  { 
+    	  	if( mainCam.GetComponent(SmoothFollow).enabled == true)
+    	  	{
+    	  		mainCam.GetComponent(SmoothFollow).enabled = false; 
+    	  	}
+    	  	mainCam.transform.RotateAround (transform.position, Vector3.up, 20 * Time.deltaTime); 
+    	  }
     }
      
     if(speed != 0)
@@ -649,8 +659,16 @@ function MoveCharachter()
 	    }
         rotation *= Time.deltaTime;
         transform.Rotate(0,rotation,0); 
-	}
-    moveDirection = Vector3(0, verticalSpeed, Input.GetAxis("Vertical"));
+	} 
+	
+	if(!raceCompleted)
+	{
+    	moveDirection = Vector3(0, verticalSpeed, Input.GetAxis("Vertical")); 
+   	}
+   	else
+   	{
+   		 moveDirection = Vector3(0, verticalSpeed, 1);
+   	}
     moveDirection = transform.TransformDirection(moveDirection);
     if(rightWheel != null)
     {
