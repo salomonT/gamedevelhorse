@@ -1,0 +1,103 @@
+fileFormatVersion: 1
+guid: 4e7e5340408610a4cbe7a1a34b06bdb3
+ModelImporter:
+  importerVersion: 7
+  meshes:
+    scaleFactor: 0.1
+    useFileUnits: 1
+    meshCompression: 0
+    generateColliders: 0
+    swapUVs: 0
+  tangentSpace:
+    normalImportMode: 0
+    tangentImportMode: 1
+    smoothingAngle: 60
+    splitTangents: 1
+  materials:
+    generation: 1
+  animations:
+    generation: 3
+    bakeAnimations: 0
+    animationCompression: 1
+    animationWrapMode: 0
+    splitAnimations: 1
+  nodeInfo:
+    //RootNode:
+    - 100000
+    - 400000
+    - 11100000
+    RoofLeft:
+    - 100002
+    - 400002
+    - 3300000
+    - 2300000
+    Back:
+    - 100004
+    - 400004
+    - 3300002
+    - 2300002
+    Right:
+    - 100006
+    - 400006
+    - 3300004
+    - 2300004
+    RoofFront:
+    - 100008
+    - 400008
+    - 3300006
+    - 2300006
+    DoorwayLef:
+    - 100010
+    - 400010
+    - 3300008
+    - 2300008
+    Base:
+    - 100012
+    - 400012
+    - 3300010
+    - 2300010
+    DoorwayRig:
+    - 100014
+    - 400014
+    - 3300012
+    - 2300012
+    RoofRight:
+    - 100016
+    - 400016
+    - 3300014
+    - 2300014
+    Front:
+    - 100018
+    - 400018
+    - 3300016
+    - 2300016
+    RoofBack:
+    - 100020
+    - 400020
+    - 3300018
+    - 2300018
+    Window:
+    - 100022
+    - 400022
+    - 3300020
+    - 2300020
+    Left:
+    - 100024
+    - 400024
+    - 3300022
+    - 2300022
+AssetImporter:
+  importerVersion: 1
+  fileIDToRecycleName:
+    4300000: Left
+    4300002: Right
+    4300004: Back
+    4300006: Front
+    4300008: Base
+    4300010: RoofFront
+    4300012: RoofBack
+    4300014: RoofLeft
+    4300016: RoofRight
+    4300018: Window
+    4300020: DoorwayLef
+    4300022: DoorwayRig

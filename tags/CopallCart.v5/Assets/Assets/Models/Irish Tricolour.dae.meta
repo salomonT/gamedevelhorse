@@ -1,0 +1,74 @@
+fileFormatVersion: 1
+guid: 12d48764228824bda8a67f6dc9b5625e
+ModelImporter:
+  importerVersion: 7
+  meshes:
+    scaleFactor: 1
+    useFileUnits: 1
+    meshCompression: 0
+    generateColliders: 0
+    swapUVs: 0
+  tangentSpace:
+    normalImportMode: 0
+    tangentImportMode: 1
+    smoothingAngle: 60
+    splitTangents: 1
+  materials:
+    generation: 1
+  animations:
+    generation: 3
+    bakeAnimations: 0
+    animationCompression: 1
+    animationWrapMode: 0
+    splitAnimations: 1
+  nodeInfo:
+    //RootNode:
+    - 100000
+    - 400000
+    - 11100000
+    irish_Flag_pCube3:
+    - 100002
+    - 400002
+    - 3300000
+    - 2300000
+    group1:
+    - 100004
+    - 400004
+    irish_Flag_pCube2:
+    - 100006
+    - 400006
+    - 3300002
+    - 2300002
+    irish_Flag_pCylinder1:
+    - 100008
+    - 400008
+    - 3300004
+    - 2300004
+    irish_Flag_pCube1:
+    - 100010
+    - 400010
+    - 3300006
+    - 2300006
+    Box_pCube1:
+    - 100012
+    - 400012
+    - 3300008
+    - 2300008
+    irish_Flag_group1:
+    - 100014
+    - 400014
+    Box_polySurface28:
+    - 100016
+    - 400016
+    - 3300010
+    - 2300010
+AssetImporter:
+  importerVersion: 1
+  fileIDToRecycleName:
+    4300000: pCube1
+    4300002: Box_pCube1
+    4300004: Box_polySurface28
+    4300006: irish_Flag_pCube1
+    4300008: irish_Flag_pCube2
+    4300010: irish_Flag_pCube3
+    4300012: irish_Flag_pCylinder1
