@@ -12,6 +12,7 @@
 public var playerPrefab : Transform;
 public var playerScripts : ArrayList = new ArrayList();
 private var networkPlayer : ArrayList = new ArrayList();
+private var lastid : int = 0;
 
 public var numPos : int = 0;
 
@@ -60,12 +61,17 @@ function Spawnplayer(newPlayer : NetworkPlayer){
 	
 	 //Get the networkview of this new transform
 	 var newObjectsNetworkview : NetworkView = myNewTrans.networkView;
+	 
+	 //Get player
+	 var playerClone : Player = myNewTrans.GetComponent(Player);
+	 lastid=lastid+1;
+	 playerClone.setId(lastid);
 
 	 //Keep track of this new player so we can properly destroy it when required.
-	 playerScripts.Add(myNewTrans.GetComponent(Player));
+	 playerScripts.Add(playerClone);
 	
 	 //Call an RPC on this new networkview, set the player who controls this player
-	 newObjectsNetworkview.RPC("SetPlayer", RPCMode.AllBuffered, newPlayer);//Set it on the owner
+	 newObjectsNetworkview.RPC("SetPlayer", RPCMode.AllBuffered, newPlayer,lastid);//Set it on the owner
 	 networkPlayer.Add(newObjectsNetworkview);
 	 numPos++;
 	 if(KeepNetworkInfo.playerNumber == numPos)
