@@ -161,6 +161,10 @@ function StartMultiplayer()
 		}
 	}
 
+	GameManager.setLaps(1);
+	raceCompleted = false;
+	typeGame = 0;
+	  
     if(Network.isClient && !setplayer)
     {
             pp = GetComponent(Player);
@@ -416,6 +420,34 @@ function getOneLap(cloneid : int){
 }
 
 @RPC
+function otherWin(cloneid : int){
+	if(id != cloneid){
+		if(Network.isClient == true){
+			Debug.Log("You Lost!");
+			
+			// Display YOU LOST on the screen
+			GoRace.stateEnd=2;
+//			if(camMusic != null)
+//			{
+//			camMusic.audio.clip = lostSound;
+//			camMusic.audio.Play(0);
+//			}
+		}
+	}
+}
+
+@RPC
+function clientWin(cloneid : int){
+	if(Network.isServer == true){
+		Debug.Log("You Lost!");
+		
+		// Display YOU LOST on the screen
+		GoRace.stateEnd=2;
+		networkView.RPC("otherWin",RPCMode.All,cloneid);
+	}
+}
+
+@RPC
 function takeDonkey(){
 	countTime = true;
 	donkeyMode = true;
@@ -604,6 +636,11 @@ function Update ()
   if(KeepNetworkInfo.isNetwork == true)
   {
         UpdateMultiplayer();
+        if(Network.isServer == true && id ==1){
+        	checkGameManager();
+        } else if(Network.isClient == true){
+        	checkGameManager();
+        }
   }
   else
   {
@@ -1416,6 +1453,11 @@ function checkGameManager() : void {
                                         {
 											camMusic.audio.clip = wonSound;
 											camMusic.audio.Play(0);
+                                        }
+                                        if(KeepNetworkInfo.isNetwork == true && Network.isServer == true){
+                                        	networkView.RPC("otherWin",RPCMode.All,id);
+                                        } else if(KeepNetworkInfo.isNetwork == true && Network.isClient == true){
+                                        	networkView.RPC("clientWin",RPCMode.Server,id);
                                         }
                                         //for(var i=0; i<GameManager.getFinishedArray().Count; i++) {
                                                 //Debug.Log("Finished Array [" +i +"] = " + GameManager.getFinishedArray()[i]);
