@@ -89,6 +89,11 @@ private var camTop : GameObject;
 private var isSync : boolean = false;
 
 public var donkeySound : AudioClip;
+public var wonSound : AudioClip;
+public var lostSound : AudioClip;
+
+private var firstEnd : boolean = false;
+private var lastSpeed : float;
 
 
 
@@ -157,7 +162,6 @@ function StartMultiplayer()
 
 function StartSinglePlayer()
 {
-
 	//Change the material by the player settings.
 	
 	var horse : GameObject = GameObject.Find("HorseAnim/Horse_mesh");
@@ -534,14 +538,13 @@ function Update ()
                 setRace = false;
           }
         
-          if(GoRace.cameraEnd == true && isRacing && !raceCompleted)
+          if(GoRace.cameraEnd == true && isRacing)
           {
                         MoveCharachter();
                         CheckEnhancements();
                         LapTime();
                         OverallTime();
-                     //   print("Lap Time : " + printLap + "   Overall Time : " + printOverall + "  Score : " + overallScore);
-      }
+      	  }
           else
           {
                   RaceCountDown();
@@ -602,32 +605,51 @@ function MoveCharachter()
     {
         speed = 0;
     }
-     
-        if(Input.GetAxis("Vertical") != 0f)
-        {
-                animState.speed = speed / 50.0;
-                anim.Play();
-                audio.pitch = Mathf.Min(1.2f,animState.speed * 1.5f);
-                audio.pitch = Mathf.Max(0.7f,audio.pitch);
-                if (!audio.isPlaying && fxLoopPlay == false)
-                {
-                        audio.Play(0);
-                        fxLoopPlay = true;
-                }
-        }
-        else
-        {
-                audio.Stop();
-                fxLoopPlay = false;
-        }
-        ApplyGravity();
-    var rotation : float = Input.GetAxis("Horizontal") * rotationSpeed;
-    if(Input.GetButton("Run"))
+    
+    //End of race, reduce speed till zero.
+    if(raceCompleted == true)
     {
-        rotation = rotation/3.0f;
+    	 if(firstEnd == false)
+    	 {
+    	 	 firstEnd = true;
+    	 	 lastSpeed = speed;
+    	 }
+    	 speed = Mathf.Max(0, (lastSpeed - 0.5)); 
+    	 lastSpeed = speed;
     }
+     
+    if(speed != 0)
+    {
+            animState.speed = speed / 50.0;
+            anim.Play();
+            audio.pitch = Mathf.Min(1.2f,animState.speed * 1.5f);
+            audio.pitch = Mathf.Max(0.7f,audio.pitch);
+            if (!audio.isPlaying && fxLoopPlay == false)
+            {
+                    audio.Play(0);
+                    fxLoopPlay = true;
+            }
+    }
+    else
+    {
+    		if(donkeyMode == false)
+    		{
+            	audio.Stop();
+            }
+            fxLoopPlay = false;
+    }
+    ApplyGravity(); 
+    
+    if(!raceCompleted)
+    {
+	    var rotation : float = Input.GetAxis("Horizontal") * rotationSpeed;
+	    if(Input.GetButton("Run"))
+	    {
+	        rotation = rotation/3.0f;
+	    }
         rotation *= Time.deltaTime;
-        transform.Rotate(0,rotation,0);
+        transform.Rotate(0,rotation,0); 
+	}
     moveDirection = Vector3(0, verticalSpeed, Input.GetAxis("Vertical"));
     moveDirection = transform.TransformDirection(moveDirection);
     if(rightWheel != null)
@@ -1260,7 +1282,7 @@ function TimeCounterUp():Number
 // Check the players progress towards finishing the game
 // Created by Noel
 function checkGameManager() : void {
-           
+           		var camMusic : GameObject = GameObject.Find("Camera");
                 // Check to see if the player has won the game if game type is race (0) and laps to win is not 0
                 if(GameManager.getGameType() == 0 && GameManager.getLaps() != 0 && raceCompleted == false) {
                         if(lapCounter >= GameManager.getLaps()) {
@@ -1275,6 +1297,11 @@ function checkGameManager() : void {
                                 if(GameManager.getFinishedArray().Count == 1) {
                                         Debug.Log("You Won!");
                                         
+                                        if(camMusic != null)
+                                        {
+											camMusic.audio.clip = wonSound;
+											camMusic.audio.Play(0);
+                                        }
                                         //for(var i=0; i<GameManager.getFinishedArray().Count; i++) {
                                                 //Debug.Log("Finished Array [" +i +"] = " + GameManager.getFinishedArray()[i]);
                                                 //Debug.Log("test " +i);
@@ -1288,6 +1315,12 @@ function checkGameManager() : void {
                                         
                                         // Display YOU LOST on the screen
                                         GoRace.stateEnd=2;
+                                        if(camMusic != null)
+                                        {
+											camMusic.audio.clip = lostSound;
+											camMusic.audio.Play(0);
+                                        }
+
 
                                 }
 
