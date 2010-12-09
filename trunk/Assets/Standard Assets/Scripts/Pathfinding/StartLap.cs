@@ -54,7 +54,7 @@ public class StartLap : MonoBehaviour {
 	{
 		if(startCount == true)
 		{
-			if(Time.time > pickupTime + 2.0)
+			if(Time.time > pickupTime + 5.0)
 			{
 				startCount = false;
 				(GetComponent (typeof (AIFollow)) as AIFollow).speed = startSpeed;
@@ -268,7 +268,7 @@ public class StartLap : MonoBehaviour {
 		else if(randomValue < 7)//Donkey mode !
                 {
                 	print("Donkey mode !");
-                	(GetComponent (typeof (AIFollow)) as AIFollow).speed = startSpeed / 4.0f;
+                	(GetComponent (typeof (AIFollow)) as AIFollow).speed = startSpeed / 3.5f;
 					startCount = true;
 					monkeyMode = true;
                 	//Change the mesh.
