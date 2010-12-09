@@ -88,6 +88,8 @@ private var onBegin : boolean;
 private var camTop : GameObject;
 private var isSync : boolean = false;
 
+public var donkeySound : AudioClip;
+
 
 
 
@@ -574,10 +576,6 @@ function MoveCharachter()
                    {
                        speed = Mathf.Abs(Input.GetAxis("Vertical")) * (runSpeed / 2);                        
                    }
-                   else if(slowDown == true)
-          		   {
-                   	   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed / 4);                       
-          		   } 
                    else
                    {
                		   speed = Mathf.Abs(Input.GetAxis("Vertical")) * runSpeed;
@@ -589,11 +587,11 @@ function MoveCharachter()
           }
           else if(slowDown == true)
           {
-                   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed / 4);                       
+                   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed / 2);                       
           } 
           else if(donkeyMode == true)
           {
-                   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed / 2);                       
+                   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed / 3);                       
           } 
           else
           { 
@@ -654,15 +652,35 @@ function OnTriggerEnter(object:Collider)
           /**Determine if User Hit a Speed Booster.*/
           if(object.name == ("Booster"))
           {         
-          		var randomValue : int = (Random.value * 12);              
-                if(randomValue < 4)//Half chance to boost.
+          		var randomValue : int = (Random.value * 12);  
+          		
+          		var first : int;             
+          		var second : int;
+          		
+          		if(GameManager.getDifficulty() == 0)
+          		{
+          			first = 1;
+          			second = 2;
+          		}
+          		else if(GameManager.getDifficulty() == 1)
+          		{
+          			first = 4;
+          			second = 8;
+          		}
+          		else if(GameManager.getDifficulty() == 2)
+          		{
+          			first = 5;
+          			second = 10;
+          		}
+          		
+                if(randomValue < first)//Half chance to boost.            
                 {
-                 print("Boost");
-                 countTime = true;
-                 speedUp = true;
-                 overallScore = (overallScore + 1000);
+                 	print("Reduce");
+                    countTime = true;
+                    slowDown = true;
+                    overallScore = (overallScore - 500);
                 }
-                else if(randomValue < 7)//Donkey mode !
+                else if(randomValue < second)//Donkey mode !
                 {
                 	print("Donkey mode !");
                 	countTime = true;
@@ -687,13 +705,15 @@ function OnTriggerEnter(object:Collider)
                 			horseSkin.enabled = false;
                 		}
                 	}
+                	//Play the donkey sound 
+                	audio.PlayOneShot(donkeySound);
                 }
                 else      /**User Hit a Speed Reducer.*/
                 {
-                	print("Reduce");
-                        countTime = true;
-                        slowDown = true;
-                        overallScore = (overallScore - 500);
+                	print("Boost");
+                 countTime = true;
+                 speedUp = true;
+                 overallScore = (overallScore + 1000);
                 }  
                 GoRace.speedChanged = true;                     
            }
@@ -1073,7 +1093,7 @@ function CheckEnhancements()
        {
              TimeCounterUp(); 
        }
-       if(actualTime >= 3)
+       if(actualTime >= 6)
        {
        //Reset the mesh.
         var donkey : GameObject = GameObject.Find("HorseAnim/Donkey_mesh");
