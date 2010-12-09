@@ -9,6 +9,7 @@ var owner : NetworkPlayer;
 var setplayer : boolean = false;
 
 private var pp : Player;
+private var id : int;
 private var speed : float = 0;
 private var controller : CharacterController;
 private var moveDirection : Vector3 = Vector3.zero;
@@ -337,11 +338,18 @@ function Start()
 }
 
 @RPC
-function SetPlayer(player : NetworkPlayer)
+function setId(cloneid : int){
+	id = cloneid;
+}
+
+
+@RPC
+function SetPlayer(player : NetworkPlayer,cloneid : int)
 {
         owner = player;
         if(player==Network.player){
                 //Hey thats us! We can control this player: enable this script (this enables Update());
+                id = cloneid;
                 setplayer=true;
                 pp = GetComponent(Player);
                 pp.enabled=true;
@@ -388,13 +396,15 @@ function takeReducer(){
 }
 
 @RPC
-function getOneLap(p:NetworkPlayer){
-	if(p == Network.player){
-		currentWaypoint = 0;
-		lapTimes[lapCounter] = ((lapTimeMinutes*60) + lapTimeSeconds);
-		lapTime = Time.time;
-		lapCounter++;         
-		hudScript.setLaps(lapCounter);
+function getOneLap(cloneid : int){
+	if(id == cloneid){
+		if((Network.isServer == true && id ==1) || Network.isClient == true){
+			currentWaypoint = 0;
+			lapTimes[lapCounter] = ((lapTimeMinutes*60) + lapTimeSeconds);
+			lapTime = Time.time;
+			lapCounter++;         
+			hudScript.setLaps(lapCounter);
+		}
 	}
 }
 
@@ -893,7 +903,7 @@ function OnTriggerEnter(object:Collider)
 	  else
 	   {
 	     if(KeepNetworkInfo.isNetwork == true){
-	     	networkView.RPC("getOneLap",RPCMode.All,Network.player);
+	     	networkView.RPC("getOneLap",RPCMode.All,id);
 	     } else {
 			currentWaypoint = 0;
 			lapTimes[lapCounter] = ((lapTimeMinutes*60) + lapTimeSeconds);
@@ -902,8 +912,9 @@ function OnTriggerEnter(object:Collider)
 	     }
 	   }
 
-         
-         hudScript.setLaps(lapCounter);
+         if(KeepNetworkInfo.isNetwork == false){
+         	hudScript.setLaps(lapCounter);
+         }
         }
   
   /**Check For Collisions With Waypoints*/
