@@ -388,8 +388,8 @@ function takeReducer(){
 }
 
 @RPC
-function getOneLap(pp:NetworkPlayer){
-	if(pp == Network.player){
+function getOneLap(p:NetworkPlayer){
+	if(p == Network.player){
 		currentWaypoint = 0;
 		lapTimes[lapCounter] = ((lapTimeMinutes*60) + lapTimeSeconds);
 		lapTime = Time.time;
