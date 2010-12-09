@@ -1467,21 +1467,26 @@ function OnSerializeNetworkView(stream : BitStream, info : NetworkMessageInfo)
 		//This is executed on the owner of the networkview
 		//The owner sends it's position over the network
 		
-		var pos : Vector3 = transform.position;		
-		stream.Serialize(pos);//"Encode" it, and send it
+		var pos : Vector3 = transform.position;		 
+		var rot : Quaternion = transform.rotation;
+		stream.Serialize(pos);//"Encode" it, and send it 
+		stream.Serialize(rot);
 				
 	}else{
 		//Executed on all non-owners
 		//This client receive a position and set the object to it
 		
-		var posReceive : Vector3 = Vector3.zero;
-		stream.Serialize(posReceive); //"Decode" it and receive it
+		var posReceive : Vector3 = Vector3.zero; 
+		var rotReceive : Quaternion;
+		stream.Serialize(posReceive); //"Decode" it and receive it 
+		stream.Serialize(rotReceive);
 		
 		//We've just recieved the current servers position of this object in 'posReceive'.
 		
 		//transform.position = posReceive;		
 		//To reduce laggy movement a bit you could comment the line above and use position lerping below instead:	
 		transform.position = Vector3.Lerp(transform.position, posReceive, 0.9); //"lerp" to the posReceive by 90%
+		transform.rotation = rotReceive;
 		
 	}
 }
