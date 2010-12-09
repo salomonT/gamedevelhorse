@@ -131,6 +131,7 @@ private var horseFlag : int = 1;
 private var horseSettingIsModif : int = 1;
 private var horseTmpBack : int = 0;
 
+
 function Start(){
 	horse = GameObject.Find("Rotation point/HorseAnim/Horse_mesh");
 	backToMenuButtonSoundStatic = backToMenuButtonSound;
@@ -270,6 +271,7 @@ function mainMenu (){
 }
 
 function singlePlayer (){
+	
 	// Title picture
 	GUI.Label (Rect (ratioSW*50,ratioSH*30,263,50), "", titleSinglePlayer);
 	GUI.Label (Rect (ratioSW*25,ratioSH*140,ratioSW*(1024-50),ratioSH*5), "", underWhite);
@@ -387,6 +389,18 @@ function singlePlayer (){
 		singlePlayerNextVar = 1;}
 	
 	GUI.Label (Rect (0,ratioSH*(768-40),ratioSW*1024,ratioSH*40), "Choose the type of game you would like to play and click next", "box");
+	
+	
+	/*
+		GUI.Label (Rect (150,ratioSH*280,500,154), "", "box");
+		GUI.Label (Rect (150,ratioSH*280,500,154), "", "box");
+		GUI.Label (Rect (150,ratioSH*280,500,154), "", "box");
+	
+		//how to play
+		GUI.Label (Rect (150,ratioSH*280,500,154), "Race:\n\nRace your opponents around the track.\n\nThe first player to complete the\nselected number of laps wins.", textWhite);
+		*/
+	
+	
 }
 
 function difficultyFunction(){

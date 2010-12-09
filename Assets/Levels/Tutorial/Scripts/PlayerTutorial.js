@@ -205,7 +205,7 @@ else
 /**Move the Playable Charachter.*/
 function MoveCharachter()
 {
-  runSpeed = 35;
+  runSpeed = 25;
   walkSpeed = 15;
   
     if ((Mathf.Abs(Input.GetAxis("Vertical")) > 0.2) || (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.2)) 
