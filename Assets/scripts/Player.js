@@ -203,7 +203,6 @@ function StartSinglePlayer()
 	  raceCompleted = false;
 	  
 	  typeGame = GameManager.getGameType();
-	  
  	    /**Make all Mandatory Objects Invisible*/
 	  	mandatory1A = GameObject.Find("Mandatories/Mandatory1A");
 	  	if(mandatory1A != null)
@@ -574,7 +573,11 @@ function MoveCharachter()
                    else if(slowDown == true)
                    {
                        speed = Mathf.Abs(Input.GetAxis("Vertical")) * (runSpeed / 2);                        
-                   } 
+                   }
+                   else if(slowDown == true)
+          		   {
+                   	   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed / 4);                       
+          		   } 
                    else
                    {
                		   speed = Mathf.Abs(Input.GetAxis("Vertical")) * runSpeed;
@@ -586,11 +589,11 @@ function MoveCharachter()
           }
           else if(slowDown == true)
           {
-                   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed / 2);                       
+                   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed / 4);                       
           } 
           else if(donkeyMode == true)
           {
-                   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed / 2.5);                       
+                   speed = Mathf.Abs(Input.GetAxis("Vertical")) * (walkSpeed / 2);                       
           } 
           else
           { 
@@ -651,35 +654,15 @@ function OnTriggerEnter(object:Collider)
           /**Determine if User Hit a Speed Booster.*/
           if(object.name == ("Booster"))
           {         
-          		var randomValue : int = (Random.value * 12); 
-          		
-          		var first : int;             
-          		var second : int;
-          		
-          		if(GameManager.getDifficulty() == 0)
-          		{
-          			first = 1;
-          			second = 2;
-          		}
-          		else if(GameManager.getDifficulty() == 1)
-          		{
-          			first = 4;
-          			second = 8;
-          		}
-          		else if(GameManager.getDifficulty() == 2)
-          		{
-          			first = 5;
-          			second = 10;
-          		}
-          		
-                if(randomValue < first)//Half chance to boost.
+          		var randomValue : int = (Random.value * 12);              
+                if(randomValue < 4)//Half chance to boost.
                 {
-					print("Reduce");
-					countTime = true;
-					slowDown = true;
-					overallScore = (overallScore - 500);
+                 print("Boost");
+                 countTime = true;
+                 speedUp = true;
+                 overallScore = (overallScore + 1000);
                 }
-                else if(randomValue < second)//Donkey mode !
+                else if(randomValue < 7)//Donkey mode !
                 {
                 	print("Donkey mode !");
                 	countTime = true;
@@ -707,10 +690,10 @@ function OnTriggerEnter(object:Collider)
                 }
                 else      /**User Hit a Speed Reducer.*/
                 {
-                	print("Boost");
-                 	countTime = true;
-                 	speedUp = true;
-                 	overallScore = (overallScore + 1000);
+                	print("Reduce");
+                        countTime = true;
+                        slowDown = true;
+                        overallScore = (overallScore - 500);
                 }  
                 GoRace.speedChanged = true;                     
            }
@@ -740,7 +723,7 @@ function OnTriggerEnter(object:Collider)
    		     /**Update the HUD*/
              if(hudScript != null)
 	          {
-	            hudScript.setHasMandatory(false);
+	            hudScript.setHasMandatory("");
 		      } 
 			  
 	        if(hudScript != null)
@@ -830,7 +813,7 @@ function OnTriggerEnter(object:Collider)
 		  /**Update the HUD*/
           if(hudScript != null)
 	       {
-	         hudScript.setHasMandatory(true);
+	         hudScript.setHasMandatory("Book of Kells");
 		   }
 		   
 		  print("Hit Mandatory 1 " + object.collider.name);
@@ -854,7 +837,7 @@ function OnTriggerEnter(object:Collider)
 		  /**Update the HUD*/
           if(hudScript != null)
 	       {
-	         hudScript.setHasMandatory(true);
+	         hudScript.setHasMandatory("Golden Harp");
 		   }
 		   
   		  print("Hit Mandatory 2");
@@ -878,7 +861,7 @@ function OnTriggerEnter(object:Collider)
 		  /**Update the HUD*/
           if(hudScript != null)
 	       {
-	         hudScript.setHasMandatory(true);
+	         hudScript.setHasMandatory("Irish Tricolour");
 		   }
 		   
 		  print("Hit Mandatory 3");
@@ -919,7 +902,7 @@ function OnControllerColliderHit(object : ControllerColliderHit)
 		  /**Update the HUD*/
           if(hudScript != null)
 	       {
-	         hudScript.setHasMandatory(true);
+	         hudScript.setHasMandatory("Book of Kells");
 		   }
 		   
 		  print("Hit Mandatory 1 " + object.collider.name);
@@ -944,7 +927,7 @@ function OnControllerColliderHit(object : ControllerColliderHit)
 		  /**Update the HUD*/
           if(hudScript != null)
 	       {
-	         hudScript.setHasMandatory(true);
+	         hudScript.setHasMandatory("Golden Harp");
 		   }
 		   
   		  print("Hit Mandatory 2");
@@ -964,7 +947,7 @@ function OnControllerColliderHit(object : ControllerColliderHit)
 		  /**Update the HUD*/
           if(hudScript != null)
 	       {
-	         hudScript.setHasMandatory(true);
+	         hudScript.setHasMandatory("Irish Tricolour");
 		   }
 		   
 		  print("Hit Mandatory 3");
@@ -1090,7 +1073,7 @@ function CheckEnhancements()
        {
              TimeCounterUp(); 
        }
-       if(actualTime >= 6)
+       if(actualTime >= 3)
        {
        //Reset the mesh.
         var donkey : GameObject = GameObject.Find("HorseAnim/Donkey_mesh");
@@ -1339,25 +1322,20 @@ function OnSerializeNetworkView(stream : BitStream, info : NetworkMessageInfo)
 		//The owner sends it's position over the network
 		
 		var pos : Vector3 = transform.position;		
-		var rot : Quaternion = transform.rotation;
 		stream.Serialize(pos);//"Encode" it, and send it
-		stream.Serialize(rot);
 				
 	}else{
 		//Executed on all non-owners
 		//This client receive a position and set the object to it
 		
 		var posReceive : Vector3 = Vector3.zero;
-		var rotReceive : Quaternion;
 		stream.Serialize(posReceive); //"Decode" it and receive it
-		stream.Serialize(rotReceive);
 		
 		//We've just recieved the current servers position of this object in 'posReceive'.
 		
 		//transform.position = posReceive;		
 		//To reduce laggy movement a bit you could comment the line above and use position lerping below instead:	
 		transform.position = Vector3.Lerp(transform.position, posReceive, 0.9); //"lerp" to the posReceive by 90%
-		transform.rotation = Quaternion.Lerp(transform.rotation, rotReceive, 0.9);
 		
 	}
 }
