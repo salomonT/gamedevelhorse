@@ -178,6 +178,7 @@ function OnGUI () {
 					Time.timeScale = 1;
 					Application.LoadLevelAsync ("GUI");
 					mainMenu.resetMenu();
+					mainMenu.multiplayerGameLaunch = 0;
 				}
 			}
 			
@@ -187,6 +188,7 @@ function OnGUI () {
 					Time.timeScale = 1;
 					Application.LoadLevelAsync ("GUI");
 					mainMenu.resetMenu();
+					mainMenu.multiplayerGameLaunch = 0;
 				}
 			}
 		}
