@@ -388,11 +388,14 @@ function takeReducer(){
 }
 
 @RPC
-function getOneLap(){
-	lapTimes[lapCounter] = ((lapTimeMinutes*60) + lapTimeSeconds);
-	lapTime = Time.time;
-	lapCounter++;         
-	hudScript.setLaps(lapCounter);
+function getOneLap(pp:NetworkPlayer){
+	if(pp == Network.player){
+		currentWaypoint = 0;
+		lapTimes[lapCounter] = ((lapTimeMinutes*60) + lapTimeSeconds);
+		lapTime = Time.time;
+		lapCounter++;         
+		hudScript.setLaps(lapCounter);
+	}
 }
 
 @RPC
@@ -889,12 +892,13 @@ function OnTriggerEnter(object:Collider)
 	   }
 	  else
 	   {
-	    currentWaypoint = 0;
-	     lapTimes[lapCounter] = ((lapTimeMinutes*60) + lapTimeSeconds);
-   	     lapTime = Time.time;
-	     lapCounter++;
 	     if(KeepNetworkInfo.isNetwork == true){
-	     	networkView.RPC("getOneLap",RPCMode.All);
+	     	networkView.RPC("getOneLap",RPCMode.All,Network.player);
+	     } else {
+			currentWaypoint = 0;
+			lapTimes[lapCounter] = ((lapTimeMinutes*60) + lapTimeSeconds);
+			lapTime = Time.time;
+			lapCounter++;
 	     }
 	   }
 
