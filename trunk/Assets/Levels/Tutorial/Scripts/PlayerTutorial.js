@@ -452,7 +452,7 @@ function OnTriggerEnter(object:Collider)
      /**Check for Fence Collisions*/
      if(object.name == "fence1" || object.name == "fence2" || object.name == "fence3" || object.name == "fence4" )
 	  {
-	    ResetGameFence();
+	   // ResetGameFence();
 	  }
  }
 
@@ -587,7 +587,7 @@ if(stop == false)
 	  if(timeRemaining < 2)
 	    {
 	      stop = true;
-		  ResetGame();
+		  //ResetGame();
 	  }
   }	  
   else

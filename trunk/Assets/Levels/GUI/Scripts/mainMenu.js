@@ -395,6 +395,7 @@ function singlePlayer (){
 		GUI.Label (Rect (150,ratioSH*280,500,154), "", "box");
 		GUI.Label (Rect (150,ratioSH*280,500,154), "", "box");
 		GUI.Label (Rect (150,ratioSH*280,500,154), "", "box");
+		GUI.Label (Rect (150,ratioSH*280,500,154), "", "box");
 	
 		//how to play
 		GUI.Label (Rect (150,ratioSH*280,500,154), "Race:\n\nRace your opponents around the track.\n\nThe first player to complete the\nselected number of laps wins.", textWhite);
