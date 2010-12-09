@@ -96,6 +96,7 @@ public var lostSound : AudioClip;
 private var firstEnd : boolean = false;
 private var lastSpeed : float; 
 private var mainCam : GameObject;
+private var multiGameEnd : boolean = false;
 
 
 
@@ -424,7 +425,7 @@ function otherWin(cloneid : int){
 	if(id != cloneid){
 		if(Network.isClient == true){
 			Debug.Log("You Lost!");
-			
+			multiGameEnd = true;
 			// Display YOU LOST on the screen
 			GoRace.stateEnd=2;
 //			if(camMusic != null)
@@ -440,7 +441,7 @@ function otherWin(cloneid : int){
 function clientWin(cloneid : int){
 	if(Network.isServer == true){
 		Debug.Log("You Lost!");
-		
+		multiGameEnd = true;
 		// Display YOU LOST on the screen
 		GoRace.stateEnd=2;
 		networkView.RPC("otherWin",RPCMode.All,cloneid);
@@ -500,124 +501,131 @@ function ApplyGravity()
 function UpdateMultiplayer(){ 
         //Client code
         print("UpdateMultiplayer");
-        if(isSync == false)
+        if(multiGameEnd == true)
         {
-			hudScript.displayWaitOtherPlayers(true);        
+        	//End of game.
         }
-        if(owner!=null && Network.player==owner && isSync == true){
-        		hudScript.displayWaitOtherPlayers(false);
-                //Only the client that owns this object executes this code
-                var HInput : float = Input.GetAxis("Horizontal");
-                var VInput : float = Input.GetAxis("Vertical");
-                var RInput : boolean = Input.GetButton("Run");
-                print("Client Run: " + RInput);
-                
-                //Is our input different? Do we need to update the server?
-                if(lastClientHInput!=HInput || lastClientVInput!=VInput )
-                {
-                        lastClientHInput = HInput;
-                        lastClientVInput = VInput;
-                }
-                if(Network.isServer)
-                {
-                                //Too bad a server can't send an rpc to itself using "RPCMode.Server"!...bugged :[
-                                SendMovementInput(lastClientHInput, lastClientVInput, RInput, controller.isGrounded);
-                }
-                else if(Network.isClient)
-                {
-                                SendMovementInput(lastClientHInput, lastClientVInput, RInput, controller.isGrounded); //Use this (and line 64) for simple "prediction"
-                                networkView.RPC("SendMovementInput", RPCMode.Server, lastClientHInput, lastClientVInput, RInput, controller.isGrounded);
-                }
-                
-        }
-        CheckEnhancements();
-        LapTime();
-        OverallTime();
-        
-        
-        //Server movement code
-        if(Network.isServer || Network.player==owner)
+        else
         {
-        	print("On server 2: " + serverCurrentRInput);
-                if ((Mathf.Abs(serverCurrentVInput) > 0.2) || (Mathf.Abs(serverCurrentHInput) > 0.2)) 
-                {
-                        if(serverCurrentRInput == true) 
-                        {
-                                if(speedUp == true)
-                                {
-                                        speed = Mathf.Abs(serverCurrentVInput) * (runSpeed * 2);
-                                }
-                                else if(slowDown == true)
-                                {
-                                        speed = Mathf.Abs(serverCurrentVInput) * (runSpeed / 2);                         
-                                }
-                                else
-                                {
-                                        speed = Mathf.Abs(serverCurrentVInput) * runSpeed;
-                                }
-                        } 
-                        else if(speedUp == true)
-                        {
-                                speed = Mathf.Abs(serverCurrentVInput) * (walkSpeed * 2);   
-                        }
-                        else if(slowDown == true)
-                        {
-                                speed = Mathf.Abs(serverCurrentVInput) * (walkSpeed / 2);                        
-                        } 
-                        else
-                        {
-                                speed = Mathf.Abs(serverCurrentVInput) * walkSpeed;
-                        }
-                } 
-                else 
-                {
-                        speed = 0;
-                }
-                //Actually move the player using his/her input
-                if(serverCurrentVInput != 0f)
-                {
-                        animState.speed = speed / 50.0;
-                        anim.Play();
-                        audio.pitch = Mathf.Min(1.2f,animState.speed * 1.5f);
-		                audio.pitch = Mathf.Max(0.7f,audio.pitch);
-		                if (!audio.isPlaying && fxLoopPlay == false)
-		                {
-		                        audio.Play(0);
-		                        fxLoopPlay = true;
-		                }
-		        }
-		        else
-		        {
-		        	audio.Stop();
-                	fxLoopPlay = false;
-		        }
-               
-                if(serverCurrentGround == false)
-                {
-                        verticalSpeed = -0.2;
-                }
-                else
-                {
-                        verticalSpeed = 0.0;
-                }
-                
-				var rotation : float = serverCurrentHInput * rotationSpeed;
-                rotation *= Time.deltaTime;
-                if(serverCurrentRInput == true)
-			    {
-			        rotation = rotation/3.0f;
-			    }
-			    else
-			    {
-			    	print("NOOOO");
-			    }
-			    
-			    
-                transform.Rotate(0, rotation, 0);
-                var moveDirection : Vector3 = new Vector3(0, verticalSpeed, serverCurrentVInput);
-                moveDirection = transform.TransformDirection(moveDirection);
-                controller.Move(speed * moveDirection * Time.deltaTime);
-        }
+	        if(isSync == false)
+	        {
+				hudScript.displayWaitOtherPlayers(true);        
+	        }
+	        if(owner!=null && Network.player==owner && isSync == true){
+	        		hudScript.displayWaitOtherPlayers(false);
+	                //Only the client that owns this object executes this code
+	                var HInput : float = Input.GetAxis("Horizontal");
+	                var VInput : float = Input.GetAxis("Vertical");
+	                var RInput : boolean = Input.GetButton("Run");
+	                print("Client Run: " + RInput);
+	                
+	                //Is our input different? Do we need to update the server?
+	                if(lastClientHInput!=HInput || lastClientVInput!=VInput )
+	                {
+	                        lastClientHInput = HInput;
+	                        lastClientVInput = VInput;
+	                }
+	                if(Network.isServer)
+	                {
+	                                //Too bad a server can't send an rpc to itself using "RPCMode.Server"!...bugged :[
+	                                SendMovementInput(lastClientHInput, lastClientVInput, RInput, controller.isGrounded);
+	                }
+	                else if(Network.isClient)
+	                {
+	                                SendMovementInput(lastClientHInput, lastClientVInput, RInput, controller.isGrounded); //Use this (and line 64) for simple "prediction"
+	                                networkView.RPC("SendMovementInput", RPCMode.Server, lastClientHInput, lastClientVInput, RInput, controller.isGrounded);
+	                }
+	                
+	        }
+	        CheckEnhancements();
+	        LapTime();
+	        OverallTime();
+	        
+	        
+	        //Server movement code
+	        if(Network.isServer || Network.player==owner)
+	        {
+	        	print("On server 2: " + serverCurrentRInput);
+	                if ((Mathf.Abs(serverCurrentVInput) > 0.2) || (Mathf.Abs(serverCurrentHInput) > 0.2)) 
+	                {
+	                        if(serverCurrentRInput == true) 
+	                        {
+	                                if(speedUp == true)
+	                                {
+	                                        speed = Mathf.Abs(serverCurrentVInput) * (runSpeed * 2);
+	                                }
+	                                else if(slowDown == true)
+	                                {
+	                                        speed = Mathf.Abs(serverCurrentVInput) * (runSpeed / 2);                         
+	                                }
+	                                else
+	                                {
+	                                        speed = Mathf.Abs(serverCurrentVInput) * runSpeed;
+	                                }
+	                        } 
+	                        else if(speedUp == true)
+	                        {
+	                                speed = Mathf.Abs(serverCurrentVInput) * (walkSpeed * 2);   
+	                        }
+	                        else if(slowDown == true)
+	                        {
+	                                speed = Mathf.Abs(serverCurrentVInput) * (walkSpeed / 2);                        
+	                        } 
+	                        else
+	                        {
+	                                speed = Mathf.Abs(serverCurrentVInput) * walkSpeed;
+	                        }
+	                } 
+	                else 
+	                {
+	                        speed = 0;
+	                }
+	                //Actually move the player using his/her input
+	                if(serverCurrentVInput != 0f)
+	                {
+	                        animState.speed = speed / 50.0;
+	                        anim.Play();
+	                        audio.pitch = Mathf.Min(1.2f,animState.speed * 1.5f);
+			                audio.pitch = Mathf.Max(0.7f,audio.pitch);
+			                if (!audio.isPlaying && fxLoopPlay == false)
+			                {
+			                        audio.Play(0);
+			                        fxLoopPlay = true;
+			                }
+			        }
+			        else
+			        {
+			        	audio.Stop();
+	                	fxLoopPlay = false;
+			        }
+	               
+	                if(serverCurrentGround == false)
+	                {
+	                        verticalSpeed = -0.2;
+	                }
+	                else
+	                {
+	                        verticalSpeed = 0.0;
+	                }
+	                
+					var rotation : float = serverCurrentHInput * rotationSpeed;
+	                rotation *= Time.deltaTime;
+	                if(serverCurrentRInput == true)
+				    {
+				        rotation = rotation/3.0f;
+				    }
+				    else
+				    {
+				    	print("NOOOO");
+				    }
+				    
+				    
+	                transform.Rotate(0, rotation, 0);
+	                var moveDirection : Vector3 = new Vector3(0, verticalSpeed, serverCurrentVInput);
+	                moveDirection = transform.TransformDirection(moveDirection);
+	                controller.Move(speed * moveDirection * Time.deltaTime);
+	        }
+	   }
 }
 
 @RPC
