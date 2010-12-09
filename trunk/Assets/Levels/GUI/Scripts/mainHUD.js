@@ -15,7 +15,7 @@ private var currentScore:int = 0;
 private var lapTime:String = "";
 private var overallTime:String = "";
 private var warning:String = "";
-private var hasMandatory:boolean = false;
+private var hasMandatory:String = "";
 
 private var menuFlag:int = 0;
 private var exitFlag:int = 0;
@@ -100,7 +100,7 @@ function OnGUI () {
 				
 				
 				GUI.Label (Rect (ratioSW*670,ratioSH*30,ratioSW*180,ratioSH*50),
-			    "Mandatory : " + hasMandatory, textWhite);
+			    getMandatory(), textWhite);
 				
 				GUI.Label (Rect (ratioSW*200,ratioSH*700,ratioSW*500,ratioSH*50),
 			    getWarning(), textWhite);
@@ -242,11 +242,11 @@ function getOverallTime():String{
   return overallTime;
 }
 
-function setHasMandatory(mandatory:boolean){
+function setHasMandatory(mandatory:String){
   hasMandatory = mandatory;
 }
 
-function getHasMandatory():boolean{
+function getMandatory():String{
   return hasMandatory;
 }
 
