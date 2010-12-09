@@ -194,7 +194,6 @@ function StartSinglePlayer()
 		
 	  isRacing = false;
 	  countTime = false;
-	  countTime = false;
 	  speedUp = false;
 	  slowDown = false;
 	  lapTimeSecondsTotal = 0;
@@ -380,6 +379,58 @@ function syncWithServer()
 	isSync = true;
 }
 
+@RPC
+function takeReducer(){
+	print("Reduce");
+	countTime = true;
+	slowDown = true;
+	overallScore = (overallScore - 500);
+}
+
+@RPC
+function getOneLap(){
+	lapTimes[lapCounter] = ((lapTimeMinutes*60) + lapTimeSeconds);
+	lapTime = Time.time;
+	lapCounter++;         
+	hudScript.setLaps(lapCounter);
+}
+
+@RPC
+function takeDonkey(){
+	countTime = true;
+	donkeyMode = true;
+	overllScore  = (overallScore - 1000);
+	//Change the mesh.
+	var donkey : GameObject = GameObject.Find("HorseAnim/Donkey_mesh");
+	if(donkey != null)
+	{
+		var donkeySkin : SkinnedMeshRenderer = donkey.GetComponent(SkinnedMeshRenderer);
+		if(donkeySkin != null)
+		{
+			donkeySkin.enabled = true;
+		}
+	}
+	var horse : GameObject = GameObject.Find("HorseAnim/Horse_mesh");
+	if(horse != null)
+	{
+		var horseSkin : SkinnedMeshRenderer = horse.GetComponent(SkinnedMeshRenderer);
+		if(horseSkin != null)
+		{
+			horseSkin.enabled = false;
+		}
+	}
+	//Play the donkey sound 
+	audio.PlayOneShot(donkeySound);
+}
+
+@RPC
+function takeBooster(){
+	print("Boost");
+	countTime = true;
+	speedUp = true;
+	overallScore = (overallScore + 1000);
+}  
+
 function ApplyGravity()
 {
         if(controller.isGrounded)
@@ -427,6 +478,9 @@ function UpdateMultiplayer(){
                 }
                 
         }
+        CheckEnhancements();
+        LapTime();
+        OverallTime();
         
         
         //Server movement code
@@ -686,6 +740,16 @@ function OnTriggerEnter(object:Collider)
   /**
     *   Check for Collisions With Objects.
     */
+    
+	if(KeepNetworkInfo.isNetwork == true && Network.isServer == true){
+		rootMesh = "HorseAnim(clone)";
+		networkTrigger = true;
+	} else if (KeepNetworkInfo.isNetwork == true && Network.isClient == true){
+		networkTrigger = false;
+	} else {
+		networkTrigger = true;
+		rootMesh = "HorseAnim";
+	}
         
   if(actualTime == 0)
     {
@@ -696,6 +760,7 @@ function OnTriggerEnter(object:Collider)
           		
           		var first : int;             
           		var second : int;
+          		var trigger : boolean;
           		
           		if(GameManager.getDifficulty() == 0)
           		{
@@ -713,21 +778,24 @@ function OnTriggerEnter(object:Collider)
           			second = 10;
           		}
           		
-                if(randomValue < first)//Half chance to boost.            
+          		if(randomValue < first && networkTrigger == true)//Half chance to boost.            
                 {
                  	print("Reduce");
                     countTime = true;
                     slowDown = true;
                     overallScore = (overallScore - 500);
+                    if(KeepNetworkInfo.isNetwork == true){
+                    	networkView.RPC("takeReducer",RPCMode.All);
+                    }
                 }
-                else if(randomValue < second)//Donkey mode !
+                else if(randomValue < second && networkTrigger == true)//Donkey mode !
                 {
                 	print("Donkey mode !");
                 	countTime = true;
                 	donkeyMode = true;
                 	overllScore  = (overallScore - 1000);
                 	//Change the mesh.
-                	var donkey : GameObject = GameObject.Find("HorseAnim/Donkey_mesh");
+                	var donkey : GameObject = GameObject.Find(rootMesh+"/Donkey_mesh");
                 	if(donkey != null)
                 	{
                 		var donkeySkin : SkinnedMeshRenderer = donkey.GetComponent(SkinnedMeshRenderer);
@@ -736,7 +804,7 @@ function OnTriggerEnter(object:Collider)
                 			donkeySkin.enabled = true;
                 		}
                 	}
-                	var horse : GameObject = GameObject.Find("HorseAnim/Horse_mesh");
+                	var horse : GameObject = GameObject.Find(rootMesh+"/Horse_mesh");
                 	if(horse != null)
                 	{
                 		var horseSkin : SkinnedMeshRenderer = horse.GetComponent(SkinnedMeshRenderer);
@@ -745,15 +813,19 @@ function OnTriggerEnter(object:Collider)
                 			horseSkin.enabled = false;
                 		}
                 	}
+
                 	//Play the donkey sound 
                 	audio.PlayOneShot(donkeySound);
                 }
-                else      /**User Hit a Speed Reducer.*/
+                else if(networkTrigger == true)     /**User Hit a Speed Reducer.*/
                 {
                 	print("Boost");
                  countTime = true;
                  speedUp = true;
                  overallScore = (overallScore + 1000);
+                 if(KeepNetworkInfo.isNetwork == true){
+                    	networkView.RPC("takeBooster",RPCMode.All);
+                 }
                 }  
                 GoRace.speedChanged = true;                     
            }
@@ -765,7 +837,7 @@ function OnTriggerEnter(object:Collider)
     */
   
 /**Check for Collision With FinishLine.*/  
-  if(object.name == ("FinishLine") && currentWaypoint == 6)
+  if(object.name == ("FinishLine") && currentWaypoint == 6 && networkTrigger == true)
     {
 	
 	 if(typeGame == 1)
@@ -821,6 +893,9 @@ function OnTriggerEnter(object:Collider)
 	     lapTimes[lapCounter] = ((lapTimeMinutes*60) + lapTimeSeconds);
    	     lapTime = Time.time;
 	     lapCounter++;
+	     if(KeepNetworkInfo.isNetwork == true){
+	     	networkView.RPC("getOneLap",RPCMode.All);
+	     }
 	   }
 
          
